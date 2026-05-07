@@ -28,7 +28,7 @@ app.use(helmet({
 
 // 2. CORS - 跨域控制
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: true, // 允许所有域名（开发环境）
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']

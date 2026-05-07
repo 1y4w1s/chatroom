@@ -1,7 +1,10 @@
 import axios from 'axios'
 
+// 生产环境使用 Render 或 localtunnel 地址
+const API_BASE_URL = 'https://curvy-yaks-sniff.loca.lt/api'
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: API_BASE_URL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json'
