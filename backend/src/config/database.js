@@ -64,12 +64,66 @@ async function initDatabase() {
     
     // 添加缺失的字段（如果表已存在）
     try {
-      await connection.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS nickname VARCHAR(50) DEFAULT NULL`);
-      await connection.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS signature VARCHAR(200) DEFAULT NULL`);
-      await connection.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS status ENUM('online', 'offline', 'away') DEFAULT 'offline'`);
-      await connection.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS is_banned BOOLEAN DEFAULT FALSE`);
-      await connection.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS ban_reason VARCHAR(255) DEFAULT NULL`);
-      await connection.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS last_login_at TIMESTAMP NULL`);
+      // 检查并添加 nickname 字段
+      const hasNickname = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' AND COLUMN_NAME = 'nickname'
+      `);
+      if (hasNickname[0].count === 0) {
+        await connection.query(`ALTER TABLE users ADD COLUMN nickname VARCHAR(50) DEFAULT NULL`);
+        console.log('✅ 添加 nickname 字段');
+      }
+      
+      // 检查并添加 signature 字段
+      const hasSignature = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' AND COLUMN_NAME = 'signature'
+      `);
+      if (hasSignature[0].count === 0) {
+        await connection.query(`ALTER TABLE users ADD COLUMN signature VARCHAR(200) DEFAULT NULL`);
+        console.log('✅ 添加 signature 字段');
+      }
+      
+      // 检查并添加 status 字段
+      const hasStatus = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' AND COLUMN_NAME = 'status'
+      `);
+      if (hasStatus[0].count === 0) {
+        await connection.query(`ALTER TABLE users ADD COLUMN status ENUM('online', 'offline', 'away') DEFAULT 'offline'`);
+        console.log('✅ 添加 status 字段');
+      }
+      
+      // 检查并添加 is_banned 字段
+      const hasIsBanned = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' AND COLUMN_NAME = 'is_banned'
+      `);
+      if (hasIsBanned[0].count === 0) {
+        await connection.query(`ALTER TABLE users ADD COLUMN is_banned BOOLEAN DEFAULT FALSE`);
+        console.log('✅ 添加 is_banned 字段');
+      }
+      
+      // 检查并添加 ban_reason 字段
+      const hasBanReason = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' AND COLUMN_NAME = 'ban_reason'
+      `);
+      if (hasBanReason[0].count === 0) {
+        await connection.query(`ALTER TABLE users ADD COLUMN ban_reason VARCHAR(255) DEFAULT NULL`);
+        console.log('✅ 添加 ban_reason 字段');
+      }
+      
+      // 检查并添加 last_login_at 字段
+      const hasLastLoginAt = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' AND COLUMN_NAME = 'last_login_at'
+      `);
+      if (hasLastLoginAt[0].count === 0) {
+        await connection.query(`ALTER TABLE users ADD COLUMN last_login_at TIMESTAMP NULL`);
+        console.log('✅ 添加 last_login_at 字段');
+      }
+      
       console.log('✅ users 表字段已更新');
     } catch (err) {
       console.log('⚠️ users 表字段更新跳过:', err.message);
