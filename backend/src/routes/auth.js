@@ -138,7 +138,7 @@ router.post('/login', loginValidation, async (req, res) => {
   try {
     // 查找用户
     const users = await query(
-      `SELECT id, username, email, password_hash, nickname, avatar, status, is_banned 
+      `SELECT id, username, email, password_hash, avatar, status, is_banned 
        FROM users 
        WHERE username = ? OR email = ?`,
       [username, username]
@@ -202,7 +202,6 @@ router.post('/login', loginValidation, async (req, res) => {
           id: user.id,
           username: user.username,
           email: user.email,
-          nickname: user.nickname,
           avatar: user.avatar,
           status: 'online'
         },
@@ -278,7 +277,7 @@ router.get('/verify', async (req, res) => {
     
     // 检查用户是否存在
     const users = await query(
-      'SELECT id, username, email, nickname, avatar, status FROM users WHERE id = ?',
+      'SELECT id, username, email, avatar, status FROM users WHERE id = ?',
       [decoded.id]
     );
     

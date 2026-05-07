@@ -49,7 +49,13 @@ async function initDatabase() {
         username VARCHAR(50) UNIQUE NOT NULL,
         email VARCHAR(100) UNIQUE NOT NULL,
         password_hash VARCHAR(255) NOT NULL,
+        nickname VARCHAR(50) DEFAULT NULL,
         avatar VARCHAR(255) DEFAULT NULL,
+        signature VARCHAR(200) DEFAULT NULL,
+        status ENUM('online', 'offline', 'away') DEFAULT 'offline',
+        is_banned BOOLEAN DEFAULT FALSE,
+        ban_reason VARCHAR(255) DEFAULT NULL,
+        last_login_at TIMESTAMP NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
