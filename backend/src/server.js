@@ -237,12 +237,15 @@ io.on('connection', (socket) => {
 const PORT = process.env.PORT || 3000;
 
 // 测试数据库连接
-const { testConnection } = require('./config/database');
+const { testConnection, initDatabase } = require('./config/database');
 
 async function startServer() {
   try {
     // 测试数据库连接
     await testConnection();
+    
+    // 初始化数据库表结构
+    await initDatabase();
     
     // 启动服务器
     server.listen(PORT, () => {
