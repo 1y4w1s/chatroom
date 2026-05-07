@@ -35,6 +35,9 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 
+// 配置信任代理（解决 Railway 的 X-Forwarded-For 警告）
+app.set('trust proxy', true);
+
 // 3. 速率限制 - 防止暴力破解
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 分钟

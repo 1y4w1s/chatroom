@@ -42,7 +42,7 @@ async function initDatabase() {
     const connection = await pool.getConnection();
     console.log('正在初始化数据库表结构...');
     
-    // 创建用户表
+    // 创建用户表（包含所有字段）
     await connection.query(`
       CREATE TABLE IF NOT EXISTS users (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -61,6 +61,19 @@ async function initDatabase() {
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     `);
     console.log('✅ users 表已创建');
+    
+    // 添加缺失的字段（如果表已存在）
+    try {
+      await connection.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS nickname VARCHAR(50) DEFAULT NULL`);
+      await connection.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS signature VARCHAR(200) DEFAULT NULL`);
+      await connection.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS status ENUM('online', 'offline', 'away') DEFAULT 'offline'`);
+      await connection.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS is_banned BOOLEAN DEFAULT FALSE`);
+      await connection.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS ban_reason VARCHAR(255) DEFAULT NULL`);
+      await connection.query(`ALTER TABLE users ADD COLUMN IF NOT EXISTS last_login_at TIMESTAMP NULL`);
+      console.log('✅ users 表字段已更新');
+    } catch (err) {
+      console.log('⚠️ users 表字段更新跳过:', err.message);
+    }
     
     // 创建聊天室表
     await connection.query(`
@@ -97,6 +110,7 @@ async function initDatabase() {
         room_id INT NOT NULL,
         user_id INT NOT NULL,
         joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        role ENUM('member', 'admin', 'owner') DEFAULT 'member',
         FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
         UNIQUE KEY unique_room_user (room_id, user_id)
@@ -104,15 +118,19 @@ async function initDatabase() {
     `);
     console.log('✅ room_members 表已创建');
     
-    // 插入默认聊天室
-    await connection.query(`
-      INSERT INTO rooms (name, description, max_members) VALUES
-      ('公共聊天室', '欢迎大家！请文明交流~', 100),
-      ('技术交流', '编程、技术讨论专区', 50),
-      ('休闲娱乐', '灌水、摸鱼专区', 50),
-      ('音乐分享', '分享你喜欢的音乐', 50)
-    `);
-    console.log('✅ 默认聊天室已创建');
+    // 插入默认聊天室（如果不存在）
+    try {
+      await connection.query(`
+        INSERT INTO rooms (name, description, max_members) VALUES
+        ('公共聊天室', '欢迎大家！请文明交流~', 100),
+        ('技术交流', '编程、技术讨论专区', 50),
+        ('休闲娱乐', '灌水、摸鱼专区', 50),
+        ('音乐分享', '分享你喜欢的音乐', 50)
+      `);
+      console.log('✅ 默认聊天室已创建');
+    } catch (err) {
+      console.log('⚠️ 默认聊天室已存在，跳过');
+    }
     
     connection.release();
     console.log('🎉 数据库初始化完成！');
