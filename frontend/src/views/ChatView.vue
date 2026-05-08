@@ -305,7 +305,8 @@ const uploadAvatar = async () => {
     const formData = new FormData()
     formData.append('avatar', selectedFile.value)
     
-    const response = await fetch('/api/users/avatar', {
+    const API_BASE_URL = 'https://chatroom-production-4040.up.railway.app'
+    const response = await fetch(`${API_BASE_URL}/api/users/avatar`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${authStore.token}`
@@ -316,8 +317,9 @@ const uploadAvatar = async () => {
     const result = await response.json()
     
     if (result.success) {
-      // 更新用户信息
-      const updatedUser = { ...authStore.user, avatar: result.data.avatar }
+      // 更新用户信息 - 添加完整的 Railway URL
+      const API_BASE_URL = 'https://chatroom-production-4040.up.railway.app'
+      const updatedUser = { ...authStore.user, avatar: `${API_BASE_URL}${result.data.avatar}` }
       authStore.user = updatedUser
       localStorage.setItem('user', JSON.stringify(updatedUser))
       
