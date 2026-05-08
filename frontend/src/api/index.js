@@ -1,7 +1,9 @@
 import axios from 'axios'
 
-// 生产环境使用 Railway 地址
-const API_BASE_URL = 'https://chatroom-production-4040.up.railway.app/api'
+// 使用环境变量配置 API 地址
+const API_BASE_URL = import.meta.env.VITE_API_URL 
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : 'https://chatroom-production-4040.up.railway.app/api'
 
 const api = axios.create({
   baseURL: API_BASE_URL,

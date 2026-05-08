@@ -205,7 +205,7 @@ const joinRoom = async (roomId) => {
     // 加载消息历史
     const response = await roomAPI.getMessages(roomId)
     // 转换头像 URL 为完整路径，并反转数组（最早的在前，最新的在后）
-    const API_BASE_URL = 'https://chatroom-production-4040.up.railway.app'
+    const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://chatroom-production-4040.up.railway.app'
     messages.value = response.data.messages
       .reverse() // 反转数组
       .map(msg => {
@@ -314,7 +314,7 @@ const uploadAvatar = async () => {
     const formData = new FormData()
     formData.append('avatar', selectedFile.value)
     
-    const API_BASE_URL = 'https://chatroom-production-4040.up.railway.app'
+    const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://chatroom-production-4040.up.railway.app'
     const response = await fetch(`${API_BASE_URL}/api/users/avatar`, {
       method: 'POST',
       headers: {
@@ -327,7 +327,7 @@ const uploadAvatar = async () => {
     
     if (result.success) {
       // 更新用户信息 - 添加完整的 Railway URL
-      const API_BASE_URL = 'https://chatroom-production-4040.up.railway.app'
+      const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://chatroom-production-4040.up.railway.app'
       const updatedUser = { ...authStore.user, avatar: `${API_BASE_URL}${result.data.avatar}` }
       authStore.user = updatedUser
       localStorage.setItem('user', JSON.stringify(updatedUser))
@@ -385,12 +385,11 @@ const setupSocketListeners = () => {
   
   if (!socket) return
   
-  const API_BASE_URL = 'https://chatroom-production-4040.up.railway.app'
+  const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://chatroom-production-4040.up.railway.app'
   
   socket.on('new_message', (message) => {
     if (message.room_id === currentRoomId.value) {
       // 转换头像 URL 为完整路径
-      const API_BASE_URL = 'https://chatroom-production-4040.up.railway.app'
       const avatar = message.avatar && message.avatar.trim()
         ? `${API_BASE_URL}${message.avatar}`
         : '/default-avatar.png'
@@ -405,7 +404,7 @@ const setupSocketListeners = () => {
   // 监听头像更新事件
   socket.on('user_avatar_updated', (data) => {
     // 更新消息列表中的头像
-    const API_BASE_URL = 'https://chatroom-production-4040.up.railway.app'
+    const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://chatroom-production-4040.up.railway.app'
     messages.value = messages.value.map(msg => {
       if (msg.user_id === data.userId) {
         return { ...msg, avatar: `${API_BASE_URL}${data.avatar}` }
