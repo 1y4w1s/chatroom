@@ -66,7 +66,7 @@ class MessageService {
        FROM messages m
        JOIN users u ON m.user_id = u.id
        WHERE m.room_id = ? AND m.is_deleted = FALSE
-       ORDER BY m.created_at DESC`,
+       ORDER BY m.created_at ASC`,
       [roomId]
     );
     

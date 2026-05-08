@@ -206,10 +206,12 @@ const joinRoom = async (roomId) => {
     const response = await roomAPI.getMessages(roomId)
     // 转换头像 URL 为完整路径
     const API_BASE_URL = 'https://chatroom-production-4040.up.railway.app'
-    messages.value = response.data.messages.map(msg => ({
-      ...msg,
-      avatar: msg.avatar ? `${API_BASE_URL}${msg.avatar}` : '/default-avatar.png'
-    }))
+    messages.value = response.data.messages.map(msg => {
+      const avatar = msg.avatar && msg.avatar.trim() 
+        ? `${API_BASE_URL}${msg.avatar}` 
+        : '/default-avatar.png'
+      return { ...msg, avatar }
+    })
     
     // 加入 WebSocket 房间
     authStore.joinRoom(roomId)
@@ -344,9 +346,19 @@ const uploadAvatar = async () => {
   }
 }
 
+// 检查用户是否在底部
+const isAtBottom = () => {
+  if (!messageListRef.value) return true
+  const { scrollTop, scrollHeight, clientHeight } = messageListRef.value
+  // 距离底部小于 100px 就认为是在底部
+  return scrollHeight - scrollTop - clientHeight < 100
+}
+
 // 滚动到底部
-const scrollToBottom = () => {
-  if (messageListRef.value) {
+const scrollToBottom = (force = false) => {
+  if (!messageListRef.value) return
+  // 只有当用户在底部或强制滚动时才滚动
+  if (force || isAtBottom()) {
     messageListRef.value.scrollTop = messageListRef.value.scrollHeight
   }
 }
@@ -380,11 +392,13 @@ const setupSocketListeners = () => {
   socket.on('new_message', (message) => {
     if (message.room_id === currentRoomId.value) {
       // 转换头像 URL 为完整路径
-      const messageWithAvatar = {
-        ...message,
-        avatar: message.avatar ? `${API_BASE_URL}${message.avatar}` : '/default-avatar.png'
-      }
+      const API_BASE_URL = 'https://chatroom-production-4040.up.railway.app'
+      const avatar = message.avatar && message.avatar.trim()
+        ? `${API_BASE_URL}${message.avatar}`
+        : '/default-avatar.png'
+      const messageWithAvatar = { ...message, avatar }
       messages.value.push(messageWithAvatar)
+      // 只有当用户在底部时才自动滚动
       nextTick(() => scrollToBottom())
     }
   })
@@ -392,6 +406,7 @@ const setupSocketListeners = () => {
   // 监听头像更新事件
   socket.on('user_avatar_updated', (data) => {
     // 更新消息列表中的头像
+    const API_BASE_URL = 'https://chatroom-production-4040.up.railway.app'
     messages.value = messages.value.map(msg => {
       if (msg.user_id === data.userId) {
         return { ...msg, avatar: `${API_BASE_URL}${data.avatar}` }
@@ -532,6 +547,7 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   background: #f5f5f5;
+  overflow: hidden; /* 防止内容溢出 */
 }
 
 .no-room {
@@ -547,6 +563,7 @@ onUnmounted(() => {
   flex: 1;
   display: flex;
   flex-direction: column;
+  overflow: hidden; /* 防止内容溢出 */
 }
 
 .chat-header {
@@ -569,6 +586,7 @@ onUnmounted(() => {
   flex: 1;
   overflow-y: auto;
   padding: 20px;
+  min-height: 0; /* 关键！允许 flex 子项正确滚动 */
 }
 
 .message {
