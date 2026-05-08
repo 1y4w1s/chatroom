@@ -204,21 +204,23 @@ const joinRoom = async (roomId) => {
     
     // 加载消息历史
     const response = await roomAPI.getMessages(roomId)
-    // 转换头像 URL 为完整路径
+    // 转换头像 URL 为完整路径，并反转数组（最早的在前，最新的在后）
     const API_BASE_URL = 'https://chatroom-production-4040.up.railway.app'
-    messages.value = response.data.messages.map(msg => {
-      const avatar = msg.avatar && msg.avatar.trim() 
-        ? `${API_BASE_URL}${msg.avatar}` 
-        : '/default-avatar.png'
-      return { ...msg, avatar }
-    })
+    messages.value = response.data.messages
+      .reverse() // 反转数组
+      .map(msg => {
+        const avatar = msg.avatar && msg.avatar.trim() 
+          ? `${API_BASE_URL}${msg.avatar}` 
+          : '/default-avatar.png'
+        return { ...msg, avatar }
+      })
     
     // 加入 WebSocket 房间
     authStore.joinRoom(roomId)
     
-    // 滚动到底部
+    // 滚动到底部（强制）
     await nextTick()
-    scrollToBottom()
+    scrollToBottom(true)
   } catch (error) {
     console.error('加入聊天室失败:', error)
   }
