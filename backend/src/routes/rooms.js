@@ -47,7 +47,6 @@ router.get('/', authMiddleware, async (req, res) => {
              (SELECT COUNT(*) FROM room_members WHERE room_id = r.id) as member_count
       FROM rooms r
       JOIN users u ON r.owner_id = u.id
-      WHERE r.is_active = TRUE
     `;
     
     const params = [];
@@ -94,7 +93,7 @@ router.get('/:id', authMiddleware, async (req, res) => {
               (SELECT COUNT(*) FROM room_members WHERE room_id = r.id) as member_count
        FROM rooms r
        JOIN users u ON r.owner_id = u.id
-       WHERE r.id = ? AND r.is_active = TRUE`,
+       WHERE r.id = ?`,
       [roomId]
     );
     
