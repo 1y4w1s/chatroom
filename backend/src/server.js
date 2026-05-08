@@ -206,7 +206,7 @@ io.on('connection', (socket) => {
     try {
       const message = await MessageService.createMessage({
         roomId,
-        senderId: socket.user.id,
+        userId: socket.user.id,
         content,
         type: type || 'text'
       });

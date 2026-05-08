@@ -30,15 +30,15 @@ class MessageService {
   /**
    * 创建消息
    */
-  static async createMessage({ roomId, senderId, content, type = 'text', fileUrl = null, fileName = null, fileSize = null }) {
+  static async createMessage({ roomId, userId, content, type = 'text', fileUrl = null, fileName = null, fileSize = null }) {
     // 敏感词过滤
     const filteredContent = await this.filterSensitiveWords(content);
     
     // 插入消息
     const result = await query(
-      `INSERT INTO messages (room_id, sender_id, content, type, file_url, file_name, file_size) 
+      `INSERT INTO messages (room_id, user_id, content, type, file_url, file_name, file_size) 
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [roomId, senderId, filteredContent, type, fileUrl, fileName, fileSize]
+      [roomId, userId, filteredContent, type, fileUrl, fileName, fileSize]
     );
     
     // 获取完整的消息信息
@@ -47,7 +47,7 @@ class MessageService {
               u.username, u.nickname, u.avatar,
               r.name as room_name
        FROM messages m
-       JOIN users u ON m.sender_id = u.id
+       JOIN users u ON m.user_id = u.id
        JOIN rooms r ON m.room_id = r.id
        WHERE m.id = ?`,
       [result.insertId]
@@ -64,7 +64,7 @@ class MessageService {
       `SELECT m.*, 
               u.username, u.nickname, u.avatar
        FROM messages m
-       JOIN users u ON m.sender_id = u.id
+       JOIN users u ON m.user_id = u.id
        WHERE m.room_id = ? AND m.is_deleted = FALSE
        ORDER BY m.created_at DESC`,
       [roomId]
