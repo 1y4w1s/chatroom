@@ -94,7 +94,9 @@ export const useAuthStore = defineStore('auth', {
       }
 
       console.log('正在连接 WebSocket...')
-      this.socket = io('http://localhost:3000', {
+      // 使用环境变量或生产环境地址
+      const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'https://chatroom-production-4040.up.railway.app'
+      this.socket = io(SOCKET_URL, {
         auth: {
           token: this.token
         },

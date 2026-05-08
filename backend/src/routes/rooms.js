@@ -45,7 +45,7 @@ router.get('/', authMiddleware, async (req, res) => {
     let sql = `
       SELECT r.*, u.username as owner_name,
              (SELECT COUNT(*) FROM room_members WHERE room_id = r.id) as member_count
-      FROM chat_rooms r
+      FROM rooms r
       JOIN users u ON r.owner_id = u.id
       WHERE r.is_active = TRUE
     `;
@@ -92,7 +92,7 @@ router.get('/:id', authMiddleware, async (req, res) => {
     const rooms = await query(
       `SELECT r.*, u.username as owner_name,
               (SELECT COUNT(*) FROM room_members WHERE room_id = r.id) as member_count
-       FROM chat_rooms r
+       FROM rooms r
        JOIN users u ON r.owner_id = u.id
        WHERE r.id = ? AND r.is_active = TRUE`,
       [roomId]
@@ -151,7 +151,7 @@ router.post('/', authMiddleware, [
     const { name, description, type = 'public', maxMembers = 100 } = req.body;
     
     const result = await query(
-      `INSERT INTO chat_rooms (name, description, type, owner_id, max_members) 
+      `INSERT INTO rooms (name, description, type, owner_id, max_members) 
        VALUES (?, ?, ?, ?, ?)`,
       [name, description || '', type, req.user.id, maxMembers]
     );
