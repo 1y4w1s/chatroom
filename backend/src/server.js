@@ -18,6 +18,9 @@ require('dotenv').config();
 const app = express();
 const server = http.createServer(app);
 
+// 全局 io 变量，供其他模块使用
+let io;
+
 // ==================== 初始化目录 ====================
 
 // 创建上传目录
@@ -143,7 +146,7 @@ app.use((req, res) => {
 
 // ==================== Socket.io 配置 ====================
 
-const io = socketIo(server, {
+io = socketIo(server, {
   cors: corsOptions,
   pingTimeout: 60000,
   pingInterval: 25000,
@@ -295,7 +298,7 @@ async function startServer() {
 startServer();
 
 // 导出 io 对象，方便其他模块使用
-module.exports = { app, io, server };
+module.exports = { app, getIo: () => io, server };
 
 // 优雅关闭
 process.on('SIGTERM', async () => {

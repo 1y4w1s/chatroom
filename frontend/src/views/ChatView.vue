@@ -389,6 +389,17 @@ const setupSocketListeners = () => {
     }
   })
   
+  // 监听头像更新事件
+  socket.on('user_avatar_updated', (data) => {
+    // 更新消息列表中的头像
+    messages.value = messages.value.map(msg => {
+      if (msg.user_id === data.userId) {
+        return { ...msg, avatar: `${API_BASE_URL}${data.avatar}` }
+      }
+      return msg
+    })
+  })
+  
   socket.on('user_joined', (data) => {
     console.log('用户加入:', data.username)
   })

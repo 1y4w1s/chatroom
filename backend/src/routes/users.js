@@ -156,11 +156,14 @@ router.post('/avatar', authMiddleware, upload.single('avatar'), async (req, res)
     );
     
     // 广播头像更新事件
-    const { io } = require('../server');
-    io.emit('user_avatar_updated', {
-      userId: req.user.id,
-      avatar: avatarUrl
-    });
+    const { getIo } = require('../server');
+    const io = getIo();
+    if (io) {
+      io.emit('user_avatar_updated', {
+        userId: req.user.id,
+        avatar: avatarUrl
+      });
+    }
     
     res.json({
       success: true,
