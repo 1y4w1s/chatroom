@@ -48,7 +48,7 @@ class MessageService {
               r.name as room_name
        FROM messages m
        JOIN users u ON m.sender_id = u.id
-       JOIN chat_rooms r ON m.room_id = r.id
+       JOIN rooms r ON m.room_id = r.id
        WHERE m.id = ?`,
       [result.insertId]
     );
