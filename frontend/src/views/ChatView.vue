@@ -368,19 +368,15 @@ const scrollToBottom = (force = false) => {
 // 格式化时间
 const formatTime = (timestamp) => {
   const date = new Date(timestamp)
-  const now = new Date()
-  const diff = now - date
   
-  if (diff < 60000) return '刚刚'
-  if (diff < 3600000) return `${Math.floor(diff / 60000)}分钟前`
-  if (diff < 86400000) return `${Math.floor(diff / 3600000)}小时前`
+  // 显示具体日期和时间：2026/5/8 21:11
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  const hours = date.getHours().toString().padStart(2, '0')
+  const minutes = date.getMinutes().toString().padStart(2, '0')
   
-  return date.toLocaleString('zh-CN', {
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  })
+  return `${year}/${month}/${day} ${hours}:${minutes}`
 }
 
 // WebSocket 事件监听
@@ -399,6 +395,7 @@ const setupSocketListeners = () => {
         ? `${API_BASE_URL}${message.avatar}`
         : '/default-avatar.png'
       const messageWithAvatar = { ...message, avatar }
+      // 直接添加到末尾（已经是最新的）
       messages.value.push(messageWithAvatar)
       // 只有当用户在底部时才自动滚动
       nextTick(() => scrollToBottom())
