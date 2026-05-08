@@ -1,5 +1,5 @@
 /**
- * 聊天室主服务器
+ * 聊天室主服务器 v2.1
  * 集成 Express + Socket.io + 安全防护
  */
 const express = require('express');
