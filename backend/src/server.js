@@ -18,6 +18,21 @@ require('dotenv').config();
 const app = express();
 const server = http.createServer(app);
 
+// ==================== 初始化目录 ====================
+
+// 创建上传目录
+const fs = require('fs');
+const uploadsDir = path.join(__dirname, '../uploads');
+const avatarsDir = path.join(uploadsDir, 'avatars');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+  console.log('✅ 创建 uploads 目录');
+}
+if (!fs.existsSync(avatarsDir)) {
+  fs.mkdirSync(avatarsDir, { recursive: true });
+  console.log('✅ 创建 avatars 目录');
+}
+
 // ==================== 安全配置 ====================
 
 // 1. Helmet - 安全 HTTP 头
