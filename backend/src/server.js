@@ -294,6 +294,9 @@ async function startServer() {
 
 startServer();
 
+// 导出 io 对象，方便其他模块使用
+module.exports = { app, io, server };
+
 // 优雅关闭
 process.on('SIGTERM', async () => {
   console.log('收到 SIGTERM 信号，正在关闭服务器...');

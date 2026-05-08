@@ -204,7 +204,12 @@ const joinRoom = async (roomId) => {
     
     // 加载消息历史
     const response = await roomAPI.getMessages(roomId)
-    messages.value = response.data.messages
+    // 转换头像 URL 为完整路径
+    const API_BASE_URL = 'https://chatroom-production-4040.up.railway.app'
+    messages.value = response.data.messages.map(msg => ({
+      ...msg,
+      avatar: msg.avatar ? `${API_BASE_URL}${msg.avatar}` : '/default-avatar.png'
+    }))
     
     // 加入 WebSocket 房间
     authStore.joinRoom(roomId)
@@ -370,9 +375,16 @@ const setupSocketListeners = () => {
   
   if (!socket) return
   
+  const API_BASE_URL = 'https://chatroom-production-4040.up.railway.app'
+  
   socket.on('new_message', (message) => {
     if (message.room_id === currentRoomId.value) {
-      messages.value.push(message)
+      // 转换头像 URL 为完整路径
+      const messageWithAvatar = {
+        ...message,
+        avatar: message.avatar ? `${API_BASE_URL}${message.avatar}` : '/default-avatar.png'
+      }
+      messages.value.push(messageWithAvatar)
       nextTick(() => scrollToBottom())
     }
   })
