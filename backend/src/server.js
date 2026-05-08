@@ -86,11 +86,14 @@ app.use(hpp());
 
 // ==================== 静态文件 ====================
 
-// 上传文件目录 - 添加 CORS 支持
+// 上传文件目录 - 添加 CORS 和 CORP 支持
 app.use('/uploads', (req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Cross-Origin-Resource-Policy', 'cross-origin');
+  res.header('Cross-Origin-Opener-Policy', 'same-origin');
+  res.header('Cross-Origin-Embedder-Policy', 'require-corp');
   next();
 }, express.static(path.join(__dirname, '../uploads')));
 
