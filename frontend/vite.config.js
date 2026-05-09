@@ -4,7 +4,7 @@ import path from 'path'
 
 export default defineConfig({
   // GitHub Pages 部署需要配置 base
-  base: '/chatroom/',
+  base: '/',
   plugins: [vue()],
   resolve: {
     alias: {
