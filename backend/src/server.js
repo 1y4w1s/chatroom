@@ -153,71 +153,43 @@ io = socketIo(server, {
   maxHttpBufferSize: 1e6 // 1MB
 });
 
-// Socket.io 中间件 - 简化身份验证
-io.use((socket, next) => {
-  const { userId, username } = socket.handshake.auth;
-  
-  if (!userId || !username) {
-    return next(new Error('认证失败：缺少用户信息'));
-  }
-  
-  socket.user = { id: parseInt(userId), username };
-  next();
-});
-
 // Socket.io 连接处理
 io.on('connection', (socket) => {
-  console.log(`用户连接：${socket.user.username} (${socket.id})`);
+  console.log(`用户连接：${socket.id}`);
   
-  // 加入聊天室
-  socket.on('join_room', (roomId) => {
+  socket.on('join_room', (data) => {
+    const { roomId, userId, username } = data;
     socket.join(roomId);
-    console.log(`用户 ${socket.user.username} 加入聊天室 ${roomId}`);
+    console.log(`用户 ${username || userId} 加入聊天室 ${roomId}`);
     
-    // 通知房间内其他人
-    socket.to(roomId).emit('user_joined', {
-      userId: socket.user.id,
-      username: socket.user.username,
-      roomId
-    });
+    socket.to(roomId).emit('user_joined', { userId, username, roomId });
   });
   
-  // 离开聊天室
-  socket.on('leave_room', (roomId) => {
+  socket.on('leave_room', (data) => {
+    const { roomId, userId, username } = data;
     socket.leave(roomId);
-    socket.to(roomId).emit('user_left', {
-      userId: socket.user.id,
-      username: socket.user.username,
-      roomId
-    });
+    socket.to(roomId).emit('user_left', { userId, username, roomId });
   });
   
-  // 发送消息
   socket.on('send_message', async (data) => {
-    const { roomId, content, type } = data;
+    const { roomId, content, type, userId, username } = data;
     
-    console.log(`收到消息发送请求：用户 ${socket.user.username} -> 房间 ${roomId}, 内容：${content}`);
+    console.log(`收到消息发送请求：用户 ${username || userId} -> 房间 ${roomId}`);
     
-    // 验证
     if (!roomId || !content) {
-      console.error('消息验证失败：缺少 roomId 或 content');
       socket.emit('error', { message: '消息内容不能为空' });
       return;
     }
     
-    // 消息验证和过滤
     const MessageService = require('./services/messageService');
     try {
       const message = await MessageService.createMessage({
         roomId,
-        userId: socket.user.id,
+        userId: parseInt(userId) || 1,
         content,
         type: type || 'text'
       });
       
-      console.log(`消息创建成功：${message.id}, 广播给房间 ${roomId}`);
-      
-      // 广播消息给房间内所有人（包括发送者）
       io.to(roomId).emit('new_message', message);
     } catch (error) {
       console.error('发送消息失败:', error);
@@ -225,31 +197,20 @@ io.on('connection', (socket) => {
     }
   });
   
-  // 输入状态
-  socket.on('typing', (roomId) => {
-    socket.to(roomId).emit('user_typing', {
-      userId: socket.user.id,
-      username: socket.user.username,
-      roomId
-    });
+  socket.on('typing', (data) => {
+    const { roomId, userId, username } = data;
+    socket.to(roomId).emit('user_typing', { userId, username, roomId });
   });
   
-  socket.on('stop_typing', (roomId) => {
-    socket.to(roomId).emit('user_stop_typing', {
-      userId: socket.user.id,
-      roomId
-    });
+  socket.on('stop_typing', (data) => {
+    const { roomId, userId } = data;
+    socket.to(roomId).emit('user_stop_typing', { userId, roomId });
   });
   
-  // 断开连接
   socket.on('disconnect', () => {
-    console.log(`用户断开：${socket.user.username} (${socket.id})`);
-    
-    // 通知所有房间
-    // 实际应用中应该更新用户状态为离线
+    console.log(`用户断开：${socket.id}`);
   });
   
-  // 错误处理
   socket.on('error', (error) => {
     console.error('Socket 错误:', error);
   });

@@ -92,13 +92,8 @@ export const useAuthStore = defineStore('auth', {
       }
 
       console.log('正在连接 WebSocket...')
-      // 使用环境变量或生产环境地址
       const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'https://chatroom-production-4040.up.railway.app'
       this.socket = io(SOCKET_URL, {
-        auth: {
-          userId: this.user.id,
-          username: this.user.username
-        },
         transports: ['websocket', 'polling']
       })
 
@@ -132,23 +127,21 @@ export const useAuthStore = defineStore('auth', {
     // 加入聊天室
     joinRoom(roomId) {
       if (this.socket) {
-        this.socket.emit('join_room', roomId)
+        this.socket.emit('join_room', { roomId, userId: this.user.id, username: this.user.username })
       }
     },
 
     // 离开聊天室
     leaveRoom(roomId) {
       if (this.socket) {
-        this.socket.emit('leave_room', roomId)
+        this.socket.emit('leave_room', { roomId, userId: this.user.id, username: this.user.username })
       }
     },
 
     // 发送消息
     sendMessage(roomId, content, type = 'text') {
-      console.log('authStore.sendMessage 被调用:', { roomId, content, type, socketConnected: !!this.socket })
       if (this.socket) {
-        console.log('通过 WebSocket 发送消息:', { roomId, content, type })
-        this.socket.emit('send_message', { roomId, content, type })
+        this.socket.emit('send_message', { roomId, content, type, userId: this.user.id, username: this.user.username })
       } else {
         console.error('WebSocket 未连接，无法发送消息')
       }
@@ -157,14 +150,14 @@ export const useAuthStore = defineStore('auth', {
     // 输入状态
     sendTyping(roomId) {
       if (this.socket) {
-        this.socket.emit('typing', roomId)
+        this.socket.emit('typing', { roomId, userId: this.user.id, username: this.user.username })
       }
     },
 
     // 停止输入
     sendStopTyping(roomId) {
       if (this.socket) {
-        this.socket.emit('stop_typing', roomId)
+        this.socket.emit('stop_typing', { roomId, userId: this.user.id })
       }
     }
   }

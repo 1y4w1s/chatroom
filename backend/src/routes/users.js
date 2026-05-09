@@ -9,19 +9,6 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// 简单认证中间件 - 从请求参数获取 userId
-const authMiddleware = async (req, res, next) => {
-  const userId = req.query.userId || req.body.userId;
-  if (!userId) {
-    return res.status(400).json({
-      success: false,
-      error: { message: '缺少用户 ID' }
-    });
-  }
-  req.user = { id: parseInt(userId) };
-  next();
-};
-
 // 文件上传配置
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -57,13 +44,22 @@ const upload = multer({
  * GET /api/users/me
  * 获取当前用户信息
  */
-router.get('/me', authMiddleware, async (req, res) => {
+router.get('/me', async (req, res) => {
   try {
+    const { userId } = req.query;
+    
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        error: { message: '缺少用户 ID' }
+      });
+    }
+    
     const users = await query(
       `SELECT id, username, email, nickname, avatar, signature, status, created_at, last_login_at
        FROM users
        WHERE id = ?`,
-      [req.user.id]
+      [userId]
     );
     
     if (users.length === 0) {
@@ -90,9 +86,10 @@ router.get('/me', authMiddleware, async (req, res) => {
  * PUT /api/users/me
  * 更新用户信息
  */
-router.put('/me', authMiddleware, [
+router.put('/me', [
   body('nickname').optional().isLength({ min: 1, max: 50 }).withMessage('昵称 1-50 个字符'),
-  body('signature').optional().isLength({ max: 200 }).withMessage('签名最多 200 字符')
+  body('signature').optional().isLength({ max: 200 }).withMessage('签名最多 200 字符'),
+  body('userId').notEmpty().withMessage('缺少用户 ID')
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -103,11 +100,11 @@ router.put('/me', authMiddleware, [
   }
   
   try {
-    const { nickname, signature } = req.body;
+    const { nickname, signature, userId } = req.body;
     
     await query(
       `UPDATE users SET nickname = ?, signature = ? WHERE id = ?`,
-      [nickname, signature, req.user.id]
+      [nickname, signature, userId]
     );
     
     res.json({
@@ -127,7 +124,7 @@ router.put('/me', authMiddleware, [
  * POST /api/users/avatar
  * 上传头像
  */
-router.post('/avatar', authMiddleware, upload.single('avatar'), async (req, res) => {
+router.post('/avatar', upload.single('avatar'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({
@@ -136,19 +133,26 @@ router.post('/avatar', authMiddleware, upload.single('avatar'), async (req, res)
       });
     }
     
+    const { userId } = req.body;
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        error: { message: '缺少用户 ID' }
+      });
+    }
+    
     const avatarUrl = `/uploads/avatars/${req.file.filename}`;
     
     await query(
       'UPDATE users SET avatar = ? WHERE id = ?',
-      [avatarUrl, req.user.id]
+      [avatarUrl, userId]
     );
     
-    // 广播头像更新事件
     const { getIo } = require('../server');
     const io = getIo();
     if (io) {
       io.emit('user_avatar_updated', {
-        userId: req.user.id,
+        userId,
         avatar: avatarUrl
       });
     }
@@ -170,7 +174,7 @@ router.post('/avatar', authMiddleware, upload.single('avatar'), async (req, res)
  * GET /api/users/:id
  * 获取其他用户信息
  */
-router.get('/:id', authMiddleware, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const users = await query(
       `SELECT id, username, nickname, avatar, signature, status
@@ -203,7 +207,7 @@ router.get('/:id', authMiddleware, async (req, res) => {
  * GET /api/users/search
  * 搜索用户
  */
-router.get('/search', authMiddleware, async (req, res) => {
+router.get('/search', async (req, res) => {
   try {
     const { q, limit = 10 } = req.query;
     

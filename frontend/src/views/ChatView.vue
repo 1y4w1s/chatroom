@@ -188,7 +188,7 @@ const uploadError = ref('')
 // 加载聊天室列表
 const loadRooms = async () => {
   try {
-    const response = await roomAPI.getList(authStore.userId)
+    const response = await roomAPI.getList()
     rooms.value = response.data.rooms
   } catch (error) {
     console.error('加载聊天室失败:', error)
@@ -198,12 +198,12 @@ const loadRooms = async () => {
 // 加入聊天室
 const joinRoom = async (roomId) => {
   try {
-    await roomAPI.join(authStore.userId, roomId)
+    await roomAPI.join(roomId, authStore.userId)
     currentRoomId.value = roomId
     currentRoom.value = rooms.value.find(r => r.id === roomId)
     
     // 加载消息历史
-    const response = await roomAPI.getMessages(authStore.userId, roomId)
+    const response = await roomAPI.getMessages(roomId)
     // 转换头像 URL 为完整路径，并反转数组（最早的在前，最新的在后）
     const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://chatroom-production-4040.up.railway.app'
     messages.value = response.data.messages
@@ -259,7 +259,7 @@ const handleTyping = () => {
 // 创建聊天室
 const createRoom = async () => {
   try {
-    const response = await roomAPI.create(authStore.userId, newRoom.value)
+    const response = await roomAPI.create({ ...newRoom.value, owner_id: authStore.userId })
     await loadRooms()
     showCreateModal.value = false
     joinRoom(response.data.room.id)

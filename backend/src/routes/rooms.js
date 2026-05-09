@@ -6,26 +6,13 @@ const router = express.Router();
 const { query } = require('../config/database');
 const { body, validationResult } = require('express-validator');
 
-// 简单认证中间件 - 从请求参数获取 userId
-const authMiddleware = async (req, res, next) => {
-  const userId = req.query.userId || req.body.userId;
-  if (!userId) {
-    return res.status(400).json({
-      success: false,
-      error: { message: '缺少用户 ID' }
-    });
-  }
-  req.user = { id: parseInt(userId) };
-  next();
-};
-
 // ==================== 路由 ====================
 
 /**
  * GET /api/rooms
  * 获取聊天室列表
  */
-router.get('/', authMiddleware, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const { type, page = 1, limit = 20 } = req.query;
     const offset = (page - 1) * limit;
@@ -72,7 +59,7 @@ router.get('/', authMiddleware, async (req, res) => {
  * GET /api/rooms/:id
  * 获取聊天室详情
  */
-router.get('/:id', authMiddleware, async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const roomId = req.params.id;
     
@@ -121,10 +108,11 @@ router.get('/:id', authMiddleware, async (req, res) => {
  * POST /api/rooms
  * 创建聊天室
  */
-router.post('/', authMiddleware, [
+router.post('/', [
   body('name').trim().isLength({ min: 2, max: 50 }).withMessage('聊天室名称 2-50 个字符'),
   body('description').optional().isLength({ max: 500 }).withMessage('描述最多 500 字符'),
-  body('type').optional().isIn(['public', 'private']).withMessage('类型必须是 public 或 private')
+  body('type').optional().isIn(['public', 'private']).withMessage('类型必须是 public 或 private'),
+  body('owner_id').notEmpty().withMessage('缺少创建者 ID')
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -135,18 +123,17 @@ router.post('/', authMiddleware, [
   }
   
   try {
-    const { name, description, type = 'public', maxMembers = 100 } = req.body;
+    const { name, description, type = 'public', maxMembers = 100, owner_id } = req.body;
     
     const result = await query(
       `INSERT INTO rooms (name, description, type, owner_id, max_members) 
        VALUES (?, ?, ?, ?, ?)`,
-      [name, description || '', type, req.user.id, maxMembers]
+      [name, description || '', type, owner_id, maxMembers]
     );
     
-    // 创建者自动成为管理员
     await query(
       `INSERT INTO room_members (room_id, user_id, role) VALUES (?, ?, 'owner')`,
-      [result.insertId, req.user.id]
+      [result.insertId, owner_id]
     );
     
     res.status(201).json({
@@ -157,7 +144,7 @@ router.post('/', authMiddleware, [
           name,
           description,
           type,
-          owner_id: req.user.id
+          owner_id
         }
       }
     });
@@ -174,19 +161,24 @@ router.post('/', authMiddleware, [
  * POST /api/rooms/:id/join
  * 加入聊天室
  */
-router.post('/:id/join', authMiddleware, async (req, res) => {
+router.post('/:id/join', async (req, res) => {
   try {
     const roomId = req.params.id;
-    const userId = req.user.id;
+    const { userId } = req.body;
     
-    // 检查是否已是成员
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        error: { message: '缺少用户 ID' }
+      });
+    }
+    
     const existing = await query(
       'SELECT id FROM room_members WHERE room_id = ? AND user_id = ?',
       [roomId, userId]
     );
     
     if (existing.length > 0) {
-      // 已经在聊天室中，返回成功（幂等性）
       return res.json({
         success: true,
         message: '已在聊天室中',
@@ -194,7 +186,6 @@ router.post('/:id/join', authMiddleware, async (req, res) => {
       });
     }
     
-    // 加入聊天室
     await query(
       `INSERT INTO room_members (room_id, user_id, role) VALUES (?, ?, 'member')`,
       [roomId, userId]
@@ -217,10 +208,17 @@ router.post('/:id/join', authMiddleware, async (req, res) => {
  * POST /api/rooms/:id/leave
  * 离开聊天室
  */
-router.post('/:id/leave', authMiddleware, async (req, res) => {
+router.post('/:id/leave', async (req, res) => {
   try {
     const roomId = req.params.id;
-    const userId = req.user.id;
+    const { userId } = req.body;
+    
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        error: { message: '缺少用户 ID' }
+      });
+    }
     
     await query(
       'DELETE FROM room_members WHERE room_id = ? AND user_id = ?',
@@ -244,7 +242,7 @@ router.post('/:id/leave', authMiddleware, async (req, res) => {
  * GET /api/rooms/:id/messages
  * 获取聊天室消息历史
  */
-router.get('/:id/messages', authMiddleware, async (req, res) => {
+router.get('/:id/messages', async (req, res) => {
   try {
     const roomId = req.params.id;
     const { limit = 50, offset = 0 } = req.query;

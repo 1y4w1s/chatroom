@@ -52,12 +52,12 @@ export const userAPI = {
 }
 
 export const roomAPI = {
-  getList: (userId, params) => api.get('/rooms', { params: { userId, ...params } }),
-  getDetail: (userId, id) => api.get(`/rooms/${id}`, { params: { userId } }),
-  create: (userId, data) => api.post('/rooms', { userId, ...data }),
-  join: (userId, id) => api.post(`/rooms/${id}/join`, { userId }),
-  leave: (userId, id) => api.post(`/rooms/${id}/leave`, { userId }),
-  getMessages: (userId, id, params) => api.get(`/rooms/${id}/messages`, { params: { userId, ...params } })
+  getList: (params) => api.get('/rooms', { params }),
+  getDetail: (id) => api.get(`/rooms/${id}`),
+  create: (data) => api.post('/rooms', data),
+  join: (id, userId) => api.post(`/rooms/${id}/join`, { userId }),
+  leave: (id, userId) => api.post(`/rooms/${id}/leave`, { userId }),
+  getMessages: (id, params) => api.get(`/rooms/${id}/messages`, { params })
 }
 
 export const messageAPI = {

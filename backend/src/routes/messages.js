@@ -8,19 +8,6 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
-// 简单认证中间件 - 从请求参数获取 userId
-const authMiddleware = async (req, res, next) => {
-  const userId = req.query.userId || req.body.userId;
-  if (!userId) {
-    return res.status(400).json({
-      success: false,
-      error: { message: '缺少用户 ID' }
-    });
-  }
-  req.user = { id: parseInt(userId) };
-  next();
-};
-
 // 文件上传配置
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -60,7 +47,7 @@ const upload = multer({
  * POST /api/messages/upload
  * 上传文件/图片
  */
-router.post('/upload', authMiddleware, upload.single('file'), async (req, res) => {
+router.post('/upload', upload.single('file'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({
@@ -93,10 +80,17 @@ router.post('/upload', authMiddleware, upload.single('file'), async (req, res) =
  * PUT /api/messages/:id
  * 编辑消息
  */
-router.put('/:id', authMiddleware, async (req, res) => {
+router.put('/:id', async (req, res) => {
   try {
-    const { content } = req.body;
+    const { content, userId } = req.body;
     const messageId = req.params.id;
+    
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        error: { message: '缺少用户 ID' }
+      });
+    }
     
     if (!content || content.trim().length === 0) {
       return res.status(400).json({
@@ -106,7 +100,7 @@ router.put('/:id', authMiddleware, async (req, res) => {
     }
     
     const MessageService = require('../services/messageService');
-    await MessageService.editMessage(messageId, req.user.id, content);
+    await MessageService.editMessage(messageId, userId, content);
     
     res.json({
       success: true,
@@ -125,12 +119,20 @@ router.put('/:id', authMiddleware, async (req, res) => {
  * DELETE /api/messages/:id
  * 删除消息
  */
-router.delete('/:id', authMiddleware, async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
+    const { userId } = req.query;
     const messageId = req.params.id;
     
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        error: { message: '缺少用户 ID' }
+      });
+    }
+    
     const MessageService = require('../services/messageService');
-    await MessageService.deleteMessage(messageId, req.user.id);
+    await MessageService.deleteMessage(messageId, userId);
     
     res.json({
       success: true,
@@ -149,12 +151,20 @@ router.delete('/:id', authMiddleware, async (req, res) => {
  * POST /api/messages/:id/read
  * 标记消息为已读
  */
-router.post('/:id/read', authMiddleware, async (req, res) => {
+router.post('/:id/read', async (req, res) => {
   try {
+    const { userId } = req.body;
     const messageId = req.params.id;
     
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        error: { message: '缺少用户 ID' }
+      });
+    }
+    
     const MessageService = require('../services/messageService');
-    await MessageService.markAsRead(messageId, req.user.id);
+    await MessageService.markAsRead(messageId, userId);
     
     res.json({
       success: true,
