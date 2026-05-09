@@ -37,10 +37,16 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    // 设置认证信息
+    // 设置认证信息 - 处理头像URL
     setAuth(data) {
-      this.user = data.user
-      localStorage.setItem('user', JSON.stringify(data.user))
+      const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://chatroom-production-4040.up.railway.app'
+      const user = data.user
+      // 处理头像URL，将相对路径转换为完整URL
+      if (user.avatar && user.avatar.startsWith('/')) {
+        user.avatar = `${API_BASE_URL}${user.avatar}`
+      }
+      this.user = user
+      localStorage.setItem('user', JSON.stringify(user))
       this.connectSocket()
     },
 
@@ -70,8 +76,14 @@ export const useAuthStore = defineStore('auth', {
       
       try {
         const response = await authAPI.verify(this.user.id)
-        this.user = response.data.user
-        localStorage.setItem('user', JSON.stringify(this.user))
+        const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://chatroom-production-4040.up.railway.app'
+        const user = response.data.user
+        // 处理头像URL，将相对路径转换为完整URL
+        if (user.avatar && user.avatar.startsWith('/')) {
+          user.avatar = `${API_BASE_URL}${user.avatar}`
+        }
+        this.user = user
+        localStorage.setItem('user', JSON.stringify(user))
         return true
       } catch (error) {
         this.clearAuth()

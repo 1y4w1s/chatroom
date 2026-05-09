@@ -32,7 +32,7 @@
         <div class="user-info" @click="showAvatarUpload = true" title="点击更换头像">
           <img :src="authStore.user?.avatar || '/default-avatar.png'" class="avatar" />
           <div class="user-details">
-            <div class="username">{{ authStore.user?.nickname }}</div>
+            <div class="username">{{ authStore.user?.nickname || authStore.user?.username }}</div>
             <div class="user-status">在线</div>
           </div>
         </div>
@@ -96,7 +96,7 @@
             <img :src="message.avatar || '/default-avatar.png'" class="message-avatar" />
             <div class="message-content">
               <div class="message-header">
-                <span class="message-sender">{{ message.nickname }}</span>
+                <span class="message-sender">{{ message.nickname || message.username }}</span>
                 <span class="message-time">{{ formatTime(message.created_at) }}</span>
               </div>
               <div class="message-text">{{ message.content }}</div>

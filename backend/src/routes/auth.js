@@ -129,7 +129,7 @@ router.post('/login', loginValidation, async (req, res) => {
   try {
     // 查找用户
     const users = await query(
-      `SELECT id, username, email, password_hash, avatar, status, is_banned 
+      `SELECT id, username, email, password_hash, avatar, status, is_banned, nickname 
        FROM users 
        WHERE username = ? OR email = ?`,
       [username, username]
@@ -187,6 +187,7 @@ router.post('/login', loginValidation, async (req, res) => {
           username: user.username,
           email: user.email,
           avatar: user.avatar,
+          nickname: user.nickname || user.username,
           status: 'online'
         }
       }
@@ -253,7 +254,7 @@ router.get('/verify', async (req, res) => {
   
   try {
     const users = await query(
-      'SELECT id, username, email, avatar, status FROM users WHERE id = ?',
+      'SELECT id, username, email, avatar, status, nickname FROM users WHERE id = ?',
       [userId]
     );
     
@@ -267,7 +268,10 @@ router.get('/verify', async (req, res) => {
     res.json({
       success: true,
       data: {
-        user: users[0]
+        user: {
+          ...users[0],
+          nickname: users[0].nickname || users[0].username
+        }
       }
     });
   } catch (error) {
