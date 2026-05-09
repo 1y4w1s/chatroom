@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# 腾讯云服务器部署脚本
+# 使用方法：在服务器上执行 ./server-deploy.sh
+
+set -e  # 遇到错误立即退出
+
+echo "🚀 开始部署聊天室应用..."
+echo ""
+
+# 1. 进入项目目录
+echo "📁 进入项目目录..."
+cd /root/chatroom  # 请根据实际情况修改路径
+
+# 2. 拉取最新代码
+echo "📥 拉取最新代码..."
+git pull origin main
+
+# 3. 安装后端依赖
+echo "📦 安装后端依赖..."
+cd backend
+npm install
+
+# 4. 安装前端依赖并构建
+echo "🔨 构建前端..."
+cd ../frontend
+npm install
+npm run build
+
+# 5. 重启后端服务
+echo "🔄 重启后端服务..."
+cd ../backend
+
+# 检查 PM2 是否已安装
+if ! command -v pm2 &> /dev/null; then
+    echo "⚠️  PM2 未安装，正在安装..."
+    npm install -g pm2
+fi
+
+# 检查进程是否存在
+if pm2 list | grep -q "chatroom-backend"; then
+    echo "🔄 重启现有服务..."
+    pm2 restart chatroom-backend
+else
+    echo "🚀 启动新服务..."
+    pm2 start npm --name "chatroom-backend" -- run dev
+fi
+
+echo ""
+echo "✅ 部署完成！"
+echo ""
+echo "📊 服务状态："
+pm2 status
+echo ""
+echo "📋 查看日志命令："
+echo "pm2 logs chatroom-backend"

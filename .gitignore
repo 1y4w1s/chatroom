@@ -10,3 +10,4 @@ dist
 *.bat
 *.md
 !README.md
+!DEPLOY.md
