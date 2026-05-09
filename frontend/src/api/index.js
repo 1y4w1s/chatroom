@@ -13,21 +13,6 @@ const api = axios.create({
   }
 })
 
-// 请求拦截器 - 添加 Token
-api.interceptors.request.use(
-  config => {
-    const token = localStorage.getItem('token')
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
-    }
-    return config
-  },
-  error => {
-    console.error('请求错误:', error)
-    return Promise.reject(error)
-  }
-)
-
 // 响应拦截器
 api.interceptors.response.use(
   response => {
@@ -35,13 +20,6 @@ api.interceptors.response.use(
   },
   error => {
     if (error.response) {
-      // Token 过期或无效
-      if (error.response.status === 401) {
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
-        window.location.href = '/login'
-      }
-      
       const message = error.response.data?.error?.message || '请求失败'
       console.error('API 错误:', message)
       return Promise.reject(new Error(message))
@@ -56,46 +34,50 @@ api.interceptors.response.use(
 export const authAPI = {
   login: (data) => api.post('/auth/login', data),
   register: (data) => api.post('/auth/register', data),
-  logout: () => api.post('/auth/logout'),
-  verify: () => api.get('/auth/verify')
+  logout: (userId) => api.post('/auth/logout', { userId }),
+  verify: (userId) => api.get('/auth/verify', { params: { userId } })
 }
 
 export const userAPI = {
-  getMe: () => api.get('/users/me'),
-  updateMe: (data) => api.put('/users/me', data),
-  uploadAvatar: (formData) => 
-    api.post('/users/avatar', formData, {
+  getMe: (userId) => api.get('/users/me', { params: { userId } }),
+  updateMe: (userId, data) => api.put('/users/me', { userId, ...data }),
+  uploadAvatar: (userId, formData) => {
+    formData.append('userId', userId)
+    return api.post('/users/avatar', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
-    }),
-  getUser: (id) => api.get(`/users/${id}`),
-  search: (q) => api.get('/users/search', { params: { q } })
+    })
+  },
+  getUser: (userId, id) => api.get(`/users/${id}`, { params: { userId } }),
+  search: (userId, q) => api.get('/users/search', { params: { userId, q } })
 }
 
 export const roomAPI = {
-  getList: (params) => api.get('/rooms', { params }),
-  getDetail: (id) => api.get(`/rooms/${id}`),
-  create: (data) => api.post('/rooms', data),
-  join: (id) => api.post(`/rooms/${id}/join`),
-  leave: (id) => api.post(`/rooms/${id}/leave`),
-  getMessages: (id, params) => api.get(`/rooms/${id}/messages`, { params })
+  getList: (userId, params) => api.get('/rooms', { params: { userId, ...params } }),
+  getDetail: (userId, id) => api.get(`/rooms/${id}`, { params: { userId } }),
+  create: (userId, data) => api.post('/rooms', { userId, ...data }),
+  join: (userId, id) => api.post(`/rooms/${id}/join`, { userId }),
+  leave: (userId, id) => api.post(`/rooms/${id}/leave`, { userId }),
+  getMessages: (userId, id, params) => api.get(`/rooms/${id}/messages`, { params: { userId, ...params } })
 }
 
 export const messageAPI = {
-  upload: (formData) =>
-    api.post('/messages/upload', formData, {
+  upload: (userId, formData) => {
+    formData.append('userId', userId)
+    return api.post('/messages/upload', formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
-    }),
-  edit: (id, data) => api.put(`/messages/${id}`, data),
-  delete: (id) => api.delete(`/messages/${id}`),
-  markRead: (id) => api.post(`/messages/${id}/read`)
+    })
+  },
+  edit: (userId, id, data) => api.put(`/messages/${id}`, { userId, ...data }),
+  delete: (userId, id) => api.delete(`/messages/${id}`, { data: { userId } }),
+  markRead: (userId, id) => api.post(`/messages/${id}/read`, { userId })
 }
 
 export const friendAPI = {
-  getList: () => api.get('/friends'),
-  sendRequest: (data) => api.post('/friends/request', data),
-  getRequests: () => api.get('/friends/requests'),
-  respondRequest: (id, action) => api.post(`/friends/requests/${id}/respond`, { action }),
-  delete: (id) => api.delete(`/friends/${id}`)
+  getList: (userId) => api.get('/friends', { params: { userId } }),
+  sendRequest: (userId, data) => api.post('/friends/request', { userId, ...data }),
+  getRequests: (userId) => api.get('/friends/requests', { params: { userId } }),
+  respondRequest: (userId, id, action) => api.post(`/friends/requests/${id}/respond`, { userId, action }),
+  delete: (userId, id) => api.delete(`/friends/${id}`, { data: { userId } })
 }
 
 export default api

@@ -5,13 +5,13 @@ import { io } from 'socket.io-client'
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: JSON.parse(localStorage.getItem('user') || 'null'),
-    token: localStorage.getItem('token') || null,
     socket: null
   }),
 
   getters: {
-    isAuthenticated: (state) => !!state.token,
-    currentUser: (state) => state.user
+    isAuthenticated: (state) => !!state.user,
+    currentUser: (state) => state.user,
+    userId: (state) => state.user?.id || null
   },
 
   actions: {
@@ -40,16 +40,16 @@ export const useAuthStore = defineStore('auth', {
     // 设置认证信息
     setAuth(data) {
       this.user = data.user
-      this.token = data.token
       localStorage.setItem('user', JSON.stringify(data.user))
-      localStorage.setItem('token', data.token)
       this.connectSocket()
     },
 
     // 登出
     async logout() {
       try {
-        await authAPI.logout()
+        if (this.user) {
+          await authAPI.logout(this.user.id)
+        }
       } catch (error) {
         console.error('登出失败:', error)
       } finally {
@@ -60,18 +60,16 @@ export const useAuthStore = defineStore('auth', {
     // 清除认证信息
     clearAuth() {
       this.user = null
-      this.token = null
       localStorage.removeItem('user')
-      localStorage.removeItem('token')
       this.disconnectSocket()
     },
 
-    // 验证 Token
-    async verifyToken() {
-      if (!this.token) return false
+    // 验证用户
+    async verifyUser() {
+      if (!this.user?.id) return false
       
       try {
-        const response = await authAPI.verify()
+        const response = await authAPI.verify(this.user.id)
         this.user = response.data.user
         localStorage.setItem('user', JSON.stringify(this.user))
         return true
@@ -88,8 +86,8 @@ export const useAuthStore = defineStore('auth', {
         return
       }
 
-      if (!this.token) {
-        console.log('缺少 Token，无法连接 WebSocket')
+      if (!this.user) {
+        console.log('缺少用户信息，无法连接 WebSocket')
         return
       }
 
@@ -98,7 +96,8 @@ export const useAuthStore = defineStore('auth', {
       const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'https://chatroom-production-4040.up.railway.app'
       this.socket = io(SOCKET_URL, {
         auth: {
-          token: this.token
+          userId: this.user.id,
+          username: this.user.username
         },
         transports: ['websocket', 'polling']
       })

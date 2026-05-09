@@ -3,6 +3,8 @@ import vue from '@vitejs/plugin-vue'
 import path from 'path'
 
 export default defineConfig({
+  // GitHub Pages 部署需要配置 base
+  base: '/chatroom/',
   plugins: [vue()],
   resolve: {
     alias: {

@@ -153,23 +153,16 @@ io = socketIo(server, {
   maxHttpBufferSize: 1e6 // 1MB
 });
 
-// Socket.io 中间件 - 身份验证
+// Socket.io 中间件 - 简化身份验证
 io.use((socket, next) => {
-  const token = socket.handshake.auth.token;
-  const { query } = socket.handshake;
+  const { userId, username } = socket.handshake.auth;
   
-  if (!token) {
-    return next(new Error('认证失败：缺少 Token'));
+  if (!userId || !username) {
+    return next(new Error('认证失败：缺少用户信息'));
   }
   
-  const jwt = require('jsonwebtoken');
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      return next(new Error('认证失败：Token 无效或已过期'));
-    }
-    socket.user = decoded;
-    next();
-  });
+  socket.user = { id: parseInt(userId), username };
+  next();
 });
 
 // Socket.io 连接处理

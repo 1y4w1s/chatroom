@@ -1,11 +1,10 @@
 /**
  * 认证路由
- * 注册、登录、Token 刷新
+ * 注册、登录
  */
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const { query } = require('../config/database');
 
@@ -88,13 +87,6 @@ router.post('/register', registerValidation, async (req, res) => {
       [username, email, passwordHash, nickname || username]
     );
     
-    // 生成 Token
-    const token = jwt.sign(
-      { id: result.insertId, username, email },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
-    );
-    
     res.status(201).json({
       success: true,
       data: {
@@ -103,8 +95,7 @@ router.post('/register', registerValidation, async (req, res) => {
           username,
           email,
           nickname: nickname || username
-        },
-        token
+        }
       }
     });
     
@@ -188,13 +179,6 @@ router.post('/login', loginValidation, async (req, res) => {
       [user.id]
     );
     
-    // 生成 Token
-    const token = jwt.sign(
-      { id: user.id, username: user.username, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
-    );
-    
     res.json({
       success: true,
       data: {
@@ -204,8 +188,7 @@ router.post('/login', loginValidation, async (req, res) => {
           email: user.email,
           avatar: user.avatar,
           status: 'online'
-        },
-        token
+        }
       }
     });
     
@@ -226,23 +209,20 @@ router.post('/login', loginValidation, async (req, res) => {
  * 用户登出
  */
 router.post('/logout', async (req, res) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({
+  const { userId } = req.body;
+  
+  if (!userId) {
+    return res.status(400).json({
       success: false,
-      error: { message: '未授权' }
+      error: { message: '缺少用户 ID' }
     });
   }
   
-  const token = authHeader.split(' ')[1];
-  
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    
     // 更新用户状态为离线
     await query(
       'UPDATE users SET status = ? WHERE id = ?',
-      ['offline', decoded.id]
+      ['offline', userId]
     );
     
     res.json({
@@ -250,35 +230,31 @@ router.post('/logout', async (req, res) => {
       message: '登出成功'
     });
   } catch (error) {
-    res.status(401).json({
+    res.status(500).json({
       success: false,
-      error: { message: 'Token 无效' }
+      error: { message: '登出失败' }
     });
   }
 });
 
 /**
  * GET /api/auth/verify
- * 验证 Token
+ * 验证用户（简化版）
  */
 router.get('/verify', async (req, res) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({
+  const { userId } = req.query;
+  
+  if (!userId) {
+    return res.status(400).json({
       success: false,
-      error: { message: '未授权' }
+      error: { message: '缺少用户 ID' }
     });
   }
   
-  const token = authHeader.split(' ')[1];
-  
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    
-    // 检查用户是否存在
     const users = await query(
       'SELECT id, username, email, avatar, status FROM users WHERE id = ?',
-      [decoded.id]
+      [userId]
     );
     
     if (users.length === 0) {
@@ -295,9 +271,9 @@ router.get('/verify', async (req, res) => {
       }
     });
   } catch (error) {
-    res.status(401).json({
+    res.status(500).json({
       success: false,
-      error: { message: 'Token 无效或已过期' }
+      error: { message: '验证失败' }
     });
   }
 });
