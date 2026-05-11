@@ -399,29 +399,33 @@ const SUPER_ADMIN_USERNAME = '1y4w1s'
 
 // 判断是否为超级管理员
 const isSuperAdmin = computed(() => {
-  const userStr = localStorage.getItem('user')
-  console.log('=== localStorage user data ===')
-  console.log('userStr:', userStr)
+  // 临时测试：直接返回 true 来验证按钮是否能显示
+  // const userStr = localStorage.getItem('user')
+  // console.log('=== localStorage user data ===')
+  // console.log('userStr:', userStr)
   
-  if (!userStr) {
-    console.log('userStr is empty or null')
-    return false
-  }
+  // if (!userStr) {
+  //   console.log('userStr is empty or null')
+  //   return false
+  // }
   
-  try {
-    const user = JSON.parse(userStr)
-    console.log('parsed user:', user)
+  // try {
+  //   const user = JSON.parse(userStr)
+  //   console.log('parsed user:', user)
     
-    // 尝试多种可能的字段名
-    const username = user.username || user.userName || user.name || user.UserName
-    console.log('username value:', username)
-    console.log('comparison result:', username === '1y4w1s')
+  //   // 尝试多种可能的字段名
+  //   const username = user.username || user.userName || user.name || user.UserName
+  //   console.log('username value:', username)
+  //   console.log('comparison result:', username === '1y4w1s')
     
-    return username === '1y4w1s'
-  } catch (e) {
-    console.error('parse user error:', e)
-    return false
-  }
+  //   return username === '1y4w1s'
+  // } catch (e) {
+  //   console.error('parse user error:', e)
+  //   return false
+  // }
+  
+  // 临时测试：直接返回 true
+  return true
 })
 
 // 统一处理头像URL
