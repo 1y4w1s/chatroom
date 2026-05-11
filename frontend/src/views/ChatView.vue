@@ -209,9 +209,14 @@ const joinRoom = async (roomId) => {
     messages.value = response.data.messages
       .reverse() // 反转数组
       .map(msg => {
-        const avatar = msg.avatar && msg.avatar.trim() 
-          ? `${API_BASE_URL}${msg.avatar}` 
-          : '/default-avatar.png'
+        let avatar = '/default-avatar.png'
+        if (msg.avatar && msg.avatar.trim()) {
+          const avatarPath = msg.avatar.trim()
+          // 如果是相对路径，使用当前域名
+          avatar = avatarPath.startsWith('/') 
+            ? `${window.location.origin}${avatarPath}`
+            : avatarPath
+        }
         return { ...msg, avatar }
       })
     
@@ -318,8 +323,13 @@ const uploadAvatar = async () => {
     
     if (response.success) {
       // 更新用户信息 - 添加完整的 URL
-      const API_BASE_URL = import.meta.env.VITE_API_URL || ''
-      const updatedUser = { ...authStore.user, avatar: `${API_BASE_URL}${response.data.avatar}` }
+      const avatarPath = response.data.avatar
+      let avatarUrl = avatarPath
+      // 如果是相对路径，使用当前域名
+      if (avatarPath.startsWith('/')) {
+        avatarUrl = `${window.location.origin}${avatarPath}`
+      }
+      const updatedUser = { ...authStore.user, avatar: avatarUrl }
       authStore.user = updatedUser
       localStorage.setItem('user', JSON.stringify(updatedUser))
       
