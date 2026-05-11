@@ -411,9 +411,13 @@ const isSuperAdmin = computed(() => {
   try {
     const user = JSON.parse(userStr)
     console.log('parsed user:', user)
-    console.log('user.username:', user?.username)
-    console.log('isSuperAdmin result:', user.username === '1y4w1s')
-    return user.username === '1y4w1s'
+    
+    // 尝试多种可能的字段名
+    const username = user.username || user.userName || user.name || user.UserName
+    console.log('username value:', username)
+    console.log('comparison result:', username === '1y4w1s')
+    
+    return username === '1y4w1s'
   } catch (e) {
     console.error('parse user error:', e)
     return false
