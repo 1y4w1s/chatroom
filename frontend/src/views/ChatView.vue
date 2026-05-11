@@ -399,13 +399,14 @@ const SUPER_ADMIN_USERNAME = '1y4w1s'
 
 // 判断是否为超级管理员
 const isSuperAdmin = computed(() => {
-  const username = authStore.user?.username
-  const result = username === SUPER_ADMIN_USERNAME
-  console.log('=== 超级管理员检查 ===')
-  console.log('当前用户名:', username)
-  console.log('期望用户名:', SUPER_ADMIN_USERNAME)
-  console.log('是否超级管理员:', result)
-  return result
+  const userStr = localStorage.getItem('user')
+  if (!userStr) return false
+  try {
+    const user = JSON.parse(userStr)
+    return user.username === '1y4w1s'
+  } catch (e) {
+    return false
+  }
 })
 
 // 统一处理头像URL
