@@ -30,7 +30,7 @@
 
       <div class="sidebar-footer">
         <div class="user-info" @click="showAvatarUpload = true" title="点击更换头像">
-          <img :src="authStore.user?.avatar || '/default-avatar.png'" class="avatar" />
+          <img :src="getAvatarUrl(authStore.user?.avatar)" class="avatar" />
           <div class="user-details">
             <div class="username">{{ authStore.user?.nickname || authStore.user?.username }}</div>
             <div class="user-status">在线</div>
@@ -163,6 +163,21 @@ import { roomAPI, userAPI } from '@/api'
 
 const router = useRouter()
 const authStore = useAuthStore()
+
+// 统一处理头像URL
+const getAvatarUrl = (avatarPath) => {
+  if (!avatarPath || !avatarPath.trim()) {
+    return '/default-avatar.png'
+  }
+  const path = avatarPath.trim()
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    return path
+  }
+  if (path.startsWith('/')) {
+    return `${window.location.origin}${path}`
+  }
+  return `${window.location.origin}/${path}`
+}
 
 const rooms = ref([])
 const currentRoomId = ref(null)
