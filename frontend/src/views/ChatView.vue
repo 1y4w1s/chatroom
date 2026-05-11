@@ -400,11 +400,22 @@ const SUPER_ADMIN_USERNAME = '1y4w1s'
 // 判断是否为超级管理员
 const isSuperAdmin = computed(() => {
   const userStr = localStorage.getItem('user')
-  if (!userStr) return false
+  console.log('=== localStorage user data ===')
+  console.log('userStr:', userStr)
+  
+  if (!userStr) {
+    console.log('userStr is empty or null')
+    return false
+  }
+  
   try {
     const user = JSON.parse(userStr)
+    console.log('parsed user:', user)
+    console.log('user.username:', user?.username)
+    console.log('isSuperAdmin result:', user.username === '1y4w1s')
     return user.username === '1y4w1s'
   } catch (e) {
+    console.error('parse user error:', e)
     return false
   }
 })
