@@ -223,9 +223,10 @@ const joinRoom = async (roomId) => {
     // 加入 WebSocket 房间
     authStore.joinRoom(roomId)
     
-    // 滚动到底部（强制）
-    await nextTick()
-    scrollToBottom(true)
+    // 滚动到底部（强制）- 使用setTimeout确保DOM完全渲染
+    setTimeout(() => {
+      scrollToBottom(true)
+    }, 200)
   } catch (error) {
     console.error('加入聊天室失败:', error)
   }
