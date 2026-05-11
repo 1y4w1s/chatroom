@@ -174,7 +174,8 @@ io.on('connection', (socket) => {
   socket.on('send_message', async (data) => {
     const { roomId, content, type, userId, username } = data;
     
-    console.log(`收到消息发送请求：用户 ${username || userId} -> 房间 ${roomId}`);
+    console.log(`收到消息发送请求：用户 ${username || userId} -> 房间 ${roomId}, 内容: ${content}`);
+    console.log('完整数据:', data);
     
     if (!roomId || !content) {
       socket.emit('error', { message: '消息内容不能为空' });
@@ -190,10 +191,12 @@ io.on('connection', (socket) => {
         type: type || 'text'
       });
       
+      console.log('消息创建成功:', message);
       io.to(roomId).emit('new_message', message);
     } catch (error) {
-      console.error('发送消息失败:', error);
-      socket.emit('error', { message: '发送失败' });
+      console.error('发送消息失败:', error.message);
+      console.error('堆栈:', error.stack);
+      socket.emit('error', { message: `发送失败: ${error.message}` });
     }
   });
   

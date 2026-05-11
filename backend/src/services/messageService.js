@@ -53,6 +53,11 @@ class MessageService {
       [result.insertId]
     );
     
+    // 向后兼容：添加 sender_id 字段（等于 user_id）
+    if (message[0]) {
+      message[0].sender_id = message[0].user_id;
+    }
+    
     return message[0];
   }
   
@@ -70,8 +75,14 @@ class MessageService {
       [roomId]
     );
     
+    // 向后兼容：添加 sender_id 字段（等于 user_id）
+    const messagesWithSenderId = messages.map(msg => ({
+      ...msg,
+      sender_id: msg.user_id
+    }));
+    
     // 在代码层实现分页
-    const paginatedMessages = messages.slice(offset, offset + limit);
+    const paginatedMessages = messagesWithSenderId.slice(offset, offset + limit);
     
     // 反转顺序，让旧消息在前
     return paginatedMessages.reverse();
@@ -83,7 +94,7 @@ class MessageService {
   static async editMessage(messageId, userId, newContent) {
     // 验证消息所有权
     const messages = await query(
-      'SELECT sender_id FROM messages WHERE id = ?',
+      'SELECT user_id FROM messages WHERE id = ?',
       [messageId]
     );
     
@@ -91,7 +102,7 @@ class MessageService {
       throw new Error('消息不存在');
     }
     
-    if (messages[0].sender_id !== userId) {
+    if (messages[0].user_id !== userId) {
       throw new Error('无权编辑此消息');
     }
     
@@ -113,7 +124,7 @@ class MessageService {
    */
   static async deleteMessage(messageId, userId) {
     await query(
-      'UPDATE messages SET is_deleted = TRUE WHERE id = ? AND sender_id = ?',
+      'UPDATE messages SET is_deleted = TRUE WHERE id = ? AND user_id = ?',
       [messageId, userId]
     );
     

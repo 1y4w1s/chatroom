@@ -150,12 +150,85 @@ async function initDatabase() {
         user_id INT NOT NULL,
         content TEXT NOT NULL,
         type ENUM('text', 'image', 'file') DEFAULT 'text',
+        file_url VARCHAR(255) DEFAULT NULL,
+        file_name VARCHAR(255) DEFAULT NULL,
+        file_size BIGINT DEFAULT NULL,
+        is_deleted BOOLEAN DEFAULT FALSE,
+        is_edited BOOLEAN DEFAULT FALSE,
+        edited_at TIMESTAMP NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     `);
     console.log('✅ messages 表已创建');
+    
+    // 添加缺失的字段到已有的messages表
+    try {
+      // 检查并添加 file_url 字段
+      const hasFileUrl = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'messages' AND COLUMN_NAME = 'file_url'
+      `);
+      if (hasFileUrl[0].count === 0) {
+        await connection.query(`ALTER TABLE messages ADD COLUMN file_url VARCHAR(255) DEFAULT NULL`);
+        console.log('✅ 添加 file_url 字段');
+      }
+      
+      // 检查并添加 file_name 字段
+      const hasFileName = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'messages' AND COLUMN_NAME = 'file_name'
+      `);
+      if (hasFileName[0].count === 0) {
+        await connection.query(`ALTER TABLE messages ADD COLUMN file_name VARCHAR(255) DEFAULT NULL`);
+        console.log('✅ 添加 file_name 字段');
+      }
+      
+      // 检查并添加 file_size 字段
+      const hasFileSize = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'messages' AND COLUMN_NAME = 'file_size'
+      `);
+      if (hasFileSize[0].count === 0) {
+        await connection.query(`ALTER TABLE messages ADD COLUMN file_size BIGINT DEFAULT NULL`);
+        console.log('✅ 添加 file_size 字段');
+      }
+      
+      // 检查并添加 is_deleted 字段
+      const hasIsDeleted = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'messages' AND COLUMN_NAME = 'is_deleted'
+      `);
+      if (hasIsDeleted[0].count === 0) {
+        await connection.query(`ALTER TABLE messages ADD COLUMN is_deleted BOOLEAN DEFAULT FALSE`);
+        console.log('✅ 添加 is_deleted 字段');
+      }
+      
+      // 检查并添加 is_edited 字段
+      const hasIsEdited = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'messages' AND COLUMN_NAME = 'is_edited'
+      `);
+      if (hasIsEdited[0].count === 0) {
+        await connection.query(`ALTER TABLE messages ADD COLUMN is_edited BOOLEAN DEFAULT FALSE`);
+        console.log('✅ 添加 is_edited 字段');
+      }
+      
+      // 检查并添加 edited_at 字段
+      const hasEditedAt = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'messages' AND COLUMN_NAME = 'edited_at'
+      `);
+      if (hasEditedAt[0].count === 0) {
+        await connection.query(`ALTER TABLE messages ADD COLUMN edited_at TIMESTAMP NULL`);
+        console.log('✅ 添加 edited_at 字段');
+      }
+      
+      console.log('✅ messages 表字段已更新');
+    } catch (err) {
+      console.log('⚠️ messages 表字段更新跳过:', err.message);
+    }
     
     // 创建聊天室成员表
     await connection.query(`
