@@ -122,6 +122,10 @@
             <p>{{ currentRoom?.description }}</p>
           </div>
           <div class="header-right">
+            <!-- 调试信息 -->
+            <span style="font-size: 12px; color: #999; margin-right: 10px;">
+              isSuperAdmin: {{ isSuperAdmin }}
+            </span>
             <button 
               v-if="currentPermissions.isAdmin" 
               class="btn btn-secondary btn-sm" 
