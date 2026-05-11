@@ -126,7 +126,13 @@ router.put('/me', [
  */
 router.post('/avatar', upload.single('avatar'), async (req, res) => {
   try {
+    console.log('=== 头像上传请求 ===');
+    console.log('请求体:', req.body);
+    console.log('文件:', req.file);
+    console.log('文件字段:', req.files);
+    
     if (!req.file) {
+      console.error('上传失败：没有文件');
       return res.status(400).json({
         success: false,
         error: { message: '请上传文件' }
@@ -135,6 +141,7 @@ router.post('/avatar', upload.single('avatar'), async (req, res) => {
     
     const { userId } = req.body;
     if (!userId) {
+      console.error('上传失败：缺少用户ID');
       return res.status(400).json({
         success: false,
         error: { message: '缺少用户 ID' }
@@ -142,11 +149,13 @@ router.post('/avatar', upload.single('avatar'), async (req, res) => {
     }
     
     const avatarUrl = `/uploads/avatars/${req.file.filename}`;
+    console.log('头像URL:', avatarUrl);
     
     await query(
       'UPDATE users SET avatar = ? WHERE id = ?',
       [avatarUrl, userId]
     );
+    console.log('用户头像已更新，用户ID:', userId);
     
     const { getIo } = require('../server');
     const io = getIo();
