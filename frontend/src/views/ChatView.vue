@@ -204,10 +204,9 @@ const joinRoom = async (roomId) => {
     
     // 加载消息历史
     const response = await roomAPI.getMessages(roomId)
-    // 转换头像 URL 为完整路径，并反转数组（最早的在前，最新的在后）
+    // 转换头像 URL 为完整路径（后端已按时间降序返回，最新消息在前）
     const API_BASE_URL = import.meta.env.VITE_API_URL || ''
     messages.value = response.data.messages
-      .reverse() // 反转数组
       .map(msg => {
         let avatar = '/default-avatar.png'
         if (msg.avatar && msg.avatar.trim()) {
