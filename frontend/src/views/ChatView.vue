@@ -27,34 +27,38 @@
             <div class="room-name">{{ room.name }}</div>
             <div class="room-members">{{ room.member_count }} 人</div>
           </div>
-          
-          <!-- 成员预览悬浮层 -->
-          <div v-if="previewRoomId === room.id && previewMembers.length > 0" class="member-preview">
-            <div class="preview-header">
-              <span>{{ room.name }} - 成员列表</span>
-              <span class="member-count">{{ previewMembers.length }}人</span>
-            </div>
-            <div class="preview-list">
-              <div
-                v-for="member in previewMembers.slice(0, 6)"
-                :key="member.id"
-                class="preview-member"
-              >
-                <img :src="getAvatarUrl(member.avatar)" class="preview-avatar" />
-                <div class="preview-info">
-                  <div class="preview-name">{{ member.nickname || member.username }}</div>
-                  <div class="preview-status" :class="member.status">
-                    <span class="status-dot" :class="member.status"></span>
-                    {{ member.status === 'online' ? '在线' : '离线' }}
-                    <span v-if="member.role === 'owner' || member.role === 'admin'" class="preview-role">
-                      {{ member.role === 'owner' ? '群主' : '管理员' }}
-                    </span>
-                  </div>
+        </div>
+        
+        <!-- 成员预览悬浮层 - 独立于房间列表项 -->
+        <div 
+          v-if="previewRoomId && previewMembers.length > 0" 
+          class="member-preview"
+          :style="previewPosition"
+        >
+          <div class="preview-header">
+            <span>{{ rooms.find(r => r.id === previewRoomId)?.name || '成员列表' }} - 成员列表</span>
+            <span class="member-count">{{ previewMembers.length }}人</span>
+          </div>
+          <div class="preview-list">
+            <div
+              v-for="member in previewMembers.slice(0, 6)"
+              :key="member.id"
+              class="preview-member"
+            >
+              <img :src="getAvatarUrl(member.avatar)" class="preview-avatar" />
+              <div class="preview-info">
+                <div class="preview-name">{{ member.nickname || member.username }}</div>
+                <div class="preview-status" :class="member.status">
+                  <span class="status-dot" :class="member.status"></span>
+                  {{ member.status === 'online' ? '在线' : '离线' }}
+                  <span v-if="member.role === 'owner' || member.role === 'admin'" class="preview-role">
+                    {{ member.role === 'owner' ? '群主' : '管理员' }}
+                  </span>
                 </div>
               </div>
-              <div v-if="previewMembers.length > 6" class="preview-more">
-                还有 {{ previewMembers.length - 6 }} 位成员...
-              </div>
+            </div>
+            <div v-if="previewMembers.length > 6" class="preview-more">
+              还有 {{ previewMembers.length - 6 }} 位成员...
             </div>
           </div>
         </div>
@@ -125,12 +129,21 @@
             >
               管理成员
             </button>
+            <!-- 超级管理员始终可以看到强制删除按钮 -->
             <button 
-              v-if="currentPermissions.isOwner || isSuperAdmin" 
+              v-if="isSuperAdmin" 
               class="btn btn-danger btn-sm" 
               @click="showDissolveConfirm = true"
             >
-              {{ isSuperAdmin ? '强制删除' : '解散' }}
+              强制删除
+            </button>
+            <!-- 群主可以解散聊天室 -->
+            <button 
+              v-else-if="currentPermissions.isOwner" 
+              class="btn btn-danger btn-sm" 
+              @click="showDissolveConfirm = true"
+            >
+              解散
             </button>
           </div>
         </header>
@@ -436,6 +449,7 @@ const uploadError = ref('')
 // 成员预览相关
 const previewRoomId = ref(null)
 const previewMembers = ref([])
+const previewPosition = ref({})
 
 // 成员管理相关
 const showMemberManagement = ref(false)
@@ -540,11 +554,21 @@ const loadPermissions = async (roomId) => {
 }
 
 // 成员预览
-const showMemberPreview = async (roomId) => {
+const showMemberPreview = async (roomId, event) => {
   previewRoomId.value = roomId
+  
+  // 设置预览位置（悬浮在房间列表右侧）
+  previewPosition.value = {
+    position: 'fixed',
+    left: '320px',
+    top: '80px',
+    zIndex: '1000'
+  }
+  
   try {
     const response = await roomAPI.getMembers(roomId)
     previewMembers.value = response.data.members
+    console.log('成员预览数据:', previewMembers.value)
   } catch (error) {
     console.error('加载预览成员失败:', error)
     previewMembers.value = []
@@ -1005,16 +1029,11 @@ onUnmounted(() => {
 
 /* 成员预览悬浮层 */
 .member-preview {
-  position: absolute;
-  left: 100%;
-  top: 0;
-  margin-left: 10px;
   background: white;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   width: 280px;
-  z-index: 100;
   overflow: hidden;
 }
 
