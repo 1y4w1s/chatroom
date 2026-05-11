@@ -16,6 +16,8 @@
           class="room-item"
           :class="{ active: currentRoomId === room.id }"
           @click="joinRoom(room.id)"
+          @mouseenter="showMemberPreview(room.id)"
+          @mouseleave="hideMemberPreview"
         >
           <div class="room-icon">
             <span v-if="room.type === 'public'">🌐</span>
@@ -24,6 +26,36 @@
           <div class="room-info">
             <div class="room-name">{{ room.name }}</div>
             <div class="room-members">{{ room.member_count }} 人</div>
+          </div>
+          
+          <!-- 成员预览悬浮层 -->
+          <div v-if="previewRoomId === room.id && previewMembers.length > 0" class="member-preview">
+            <div class="preview-header">
+              <span>{{ room.name }} - 成员列表</span>
+              <span class="member-count">{{ previewMembers.length }}人</span>
+            </div>
+            <div class="preview-list">
+              <div
+                v-for="member in previewMembers.slice(0, 6)"
+                :key="member.id"
+                class="preview-member"
+              >
+                <img :src="getAvatarUrl(member.avatar)" class="preview-avatar" />
+                <div class="preview-info">
+                  <div class="preview-name">{{ member.nickname || member.username }}</div>
+                  <div class="preview-status" :class="member.status">
+                    <span class="status-dot" :class="member.status"></span>
+                    {{ member.status === 'online' ? '在线' : '离线' }}
+                    <span v-if="member.role === 'owner' || member.role === 'admin'" class="preview-role">
+                      {{ member.role === 'owner' ? '群主' : '管理员' }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div v-if="previewMembers.length > 6" class="preview-more">
+                还有 {{ previewMembers.length - 6 }} 位成员...
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -81,8 +113,26 @@
       <div v-if="currentRoomId" class="chat-wrapper">
         <!-- 聊天室头部 -->
         <header class="chat-header">
-          <h3>{{ currentRoom?.name }}</h3>
-          <p>{{ currentRoom?.description }}</p>
+          <div class="header-left">
+            <h3>{{ currentRoom?.name }}</h3>
+            <p>{{ currentRoom?.description }}</p>
+          </div>
+          <div class="header-right">
+            <button 
+              v-if="currentPermissions.isAdmin" 
+              class="btn btn-secondary btn-sm" 
+              @click="showMemberManagement = true"
+            >
+              管理成员
+            </button>
+            <button 
+              v-if="currentPermissions.isOwner || isSuperAdmin" 
+              class="btn btn-danger btn-sm" 
+              @click="showDissolveConfirm = true"
+            >
+              {{ isSuperAdmin ? '强制删除' : '解散' }}
+            </button>
+          </div>
         </header>
 
         <!-- 消息列表 -->
@@ -106,6 +156,9 @@
 
         <!-- 输入区域 -->
         <footer class="message-input">
+          <div v-if="currentPermissions.isMuted" class="muted-notice">
+            ⚠️ 您已被禁言，无法发送消息
+          </div>
           <input
             v-model="newMessage"
             type="text"
@@ -113,8 +166,13 @@
             placeholder="输入消息..."
             @keyup.enter="sendMessage"
             @input="handleTyping"
+            :disabled="currentPermissions.isMuted"
           />
-          <button class="btn btn-primary" @click="sendMessage" :disabled="!newMessage.trim()">
+          <button 
+            class="btn btn-primary" 
+            @click="sendMessage" 
+            :disabled="!newMessage.trim() || currentPermissions.isMuted"
+          >
             发送
           </button>
         </footer>
@@ -152,17 +210,184 @@
         </form>
       </div>
     </div>
+
+    <!-- 成员管理弹窗 -->
+    <div v-if="showMemberManagement" class="modal-overlay" @click="showMemberManagement = false">
+      <div class="modal member-management-modal" @click.stop>
+        <div class="modal-header">
+          <h3>成员管理 - {{ currentRoom?.name }}</h3>
+          <button class="close-btn" @click="showMemberManagement = false">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="member-list">
+            <div
+              v-for="member in currentMembers"
+              :key="member.id"
+              class="member-item"
+            >
+              <img :src="getAvatarUrl(member.avatar)" class="member-avatar" />
+              <div class="member-info">
+                <div class="member-name">
+                  {{ member.nickname || member.username }}
+                  <span v-if="member.role === 'owner'" class="role-badge owner">群主</span>
+                  <span v-else-if="member.role === 'admin'" class="role-badge admin">管理员</span>
+                  <span v-else class="role-badge member">成员</span>
+                </div>
+                <div class="member-status">
+                  <span class="status-dot" :class="member.status"></span>
+                  {{ member.status === 'online' ? '在线' : '离线' }}
+                  <span v-if="member.is_muted" class="muted-badge">已禁言</span>
+                </div>
+              </div>
+              <div class="member-actions">
+                <!-- 权限管理 -->
+                <button 
+                  v-if="currentPermissions.isOwner && member.role === 'member'"
+                  class="action-btn btn-admin"
+                  @click="grantAdmin(member.id)"
+                >
+                  设为管理员
+                </button>
+                <button 
+                  v-if="currentPermissions.isOwner && member.role === 'admin'"
+                  class="action-btn btn-remove-admin"
+                  @click="revokeAdmin(member.id)"
+                >
+                  撤销管理员
+                </button>
+                
+                <!-- 禁言管理 -->
+                <button 
+                  v-if="currentPermissions.isAdmin && member.role === 'member' && !member.is_muted"
+                  class="action-btn btn-mute"
+                  @click="openMuteModal(member)"
+                >
+                  禁言
+                </button>
+                <button 
+                  v-if="currentPermissions.isAdmin && member.is_muted"
+                  class="action-btn btn-unmute"
+                  @click="unmuteMember(member.id)"
+                >
+                  解除禁言
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" @click="showMemberManagement = false">关闭</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 禁言设置弹窗 -->
+    <div v-if="showMuteModal" class="modal-overlay" @click="showMuteModal = false">
+      <div class="modal" @click.stop>
+        <div class="modal-header">
+          <h3>设置禁言</h3>
+          <button class="close-btn" @click="showMuteModal = false">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>选择禁言时长</label>
+            <div class="duration-options">
+              <button 
+                v-for="option in muteDurationOptions" 
+                :key="option.value"
+                class="duration-btn"
+                :class="{ active: muteDuration === option.value }"
+                @click="muteDuration = option.value"
+              >
+                {{ option.label }}
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>禁言原因</label>
+            <textarea 
+              v-model="muteReason" 
+              class="input" 
+              rows="3" 
+              placeholder="请输入禁言原因（可选）"
+            ></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" @click="showMuteModal = false">取消</button>
+          <button class="btn btn-danger" @click="confirmMute">确认禁言</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 解散/删除确认弹窗 -->
+    <div v-if="showDissolveConfirm" class="modal-overlay" @click="showDissolveConfirm = false">
+      <div class="modal danger-modal" @click.stop>
+        <div class="modal-header">
+          <h3 class="danger-title">⚠️ {{ isSuperAdmin ? '强制删除聊天室' : '解散聊天室' }}</h3>
+          <button class="close-btn" @click="showDissolveConfirm = false">×</button>
+        </div>
+        <div class="modal-body">
+          <p class="warning-text">
+            {{ isSuperAdmin 
+              ? '此操作将永久删除该聊天室及其所有消息记录，且无法恢复！' 
+              : '此操作将解散该聊天室，所有成员将被移出，消息记录将被保留但无法继续发送消息。' 
+            }}
+          </p>
+          <div class="form-group">
+            <label>操作原因（必填，10-500字符）</label>
+            <textarea 
+              v-model="dissolveReason" 
+              class="input" 
+              rows="3" 
+              placeholder="请输入操作原因..."
+            ></textarea>
+          </div>
+          <div class="confirm-check">
+            <input 
+              type="checkbox" 
+              id="confirm-check" 
+              v-model="dissolveConfirmed"
+            />
+            <label for="confirm-check">我已阅读并确认此操作</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" @click="showDissolveConfirm = false">取消</button>
+          <button 
+            class="btn btn-danger" 
+            @click="confirmDissolve"
+            :disabled="!dissolveConfirmed || dissolveReason.length < 10 || dissolveReason.length > 500"
+          >
+            {{ isSuperAdmin ? '强制删除' : '确认解散' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 操作结果提示 -->
+    <div v-if="showToast" class="toast" :class="toastType">
+      {{ toastMessage }}
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick, watch } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { roomAPI, userAPI } from '@/api'
 
 const router = useRouter()
 const authStore = useAuthStore()
+
+// 超级管理员用户名
+const SUPER_ADMIN_USERNAME = '1y4w1s'
+
+// 判断是否为超级管理员
+const isSuperAdmin = computed(() => {
+  return authStore.user?.username === SUPER_ADMIN_USERNAME
+})
 
 // 统一处理头像URL
 const getAvatarUrl = (avatarPath) => {
@@ -182,6 +407,14 @@ const getAvatarUrl = (avatarPath) => {
 const rooms = ref([])
 const currentRoomId = ref(null)
 const currentRoom = ref(null)
+const currentMembers = ref([])
+const currentPermissions = ref({
+  hasPermission: false,
+  isAdmin: false,
+  isOwner: false,
+  isMuted: false,
+  canSendMessage: true
+})
 const messages = ref([])
 const newMessage = ref('')
 const showCreateModal = ref(false)
@@ -199,6 +432,43 @@ const selectedFile = ref(null)
 const avatarPreview = ref(null)
 const uploading = ref(false)
 const uploadError = ref('')
+
+// 成员预览相关
+const previewRoomId = ref(null)
+const previewMembers = ref([])
+
+// 成员管理相关
+const showMemberManagement = ref(false)
+const showMuteModal = ref(false)
+const selectedMember = ref(null)
+const muteDuration = ref(30)
+const muteReason = ref('')
+const muteDurationOptions = [
+  { label: '5分钟', value: 5 },
+  { label: '30分钟', value: 30 },
+  { label: '1小时', value: 60 },
+  { label: '24小时', value: 1440 },
+  { label: '永久', value: 0 }
+]
+
+// 解散确认相关
+const showDissolveConfirm = ref(false)
+const dissolveReason = ref('')
+const dissolveConfirmed = ref(false)
+
+// 操作提示
+const showToast = ref(false)
+const toastMessage = ref('')
+const toastType = ref('success')
+
+const showToastMessage = (message, type = 'success') => {
+  toastMessage.value = message
+  toastType.value = type
+  showToast.value = true
+  setTimeout(() => {
+    showToast.value = false
+  }, 3000)
+}
 
 // 加载聊天室列表
 const loadRooms = async () => {
@@ -219,14 +489,12 @@ const joinRoom = async (roomId) => {
     
     // 加载消息历史
     const response = await roomAPI.getMessages(roomId)
-    // 转换头像 URL 为完整路径（后端已按时间降序返回，最新消息在前）
     const API_BASE_URL = import.meta.env.VITE_API_URL || ''
     messages.value = response.data.messages
       .map(msg => {
         let avatar = '/default-avatar.png'
         if (msg.avatar && msg.avatar.trim()) {
           const avatarPath = msg.avatar.trim()
-          // 如果是相对路径，使用当前域名
           avatar = avatarPath.startsWith('/') 
             ? `${window.location.origin}${avatarPath}`
             : avatarPath
@@ -234,10 +502,15 @@ const joinRoom = async (roomId) => {
         return { ...msg, avatar }
       })
     
+    // 加载成员列表
+    await loadMembers(roomId)
+    
+    // 获取用户权限
+    await loadPermissions(roomId)
+    
     // 加入 WebSocket 房间
     authStore.joinRoom(roomId)
     
-    // 滚动到底部（强制）- 使用setTimeout确保DOM完全渲染
     setTimeout(() => {
       scrollToBottom(true)
     }, 200)
@@ -246,16 +519,46 @@ const joinRoom = async (roomId) => {
   }
 }
 
+// 加载成员列表
+const loadMembers = async (roomId) => {
+  try {
+    const response = await roomAPI.getMembers(roomId)
+    currentMembers.value = response.data.members
+  } catch (error) {
+    console.error('加载成员列表失败:', error)
+  }
+}
+
+// 加载用户权限
+const loadPermissions = async (roomId) => {
+  try {
+    const response = await roomAPI.getPermissions(roomId, authStore.userId)
+    currentPermissions.value = response.data
+  } catch (error) {
+    console.error('加载权限失败:', error)
+  }
+}
+
+// 成员预览
+const showMemberPreview = async (roomId) => {
+  previewRoomId.value = roomId
+  try {
+    const response = await roomAPI.getMembers(roomId)
+    previewMembers.value = response.data.members
+  } catch (error) {
+    console.error('加载预览成员失败:', error)
+    previewMembers.value = []
+  }
+}
+
+const hideMemberPreview = () => {
+  previewRoomId.value = null
+  previewMembers.value = []
+}
+
 // 发送消息
 const sendMessage = () => {
-  console.log('尝试发送消息:', {
-    roomId: currentRoomId.value,
-    content: newMessage.value,
-    socket: authStore.socket ? '已连接' : '未连接'
-  })
-  
-  if (!newMessage.value.trim() || !currentRoomId.value) {
-    console.error('消息发送失败：消息为空或聊天室未选择')
+  if (!newMessage.value.trim() || !currentRoomId.value || currentPermissions.value.isMuted) {
     return
   }
   
@@ -284,8 +587,10 @@ const createRoom = async () => {
     showCreateModal.value = false
     joinRoom(response.data.room.id)
     newRoom.value = { name: '', description: '', type: 'public' }
+    showToastMessage('聊天室创建成功！')
   } catch (error) {
     console.error('创建聊天室失败:', error)
+    showToastMessage('创建聊天室失败', 'error')
   }
 }
 
@@ -300,14 +605,12 @@ const handleFileChange = (event) => {
   const file = event.target.files[0]
   if (!file) return
   
-  // 验证文件类型
   const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
   if (!validTypes.includes(file.type)) {
     uploadError.value = '只支持 JPG、PNG、GIF、WebP 格式'
     return
   }
   
-  // 验证文件大小（5MB）
   if (file.size > 5 * 1024 * 1024) {
     uploadError.value = '文件大小不能超过 5MB'
     return
@@ -316,7 +619,6 @@ const handleFileChange = (event) => {
   uploadError.value = ''
   selectedFile.value = file
   
-  // 预览
   const reader = new FileReader()
   reader.onload = (e) => {
     avatarPreview.value = e.target.result
@@ -337,10 +639,8 @@ const uploadAvatar = async () => {
     const response = await userAPI.uploadAvatar(authStore.userId, formData)
     
     if (response.success) {
-      // 更新用户信息 - 添加完整的 URL
       const avatarPath = response.data.avatar
       let avatarUrl = avatarPath
-      // 如果是相对路径，使用当前域名
       if (avatarPath.startsWith('/')) {
         avatarUrl = `${window.location.origin}${avatarPath}`
       }
@@ -352,7 +652,7 @@ const uploadAvatar = async () => {
       selectedFile.value = null
       avatarPreview.value = null
       
-      alert('头像上传成功！')
+      showToastMessage('头像上传成功！')
     } else {
       uploadError.value = response.error?.message || '上传失败'
     }
@@ -364,18 +664,137 @@ const uploadAvatar = async () => {
   }
 }
 
+// 权限管理方法
+const grantAdmin = async (userId) => {
+  try {
+    const response = await roomAPI.changeRole(
+      currentRoomId.value,
+      userId,
+      'admin',
+      authStore.userId,
+      '授予管理员权限'
+    )
+    if (response.success) {
+      await loadMembers(currentRoomId.value)
+      showToastMessage(response.message)
+    }
+  } catch (error) {
+    console.error('授予管理员权限失败:', error)
+    showToastMessage('操作失败', 'error')
+  }
+}
+
+const revokeAdmin = async (userId) => {
+  try {
+    const response = await roomAPI.changeRole(
+      currentRoomId.value,
+      userId,
+      'member',
+      authStore.userId,
+      '撤销管理员权限'
+    )
+    if (response.success) {
+      await loadMembers(currentRoomId.value)
+      showToastMessage(response.message)
+    }
+  } catch (error) {
+    console.error('撤销管理员权限失败:', error)
+    showToastMessage('操作失败', 'error')
+  }
+}
+
+const openMuteModal = (member) => {
+  selectedMember.value = member
+  muteDuration.value = 30
+  muteReason.value = ''
+  showMuteModal.value = true
+}
+
+const confirmMute = async () => {
+  if (!selectedMember.value) return
+  
+  try {
+    const response = await roomAPI.muteMember(
+      currentRoomId.value,
+      selectedMember.value.id,
+      true,
+      muteDuration.value === 0 ? null : muteDuration.value,
+      authStore.userId,
+      muteReason.value || '违反聊天室规定'
+    )
+    if (response.success) {
+      showMuteModal.value = false
+      await loadMembers(currentRoomId.value)
+      showToastMessage(response.message)
+    }
+  } catch (error) {
+    console.error('禁言失败:', error)
+    showToastMessage('操作失败', 'error')
+  }
+}
+
+const unmuteMember = async (userId) => {
+  try {
+    const response = await roomAPI.muteMember(
+      currentRoomId.value,
+      userId,
+      false,
+      null,
+      authStore.userId,
+      '解除禁言'
+    )
+    if (response.success) {
+      await loadMembers(currentRoomId.value)
+      showToastMessage(response.message)
+    }
+  } catch (error) {
+    console.error('解除禁言失败:', error)
+    showToastMessage('操作失败', 'error')
+  }
+}
+
+const confirmDissolve = async () => {
+  try {
+    let response
+    if (isSuperAdmin.value) {
+      response = await roomAPI.forceDeleteRoom(
+        currentRoomId.value,
+        authStore.userId,
+        dissolveReason.value
+      )
+    } else {
+      response = await roomAPI.dissolveRoom(
+        currentRoomId.value,
+        authStore.userId,
+        dissolveReason.value
+      )
+    }
+    
+    if (response.success) {
+      showDissolveConfirm.value = false
+      currentRoomId.value = null
+      currentRoom.value = null
+      currentMembers.value = []
+      messages.value = []
+      await loadRooms()
+      showToastMessage(response.message)
+    }
+  } catch (error) {
+    console.error('操作失败:', error)
+    showToastMessage('操作失败', 'error')
+  }
+}
+
 // 检查用户是否在底部
 const isAtBottom = () => {
   if (!messageListRef.value) return true
   const { scrollTop, scrollHeight, clientHeight } = messageListRef.value
-  // 距离底部小于 100px 就认为是在底部
   return scrollHeight - scrollTop - clientHeight < 100
 }
 
 // 滚动到底部
 const scrollToBottom = (force = false) => {
   if (!messageListRef.value) return
-  // 只有当用户在底部或强制滚动时才滚动
   if (force || isAtBottom()) {
     messageListRef.value.scrollTop = messageListRef.value.scrollHeight
   }
@@ -384,8 +803,6 @@ const scrollToBottom = (force = false) => {
 // 格式化时间
 const formatTime = (timestamp) => {
   const date = new Date(timestamp)
-  
-  // 显示具体日期和时间：2026/5/8 21:11
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
@@ -405,21 +822,16 @@ const setupSocketListeners = () => {
   
   socket.on('new_message', (message) => {
     if (message.room_id === currentRoomId.value) {
-      // 转换头像 URL 为完整路径
       const avatar = message.avatar && message.avatar.trim()
         ? `${API_BASE_URL}${message.avatar}`
         : '/default-avatar.png'
       const messageWithAvatar = { ...message, avatar }
-      // 直接添加到末尾（已经是最新的）
       messages.value.push(messageWithAvatar)
-      // 只有当用户在底部时才自动滚动
       nextTick(() => scrollToBottom())
     }
   })
   
-  // 监听头像更新事件
   socket.on('user_avatar_updated', (data) => {
-    // 更新消息列表中的头像
     const API_BASE_URL = import.meta.env.VITE_API_URL || ''
     messages.value = messages.value.map(msg => {
       if (msg.user_id === data.userId) {
@@ -431,10 +843,76 @@ const setupSocketListeners = () => {
   
   socket.on('user_joined', (data) => {
     console.log('用户加入:', data.username)
+    if (data.roomId === currentRoomId.value) {
+      loadMembers(currentRoomId.value)
+    }
   })
   
   socket.on('user_left', (data) => {
     console.log('用户离开:', data.username)
+    if (data.roomId === currentRoomId.value) {
+      loadMembers(currentRoomId.value)
+    }
+  })
+  
+  // 权限变更通知
+  socket.on('role_changed', (data) => {
+    console.log('角色变更:', data)
+    if (data.roomId === currentRoomId.value) {
+      loadMembers(currentRoomId.value)
+      loadPermissions(currentRoomId.value)
+      showToastMessage(
+        data.role === 'admin' 
+          ? '成员已被授予管理员权限' 
+          : '成员管理员权限已被撤销'
+      )
+    }
+  })
+  
+  // 禁言通知
+  socket.on('member_muted', (data) => {
+    console.log('成员被禁言:', data)
+    if (data.roomId === currentRoomId.value) {
+      loadMembers(currentRoomId.value)
+      loadPermissions(currentRoomId.value)
+      showToastMessage(`成员已被禁言`)
+    }
+  })
+  
+  // 解除禁言通知
+  socket.on('member_unmuted', (data) => {
+    console.log('成员解除禁言:', data)
+    if (data.roomId === currentRoomId.value) {
+      loadMembers(currentRoomId.value)
+      loadPermissions(currentRoomId.value)
+      showToastMessage(`成员已解除禁言`)
+    }
+  })
+  
+  // 聊天室解散通知
+  socket.on('room_dissolved', (data) => {
+    console.log('聊天室解散:', data)
+    if (data.roomId === currentRoomId.value) {
+      currentRoomId.value = null
+      currentRoom.value = null
+      currentMembers.value = []
+      messages.value = []
+      loadRooms()
+      showToastMessage('聊天室已被解散', 'error')
+    }
+  })
+  
+  // 聊天室删除通知（超级管理员）
+  socket.on('room_deleted', (data) => {
+    console.log('聊天室被删除:', data)
+    if (data.roomId === currentRoomId.value) {
+      currentRoomId.value = null
+      currentRoom.value = null
+      currentMembers.value = []
+      messages.value = []
+      loadRooms()
+      showToastMessage('聊天室已被强制删除', 'error')
+    }
   })
 }
 
@@ -457,7 +935,7 @@ onUnmounted(() => {
 }
 
 .sidebar {
-  width: 300px;
+  width: 320px;
   background: white;
   border-right: 1px solid #e0e0e0;
   display: flex;
@@ -493,6 +971,7 @@ onUnmounted(() => {
   padding: 15px 20px;
   cursor: pointer;
   transition: background 0.2s;
+  position: relative;
 }
 
 .room-item:hover {
@@ -522,6 +1001,119 @@ onUnmounted(() => {
 .room-members {
   font-size: 12px;
   color: #999;
+}
+
+/* 成员预览悬浮层 */
+.member-preview {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  margin-left: 10px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  width: 280px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.preview-header {
+  padding: 12px 15px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.member-count {
+  font-size: 12px;
+  color: #666;
+  font-weight: normal;
+}
+
+.preview-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.preview-member {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  transition: background 0.1s;
+}
+
+.preview-member:hover {
+  background: #f5f5f5;
+}
+
+.preview-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.preview-info {
+  flex: 1;
+}
+
+.preview-name {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 3px;
+}
+
+.preview-status {
+  font-size: 12px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #999;
+}
+
+.status-dot.online {
+  background: #28a745;
+}
+
+.status-dot.offline {
+  background: #999;
+}
+
+.status-dot.busy {
+  background: #dc3545;
+}
+
+.status-dot.away {
+  background: #ffc107;
+}
+
+.preview-role {
+  background: #007bff;
+  color: white;
+  font-size: 10px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  margin-left: 5px;
+}
+
+.preview-more {
+  padding: 10px 15px;
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+  background: #f8f9fa;
 }
 
 .sidebar-footer {
@@ -561,7 +1153,7 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   background: #f5f5f5;
-  overflow: hidden; /* 防止内容溢出 */
+  overflow: hidden;
 }
 
 .no-room {
@@ -577,30 +1169,38 @@ onUnmounted(() => {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* 防止内容溢出 */
+  overflow: hidden;
 }
 
 .chat-header {
   padding: 20px;
   background: white;
   border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.chat-header h3 {
+.header-left h3 {
   color: #333;
   margin-bottom: 5px;
 }
 
-.chat-header p {
+.header-left p {
   color: #666;
   font-size: 14px;
+}
+
+.header-right {
+  display: flex;
+  gap: 10px;
 }
 
 .message-list {
   flex: 1;
   overflow-y: auto;
   padding: 20px;
-  min-height: 0; /* 关键！允许 flex 子项正确滚动 */
+  min-height: 0;
 }
 
 .message {
@@ -668,6 +1268,18 @@ onUnmounted(() => {
   flex: 1;
 }
 
+.muted-notice {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #dc3545;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
 /* 弹窗样式 */
 .modal-overlay {
   position: fixed;
@@ -687,18 +1299,129 @@ onUnmounted(() => {
   padding: 30px;
   border-radius: 8px;
   width: 100%;
-  max-width: 400px;
+  max-width: 450px;
+  position: relative;
 }
 
-.modal h3 {
+.danger-modal {
+  max-width: 500px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
+}
+
+.modal-header h3 {
   color: #333;
+  margin: 0;
+}
+
+.danger-title {
+  color: #dc3545;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.modal-body {
+  margin-bottom: 20px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group .input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-group textarea.input {
+  resize: vertical;
 }
 
 .modal-actions {
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: #007bff;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #0069d9;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #c82333;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* 头像上传弹窗样式 */
@@ -751,37 +1474,204 @@ onUnmounted(() => {
   font-size: 14px;
 }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+/* 成员管理弹窗 */
+.member-management-modal {
+  max-width: 600px;
+  max-height: 80vh;
+  overflow: hidden;
 }
 
-.close-btn {
-  background: none;
+.member-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.member-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.member-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.member-info {
+  flex: 1;
+}
+
+.member-name {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.role-badge {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 8px;
+}
+
+.role-badge.owner {
+  background: #dc3545;
+  color: white;
+}
+
+.role-badge.admin {
+  background: #007bff;
+  color: white;
+}
+
+.role-badge.member {
+  background: #e9ecef;
+  color: #495057;
+}
+
+.member-status {
+  font-size: 12px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.muted-badge {
+  background: #dc3545;
+  color: white;
+  font-size: 10px;
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+
+.member-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  padding: 5px 12px;
+  font-size: 12px;
   border: none;
-  font-size: 24px;
+  border-radius: 4px;
   cursor: pointer;
-  color: #999;
-  padding: 0;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.close-btn:hover {
+.btn-admin {
+  background: #28a745;
+  color: white;
+}
+
+.btn-admin:hover {
+  background: #218838;
+}
+
+.btn-remove-admin {
+  background: #ffc107;
   color: #333;
 }
 
-.modal-footer {
+.btn-remove-admin:hover {
+  background: #e0a800;
+}
+
+.btn-mute {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-mute:hover {
+  background: #c82333;
+}
+
+.btn-unmute {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-unmute:hover {
+  background: #5a6268;
+}
+
+/* 禁言时长选项 */
+.duration-options {
   display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #e0e0e0;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.duration-btn {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.duration-btn:hover {
+  border-color: #007bff;
+}
+
+.duration-btn.active {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+/* 危险操作确认 */
+.warning-text {
+  color: #dc3545;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.confirm-check {
+  margin-top: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.confirm-check input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+}
+
+/* Toast 提示 */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 12px 24px;
+  border-radius: 4px;
+  color: white;
+  font-weight: 500;
+  z-index: 2000;
+  animation: slideIn 0.3s ease;
+}
+
+.toast.success {
+  background: #28a745;
+}
+
+.toast.error {
+  background: #dc3545;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 </style>

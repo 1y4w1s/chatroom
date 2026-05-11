@@ -13,8 +13,10 @@ const fs = require('fs');
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const uploadDir = path.join(__dirname, '../../uploads/avatars');
+    console.log('头像上传目录:', uploadDir);
     if (!fs.existsSync(uploadDir)) {
       fs.mkdirSync(uploadDir, { recursive: true });
+      console.log('创建上传目录:', uploadDir);
     }
     cb(null, uploadDir);
   },
@@ -147,6 +149,17 @@ router.post('/avatar', upload.single('avatar'), async (req, res) => {
         error: { message: '缺少用户 ID' }
       });
     }
+    
+    // 检查文件是否实际保存成功
+    const fullFilePath = path.join(__dirname, '../../uploads/avatars', req.file.filename);
+    if (!fs.existsSync(fullFilePath)) {
+      console.error('上传失败：文件未保存到服务器', fullFilePath);
+      return res.status(500).json({
+        success: false,
+        error: { message: '文件保存失败' }
+      });
+    }
+    console.log('文件已保存:', fullFilePath);
     
     const avatarUrl = `/uploads/avatars/${req.file.filename}`;
     console.log('头像URL:', avatarUrl);

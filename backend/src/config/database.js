@@ -245,6 +245,18 @@ async function initDatabase() {
     `);
     console.log('✅ room_members 表已创建');
     
+    // 创建敏感词表
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS sensitive_words (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        word VARCHAR(100) NOT NULL,
+        replacement VARCHAR(100) DEFAULT '*',
+        is_active BOOLEAN DEFAULT TRUE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+    console.log('✅ sensitive_words 表已创建');
+    
     // 插入默认聊天室（如果不存在）
     try {
       await connection.query(`

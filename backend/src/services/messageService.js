@@ -22,8 +22,8 @@ class MessageService {
       
       return filteredContent;
     } catch (error) {
-      console.error('敏感词过滤失败:', error);
-      return content; // 失败时返回原内容
+      console.log('敏感词过滤跳过（表不存在或出错）:', error.message);
+      return content; // 失败时返回原内容，不影响消息发送
     }
   }
   

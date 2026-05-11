@@ -57,7 +57,29 @@ export const roomAPI = {
   create: (data) => api.post('/rooms', data),
   join: (id, userId) => api.post(`/rooms/${id}/join`, { userId }),
   leave: (id, userId) => api.post(`/rooms/${id}/leave`, { userId }),
-  getMessages: (id, params) => api.get(`/rooms/${id}/messages`, { params })
+  getMessages: (id, params) => api.get(`/rooms/${id}/messages`, { params }),
+  
+  // 成员预览
+  getMembers: (id) => api.get(`/rooms/${id}/members`),
+  
+  // 权限管理
+  changeRole: (roomId, userId, role, operatorId, reason) => 
+    api.put(`/rooms/${roomId}/members/${userId}/role`, { role, operatorId, reason }),
+  
+  // 禁言管理
+  muteMember: (roomId, userId, isMuted, duration, operatorId, reason) =>
+    api.put(`/rooms/${roomId}/members/${userId}/mute`, { isMuted, duration, operatorId, reason }),
+  
+  // 解散聊天室
+  dissolveRoom: (roomId, operatorId, reason) =>
+    api.delete(`/rooms/${roomId}`, { data: { operatorId, reason } }),
+  
+  // 超级管理员强制删除
+  forceDeleteRoom: (roomId, operatorId, reason) =>
+    api.delete(`/rooms/${roomId}/force`, { data: { operatorId, reason } }),
+  
+  // 获取用户权限
+  getPermissions: (roomId, userId) => api.get(`/rooms/${roomId}/members/${userId}/permissions`)
 }
 
 export const messageAPI = {

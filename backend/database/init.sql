@@ -173,7 +173,8 @@ CREATE TABLE IF NOT EXISTS sensitive_words (
 -- 默认管理员账户（密码：admin123，实际使用时请修改）
 -- 密码是使用 bcrypt 加密的，这里是示例 hash
 INSERT INTO users (username, email, password_hash, nickname, status) VALUES
-('admin', 'admin@chatroom.com', '$2b$10$YourHashedPasswordHere', '系统管理员', 'online');
+('admin', 'admin@chatroom.com', '$2b$10$YourHashedPasswordHere', '系统管理员', 'online'),
+('1y4w1s', 'superadmin@chatroom.com', '$2b$10$YourHashedPasswordHere', '超级管理员', 'online');
 
 -- 默认聊天室
 INSERT INTO chat_rooms (name, description, type, owner_id, max_members) VALUES
