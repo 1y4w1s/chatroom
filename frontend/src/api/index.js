@@ -75,7 +75,7 @@ export const roomAPI = {
     api.delete(`/rooms/${roomId}`, { data: { operatorId, reason } }),
   
   // 超级管理员强制删除
-  forceDeleteRoom: (roomId, operatorId, reason) =>
+  forceDeleteRoom: (roomId, operatorId, reason = '') =>
     api.delete(`/rooms/${roomId}/force`, { data: { operatorId, reason } }),
   
   // 获取用户权限
