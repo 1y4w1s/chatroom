@@ -129,13 +129,13 @@
             >
               管理成员
             </button>
-            <!-- 超级管理员始终可以看到强制删除按钮 -->
+            <!-- 超级管理员始终可以看到删除聊天室按钮 -->
             <button 
               v-if="isSuperAdmin" 
               class="btn btn-danger btn-sm" 
               @click="showDissolveConfirm = true"
             >
-              强制删除
+              删除聊天室
             </button>
             <!-- 群主可以解散聊天室 -->
             <button 
@@ -337,7 +337,7 @@
     <div v-if="showDissolveConfirm" class="modal-overlay" @click="showDissolveConfirm = false">
       <div class="modal danger-modal" @click.stop>
         <div class="modal-header">
-          <h3 class="danger-title">⚠️ {{ isSuperAdmin ? '强制删除聊天室' : '解散聊天室' }}</h3>
+          <h3 class="danger-title">⚠️ {{ isSuperAdmin ? '删除聊天室' : '解散聊天室' }}</h3>
           <button class="close-btn" @click="showDissolveConfirm = false">×</button>
         </div>
         <div class="modal-body">
@@ -372,7 +372,7 @@
             @click="confirmDissolve"
             :disabled="!dissolveConfirmed || dissolveReason.length < 10 || dissolveReason.length > 500"
           >
-            {{ isSuperAdmin ? '强制删除' : '确认解散' }}
+            {{ isSuperAdmin ? '删除' : '确认解散' }}
           </button>
         </div>
       </div>
