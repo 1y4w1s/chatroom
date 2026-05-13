@@ -662,8 +662,7 @@ router.delete('/:id', checkAdmin, [
  * 超级管理员强制删除聊天室
  */
 router.delete('/:id/force', checkSuperAdmin, [
-  body('operatorId').notEmpty().withMessage('缺少操作者 ID'),
-  body('reason').isLength({ min: 10, max: 500 }).withMessage('请提供删除原因（10-500字符）')
+  body('operatorId').notEmpty().withMessage('缺少操作者 ID')
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

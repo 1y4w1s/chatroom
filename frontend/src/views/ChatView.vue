@@ -347,30 +347,12 @@
               : '此操作将解散该聊天室，所有成员将被移出，消息记录将被保留但无法继续发送消息。' 
             }}
           </p>
-          <div class="form-group">
-            <label>操作原因（必填，10-500字符）</label>
-            <textarea 
-              v-model="dissolveReason" 
-              class="input" 
-              rows="3" 
-              placeholder="请输入操作原因..."
-            ></textarea>
-          </div>
-          <div class="confirm-check">
-            <input 
-              type="checkbox" 
-              id="confirm-check" 
-              v-model="dissolveConfirmed"
-            />
-            <label for="confirm-check">我已阅读并确认此操作</label>
-          </div>
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" @click="showDissolveConfirm = false">取消</button>
           <button 
             class="btn btn-danger" 
             @click="confirmDissolve"
-            :disabled="!dissolveConfirmed || dissolveReason.length < 10 || dissolveReason.length > 500"
           >
             {{ isSuperAdmin ? '删除' : '确认解散' }}
           </button>
@@ -476,8 +458,6 @@ const muteDurationOptions = [
 
 // 解散确认相关
 const showDissolveConfirm = ref(false)
-const dissolveReason = ref('')
-const dissolveConfirmed = ref(false)
 
 // 操作提示
 const showToast = ref(false)
@@ -792,14 +772,12 @@ const confirmDissolve = async () => {
     if (isSuperAdmin.value) {
       response = await roomAPI.forceDeleteRoom(
         currentRoomId.value,
-        authStore.userId,
-        dissolveReason.value
+        authStore.userId
       )
     } else {
       response = await roomAPI.dissolveRoom(
         currentRoomId.value,
-        authStore.userId,
-        dissolveReason.value
+        authStore.userId
       )
     }
     
