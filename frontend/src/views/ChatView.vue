@@ -122,10 +122,6 @@
             <p>{{ currentRoom?.description }}</p>
           </div>
           <div class="header-right">
-            <!-- 调试信息 -->
-            <span style="font-size: 12px; color: #999; margin-right: 10px;">
-              isSuperAdmin: {{ isSuperAdmin }}
-            </span>
             <button 
               v-if="currentPermissions.isAdmin" 
               class="btn btn-secondary btn-sm" 
@@ -403,33 +399,16 @@ const SUPER_ADMIN_USERNAME = '1y4w1s'
 
 // 判断是否为超级管理员
 const isSuperAdmin = computed(() => {
-  // 临时测试：直接返回 true 来验证按钮是否能显示
-  // const userStr = localStorage.getItem('user')
-  // console.log('=== localStorage user data ===')
-  // console.log('userStr:', userStr)
-  
-  // if (!userStr) {
-  //   console.log('userStr is empty or null')
-  //   return false
-  // }
-  
-  // try {
-  //   const user = JSON.parse(userStr)
-  //   console.log('parsed user:', user)
-    
-  //   // 尝试多种可能的字段名
-  //   const username = user.username || user.userName || user.name || user.UserName
-  //   console.log('username value:', username)
-  //   console.log('comparison result:', username === '1y4w1s')
-    
-  //   return username === '1y4w1s'
-  // } catch (e) {
-  //   console.error('parse user error:', e)
-  //   return false
-  // }
-  
-  // 临时测试：直接返回 true
-  return true
+  const userStr = localStorage.getItem('user')
+  if (!userStr) return false
+  try {
+    const user = JSON.parse(userStr)
+    const username = user.username || user.userName || user.name || user.UserName
+    return username === '1y4w1s'
+  } catch (e) {
+    console.error('parse user error:', e)
+    return false
+  }
 })
 
 // 统一处理头像URL
