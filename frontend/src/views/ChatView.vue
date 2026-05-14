@@ -249,7 +249,9 @@
                 <div class="member-status">
                   <span class="status-dot" :class="member.status"></span>
                   {{ member.status === 'online' ? '在线' : '离线' }}
-                  <span v-if="member.is_muted" class="muted-badge">已禁言</span>
+                  <span v-if="member.is_muted" class="muted-badge" :title="formatMuteTime(member.muted_until)">
+                    已禁言{{ formatMuteDuration(member.muted_until) }}
+                  </span>
                 </div>
               </div>
               <div class="member-actions">
@@ -315,7 +317,7 @@
                 {{ option.label }}
               </button>
               <button 
-                class="duration-btn"
+                class="duration-btn custom-btn"
                 :class="{ active: muteDuration === 'custom' }"
                 @click="muteDuration = 'custom'"
               >
@@ -895,6 +897,37 @@ const formatTime = (timestamp) => {
   const minutes = date.getMinutes().toString().padStart(2, '0')
   
   return `${year}/${month}/${day} ${hours}:${minutes}`
+}
+
+const formatMuteDuration = (mutedUntil) => {
+  if (!mutedUntil) return ''
+  
+  const now = new Date()
+  const until = new Date(mutedUntil)
+  const diffMs = until - now
+  
+  if (diffMs <= 0) return '（已到期）'
+  
+  const diffMinutes = Math.floor(diffMs / 1000 / 60)
+  const diffHours = Math.floor(diffMinutes / 60)
+  const diffDays = Math.floor(diffHours / 24)
+  
+  if (diffDays > 0) {
+    const remainingHours = diffHours % 24
+    const remainingMinutes = diffMinutes % 60
+    return `（${diffDays}天${remainingHours}小时${remainingMinutes}分钟）`
+  } else if (diffHours > 0) {
+    const remainingMinutes = diffMinutes % 60
+    return `（${diffHours}小时${remainingMinutes}分钟）`
+  } else {
+    return `（${diffMinutes}分钟）`
+  }
+}
+
+const formatMuteTime = (mutedUntil) => {
+  if (!mutedUntil) return ''
+  const until = new Date(mutedUntil)
+  return `禁言至：${formatTime(mutedUntil)}`
 }
 
 // WebSocket 事件监听
@@ -1702,6 +1735,10 @@ onUnmounted(() => {
   background: #007bff;
   color: white;
   border-color: #007bff;
+}
+
+.duration-btn.custom-btn {
+  order: 5;
 }
 
 .custom-duration-input {
