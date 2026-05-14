@@ -314,6 +314,51 @@
               >
                 {{ option.label }}
               </button>
+              <button 
+                class="duration-btn"
+                :class="{ active: muteDuration === 'custom' }"
+                @click="muteDuration = 'custom'"
+              >
+                自定义
+              </button>
+            </div>
+          </div>
+          <div v-if="muteDuration === 'custom'" class="form-group">
+            <label>自定义时长</label>
+            <div class="custom-duration-input">
+              <div class="duration-input-group">
+                <input 
+                  v-model.number="customDays" 
+                  type="number" 
+                  class="input-small" 
+                  placeholder="00"
+                  min="0"
+                  max="29"
+                />
+                <span class="duration-label">天</span>
+              </div>
+              <div class="duration-input-group">
+                <input 
+                  v-model.number="customHours" 
+                  type="number" 
+                  class="input-small" 
+                  placeholder="00"
+                  min="0"
+                  max="23"
+                />
+                <span class="duration-label">小时</span>
+              </div>
+              <div class="duration-input-group">
+                <input 
+                  v-model.number="customMinutes" 
+                  type="number" 
+                  class="input-small" 
+                  placeholder="00"
+                  min="0"
+                  max="59"
+                />
+                <span class="duration-label">分钟</span>
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -447,13 +492,15 @@ const showMemberManagement = ref(false)
 const showMuteModal = ref(false)
 const selectedMember = ref(null)
 const muteDuration = ref(30)
+const customDays = ref(0)
+const customHours = ref(0)
+const customMinutes = ref(0)
 const muteReason = ref('')
 const muteDurationOptions = [
-  { label: '5分钟', value: 5 },
-  { label: '30分钟', value: 30 },
-  { label: '1小时', value: 60 },
-  { label: '24小时', value: 1440 },
-  { label: '永久', value: 0 }
+  { label: '5 分钟', value: 5 },
+  { label: '30 分钟', value: 30 },
+  { label: '1 小时', value: 60 },
+  { label: '24 小时', value: 1440 }
 ]
 
 // 解散确认相关
@@ -719,6 +766,9 @@ const revokeAdmin = async (userId) => {
 const openMuteModal = (member) => {
   selectedMember.value = member
   muteDuration.value = 30
+  customDays.value = 0
+  customHours.value = 0
+  customMinutes.value = 0
   muteReason.value = ''
   showMuteModal.value = true
 }
@@ -726,12 +776,36 @@ const openMuteModal = (member) => {
 const confirmMute = async () => {
   if (!selectedMember.value) return
   
+  // 如果是自定义时长，计算总分钟数
+  let duration
+  if (muteDuration.value === 'custom') {
+    // 限制最大值：29 天 23 小时 59 分钟
+    const days = Math.min(customDays.value || 0, 29)
+    const hours = Math.min(customHours.value || 0, 23)
+    const minutes = Math.min(customMinutes.value || 0, 59)
+    
+    // 如果超过最大值，设置为 30 天 0 小时 0 分钟
+    if (customDays.value > 29 || customHours.value > 23 || customMinutes.value > 59) {
+      duration = 30 * 24 * 60 // 30 天 = 43200 分钟
+    } else {
+      duration = days * 24 * 60 + hours * 60 + minutes
+    }
+  } else {
+    duration = muteDuration.value
+  }
+  
+  // 如果时长为 0，不允许提交
+  if (duration === 0) {
+    showToastMessage('禁言时长不能为 0', 'error')
+    return
+  }
+  
   try {
     const response = await roomAPI.muteMember(
       currentRoomId.value,
       selectedMember.value.id,
       true,
-      muteDuration.value === 0 ? null : muteDuration.value,
+      duration,
       authStore.userId,
       muteReason.value || '违反聊天室规定'
     )
@@ -1628,6 +1702,43 @@ onUnmounted(() => {
   background: #007bff;
   color: white;
   border-color: #007bff;
+}
+
+.custom-duration-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.duration-input-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.input-small {
+  width: 60px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.input-small:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.duration-label {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
 }
 
 /* 危险操作确认 */

@@ -664,6 +664,9 @@ router.delete('/:id', checkAdmin, [
 router.delete('/:id/force', checkSuperAdmin, [
   body('operatorId').notEmpty().withMessage('缺少操作者 ID')
 ], async (req, res) => {
+  console.log('DELETE /force 请求体:', req.body);
+  console.log('req.params:', req.params);
+  
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({
