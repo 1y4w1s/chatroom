@@ -39,17 +39,10 @@
         <div class="form-section">
           <h3>在线状态</h3>
           <div class="status-options">
-            <button
-              v-for="opt in statusOptions"
-              :key="opt.value"
-              class="status-btn"
-              :class="{ active: form.status === opt.value }"
-              @click="changeStatus(opt.value)"
-            >
-              <span class="status-icon">{{ opt.icon }}</span>
-              <span>{{ opt.label }}</span>
-              <span v-if="opt.value === 'invisible'" class="status-hint">（对方看到您离线）</span>
-            </button>
+            <span v-for="opt in statusOptions" :key="opt.value" class="status-btn" :class="{ active: form.status === opt.value }" @click="changeStatus(opt.value)">
+                <span class="status-icon">{{ opt.icon }}</span>
+                <span>{{ opt.label }}</span>
+              </span>
           </div>
         </div>
 
@@ -99,7 +92,6 @@ const form = reactive({
 const statusOptions = [
   { value: 'online', label: '在线', icon: '🟢' },
   { value: 'away', label: '离开', icon: '🟡' },
-  { value: 'offline', label: '离线', icon: '⚪' },
   { value: 'invisible', label: '隐身', icon: '👻' }
 ]
 
@@ -420,11 +412,6 @@ onMounted(() => {
 
 .status-icon {
   font-size: 16px;
-}
-
-.status-hint {
-  font-size: 12px;
-  color: #999;
 }
 
 .upload-progress {
