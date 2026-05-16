@@ -1714,17 +1714,17 @@ onUnmounted(() => {
 .duration-options {
   display: flex;
   flex-wrap: nowrap;
-  gap: 8px;
+  gap: 6px;
   overflow-x: auto;
 }
 
 .duration-btn {
-  padding: 8px 12px;
+  padding: 6px 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
   background: white;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
   transition: all 0.2s;
   white-space: nowrap;
   flex-shrink: 0;
