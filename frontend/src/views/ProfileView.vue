@@ -166,8 +166,7 @@ const saveNickname = async () => {
   try {
     const response = await userAPI.updateMe(authStore.userId, { nickname: form.nickname.trim() })
     if (response.success) {
-      authStore.user = { ...authStore.user, nickname: form.nickname.trim() }
-      localStorage.setItem('user', JSON.stringify(authStore.user))
+      authStore.updateProfile({ nickname: form.nickname.trim() })
       uploadSuccess.value = '昵称已更新'
     }
   } catch (error) {
@@ -180,11 +179,8 @@ const saveNickname = async () => {
 const changeStatus = async (status) => {
   form.status = status
   try {
-    const response = await userAPI.changeStatus(authStore.userId, status)
-    if (response.success) {
-      authStore.user = { ...authStore.user, status }
-      localStorage.setItem('user', JSON.stringify(authStore.user))
-    }
+    await userAPI.changeStatus(authStore.userId, status)
+    authStore.updateProfile({ status })
   } catch (error) {
     console.error('修改状态失败:', error)
   }

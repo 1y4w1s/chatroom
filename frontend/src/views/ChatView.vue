@@ -70,8 +70,8 @@
           <div class="user-details">
             <div class="username">{{ authStore.user?.nickname || authStore.user?.username }}</div>
             <div class="user-status">
-              <span class="status-dot" :class="displayStatus"></span>
-              {{ displayStatusText }}
+              <span class="status-dot" :class="userStatus.dot"></span>
+              {{ userStatus.text }}
             </div>
           </div>
         </div>
@@ -462,17 +462,20 @@ const hasActiveMute = computed(() => {
 })
 
 // 侧边栏状态显示：隐身 → 离线
-const displayStatus = computed(() => {
-  const s = authStore.user?.status
-  return s === 'invisible' ? 'offline' : s || 'online'
-})
-
-const displayStatusText = computed(() => {
-  const s = authStore.user?.status
-  if (s === 'invisible') return '离线'
-  if (s === 'away') return '离开'
-  if (s === 'offline') return '离线'
-  return '在线'
+const userStatus = computed(() => {
+  const u = authStore.user
+  let s = u?.status
+  if (!s) {
+    try { s = JSON.parse(localStorage.getItem('user') || 'null')?.status } catch {}
+    s = s || 'online'
+  }
+  const dot = s === 'invisible' ? 'offline' : s
+  let text
+  if (s === 'invisible') text = '离线'
+  else if (s === 'away') text = '离开'
+  else if (s === 'offline') text = '离线'
+  else text = '在线'
+  return { dot, text }
 })
 
 const rooms = ref([])

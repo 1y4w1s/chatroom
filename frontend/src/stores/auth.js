@@ -171,6 +171,16 @@ export const useAuthStore = defineStore('auth', {
       if (this.socket) {
         this.socket.emit('stop_typing', { roomId, userId: this.user.id })
       }
+    },
+
+    // 更新用户资料（昵称/状态），确保所有组件能响应
+    updateProfile(fields) {
+      this.$patch((state) => {
+        if (state.user) {
+          state.user = { ...state.user, ...fields }
+          localStorage.setItem('user', JSON.stringify(state.user))
+        }
+      })
     }
   }
 })
