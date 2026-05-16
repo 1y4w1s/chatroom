@@ -889,11 +889,21 @@ const formatTime = (timestamp) => {
 }
 
 const formatMuteDuration = (mutedUntil) => {
-  if (!mutedUntil) return ''
+  if (!mutedUntil) {
+    console.log('禁言时间为空:', mutedUntil)
+    return ''
+  }
   
   const now = new Date()
-  const until = new Date(mutedUntil)
+  const until = new Date(mutedUntil.replace(' ', 'T'))
   const diffMs = until - now
+  
+  console.log('禁言时间计算:', {
+    mutedUntil,
+    until: until.toISOString(),
+    now: now.toISOString(),
+    diffMs
+  })
   
   if (diffMs <= 0) return '（已到期）'
   
