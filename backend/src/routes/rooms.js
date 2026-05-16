@@ -223,7 +223,7 @@ router.get('/:id/members', async (req, res) => {
     }
     
     const members = await query(
-      `SELECT u.id, u.username, u.nickname, u.avatar, u.status, rm.role
+      `SELECT u.id, u.username, u.nickname, u.avatar, u.status, rm.role, rm.is_muted, rm.muted_until
        FROM room_members rm
        JOIN users u ON rm.user_id = u.id
        WHERE rm.room_id = ?
