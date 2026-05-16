@@ -809,10 +809,14 @@ router.get('/:id/members/:userId/permissions', async (req, res) => {
  * 发送权限变更通知到聊天室所有成员
  */
 function emitPermissionChange(roomId, event, data) {
-  const io = getIo();
-  if (io) {
-    io.to(roomId).emit(event, data);
-    console.log(`发送WebSocket通知: ${event} 到房间 ${roomId}`, data);
+  try {
+    const io = getIo();
+    if (io) {
+      io.to(roomId).emit(event, data);
+      console.log(`发送 WebSocket 通知：${event} 到房间 ${roomId}`, data);
+    }
+  } catch (error) {
+    console.error(`发送 WebSocket 通知失败：${error.message}`);
   }
 }
 
