@@ -307,22 +307,11 @@
           <div class="form-group">
             <label>选择禁言时长</label>
             <div class="duration-options">
-              <button 
-                v-for="option in muteDurationOptions" 
-                :key="option.value"
-                class="duration-btn"
-                :class="{ active: muteDuration === option.value }"
-                @click="muteDuration = option.value"
-              >
-                {{ option.label }}
-              </button>
-              <button 
-                class="duration-btn custom-btn"
-                :class="{ active: muteDuration === 'custom' }"
-                @click="muteDuration = 'custom'"
-              >
-                自定义
-              </button>
+              <button class="duration-btn" :class="{ active: muteDuration === 5 }" @click="muteDuration = 5">5 分钟</button>
+              <button class="duration-btn" :class="{ active: muteDuration === 30 }" @click="muteDuration = 30">30 分钟</button>
+              <button class="duration-btn" :class="{ active: muteDuration === 60 }" @click="muteDuration = 60">1 小时</button>
+              <button class="duration-btn" :class="{ active: muteDuration === 1440 }" @click="muteDuration = 1440">24 小时</button>
+              <button class="duration-btn custom-btn" :class="{ active: muteDuration === 'custom' }" @click="muteDuration = 'custom'">自定义</button>
             </div>
           </div>
           <div v-if="muteDuration === 'custom'" class="form-group">
