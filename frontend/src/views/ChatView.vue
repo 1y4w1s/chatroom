@@ -831,17 +831,19 @@ const unmuteMember = async (userId) => {
   }
 }
 
-// 禁言到期自动刷新：打开管理弹窗时定时刷新成员列表
-let memberRefreshTimer = null
+// 禁言到期自动刷新：只要在聊天室中就定时检查禁言状态
+let muteCheckTimer = null
 
-watch(showMemberManagement, (val) => {
-  if (val && currentRoomId.value) {
-    memberRefreshTimer = setInterval(() => {
-      loadMembers(currentRoomId.value)
-    }, 15000)
-  } else if (memberRefreshTimer) {
-    clearInterval(memberRefreshTimer)
-    memberRefreshTimer = null
+watch(currentRoomId, (val) => {
+  if (muteCheckTimer) {
+    clearInterval(muteCheckTimer)
+    muteCheckTimer = null
+  }
+  if (val) {
+    muteCheckTimer = setInterval(() => {
+      loadMembers(val)
+      loadPermissions(val)
+    }, 10000)
   }
 })
 
@@ -1054,6 +1056,10 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  if (muteCheckTimer) {
+    clearInterval(muteCheckTimer)
+    muteCheckTimer = null
+  }
   if (currentRoomId.value) {
     authStore.leaveRoom(currentRoomId.value)
   }
