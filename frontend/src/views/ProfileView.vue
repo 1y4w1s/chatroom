@@ -180,7 +180,9 @@ const changeStatus = async (status) => {
   form.status = status
   try {
     await userAPI.changeStatus(authStore.userId, status)
-    authStore.updateProfile({ status })
+    const updatedUser = { ...authStore.user, status }
+    authStore.$patch({ user: updatedUser })
+    localStorage.setItem('user', JSON.stringify(updatedUser))
   } catch (error) {
     console.error('修改状态失败:', error)
   }
