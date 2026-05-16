@@ -50,7 +50,7 @@
                 <div class="preview-name">{{ member.nickname || member.username }}</div>
                 <div class="preview-status" :class="member.status">
                   <span class="status-dot" :class="member.status"></span>
-                  {{ member.status === 'online' ? '在线' : '离线' }}
+                  {{ member.status === 'online' ? '在线' : member.status === 'away' ? '离开' : '离线' }}
                   <span v-if="member.role === 'owner' || member.role === 'admin'" class="preview-role">
                     {{ member.role === 'owner' ? '群主' : '管理员' }}
                   </span>
@@ -251,7 +251,7 @@
                 </div>
                 <div class="member-status">
                   <span class="status-dot" :class="member.status"></span>
-                  {{ member.status === 'online' ? '在线' : '离线' }}
+                  {{ member.status === 'online' ? '在线' : member.status === 'away' ? '离开' : '离线' }}
                   <span v-if="isEffectivelyMuted(member)" class="muted-badge" :title="formatMuteTime(member.muted_until)">
                     已禁言{{ formatMuteDuration(member.muted_until) }}
                   </span>
