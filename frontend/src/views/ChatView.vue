@@ -404,7 +404,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick, computed } from 'vue'
+import { ref, watch, onMounted, onUnmounted, nextTick, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { roomAPI, userAPI } from '@/api'
@@ -830,6 +830,20 @@ const unmuteMember = async (userId) => {
     showToastMessage('操作失败', 'error')
   }
 }
+
+// 禁言到期自动刷新：打开管理弹窗时定时刷新成员列表
+let memberRefreshTimer = null
+
+watch(showMemberManagement, (val) => {
+  if (val && currentRoomId.value) {
+    memberRefreshTimer = setInterval(() => {
+      loadMembers(currentRoomId.value)
+    }, 15000)
+  } else if (memberRefreshTimer) {
+    clearInterval(memberRefreshTimer)
+    memberRefreshTimer = null
+  }
+})
 
 const confirmDissolve = async () => {
   try {

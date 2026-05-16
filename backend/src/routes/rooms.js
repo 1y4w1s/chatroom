@@ -173,29 +173,22 @@ router.get('/:id', async (req, res) => {
       });
     }
     
-    // 获取成员列表，使用 DATE_FORMAT 将 muted_until 格式化为 ISO 8601 字符串（含 +08:00 时区）
+    // 获取成员列表，动态计算禁言状态（已过期的禁言视为未禁言）
     const members = await query(
-      `SELECT u.id, u.username, u.nickname, u.avatar, u.status, rm.role, rm.is_muted,
-              DATE_FORMAT(rm.muted_until, '%Y-%m-%dT%T+08:00') as muted_until
+      `SELECT u.id, u.username, u.nickname, u.avatar, u.status, rm.role,
+              CASE WHEN rm.is_muted = 1 AND (rm.muted_until IS NULL OR rm.muted_until > NOW()) THEN 1 ELSE 0 END as is_muted,
+              CASE WHEN rm.is_muted = 1 AND (rm.muted_until IS NULL OR rm.muted_until > NOW()) THEN DATE_FORMAT(rm.muted_until, '%Y-%m-%dT%T+08:00') ELSE NULL END as muted_until
        FROM room_members rm
        JOIN users u ON rm.user_id = u.id
        WHERE rm.room_id = ?`,
       [roomId]
     );
     
-    // 将空字符串的 muted_until 转换为 null
-    const mappedMembers = members.map(member => {
-      if (member.muted_until === '0000-00-00T00:00:00+08:00' || member.muted_until === '') {
-        member.muted_until = null;
-      }
-      return member;
-    });
-    
     res.json({
       success: true,
       data: {
         room: rooms[0],
-        members: mappedMembers
+        members
       }
     });
   } catch (error) {
@@ -229,8 +222,9 @@ router.get('/:id/members', async (req, res) => {
     }
     
     const members = await query(
-      `SELECT u.id, u.username, u.nickname, u.avatar, u.status, rm.role, rm.is_muted,
-              DATE_FORMAT(rm.muted_until, '%Y-%m-%dT%T+08:00') as muted_until
+      `SELECT u.id, u.username, u.nickname, u.avatar, u.status, rm.role,
+              CASE WHEN rm.is_muted = 1 AND (rm.muted_until IS NULL OR rm.muted_until > NOW()) THEN 1 ELSE 0 END as is_muted,
+              CASE WHEN rm.is_muted = 1 AND (rm.muted_until IS NULL OR rm.muted_until > NOW()) THEN DATE_FORMAT(rm.muted_until, '%Y-%m-%dT%T+08:00') ELSE NULL END as muted_until
        FROM room_members rm
        JOIN users u ON rm.user_id = u.id
        WHERE rm.room_id = ?
@@ -238,16 +232,9 @@ router.get('/:id/members', async (req, res) => {
       [roomId]
     );
     
-    const mappedMembers = members.map(member => {
-      if (member.muted_until === '0000-00-00T00:00:00+08:00' || member.muted_until === '') {
-        member.muted_until = null;
-      }
-      return member;
-    });
-    
     res.json({
       success: true,
-      data: { members: mappedMembers }
+      data: { members }
     });
   } catch (error) {
     console.error('获取成员列表失败:', error);
