@@ -19,9 +19,9 @@ const { getIo } = require('../server');
  */
 const checkAdmin = async (req, res, next) => {
   const roomId = req.params.id;
-  const { userId } = req.body;
+  const { userId, operatorId } = req.body;
   
-  if (!userId) {
+  if (!userId && !operatorId) {
     return res.status(400).json({
       success: false,
       error: { message: '缺少用户 ID' }
@@ -31,7 +31,7 @@ const checkAdmin = async (req, res, next) => {
   try {
     const member = await query(
       'SELECT role FROM room_members WHERE room_id = ? AND user_id = ?',
-      [roomId, userId]
+      [roomId, operatorId || userId]
     );
     
     if (member.length === 0) {
