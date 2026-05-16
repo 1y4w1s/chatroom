@@ -537,16 +537,25 @@ router.put('/:id/members/:userId/mute', checkAdmin, [
       });
     }
     
-    // 计算禁言到期时间（使用本地时间）
+    // 计算禁言到期时间（使用服务器本地时间）
     let mutedUntil = null;
     if (isMuted && duration) {
+      // 获取当前本地时间并加上禁言时长
       const now = new Date();
       const until = new Date(now.getTime() + duration * 60 * 1000);
-      mutedUntil = until.toISOString().slice(0, 19).replace('T', ' ');
+      // 格式化为本地时间字符串（YYYY-MM-DD HH:mm:ss）
+      const year = until.getFullYear();
+      const month = String(until.getMonth() + 1).padStart(2, '0');
+      const day = String(until.getDate()).padStart(2, '0');
+      const hours = String(until.getHours()).padStart(2, '0');
+      const minutes = String(until.getMinutes()).padStart(2, '0');
+      const seconds = String(until.getSeconds()).padStart(2, '0');
+      mutedUntil = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+      
       console.log('禁言时间计算:', {
-        now: now.toISOString(),
+        nowLocal: now.toLocaleString('zh-CN'),
         duration,
-        until: until.toISOString(),
+        untilLocal: until.toLocaleString('zh-CN'),
         mutedUntil
       });
     }
