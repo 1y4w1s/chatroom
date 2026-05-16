@@ -65,7 +65,7 @@
       </div>
 
       <div class="sidebar-footer">
-        <div class="user-info" @click="showAvatarUpload = true" title="点击更换头像">
+        <div class="user-info" @click="goToProfile" title="点击进入个人中心">
           <img :src="getAvatarUrl(authStore.user?.avatar)" class="avatar" />
           <div class="user-details">
             <div class="username">{{ authStore.user?.nickname || authStore.user?.username }}</div>
@@ -673,6 +673,11 @@ const createRoom = async () => {
 const handleLogout = async () => {
   await authStore.logout()
   router.push('/login')
+}
+
+// 跳转到个人中心
+const goToProfile = () => {
+  router.push('/profile')
 }
 
 // 头像上传相关方法

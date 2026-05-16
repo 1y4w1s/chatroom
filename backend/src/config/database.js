@@ -90,8 +90,18 @@ async function initDatabase() {
         WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' AND COLUMN_NAME = 'status'
       `);
       if (hasStatus[0].count === 0) {
-        await connection.query(`ALTER TABLE users ADD COLUMN status ENUM('online', 'offline', 'away') DEFAULT 'offline'`);
+        await connection.query(`ALTER TABLE users ADD COLUMN status ENUM('online', 'offline', 'away', 'invisible') DEFAULT 'offline'`);
         console.log('✅ 添加 status 字段');
+      } else {
+        // 确保 invisible 在枚举中
+        const statusCol = await connection.query(`
+          SELECT COLUMN_TYPE FROM information_schema.COLUMNS 
+          WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' AND COLUMN_NAME = 'status'
+        `);
+        if (statusCol[0] && !statusCol[0].COLUMN_TYPE.includes('invisible')) {
+          await connection.query(`ALTER TABLE users MODIFY COLUMN status ENUM('online', 'offline', 'away', 'invisible') DEFAULT 'offline'`);
+          console.log('✅ 更新 status 字段，添加 invisible');
+        }
       }
       
       // 检查并添加 is_banned 字段

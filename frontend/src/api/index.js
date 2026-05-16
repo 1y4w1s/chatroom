@@ -47,6 +47,10 @@ export const userAPI = {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
   },
+  changePassword: (userId, oldPassword, newPassword) =>
+    api.put('/users/password', { userId, oldPassword, newPassword }),
+  changeStatus: (userId, status) =>
+    api.put('/users/status', { userId, status }),
   getUser: (userId, id) => api.get(`/users/${id}`, { params: { userId } }),
   search: (userId, q) => api.get('/users/search', { params: { userId, q } })
 }
