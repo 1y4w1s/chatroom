@@ -169,7 +169,7 @@
 
         <!-- 输入区域 -->
         <footer class="message-input">
-          <div v-if="currentPermissions.isMuted" class="muted-notice">
+          <div v-if="hasActiveMute" class="muted-notice">
             ⚠️ 您已被禁言，无法发送消息
           </div>
           <input
@@ -179,12 +179,12 @@
             placeholder="输入消息..."
             @keyup.enter="sendMessage"
             @input="handleTyping"
-            :disabled="currentPermissions.isMuted"
+            :disabled="hasActiveMute"
           />
           <button 
             class="btn btn-primary" 
             @click="sendMessage" 
-            :disabled="!newMessage.trim() || currentPermissions.isMuted"
+            :disabled="!newMessage.trim() || hasActiveMute"
           >
             发送
           </button>
@@ -249,7 +249,7 @@
                 <div class="member-status">
                   <span class="status-dot" :class="member.status"></span>
                   {{ member.status === 'online' ? '在线' : '离线' }}
-                  <span v-if="member.is_muted" class="muted-badge" :title="formatMuteTime(member.muted_until)">
+                  <span v-if="isEffectivelyMuted(member)" class="muted-badge" :title="formatMuteTime(member.muted_until)">
                     已禁言{{ formatMuteDuration(member.muted_until) }}
                   </span>
                 </div>
@@ -273,14 +273,14 @@
                 
                 <!-- 禁言管理 -->
                 <button 
-                  v-if="currentPermissions.isAdmin && member.role === 'member' && !member.is_muted"
+                  v-if="currentPermissions.isAdmin && member.role === 'member' && !isEffectivelyMuted(member)"
                   class="action-btn btn-mute"
                   @click="openMuteModal(member)"
                 >
                   禁言
                 </button>
                 <button 
-                  v-if="currentPermissions.isAdmin && member.is_muted"
+                  v-if="currentPermissions.isAdmin && isEffectivelyMuted(member)"
                   class="action-btn btn-unmute"
                   @click="unmuteMember(member.id)"
                 >
@@ -444,6 +444,20 @@ const getAvatarUrl = (avatarPath) => {
   return `${window.location.origin}/${path}`
 }
 
+// 实时判断禁言是否有效：不管后端 is_muted 是什么，只看本地时间
+function isEffectivelyMuted(member) {
+  if (!member.is_muted) return false
+  if (!member.muted_until) return true
+  return new Date(member.muted_until).getTime() > Date.now()
+}
+
+// 当前用户是否处于有效禁言中
+const hasActiveMute = computed(() => {
+  const me = currentMembers.value.find(m => m.id === authStore.userId)
+  if (me) return isEffectivelyMuted(me)
+  return currentPermissions.value.isMuted
+})
+
 const rooms = ref([])
 const currentRoomId = ref(null)
 const currentRoom = ref(null)
@@ -570,42 +584,21 @@ const loadPermissions = async (roomId) => {
   }
 }
 
-// 客户端禁言到期自动消除：每秒检查所有成员，到期后立即更新 UI
-let muteExpiryTimer = null
+// 每秒触发 Vue 重新计算 hasActiveMute（因为 Date.now() 不是响应式的）
+let muteTickTimer = null
 
-function clearMuteExpiryTimer() {
-  if (muteExpiryTimer) {
-    clearInterval(muteExpiryTimer)
-    muteExpiryTimer = null
-  }
-}
-
-function expireMuteLocally(memberId) {
-  const member = currentMembers.value.find(m => m.id === memberId)
-  if (!member || !member.is_muted) return
-  member.is_muted = 0
-  member.muted_until = null
-  currentMembers.value = [...currentMembers.value]
-  if (memberId === authStore.userId) {
-    loadPermissions(currentRoomId.value)
-  }
-}
-
-function checkMuteExpirations() {
-  if (!currentRoomId.value) return
-  const now = Date.now()
-  for (const member of currentMembers.value) {
-    if (member.is_muted && member.muted_until && new Date(member.muted_until).getTime() <= now) {
-      expireMuteLocally(member.id)
+function startMuteTick() {
+  muteTickTimer = setInterval(() => {
+    if (currentMembers.value.length > 0) {
+      currentMembers.value = [...currentMembers.value]
     }
-  }
+  }, 1000)
 }
 
 const loadMembers = async (roomId) => {
   try {
     const response = await roomAPI.getMembers(roomId)
     currentMembers.value = response.data.members
-    checkMuteExpirations()
   } catch (error) {
     console.error('加载成员列表失败:', error)
   }
@@ -640,7 +633,7 @@ const hideMemberPreview = () => {
 
 // 发送消息
 const sendMessage = () => {
-  if (!newMessage.value.trim() || !currentRoomId.value || currentPermissions.value.isMuted) {
+  if (!newMessage.value.trim() || !currentRoomId.value || hasActiveMute.value) {
     return
   }
   
@@ -866,13 +859,16 @@ const unmuteMember = async (userId) => {
 let muteCheckTimer = null
 
 watch(currentRoomId, (val) => {
-  clearMuteExpiryTimer()
+  if (muteTickTimer) {
+    clearInterval(muteTickTimer)
+    muteTickTimer = null
+  }
   if (muteCheckTimer) {
     clearInterval(muteCheckTimer)
     muteCheckTimer = null
   }
   if (val) {
-    muteExpiryTimer = setInterval(checkMuteExpirations, 1000)
+    startMuteTick()
     muteCheckTimer = setInterval(() => {
       loadMembers(val)
       loadPermissions(val)
@@ -954,7 +950,7 @@ const formatMuteDuration = (mutedUntil) => {
     diffMs
   })
   
-  if (isNaN(diffMs) || diffMs <= 0) return '（已到期）'
+  if (isNaN(diffMs) || diffMs <= 0) return ''
   
   const diffMinutes = Math.floor(diffMs / 1000 / 60)
   const diffHours = Math.floor(diffMinutes / 60)
@@ -1089,7 +1085,10 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  clearMuteExpiryTimer()
+  if (muteTickTimer) {
+    clearInterval(muteTickTimer)
+    muteTickTimer = null
+  }
   if (muteCheckTimer) {
     clearInterval(muteCheckTimer)
     muteCheckTimer = null
