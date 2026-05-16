@@ -540,10 +540,18 @@ router.put('/:id/members/:userId/mute', checkAdmin, [
       });
     }
     
-    // 计算禁言到期时间
+    // 计算禁言到期时间（使用本地时间）
     let mutedUntil = null;
     if (isMuted && duration) {
-      mutedUntil = new Date(Date.now() + duration * 60 * 1000).toISOString().slice(0, 19).replace('T', ' ');
+      const now = new Date();
+      const until = new Date(now.getTime() + duration * 60 * 1000);
+      mutedUntil = until.toISOString().slice(0, 19).replace('T', ' ');
+      console.log('禁言时间计算:', {
+        now: now.toISOString(),
+        duration,
+        until: until.toISOString(),
+        mutedUntil
+      });
     }
     
     await query(
