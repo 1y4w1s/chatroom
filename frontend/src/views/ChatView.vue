@@ -69,7 +69,10 @@
           <img :src="getAvatarUrl(authStore.user?.avatar)" class="avatar" />
           <div class="user-details">
             <div class="username">{{ authStore.user?.nickname || authStore.user?.username }}</div>
-            <div class="user-status">在线</div>
+            <div class="user-status">
+              <span class="status-dot" :class="displayStatus"></span>
+              {{ displayStatusText }}
+            </div>
           </div>
         </div>
         <button class="btn btn-secondary btn-sm" @click="handleLogout">退出</button>
@@ -456,6 +459,20 @@ const hasActiveMute = computed(() => {
   const me = currentMembers.value.find(m => m.id === authStore.userId)
   if (me) return isEffectivelyMuted(me)
   return currentPermissions.value.isMuted
+})
+
+// 侧边栏状态显示：隐身 → 离线
+const displayStatus = computed(() => {
+  const s = authStore.user?.status
+  return s === 'invisible' ? 'offline' : s || 'online'
+})
+
+const displayStatusText = computed(() => {
+  const s = authStore.user?.status
+  if (s === 'invisible') return '离线'
+  if (s === 'away') return '离开'
+  if (s === 'offline') return '离线'
+  return '在线'
 })
 
 const rooms = ref([])
