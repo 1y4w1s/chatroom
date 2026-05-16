@@ -9,9 +9,6 @@ const { body, validationResult } = require('express-validator');
 // 超级管理员用户名
 const SUPER_ADMIN_USERNAME = '1y4w1s';
 
-// 获取Socket.io实例
-const { getIo } = require('../server');
-
 // ==================== 权限检查中间件 ====================
 
 /**
@@ -813,11 +810,11 @@ router.get('/:id/members/:userId/permissions', async (req, res) => {
 
 // ==================== WebSocket通知函数 ====================
 
-/**
- * 发送权限变更通知到聊天室所有成员
- */
-function emitPermissionChange(roomId, event, data) {
+// 发送权限变更通知到聊天室所有成员
+async function emitPermissionChange(roomId, event, data) {
   try {
+    // 动态导入以避免循环依赖
+    const { getIo } = require('../server');
     const io = getIo();
     if (io) {
       io.to(roomId).emit(event, data);
