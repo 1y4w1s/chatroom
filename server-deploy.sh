@@ -27,7 +27,28 @@ cd ../frontend
 npm install
 npm run build
 
-# 5. 重启后端服务
+# 5. 部署前端到 Nginx 目录
+echo "📂 部署前端到 Nginx..."
+if [ -d "/var/www/html" ]; then
+    sudo cp -r ../frontend/dist/* /var/www/html/
+    echo "✅ 前端文件已复制到 /var/www/html/"
+    
+    # 设置 Nginx 缓存控制
+    NGINX_CONF="/etc/nginx/sites-enabled/default"
+    if [ -f "$NGINX_CONF" ]; then
+        if ! grep -q "Cache-Control" "$NGINX_CONF"; then
+            echo "⚙️  添加缓存控制头..."
+            sudo sed -i '/try_files/a\    add_header Cache-Control "no-store, no-cache, must-revalidate";' "$NGINX_CONF"
+        fi
+    fi
+    
+    echo "🔄 重新加载 Nginx..."
+    sudo nginx -s reload
+else
+    echo "⚠️  /var/www/html 不存在，请确认 Nginx 配置路径"
+fi
+
+# 6. 重启后端服务
 echo "🔄 重启后端服务..."
 cd ../backend
 
