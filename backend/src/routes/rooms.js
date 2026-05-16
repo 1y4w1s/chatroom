@@ -175,20 +175,34 @@ router.get('/:id', async (req, res) => {
     
     // 获取成员列表，动态计算禁言状态（已过期的禁言视为未禁言）
     const members = await query(
-      `SELECT u.id, u.username, u.nickname, u.avatar, u.status, rm.role,
-              CASE WHEN rm.is_muted = 1 AND (rm.muted_until IS NULL OR rm.muted_until > NOW()) THEN 1 ELSE 0 END as is_muted,
-              CASE WHEN rm.is_muted = 1 AND (rm.muted_until IS NULL OR rm.muted_until > NOW()) THEN DATE_FORMAT(rm.muted_until, '%Y-%m-%dT%T+08:00') ELSE NULL END as muted_until
+      `SELECT u.id, u.username, u.nickname, u.avatar, u.status, rm.role, rm.is_muted,
+              DATE_FORMAT(rm.muted_until, '%Y-%m-%dT%T+08:00') as muted_until
        FROM room_members rm
        JOIN users u ON rm.user_id = u.id
        WHERE rm.room_id = ?`,
       [roomId]
     );
     
+    // 在 JS 端判断禁言是否已过期（避免 SQL 时区问题）
+    const now = new Date();
+    const mappedMembers = members.map(member => {
+      if (member.is_muted && member.muted_until) {
+        const mutedUntil = new Date(member.muted_until);
+        if (mutedUntil <= now) {
+          member.is_muted = 0;
+          member.muted_until = null;
+        }
+      } else if (!member.muted_until) {
+        member.is_muted = 0;
+      }
+      return member;
+    });
+    
     res.json({
       success: true,
       data: {
         room: rooms[0],
-        members
+        members: mappedMembers
       }
     });
   } catch (error) {
@@ -222,9 +236,8 @@ router.get('/:id/members', async (req, res) => {
     }
     
     const members = await query(
-      `SELECT u.id, u.username, u.nickname, u.avatar, u.status, rm.role,
-              CASE WHEN rm.is_muted = 1 AND (rm.muted_until IS NULL OR rm.muted_until > NOW()) THEN 1 ELSE 0 END as is_muted,
-              CASE WHEN rm.is_muted = 1 AND (rm.muted_until IS NULL OR rm.muted_until > NOW()) THEN DATE_FORMAT(rm.muted_until, '%Y-%m-%dT%T+08:00') ELSE NULL END as muted_until
+      `SELECT u.id, u.username, u.nickname, u.avatar, u.status, rm.role, rm.is_muted,
+              DATE_FORMAT(rm.muted_until, '%Y-%m-%dT%T+08:00') as muted_until
        FROM room_members rm
        JOIN users u ON rm.user_id = u.id
        WHERE rm.room_id = ?
@@ -232,9 +245,24 @@ router.get('/:id/members', async (req, res) => {
       [roomId]
     );
     
+    // 在 JS 端判断禁言是否已过期（避免 SQL 时区问题）
+    const now = new Date();
+    const mappedMembers = members.map(member => {
+      if (member.is_muted && member.muted_until) {
+        const mutedUntil = new Date(member.muted_until);
+        if (mutedUntil <= now) {
+          member.is_muted = 0;
+          member.muted_until = null;
+        }
+      } else if (!member.muted_until) {
+        member.is_muted = 0;
+      }
+      return member;
+    });
+    
     res.json({
       success: true,
-      data: { members }
+      data: { members: mappedMembers }
     });
   } catch (error) {
     console.error('获取成员列表失败:', error);
