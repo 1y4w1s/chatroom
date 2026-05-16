@@ -39,11 +39,11 @@
         <div class="form-section">
           <h3>在线状态</h3>
           <div class="status-options">
-            <span v-for="opt in statusOptions" :key="opt.value" class="status-btn" :class="{ active: form.status === opt.value }" @click="changeStatus(opt.value)">
+              <button v-for="opt in statusOptions" :key="opt.value" class="status-btn" :class="{ active: form.status === opt.value }" @click="changeStatus(opt.value)">
                 <span class="status-icon">{{ opt.icon }}</span>
                 <span>{{ opt.label }}</span>
-              </span>
-          </div>
+              </button>
+            </div>
         </div>
 
         <div class="form-section">
