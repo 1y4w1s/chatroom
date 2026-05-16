@@ -570,58 +570,33 @@ const loadPermissions = async (roomId) => {
   }
 }
 
-// 客户端禁言定时器管理：解决服务端时钟偏差导致到期后 UI 不更新的问题
-const muteExpiryTimers = new Map()
+// 客户端禁言到期自动消除：每秒检查所有成员，到期后立即更新 UI
+let muteExpiryTimer = null
 
-function clearMuteTimers() {
-  for (const timerId of muteExpiryTimers.values()) {
-    clearTimeout(timerId)
+function clearMuteExpiryTimer() {
+  if (muteExpiryTimer) {
+    clearInterval(muteExpiryTimer)
+    muteExpiryTimer = null
   }
-  muteExpiryTimers.clear()
 }
 
 function expireMuteLocally(memberId) {
-  const idx = currentMembers.value.findIndex(m => m.id === memberId)
-  if (idx === -1) return
-  currentMembers.value[idx] = { ...currentMembers.value[idx], is_muted: 0, muted_until: null }
+  const member = currentMembers.value.find(m => m.id === memberId)
+  if (!member || !member.is_muted) return
+  member.is_muted = 0
+  member.muted_until = null
   currentMembers.value = [...currentMembers.value]
-  muteExpiryTimers.delete(memberId)
   if (memberId === authStore.userId) {
     loadPermissions(currentRoomId.value)
   }
 }
 
-function scheduleMuteExpirations() {
+function checkMuteExpirations() {
+  if (!currentRoomId.value) return
   const now = Date.now()
-  const activeIds = new Set()
-
   for (const member of currentMembers.value) {
-    activeIds.add(member.id)
-
-    if (!member.is_muted || !member.muted_until) {
-      if (muteExpiryTimers.has(member.id)) {
-        clearTimeout(muteExpiryTimers.get(member.id))
-        muteExpiryTimers.delete(member.id)
-      }
-      continue
-    }
-
-    const remainingMs = new Date(member.muted_until).getTime() - now
-    if (remainingMs <= 0) {
+    if (member.is_muted && member.muted_until && new Date(member.muted_until).getTime() <= now) {
       expireMuteLocally(member.id)
-    } else {
-      if (muteExpiryTimers.has(member.id)) {
-        clearTimeout(muteExpiryTimers.get(member.id))
-      }
-      const timerId = setTimeout(() => expireMuteLocally(member.id), remainingMs)
-      muteExpiryTimers.set(member.id, timerId)
-    }
-  }
-
-  for (const [memberId] of muteExpiryTimers) {
-    if (!activeIds.has(memberId)) {
-      clearTimeout(muteExpiryTimers.get(memberId))
-      muteExpiryTimers.delete(memberId)
     }
   }
 }
@@ -630,7 +605,7 @@ const loadMembers = async (roomId) => {
   try {
     const response = await roomAPI.getMembers(roomId)
     currentMembers.value = response.data.members
-    scheduleMuteExpirations()
+    checkMuteExpirations()
   } catch (error) {
     console.error('加载成员列表失败:', error)
   }
@@ -891,12 +866,13 @@ const unmuteMember = async (userId) => {
 let muteCheckTimer = null
 
 watch(currentRoomId, (val) => {
-  clearMuteTimers()
+  clearMuteExpiryTimer()
   if (muteCheckTimer) {
     clearInterval(muteCheckTimer)
     muteCheckTimer = null
   }
   if (val) {
+    muteExpiryTimer = setInterval(checkMuteExpirations, 1000)
     muteCheckTimer = setInterval(() => {
       loadMembers(val)
       loadPermissions(val)
@@ -1113,7 +1089,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  clearMuteTimers()
+  clearMuteExpiryTimer()
   if (muteCheckTimer) {
     clearInterval(muteCheckTimer)
     muteCheckTimer = null

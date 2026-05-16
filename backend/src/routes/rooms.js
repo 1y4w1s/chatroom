@@ -188,7 +188,7 @@ router.get('/:id', async (req, res) => {
     const mappedMembers = members.map(member => {
       if (member.is_muted && member.muted_until) {
         const mutedUntil = new Date(member.muted_until);
-        if (mutedUntil <= now) {
+        if (isNaN(mutedUntil.getTime()) || mutedUntil <= now) {
           member.is_muted = 0;
           member.muted_until = null;
         }
@@ -250,7 +250,7 @@ router.get('/:id/members', async (req, res) => {
     const mappedMembers = members.map(member => {
       if (member.is_muted && member.muted_until) {
         const mutedUntil = new Date(member.muted_until);
-        if (mutedUntil <= now) {
+        if (isNaN(mutedUntil.getTime()) || mutedUntil <= now) {
           member.is_muted = 0;
           member.muted_until = null;
         }
