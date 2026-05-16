@@ -173,20 +173,29 @@ router.get('/:id', async (req, res) => {
       });
     }
     
-    // 获取成员列表
+    // 获取成员列表，使用 DATE_FORMAT 将 muted_until 格式化为 ISO 8601 字符串（含 +08:00 时区）
     const members = await query(
-      `SELECT u.id, u.username, u.nickname, u.avatar, u.status, rm.role, rm.is_muted, rm.muted_until
+      `SELECT u.id, u.username, u.nickname, u.avatar, u.status, rm.role, rm.is_muted,
+              DATE_FORMAT(rm.muted_until, '%Y-%m-%dT%T+08:00') as muted_until
        FROM room_members rm
        JOIN users u ON rm.user_id = u.id
        WHERE rm.room_id = ?`,
       [roomId]
     );
     
+    // 将空字符串的 muted_until 转换为 null
+    const mappedMembers = members.map(member => {
+      if (member.muted_until === '0000-00-00T00:00:00+08:00' || member.muted_until === '') {
+        member.muted_until = null;
+      }
+      return member;
+    });
+    
     res.json({
       success: true,
       data: {
         room: rooms[0],
-        members
+        members: mappedMembers
       }
     });
   } catch (error) {
@@ -220,7 +229,8 @@ router.get('/:id/members', async (req, res) => {
     }
     
     const members = await query(
-      `SELECT u.id, u.username, u.nickname, u.avatar, u.status, rm.role, rm.is_muted, rm.muted_until
+      `SELECT u.id, u.username, u.nickname, u.avatar, u.status, rm.role, rm.is_muted,
+              DATE_FORMAT(rm.muted_until, '%Y-%m-%dT%T+08:00') as muted_until
        FROM room_members rm
        JOIN users u ON rm.user_id = u.id
        WHERE rm.room_id = ?
@@ -228,9 +238,16 @@ router.get('/:id/members', async (req, res) => {
       [roomId]
     );
     
+    const mappedMembers = members.map(member => {
+      if (member.muted_until === '0000-00-00T00:00:00+08:00' || member.muted_until === '') {
+        member.muted_until = null;
+      }
+      return member;
+    });
+    
     res.json({
       success: true,
-      data: { members }
+      data: { members: mappedMembers }
     });
   } catch (error) {
     console.error('获取成员列表失败:', error);
@@ -539,30 +556,34 @@ router.put('/:id/members/:userId/mute', checkAdmin, [
     
     // 计算禁言到期时间（使用服务器本地时间）
     let mutedUntil = null;
+    let dbMutedUntil = null;
     if (isMuted && duration) {
       // 获取当前本地时间并加上禁言时长
       const now = new Date();
       const until = new Date(now.getTime() + duration * 60 * 1000);
-      // 格式化为本地时间字符串（YYYY-MM-DD HH:mm:ss）
+      // 数据库存储格式（YYYY-MM-DD HH:mm:ss）
       const year = until.getFullYear();
       const month = String(until.getMonth() + 1).padStart(2, '0');
       const day = String(until.getDate()).padStart(2, '0');
       const hours = String(until.getHours()).padStart(2, '0');
       const minutes = String(until.getMinutes()).padStart(2, '0');
       const seconds = String(until.getSeconds()).padStart(2, '0');
-      mutedUntil = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+      dbMutedUntil = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+      // API 和 WebSocket 返回 ISO 8601 格式（含时区）
+      mutedUntil = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}+08:00`;
       
       console.log('禁言时间计算:', {
         nowLocal: now.toLocaleString('zh-CN'),
         duration,
         untilLocal: until.toLocaleString('zh-CN'),
+        dbMutedUntil,
         mutedUntil
       });
     }
     
     await query(
       'UPDATE room_members SET is_muted = ?, muted_until = ? WHERE room_id = ? AND user_id = ?',
-      [isMuted, mutedUntil, roomId, targetUserId]
+      [isMuted, dbMutedUntil, roomId, targetUserId]
     );
     
     // 记录系统日志

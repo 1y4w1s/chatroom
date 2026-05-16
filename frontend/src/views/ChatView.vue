@@ -895,7 +895,7 @@ const formatMuteDuration = (mutedUntil) => {
   }
   
   const now = new Date()
-  const until = new Date(mutedUntil.replace(' ', 'T'))
+  const until = new Date(mutedUntil)
   const diffMs = until - now
   
   console.log('禁言时间计算:', {
@@ -905,7 +905,7 @@ const formatMuteDuration = (mutedUntil) => {
     diffMs
   })
   
-  if (diffMs <= 0) return '（已到期）'
+  if (isNaN(diffMs) || diffMs <= 0) return '（已到期）'
   
   const diffMinutes = Math.floor(diffMs / 1000 / 60)
   const diffHours = Math.floor(diffMinutes / 60)
@@ -926,7 +926,8 @@ const formatMuteDuration = (mutedUntil) => {
 const formatMuteTime = (mutedUntil) => {
   if (!mutedUntil) return ''
   const until = new Date(mutedUntil)
-  return `禁言至：${formatTime(mutedUntil)}`
+  if (isNaN(until.getTime())) return ''
+  return `禁言至：${formatTime(until)}`
 }
 
 // WebSocket 事件监听
