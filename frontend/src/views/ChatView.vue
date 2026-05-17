@@ -1475,7 +1475,9 @@ onUnmounted(() => {
 }
 
 .message-own .message-content {
-  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .message-own .message-text {
