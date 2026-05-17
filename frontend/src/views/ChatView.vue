@@ -1478,6 +1478,7 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  flex: 1;
 }
 
 .message-own .message-text {
