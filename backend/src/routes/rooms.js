@@ -5,6 +5,20 @@ const express = require('express');
 const router = express.Router();
 const { query } = require('../config/database');
 const { body, validationResult } = require('express-validator');
+const multer = require('multer');
+const path = require('path');
+
+const roomAvatarStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadDir = path.join(__dirname, '../../uploads/avatars');
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    cb(null, `room_${req.params.id}_${Date.now()}${ext}`);
+  }
+});
+const upload = multer({ storage: roomAvatarStorage, limits: { fileSize: 5 * 1024 * 1024 } });
 
 // 超级管理员用户名
 const SUPER_ADMIN_USERNAME = '1y4w1s';
