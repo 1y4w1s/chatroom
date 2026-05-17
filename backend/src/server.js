@@ -59,7 +59,7 @@ app.set('trust proxy', true);
 // 3. 速率限制 - 防止暴力破解
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 分钟
-  max: 100, // 最多 100 个请求
+  max: 300, // 最多 300 个请求
   message: '请求过于频繁，请稍后再试',
   validate: { trustProxy: false } // 禁用 trust proxy 验证
 });
