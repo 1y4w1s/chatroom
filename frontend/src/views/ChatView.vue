@@ -172,7 +172,7 @@
             class="message"
             :class="{ 'message-own': message.sender_id === authStore.user?.id }"
           >
-            <img :src="message.avatar || '/default-avatar.png'" class="message-avatar" />
+            <img :src="message.avatar || '/default-avatar.png'" class="message-avatar" @click="openMessageMemberAction(message, $event)" style="cursor:pointer" />
             <div class="message-content">
               <div class="message-header">
                 <span class="message-sender">{{ message.nickname || message.username }}</span>
@@ -329,6 +329,7 @@
               v-for="member in currentMembers"
               :key="member.id"
               class="member-item"
+              @click="openMemberAction(member, $event)"
             >
               <img :src="getAvatarUrl(member.avatar)" class="member-avatar" />
               <div class="member-info">
@@ -496,7 +497,7 @@
           <div class="room-detail-members">
             <h4>成员列表（{{ currentMembers.length }}）</h4>
             <div class="detail-member-list">
-              <div v-for="member in currentMembers" :key="member.id" class="detail-member-item">
+              <div v-for="member in currentMembers" :key="member.id" class="detail-member-item" @click="openMemberAction(member, $event)">
                 <img :src="getAvatarUrl(member.avatar)" class="detail-member-avatar" />
                 <div class="detail-member-name">{{ member.nickname || member.username }}</div>
                 <span v-if="member.role === 'owner'" class="role-badge owner">群主</span>
@@ -507,6 +508,38 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" @click="showRoomDetail = false">关闭</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 成员操作卡片 -->
+    <div v-if="showMemberAction" class="modal-overlay" @click="showMemberAction = false">
+      <div class="member-action-card" :style="memberActionStyle" @click.stop>
+        <div class="member-action-header">
+          <img :src="getAvatarUrl(memberActionTarget?.avatar)" class="action-member-avatar" />
+          <div class="action-member-info">
+            <div class="action-member-name">{{ memberActionTarget?.nickname || memberActionTarget?.username }}</div>
+            <div class="action-member-status">
+              <span class="status-dot" :class="memberActionTarget?.status"></span>
+              {{ memberActionTarget?.status === 'online' ? '在线' : memberActionTarget?.status === 'away' ? '离开' : '离线' }}
+            </div>
+          </div>
+        </div>
+        <div class="member-action-buttons">
+          <button class="member-action-btn" @click="mentionMember">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M8 5V11M5 8H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            @ 提及
+          </button>
+          <button class="member-action-btn" @click="viewMemberProfile">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="5" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M3 14C3 11 5.2 9 8 9C10.8 9 13 11 13 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            查看资料
+          </button>
         </div>
       </div>
     </div>
@@ -712,6 +745,58 @@ const roomDetailAvatarUrl = computed(() => {
 
 const showRoomDetail = ref(false)
 
+// 成员操作卡片
+const showMemberAction = ref(false)
+const memberActionTarget = ref(null)
+const memberActionStyle = ref({})
+
+function openMemberAction(member, event) {
+  memberActionTarget.value = member
+  const rect = event.currentTarget.getBoundingClientRect()
+  memberActionStyle.value = {
+    position: 'fixed',
+    left: Math.min(rect.left, window.innerWidth - 280) + 'px',
+    top: Math.min(rect.bottom + 4, window.innerHeight - 180) + 'px',
+    zIndex: 1100
+  }
+  showMemberAction.value = true
+}
+
+function mentionMember() {
+  if (memberActionTarget.value && currentRoomId.value) {
+    const username = memberActionTarget.value.nickname || memberActionTarget.value.username
+    newMessage.value += `@${username} `
+    showMemberAction.value = false
+  }
+}
+
+function viewMemberProfile() {
+  showMemberAction.value = false
+}
+
+function openMessageMemberAction(message, event) {
+  const member = currentMembers.value.find(m => m.id === message.sender_id)
+  if (member) {
+    openMemberAction(member, event)
+  } else {
+    memberActionTarget.value = {
+      id: message.sender_id,
+      username: message.username,
+      nickname: message.nickname,
+      avatar: message.avatar,
+      status: 'offline'
+    }
+    const rect = event.currentTarget.getBoundingClientRect()
+    memberActionStyle.value = {
+      position: 'fixed',
+      left: Math.min(rect.left, window.innerWidth - 280) + 'px',
+      top: Math.min(rect.bottom + 4, window.innerHeight - 180) + 'px',
+      zIndex: 1100
+    }
+    showMemberAction.value = true
+  }
+}
+
 // 表情选择器
 const showEmojiPicker = ref(false)
 const currentEmojiCat = ref(0)
@@ -743,7 +828,7 @@ const showToastMessage = (message, type = 'success') => {
 
 const loadRooms = async () => {
   try {
-    const response = await roomAPI.getList()
+    const response = await roomAPI.getList({ userId: authStore.userId })
     rooms.value = response.data.rooms
   } catch (error) {
     console.error('加载聊天室失败:', error)
@@ -2028,6 +2113,75 @@ onUnmounted(() => {
   flex: 1;
   font-size: 13px;
   color: #1a1a1a;
+}
+
+/* 成员操作卡片 */
+.member-action-card {
+  position: fixed;
+  width: 240px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  padding: 16px;
+  z-index: 1100;
+}
+
+.member-action-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.action-member-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.action-member-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.action-member-status {
+  font-size: 12px;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.member-action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.member-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  transition: background 0.15s;
+  width: 100%;
+  text-align: left;
+}
+
+.member-action-btn:hover {
+  background: #f3f4f6;
 }
 
 .form-section h4 {

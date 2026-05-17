@@ -119,11 +119,11 @@ const checkSuperAdmin = async (req, res, next) => {
 
 /**
  * GET /api/rooms
- * 获取聊天室列表
+ * 获取聊天室列表（私有房间仅对成员可见）
  */
 router.get('/', async (req, res) => {
   try {
-    const { type, page = 1, limit = 20 } = req.query;
+    const { type, page = 1, limit = 20, userId } = req.query;
     const offset = (page - 1) * limit;
     
     let sql = `
@@ -135,6 +135,14 @@ router.get('/', async (req, res) => {
     `;
     
     const params = [];
+    
+    // 私有房间仅对成员可见
+    if (userId) {
+      sql += ` AND (r.type = 'public' OR r.id IN (SELECT room_id FROM room_members WHERE user_id = ?))`;
+      params.push(userId);
+    } else {
+      sql += ` AND r.type = 'public'`;
+    }
     
     if (type) {
       sql += ' AND r.type = ?';
