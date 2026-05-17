@@ -1459,7 +1459,7 @@ onUnmounted(() => {
 }
 
 .message-content {
-  flex: 1;
+  max-width: 100%;
   min-width: 0;
 }
 
@@ -1478,14 +1478,17 @@ onUnmounted(() => {
   font-size: 13px;
   font-weight: 500;
   color: #1a1a1a;
+  white-space: nowrap;
 }
 
 .message-time {
   font-size: 11px;
   color: #9ca3af;
+  white-space: nowrap;
 }
 
 .message-text {
+  display: inline-block;
   background: white;
   padding: 12px 16px;
   border-radius: 12px;
@@ -1494,6 +1497,7 @@ onUnmounted(() => {
   color: #1a1a1a;
   line-height: 1.5;
   word-break: break-word;
+  max-width: 100%;
 }
 
 .message-own .message-text {
