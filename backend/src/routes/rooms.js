@@ -76,7 +76,7 @@ const checkAdmin = async (req, res, next) => {
  * 检查用户是否为超级管理员
  */
 const checkSuperAdmin = async (req, res, next) => {
-  const { userId } = req.body;
+  const userId = req.body.userId || req.body.operatorId;
   
   if (!userId) {
     return res.status(400).json({
