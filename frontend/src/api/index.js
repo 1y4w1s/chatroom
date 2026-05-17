@@ -94,7 +94,13 @@ export const roomAPI = {
     return api.post(`/rooms/${roomId}/avatar`, formData, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
-  }
+  },
+  
+  // 标记已读
+  markRead: (roomId, userId) => api.post(`/rooms/${roomId}/read`, { userId }),
+  
+  // 获取未读状态
+  getReadStatus: (userId) => api.get('/rooms/read-status', { params: { userId } })
 }
 
 export const messageAPI = {

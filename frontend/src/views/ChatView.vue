@@ -34,6 +34,8 @@
               <path d="M7 7V5C7 3.34315 8.34315 2 10 2C11.6569 2 13 3.34315 13 5V7" stroke="#6b7280" stroke-width="1.5"/>
               <circle cx="10" cy="13" r="1.5" fill="#6b7280"/>
             </svg>
+            <span v-if="getRoomUnread(room.id)" class="unread-badge">{{ formatUnread(getRoomUnread(room.id)) }}</span>
+            <span v-if="getRoomMention(room.id)" class="mention-badge">@</span>
           </div>
           <div class="room-info">
             <div class="room-name">
@@ -737,6 +739,50 @@ const roomDetailAvatarUrl = computed(() => {
 
 const showRoomDetail = ref(false)
 
+// 未读状态
+const roomReadStatus = ref({})
+
+const getRoomUnread = (roomId) => {
+  return roomReadStatus.value[roomId]?.unread_count || 0
+}
+
+const getRoomMention = (roomId) => {
+  return roomReadStatus.value[roomId]?.is_mentioned || false
+}
+
+const formatUnread = (count) => {
+  return count > 99 ? '99+' : String(count)
+}
+
+const loadReadStatus = async () => {
+  if (!authStore.userId) return
+  try {
+    const response = await roomAPI.getReadStatus(authStore.userId)
+    const map = {}
+    for (const s of response.data) {
+      map[s.room_id] = { unread_count: s.unread_count, is_mentioned: s.is_mentioned }
+    }
+    roomReadStatus.value = map
+  } catch (e) {
+    // 静默失败
+  }
+}
+
+const markRoomRead = async (roomId) => {
+  if (!authStore.userId) return
+  try {
+    await roomAPI.markRead(roomId, authStore.userId)
+    const map = { ...roomReadStatus.value }
+    if (map[roomId]) {
+      map[roomId].unread_count = 0
+      map[roomId].is_mentioned = false
+    }
+    roomReadStatus.value = map
+  } catch (e) {
+    // 静默失败
+  }
+}
+
 // 成员操作卡片
 const showMemberAction = ref(false)
 const memberActionTarget = ref(null)
@@ -823,6 +869,7 @@ const loadRooms = async () => {
   try {
     const response = await roomAPI.getList({ userId: authStore.userId })
     rooms.value = response.data.rooms
+    loadReadStatus()
   } catch (error) {
     console.error('加载聊天室失败:', error)
   }
@@ -851,6 +898,7 @@ const joinRoom = async (roomId) => {
     await loadMembers(roomId)
     await loadPermissions(roomId)
     authStore.joinRoom(roomId)
+    markRoomRead(roomId)
     
     setTimeout(() => {
       scrollToBottom(true)
@@ -1325,6 +1373,17 @@ const setupSocketListeners = () => {
       const messageWithAvatar = { ...message, avatar }
       messages.value.push(messageWithAvatar)
       nextTick(() => scrollToBottom())
+    } else {
+      // 不在当前房间，增加未读计数
+      const map = { ...roomReadStatus.value }
+      if (!map[message.room_id]) {
+        map[message.room_id] = { unread_count: 0, is_mentioned: false }
+      }
+      map[message.room_id].unread_count++
+      if (message.is_mention) {
+        map[message.room_id].is_mentioned = true
+      }
+      roomReadStatus.value = map
     }
   })
   
@@ -1501,7 +1560,8 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  overflow: hidden;
+  overflow: visible;
+  position: relative;
 }
 
 .room-list-avatar {
@@ -1509,6 +1569,49 @@ onUnmounted(() => {
   height: 100%;
   object-fit: cover;
   border-radius: 8px;
+}
+
+.unread-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ef4444;
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  z-index: 2;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.mention-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #f59e0b;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.mention-badge ~ .unread-badge {
+  top: -4px;
+  right: 14px;
 }
 
 .room-item.active .room-icon {

@@ -320,6 +320,35 @@ async function initDatabase() {
     `);
     console.log('✅ sensitive_words 表已创建');
     
+    // 创建消息已读状态表
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS room_read_status (
+        user_id INT NOT NULL,
+        room_id INT NOT NULL,
+        last_read_message_id INT DEFAULT 0,
+        is_mentioned BOOLEAN DEFAULT FALSE,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        PRIMARY KEY (user_id, room_id),
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+    console.log('✅ room_read_status 表已创建');
+    
+    // 给 messages 表添加 is_mention 字段
+    try {
+      const hasIsMention = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'messages' AND COLUMN_NAME = 'is_mention'
+      `);
+      if (hasIsMention[0].count === 0) {
+        await connection.query(`ALTER TABLE messages ADD COLUMN is_mention BOOLEAN DEFAULT FALSE`);
+        console.log('✅ 添加 messages.is_mention 字段');
+      }
+    } catch (err) {
+      console.log('⚠️ messages 字段更新跳过:', err.message);
+    }
+    
     // 插入默认聊天室（如果不存在）
     try {
       await connection.query(`

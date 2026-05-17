@@ -980,6 +980,66 @@ router.get('/:id/members/:userId/permissions', async (req, res) => {
   }
 });
 
+/**
+ * POST /api/rooms/:id/read
+ * 标记聊天室为已读
+ */
+router.post('/:id/read', async (req, res) => {
+  try {
+    const roomId = req.params.id;
+    const { userId } = req.body;
+    if (!userId) return res.status(400).json({ success: false, error: { message: '缺少用户 ID' } });
+
+    // 获取该房间最新消息 ID
+    const lastMsg = await query(
+      'SELECT MAX(id) as max_id FROM messages WHERE room_id = ?',
+      [roomId]
+    );
+    const lastId = lastMsg[0]?.max_id || 0;
+
+    await query(
+      `INSERT INTO room_read_status (user_id, room_id, last_read_message_id, is_mentioned)
+       VALUES (?, ?, ?, FALSE)
+       ON DUPLICATE KEY UPDATE last_read_message_id = ?, is_mentioned = FALSE`,
+      [userId, roomId, lastId, lastId]
+    );
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error('标记已读失败:', error);
+    res.status(500).json({ success: false, error: { message: '标记已读失败' } });
+  }
+});
+
+/**
+ * GET /api/rooms/read-status?userId=
+ * 获取所有聊天室的未读状态
+ */
+router.get('/read-status', async (req, res) => {
+  try {
+    const { userId } = req.query;
+    if (!userId) return res.status(400).json({ success: false, error: { message: '缺少用户 ID' } });
+
+    const statuses = await query(
+      `SELECT rrs.room_id, rrs.is_mentioned,
+              (SELECT COUNT(*) FROM messages m WHERE m.room_id = rrs.room_id AND m.id > IFNULL(rrs.last_read_message_id, 0)) as unread_count
+       FROM room_read_status rrs
+       WHERE rrs.user_id = ?
+       UNION
+       SELECT rm.room_id, FALSE as is_mentioned,
+              (SELECT COUNT(*) FROM messages m WHERE m.room_id = rm.room_id) as unread_count
+       FROM room_members rm
+       WHERE rm.user_id = ? AND rm.room_id NOT IN (SELECT room_id FROM room_read_status WHERE user_id = ?)`,
+      [userId, userId, userId]
+    );
+
+    res.json({ success: true, data: statuses });
+  } catch (error) {
+    console.error('获取未读状态失败:', error);
+    res.status(500).json({ success: false, error: { message: '获取未读状态失败' } });
+  }
+});
+
 // ==================== WebSocket通知函数 ====================
 
 // 发送权限变更通知到聊天室所有成员

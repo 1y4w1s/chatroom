@@ -34,11 +34,43 @@ class MessageService {
     // 敏感词过滤
     const filteredContent = await this.filterSensitiveWords(content);
     
+    // 检测 @提及
+    const mentionRegex = /@(\S+)/g;
+    let mentionMatch;
+    const mentionedNames = [];
+    while ((mentionMatch = mentionRegex.exec(filteredContent)) !== null) {
+      mentionedNames.push(mentionMatch[1].replace(/[：:，,。.！!？?]/g, ''));
+    }
+    
+    let isMention = false;
+    if (mentionedNames.length > 0) {
+      // 查找被提及的用户
+      const mentionedUsers = await query(
+        `SELECT u.id FROM users u
+         JOIN room_members rm ON u.id = rm.user_id AND rm.room_id = ?
+         WHERE u.username IN (?) OR u.nickname IN (?)`,
+        [roomId, mentionedNames, mentionedNames]
+      );
+      
+      if (mentionedUsers.length > 0) {
+        isMention = true;
+        // 设置被提及用户的 is_mentioned 标记
+        for (const mu of mentionedUsers) {
+          await query(
+            `INSERT INTO room_read_status (user_id, room_id, last_read_message_id, is_mentioned)
+             VALUES (?, ?, 0, TRUE)
+             ON DUPLICATE KEY UPDATE is_mentioned = TRUE`,
+            [mu.id, roomId]
+          );
+        }
+      }
+    }
+    
     // 插入消息
     const result = await query(
-      `INSERT INTO messages (room_id, user_id, content, type, file_url, file_name, file_size) 
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [roomId, userId, filteredContent, type, fileUrl, fileName, fileSize]
+      `INSERT INTO messages (room_id, user_id, content, type, file_url, file_name, file_size, is_mention) 
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [roomId, userId, filteredContent, type, fileUrl, fileName, fileSize, isMention]
     );
     
     // 获取完整的消息信息
