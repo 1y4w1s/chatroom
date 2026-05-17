@@ -749,11 +749,12 @@ const showRoomDetail = ref(false)
 const roomReadStatus = ref({})
 
 const getRoomUnread = (roomId) => {
-  return roomReadStatus.value[roomId]?.unread_count || 0
+  return Number(roomReadStatus.value[roomId]?.unread_count) || 0
 }
 
 const getRoomMention = (roomId) => {
-  return !!roomReadStatus.value[roomId]?.is_mentioned
+  const val = roomReadStatus.value[roomId]?.is_mentioned
+  return val === true || val === 1 || val === '1'
 }
 
 const formatUnread = (count) => {
@@ -764,10 +765,9 @@ const loadReadStatus = async () => {
   if (!authStore.userId) return
   try {
     const response = await roomAPI.getReadStatus(authStore.userId)
-    console.log('未读状态原始数据:', response.data)
     const map = {}
     for (const s of response.data) {
-      map[s.room_id] = { unread_count: s.unread_count, is_mentioned: s.is_mentioned }
+      map[s.room_id] = { unread_count: Number(s.unread_count), is_mentioned: s.is_mentioned == '1' || s.is_mentioned === true }
     }
     roomReadStatus.value = map
   } catch (e) {
