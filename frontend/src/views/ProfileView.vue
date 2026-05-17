@@ -1,7 +1,12 @@
-<template>
+﻿<template>
   <div class="profile-container">
     <div class="profile-header">
-      <button class="btn btn-secondary" @click="goBack">← 返回聊天</button>
+      <button class="btn btn-secondary" @click="goBack">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        返回聊天
+      </button>
       <h2>个人中心</h2>
     </div>
 
@@ -11,6 +16,9 @@
           <div class="avatar-wrapper" @click="triggerFileInput">
             <img :src="avatarUrl" class="profile-avatar" />
             <div class="avatar-overlay">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M10 4V16M4 10H16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              </svg>
               <span>更换头像</span>
             </div>
           </div>
@@ -39,11 +47,17 @@
         <div class="form-section">
           <h3>在线状态</h3>
           <div class="status-options">
-              <button v-for="opt in statusOptions" :key="opt.value" class="status-btn" :class="{ active: form.status === opt.value }" @click="changeStatus(opt.value)">
-                <span class="status-icon">{{ opt.icon }}</span>
-                <span>{{ opt.label }}</span>
-              </button>
-            </div>
+            <button 
+              v-for="opt in statusOptions" 
+              :key="opt.value" 
+              class="status-btn" 
+              :class="{ active: form.status === opt.value }" 
+              @click="changeStatus(opt.value)"
+            >
+              <span class="status-icon" v-html="opt.icon"></span>
+              <span>{{ opt.label }}</span>
+            </button>
+          </div>
         </div>
 
         <div class="form-section">
@@ -90,9 +104,21 @@ const form = reactive({
 })
 
 const statusOptions = [
-  { value: 'online', label: '在线', icon: '🟢' },
-  { value: 'away', label: '离开', icon: '🟡' },
-  { value: 'invisible', label: '隐身', icon: '👻' }
+  { 
+    value: 'online', 
+    label: '在线', 
+    icon: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" fill="#22c55e"/></svg>' 
+  },
+  { 
+    value: 'away', 
+    label: '离开', 
+    icon: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" fill="#eab308"/></svg>' 
+  },
+  { 
+    value: 'invisible', 
+    label: '隐身', 
+    icon: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" fill="#9ca3af"/><path d="M4 4L12 12" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>' 
+  }
 ]
 
 const passwordForm = reactive({
@@ -238,37 +264,39 @@ onMounted(() => {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #f5f5f5;
+  background: #fafafa;
 }
 
 .profile-header {
-  padding: 20px;
+  padding: 20px 24px;
   background: white;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e5e7eb;
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 16px;
 }
 
 .profile-header h2 {
   font-size: 18px;
-  color: #333;
+  font-weight: 600;
+  color: #1a1a1a;
 }
 
 .profile-body {
   flex: 1;
   max-width: 600px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 24px 20px;
   width: 100%;
   overflow-y: auto;
 }
 
 .profile-card {
   background: white;
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  border: 1px solid #f3f4f6;
 }
 
 .avatar-section {
@@ -276,7 +304,7 @@ onMounted(() => {
   align-items: center;
   gap: 20px;
   padding-bottom: 24px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #f0f0f0;
   margin-bottom: 24px;
 }
 
@@ -302,12 +330,14 @@ onMounted(() => {
   background: rgba(0,0,0,0.5);
   color: white;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 12px;
   opacity: 0;
   transition: opacity 0.2s;
   border-radius: 50%;
+  gap: 4px;
 }
 
 .avatar-wrapper:hover .avatar-overlay {
@@ -321,41 +351,51 @@ onMounted(() => {
 .display-name {
   font-size: 20px;
   font-weight: 600;
-  color: #333;
+  color: #1a1a1a;
   margin-bottom: 4px;
 }
 
 .display-username {
   font-size: 14px;
-  color: #999;
+  color: #9ca3af;
 }
 
 .form-section {
   margin-bottom: 28px;
 }
 
+.form-section:last-child {
+  margin-bottom: 0;
+}
+
 .form-section h3 {
   font-size: 16px;
-  color: #333;
-  margin-bottom: 12px;
-  padding-bottom: 8px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
   border-bottom: 1px solid #f0f0f0;
 }
 
 .form-group {
-  margin-bottom: 14px;
+  margin-bottom: 16px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
 }
 
 .form-group label {
   display: block;
   font-size: 13px;
-  color: #666;
-  margin-bottom: 6px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
 }
 
 .input-row {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .input-row .input {
@@ -364,77 +404,84 @@ onMounted(() => {
 
 .input {
   width: 100%;
-  padding: 10px 14px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
   font-size: 14px;
-  outline: none;
-  transition: border-color 0.2s;
-  box-sizing: border-box;
+  transition: all 0.2s;
+  background: #fafafa;
 }
 
 .input:focus {
-  border-color: #007bff;
+  outline: none;
+  border-color: #1a1a1a;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.05);
 }
 
 .status-options {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
 .status-btn {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 10px 16px;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
+  gap: 8px;
+  padding: 12px 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
   background: white;
   cursor: pointer;
   font-size: 14px;
+  color: #374151;
   transition: all 0.2s;
 }
 
 .status-btn:hover {
-  border-color: #007bff;
-  background: #f0f7ff;
+  border-color: #1a1a1a;
+  background: #fafafa;
 }
 
 .status-btn.active {
-  border-color: #007bff;
-  background: #e3f2fd;
-  color: #007bff;
-  font-weight: 500;
+  border-color: #1a1a1a;
+  background: #1a1a1a;
+  color: white;
 }
 
 .status-icon {
-  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .upload-progress {
   text-align: center;
-  color: #007bff;
+  color: #6b7280;
   font-size: 14px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: 8px;
 }
 
 .msg {
-  padding: 8px 12px;
-  border-radius: 6px;
+  padding: 12px 14px;
+  border-radius: 8px;
   font-size: 13px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .msg.error {
-  background: #fff0f0;
-  color: #d32f2f;
-  border: 1px solid #ffcdd2;
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
 }
 
 .msg.success {
-  background: #f0fff4;
-  color: #2e7d32;
-  border: 1px solid #c8e6c9;
+  background: #f0fdf4;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
 }
 </style>

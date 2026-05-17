@@ -1,8 +1,16 @@
-<template>
+﻿<template>
   <div class="login-container">
     <div class="login-card card">
-      <h1 class="login-title">安全聊天室</h1>
-      <p class="login-subtitle">请登录您的账号</p>
+      <div class="login-header">
+        <div class="logo">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <rect width="48" height="48" rx="12" fill="#1a1a1a"/>
+            <path d="M14 24L20 30L34 16" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h1 class="login-title">安全聊天室</h1>
+        <p class="login-subtitle">登录您的账号继续</p>
+      </div>
 
       <form @submit.prevent="handleLogin">
         <div class="form-group">
@@ -29,7 +37,7 @@
 
         <div v-if="error" class="error-message">{{ error }}</div>
 
-        <button type="submit" class="btn btn-primary" :disabled="loading">
+        <button type="submit" class="btn btn-primary btn-block" :disabled="loading">
           {{ loading ? '登录中...' : '登录' }}
         </button>
       </form>
@@ -78,8 +86,9 @@ const handleLogin = async () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  background: #fafafa;
+  padding: 20px;
 }
 
 .login-card {
@@ -88,17 +97,28 @@ const handleLogin = async () => {
   padding: 40px;
 }
 
+.login-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.logo {
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
 .login-title {
   text-align: center;
-  color: #333;
-  margin-bottom: 10px;
-  font-size: 28px;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .login-subtitle {
   text-align: center;
-  color: #666;
-  margin-bottom: 30px;
+  color: #6b7280;
+  font-size: 14px;
 }
 
 .form-group {
@@ -107,26 +127,56 @@ const handleLogin = async () => {
 
 .form-group label {
   display: block;
-  margin-bottom: 8px;
-  color: #333;
+  font-size: 13px;
   font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
 }
 
-.btn-primary {
+.input {
   width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: all 0.2s;
+  background: #fafafa;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #1a1a1a;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.05);
+}
+
+.btn-block {
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 13px;
+  margin-bottom: 16px;
   padding: 12px;
-  font-size: 16px;
-  margin-top: 10px;
+  background: #fef2f2;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
 }
 
 .login-footer {
   text-align: center;
-  margin-top: 20px;
-  color: #666;
+  margin-top: 24px;
+  font-size: 14px;
+  color: #6b7280;
 }
 
 .login-footer a {
-  color: #007bff;
+  color: #1a1a1a;
+  font-weight: 500;
   text-decoration: none;
 }
 

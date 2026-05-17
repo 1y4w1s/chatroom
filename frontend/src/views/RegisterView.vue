@@ -1,8 +1,16 @@
-<template>
+﻿<template>
   <div class="register-container">
     <div class="register-card card">
-      <h1 class="register-title">注册账号</h1>
-      <p class="register-subtitle">创建您的聊天室账号</p>
+      <div class="register-header">
+        <div class="logo">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <rect width="48" height="48" rx="12" fill="#1a1a1a"/>
+            <path d="M14 24L20 30L34 16" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h1 class="register-title">注册账号</h1>
+        <p class="register-subtitle">创建您的聊天室账号</p>
+      </div>
 
       <form @submit.prevent="handleRegister">
         <div class="form-group">
@@ -64,7 +72,7 @@
         <div v-if="error" class="error-message">{{ error }}</div>
         <div v-if="success" class="success-message">{{ success }}</div>
 
-        <button type="submit" class="btn btn-primary" :disabled="loading">
+        <button type="submit" class="btn btn-primary btn-block" :disabled="loading">
           {{ loading ? '注册中...' : '注册' }}
         </button>
       </form>
@@ -100,39 +108,39 @@ const handleRegister = async () => {
   error.value = ''
   success.value = ''
 
-  // 验证密码
   if (form.value.password !== form.value.confirmPassword) {
     error.value = '两次输入的密码不一致'
     return
   }
 
-  if (form.value.password.length < 6 || form.value.password.length > 32) {
-    error.value = '密码长度必须在 6-32 个字符之间'
-    return
-  }
-
-  // 密码强度验证
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/
-  if (!passwordRegex.test(form.value.password)) {
+  if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(form.value.password)) {
     error.value = '密码必须包含大小写字母和数字'
     return
   }
 
   loading.value = true
 
-  const { confirmPassword, ...registerData } = form.value
-  const result = await authStore.register(registerData)
+  try {
+    const response = await authStore.register({
+      username: form.value.username,
+      email: form.value.email,
+      nickname: form.value.nickname || form.value.username,
+      password: form.value.password
+    })
 
-  if (result.success) {
-    success.value = '注册成功，正在跳转...'
-    setTimeout(() => {
-      router.push('/')
-    }, 1000)
-  } else {
-    error.value = result.message
+    if (response.success) {
+      success.value = '注册成功！正在跳转登录...'
+      setTimeout(() => {
+        router.push('/login')
+      }, 1500)
+    } else {
+      error.value = response.message || '注册失败'
+    }
+  } catch (err) {
+    error.value = err.message || '注册失败，请重试'
+  } finally {
+    loading.value = false
   }
-
-  loading.value = false
 }
 </script>
 
@@ -142,27 +150,38 @@ const handleRegister = async () => {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  padding: 20px 0;
+  background: #fafafa;
+  padding: 20px;
 }
 
 .register-card {
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   padding: 40px;
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.logo {
+  margin-bottom: 20px;
+  display: inline-block;
 }
 
 .register-title {
   text-align: center;
-  color: #333;
-  margin-bottom: 10px;
-  font-size: 28px;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  font-size: 24px;
+  font-weight: 600;
 }
 
 .register-subtitle {
   text-align: center;
-  color: #666;
-  margin-bottom: 30px;
+  color: #6b7280;
+  font-size: 14px;
 }
 
 .form-group {
@@ -171,26 +190,66 @@ const handleRegister = async () => {
 
 .form-group label {
   display: block;
-  margin-bottom: 8px;
-  color: #333;
+  font-size: 13px;
   font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
 }
 
-.btn-primary {
+.input {
   width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: all 0.2s;
+  background: #fafafa;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #1a1a1a;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.05);
+}
+
+.btn-block {
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+.error-message {
+  color: #dc2626;
+  font-size: 13px;
+  margin-bottom: 16px;
   padding: 12px;
-  font-size: 16px;
-  margin-top: 10px;
+  background: #fef2f2;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
+}
+
+.success-message {
+  color: #16a34a;
+  font-size: 13px;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #f0fdf4;
+  border-radius: 8px;
+  border: 1px solid #bbf7d0;
 }
 
 .register-footer {
   text-align: center;
-  margin-top: 20px;
-  color: #666;
+  margin-top: 24px;
+  font-size: 14px;
+  color: #6b7280;
 }
 
 .register-footer a {
-  color: #007bff;
+  color: #1a1a1a;
+  font-weight: 500;
   text-decoration: none;
 }
 

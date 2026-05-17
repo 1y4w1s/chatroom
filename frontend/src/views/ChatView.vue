@@ -1,11 +1,13 @@
-<template>
+﻿<template>
   <div class="chat-container">
-    <!-- 侧边栏 -->
     <aside class="sidebar">
       <div class="sidebar-header">
         <h2>聊天室列表</h2>
         <button class="btn btn-primary btn-sm" @click="showCreateModal = true">
-          + 新建
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          新建
         </button>
       </div>
 
@@ -20,8 +22,17 @@
           @mouseleave="hideMemberPreview"
         >
           <div class="room-icon">
-            <span v-if="room.type === 'public'">🌐</span>
-            <span v-else>🔒</span>
+            <svg v-if="room.type === 'public'" width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="8" stroke="#6b7280" stroke-width="1.5"/>
+              <path d="M10 2C10 2 14 6 14 10C14 14 10 18 10 18" stroke="#6b7280" stroke-width="1.5"/>
+              <path d="M10 2C10 2 6 6 6 10C6 14 10 18 10 18" stroke="#6b7280" stroke-width="1.5"/>
+              <path d="M2 10H18" stroke="#6b7280" stroke-width="1.5"/>
+            </svg>
+            <svg v-else width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <rect x="3" y="7" width="14" height="11" rx="2" stroke="#6b7280" stroke-width="1.5"/>
+              <path d="M7 7V5C7 3.34315 8.34315 2 10 2C11.6569 2 13 3.34315 13 5V7" stroke="#6b7280" stroke-width="1.5"/>
+              <circle cx="10" cy="13" r="1.5" fill="#6b7280"/>
+            </svg>
           </div>
           <div class="room-info">
             <div class="room-name">{{ room.name }}</div>
@@ -29,14 +40,13 @@
           </div>
         </div>
         
-        <!-- 成员预览悬浮层 - 独立于房间列表项 -->
         <div 
           v-if="previewRoomId && previewMembers.length > 0" 
           class="member-preview"
           :style="previewPosition"
         >
           <div class="preview-header">
-            <span>{{ rooms.find(r => r.id === previewRoomId)?.name || '成员列表' }} - 成员列表</span>
+            <span>{{ rooms.find(r => r.id === previewRoomId)?.name || '成员列表' }}</span>
             <span class="member-count">{{ previewMembers.length }}人</span>
           </div>
           <div class="preview-list">
@@ -79,12 +89,15 @@
       </div>
     </aside>
 
-    <!-- 头像上传弹窗 -->
     <div v-if="showAvatarUpload" class="modal-overlay" @click="showAvatarUpload = false">
       <div class="modal" @click.stop>
         <div class="modal-header">
           <h3>更换头像</h3>
-          <button class="close-btn" @click="showAvatarUpload = false">×</button>
+          <button class="close-btn" @click="showAvatarUpload = false">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
         <div class="modal-body">
           <div class="avatar-preview">
@@ -115,10 +128,8 @@
       </div>
     </div>
 
-    <!-- 主聊天区域 -->
     <main class="chat-main">
       <div v-if="currentRoomId" class="chat-wrapper">
-        <!-- 聊天室头部 -->
         <header class="chat-header">
           <div class="header-left">
             <h3>{{ currentRoom?.name }}</h3>
@@ -132,7 +143,6 @@
             >
               管理成员
             </button>
-            <!-- 超级管理员始终可以看到删除聊天室按钮 -->
             <button 
               v-if="isSuperAdmin" 
               class="btn btn-danger btn-sm" 
@@ -140,7 +150,6 @@
             >
               删除聊天室
             </button>
-            <!-- 群主可以解散聊天室 -->
             <button 
               v-else-if="currentPermissions.isOwner" 
               class="btn btn-danger btn-sm" 
@@ -151,7 +160,6 @@
           </div>
         </header>
 
-        <!-- 消息列表 -->
         <div class="message-list" ref="messageListRef">
           <div
             v-for="message in messages"
@@ -170,10 +178,14 @@
           </div>
         </div>
 
-        <!-- 输入区域 -->
         <footer class="message-input">
           <div v-if="hasActiveMute" class="muted-notice">
-            ⚠️ 您已被禁言，无法发送消息
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="7" stroke="#dc2626" stroke-width="1.5"/>
+              <path d="M8 4V9" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="8" cy="11.5" r="1" fill="#dc2626"/>
+            </svg>
+            您已被禁言，无法发送消息
           </div>
           <input
             v-model="newMessage"
@@ -195,11 +207,17 @@
       </div>
 
       <div v-else class="no-room">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+          <rect x="8" y="12" width="48" height="40" rx="4" stroke="#e5e7eb" stroke-width="2"/>
+          <path d="M8 24H56" stroke="#e5e7eb" stroke-width="2"/>
+          <circle cx="16" cy="18" r="2" fill="#e5e7eb"/>
+          <circle cx="24" cy="18" r="2" fill="#e5e7eb"/>
+          <circle cx="32" cy="18" r="2" fill="#e5e7eb"/>
+        </svg>
         <p>请选择一个聊天室</p>
       </div>
     </main>
 
-    <!-- 创建聊天室弹窗 -->
     <div v-if="showCreateModal" class="modal-overlay" @click="showCreateModal = false">
       <div class="modal" @click.stop>
         <h3>创建聊天室</h3>
@@ -227,12 +245,15 @@
       </div>
     </div>
 
-    <!-- 成员管理弹窗 -->
     <div v-if="showMemberManagement" class="modal-overlay" @click="showMemberManagement = false">
       <div class="modal member-management-modal" @click.stop>
         <div class="modal-header">
           <h3>成员管理 - {{ currentRoom?.name }}</h3>
-          <button class="close-btn" @click="showMemberManagement = false">×</button>
+          <button class="close-btn" @click="showMemberManagement = false">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
         <div class="modal-body">
           <div class="member-list">
@@ -258,7 +279,6 @@
                 </div>
               </div>
               <div class="member-actions">
-                <!-- 权限管理 -->
                 <button 
                   v-if="currentPermissions.isOwner && member.role === 'member'"
                   class="action-btn btn-admin"
@@ -274,7 +294,6 @@
                   撤销管理员
                 </button>
                 
-                <!-- 禁言管理 -->
                 <button 
                   v-if="currentPermissions.isAdmin && member.role === 'member' && !isEffectivelyMuted(member)"
                   class="action-btn btn-mute"
@@ -299,12 +318,15 @@
       </div>
     </div>
 
-    <!-- 禁言设置弹窗 -->
     <div v-if="showMuteModal" class="modal-overlay" @click="showMuteModal = false">
       <div class="modal" @click.stop>
         <div class="modal-header">
           <h3>设置禁言</h3>
-          <button class="close-btn" @click="showMuteModal = false">×</button>
+          <button class="close-btn" @click="showMuteModal = false">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
         <div class="modal-body">
           <div class="form-group">
@@ -372,12 +394,22 @@
       </div>
     </div>
 
-    <!-- 解散/删除确认弹窗 -->
     <div v-if="showDissolveConfirm" class="modal-overlay" @click="showDissolveConfirm = false">
       <div class="modal danger-modal" @click.stop>
         <div class="modal-header">
-          <h3 class="danger-title">⚠️ {{ isSuperAdmin ? '删除聊天室' : '解散聊天室' }}</h3>
-          <button class="close-btn" @click="showDissolveConfirm = false">×</button>
+          <h3 class="danger-title">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="8" stroke="#dc2626" stroke-width="1.5"/>
+              <path d="M10 5V11" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="10" cy="14" r="1" fill="#dc2626"/>
+            </svg>
+            {{ isSuperAdmin ? '删除聊天室' : '解散聊天室' }}
+          </h3>
+          <button class="close-btn" @click="showDissolveConfirm = false">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
         </div>
         <div class="modal-body">
           <p class="warning-text">
@@ -399,7 +431,6 @@
       </div>
     </div>
 
-    <!-- 操作结果提示 -->
     <div v-if="showToast" class="toast" :class="toastType">
       {{ toastMessage }}
     </div>
@@ -415,10 +446,8 @@ import { roomAPI, userAPI } from '@/api'
 const router = useRouter()
 const authStore = useAuthStore()
 
-// 超级管理员用户名
 const SUPER_ADMIN_USERNAME = '1y4w1s'
 
-// 判断是否为超级管理员
 const isSuperAdmin = computed(() => {
   const userStr = localStorage.getItem('user')
   if (!userStr) return false
@@ -432,7 +461,6 @@ const isSuperAdmin = computed(() => {
   }
 })
 
-// 统一处理头像URL
 const getAvatarUrl = (avatarPath) => {
   if (!avatarPath || !avatarPath.trim()) {
     return '/default-avatar.png'
@@ -447,21 +475,18 @@ const getAvatarUrl = (avatarPath) => {
   return `${window.location.origin}/${path}`
 }
 
-// 实时判断禁言是否有效：不管后端 is_muted 是什么，只看本地时间
 function isEffectivelyMuted(member) {
   if (!member.is_muted) return false
   if (!member.muted_until) return true
   return new Date(member.muted_until).getTime() > Date.now()
 }
 
-// 当前用户是否处于有效禁言中
 const hasActiveMute = computed(() => {
   const me = currentMembers.value.find(m => m.id === authStore.userId)
   if (me) return isEffectivelyMuted(me)
   return currentPermissions.value.isMuted
 })
 
-// 侧边栏状态显示：隐身 → 离线
 const userStatus = computed(() => {
   const u = authStore.user
   let s = u?.status
@@ -500,19 +525,16 @@ const newRoom = ref({
   type: 'public'
 })
 
-// 头像上传相关
 const showAvatarUpload = ref(false)
 const selectedFile = ref(null)
 const avatarPreview = ref(null)
 const uploading = ref(false)
 const uploadError = ref('')
 
-// 成员预览相关
 const previewRoomId = ref(null)
 const previewMembers = ref([])
 const previewPosition = ref({})
 
-// 成员管理相关
 const showMemberManagement = ref(false)
 const showMuteModal = ref(false)
 const selectedMember = ref(null)
@@ -528,10 +550,8 @@ const muteDurationOptions = [
   { label: '24 小时', value: 1440 }
 ]
 
-// 解散确认相关
 const showDissolveConfirm = ref(false)
 
-// 操作提示
 const showToast = ref(false)
 const toastMessage = ref('')
 const toastType = ref('success')
@@ -545,7 +565,6 @@ const showToastMessage = (message, type = 'success') => {
   }, 3000)
 }
 
-// 加载聊天室列表
 const loadRooms = async () => {
   try {
     const response = await roomAPI.getList()
@@ -555,14 +574,12 @@ const loadRooms = async () => {
   }
 }
 
-// 加入聊天室
 const joinRoom = async (roomId) => {
   try {
     await roomAPI.join(roomId, authStore.userId)
     currentRoomId.value = roomId
     currentRoom.value = rooms.value.find(r => r.id === roomId)
     
-    // 加载消息历史
     const response = await roomAPI.getMessages(roomId)
     const API_BASE_URL = import.meta.env.VITE_API_URL || ''
     messages.value = response.data.messages
@@ -577,13 +594,8 @@ const joinRoom = async (roomId) => {
         return { ...msg, avatar }
       })
     
-    // 加载成员列表
     await loadMembers(roomId)
-    
-    // 获取用户权限
     await loadPermissions(roomId)
-    
-    // 加入 WebSocket 房间
     authStore.joinRoom(roomId)
     
     setTimeout(() => {
@@ -594,7 +606,6 @@ const joinRoom = async (roomId) => {
   }
 }
 
-// 加载用户权限
 const loadPermissions = async (roomId) => {
   try {
     const response = await roomAPI.getPermissions(roomId, authStore.userId)
@@ -604,7 +615,6 @@ const loadPermissions = async (roomId) => {
   }
 }
 
-// 每秒触发 Vue 重新计算 hasActiveMute（因为 Date.now() 不是响应式的）
 let muteTickTimer = null
 
 function startMuteTick() {
@@ -624,11 +634,9 @@ const loadMembers = async (roomId) => {
   }
 }
 
-// 成员预览
 const showMemberPreview = async (roomId, event) => {
   previewRoomId.value = roomId
   
-  // 设置预览位置（悬浮在房间列表右侧）
   previewPosition.value = {
     position: 'fixed',
     left: '320px',
@@ -651,7 +659,6 @@ const hideMemberPreview = () => {
   previewMembers.value = []
 }
 
-// 发送消息
 const sendMessage = () => {
   if (!newMessage.value.trim() || !currentRoomId.value || hasActiveMute.value) {
     return
@@ -661,7 +668,6 @@ const sendMessage = () => {
   newMessage.value = ''
 }
 
-// 输入状态
 let typingTimeout = null
 const handleTyping = () => {
   if (currentRoomId.value) {
@@ -674,7 +680,6 @@ const handleTyping = () => {
   }
 }
 
-// 创建聊天室
 const createRoom = async () => {
   try {
     const response = await roomAPI.create({ ...newRoom.value, owner_id: authStore.userId })
@@ -689,18 +694,15 @@ const createRoom = async () => {
   }
 }
 
-// 登出
 const handleLogout = async () => {
   await authStore.logout()
   router.push('/login')
 }
 
-// 跳转到个人中心
 const goToProfile = () => {
   router.push('/profile')
 }
 
-// 头像上传相关方法
 const handleFileChange = (event) => {
   const file = event.target.files[0]
   if (!file) return
@@ -764,7 +766,6 @@ const uploadAvatar = async () => {
   }
 }
 
-// 权限管理方法
 const grantAdmin = async (userId) => {
   try {
     const response = await roomAPI.changeRole(
@@ -816,17 +817,14 @@ const openMuteModal = (member) => {
 const confirmMute = async () => {
   if (!selectedMember.value) return
   
-  // 如果是自定义时长，计算总分钟数
   let duration
   if (muteDuration.value === 'custom') {
-    // 限制最大值：29 天 23 小时 59 分钟
     const days = Math.min(customDays.value || 0, 29)
     const hours = Math.min(customHours.value || 0, 23)
     const minutes = Math.min(customMinutes.value || 0, 59)
     
-    // 如果超过最大值，设置为 30 天 0 小时 0 分钟
     if (customDays.value > 29 || customHours.value > 23 || customMinutes.value > 59) {
-      duration = 30 * 24 * 60 // 30 天 = 43200 分钟
+      duration = 30 * 24 * 60
     } else {
       duration = days * 24 * 60 + hours * 60 + minutes
     }
@@ -834,7 +832,6 @@ const confirmMute = async () => {
     duration = muteDuration.value
   }
   
-  // 如果时长为 0，不允许提交
   if (duration === 0) {
     showToastMessage('禁言时长不能为 0', 'error')
     return
@@ -880,7 +877,6 @@ const unmuteMember = async (userId) => {
   }
 }
 
-// 禁言到期自动刷新：只要在聊天室中就定时检查禁言状态
 let muteCheckTimer = null
 
 watch(currentRoomId, (val) => {
@@ -931,14 +927,12 @@ const confirmDissolve = async () => {
   }
 }
 
-// 检查用户是否在底部
 const isAtBottom = () => {
   if (!messageListRef.value) return true
   const { scrollTop, scrollHeight, clientHeight } = messageListRef.value
   return scrollHeight - scrollTop - clientHeight < 100
 }
 
-// 滚动到底部
 const scrollToBottom = (force = false) => {
   if (!messageListRef.value) return
   if (force || isAtBottom()) {
@@ -946,7 +940,6 @@ const scrollToBottom = (force = false) => {
   }
 }
 
-// 格式化时间
 const formatTime = (timestamp) => {
   const date = new Date(timestamp)
   const year = date.getFullYear()
@@ -1000,7 +993,6 @@ const formatMuteTime = (mutedUntil) => {
   return `禁言至：${formatTime(until)}`
 }
 
-// WebSocket 事件监听
 const setupSocketListeners = () => {
   const socket = authStore.socket
   
@@ -1043,7 +1035,6 @@ const setupSocketListeners = () => {
     }
   })
   
-  // 权限变更通知
   socket.on('role_changed', (data) => {
     console.log('角色变更:', data)
     if (data.roomId === currentRoomId.value) {
@@ -1057,7 +1048,6 @@ const setupSocketListeners = () => {
     }
   })
   
-  // 禁言通知
   socket.on('member_muted', (data) => {
     console.log('成员被禁言:', data)
     if (data.roomId === currentRoomId.value) {
@@ -1067,7 +1057,6 @@ const setupSocketListeners = () => {
     }
   })
   
-  // 解除禁言通知
   socket.on('member_unmuted', (data) => {
     console.log('成员解除禁言:', data)
     if (data.roomId === currentRoomId.value) {
@@ -1077,7 +1066,6 @@ const setupSocketListeners = () => {
     }
   })
   
-  // 聊天室解散通知
   socket.on('room_dissolved', (data) => {
     console.log('聊天室解散:', data)
     if (data.roomId === currentRoomId.value) {
@@ -1090,7 +1078,6 @@ const setupSocketListeners = () => {
     }
   })
   
-  // 聊天室删除通知（超级管理员）
   socket.on('room_deleted', (data) => {
     console.log('聊天室被删除:', data)
     if (data.roomId === currentRoomId.value) {
@@ -1128,46 +1115,46 @@ onUnmounted(() => {
 .chat-container {
   display: flex;
   height: 100vh;
+  background: #fafafa;
 }
 
 .sidebar {
-  width: 320px;
+  width: 300px;
   background: white;
-  border-right: 1px solid #e0e0e0;
+  border-right: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
 }
 
 .sidebar-header {
   padding: 20px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e5e7eb;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .sidebar-header h2 {
-  font-size: 18px;
-  color: #333;
-}
-
-.btn-sm {
-  padding: 6px 12px;
-  font-size: 13px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
 }
 
 .room-list {
   flex: 1;
   overflow-y: auto;
+  padding: 12px;
 }
 
 .room-item {
   display: flex;
   align-items: center;
-  padding: 15px 20px;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background 0.2s;
-  position: relative;
+  transition: background 0.15s;
+  margin-bottom: 4px;
 }
 
 .room-item:hover {
@@ -1175,501 +1162,417 @@ onUnmounted(() => {
 }
 
 .room-item.active {
-  background: #e3f2fd;
-  border-left: 3px solid #007bff;
+  background: #1a1a1a;
+}
+
+.room-item.active .room-name {
+  color: white;
+}
+
+.room-item.active .room-members {
+  color: rgba(255,255,255,0.7);
 }
 
 .room-icon {
-  font-size: 24px;
-  margin-right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.room-item.active .room-icon {
+  background: rgba(255,255,255,0.15);
 }
 
 .room-info {
   flex: 1;
+  min-width: 0;
 }
 
 .room-name {
+  font-size: 14px;
   font-weight: 500;
-  color: #333;
-  margin-bottom: 4px;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .room-members {
   font-size: 12px;
-  color: #999;
+  color: #9ca3af;
+  margin-top: 2px;
 }
 
-/* 成员预览悬浮层 */
 .member-preview {
   background: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  width: 280px;
-  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  padding: 16px;
+  min-width: 240px;
 }
 
 .preview-header {
-  padding: 12px 15px;
-  background: #f8f9fa;
-  border-bottom: 1px solid #e0e0e0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0f0f0;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 500;
 }
 
 .member-count {
-  font-size: 12px;
-  color: #666;
-  font-weight: normal;
+  color: #9ca3af;
+  font-weight: 400;
 }
 
 .preview-list {
-  max-height: 300px;
+  max-height: 280px;
   overflow-y: auto;
 }
 
 .preview-member {
   display: flex;
   align-items: center;
-  padding: 10px 15px;
-  transition: background 0.1s;
+  gap: 10px;
+  padding: 8px 0;
 }
 
-.preview-member:hover {
-  background: #f5f5f5;
+.preview-member:not(:last-child) {
+  border-bottom: 1px solid #f5f5f5;
 }
 
 .preview-avatar {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  margin-right: 12px;
+  object-fit: cover;
 }
 
 .preview-info {
   flex: 1;
+  min-width: 0;
 }
 
 .preview-name {
-  font-size: 14px;
-  color: #333;
-  margin-bottom: 3px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a1a;
 }
 
 .preview-status {
   font-size: 12px;
-  color: #666;
+  color: #6b7280;
   display: flex;
   align-items: center;
-  gap: 5px;
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #999;
-}
-
-.status-dot.online {
-  background: #28a745;
-}
-
-.status-dot.offline {
-  background: #999;
-}
-
-.status-dot.busy {
-  background: #dc3545;
-}
-
-.status-dot.away {
-  background: #ffc107;
+  gap: 4px;
 }
 
 .preview-role {
-  background: #007bff;
-  color: white;
-  font-size: 10px;
-  padding: 1px 4px;
+  background: #f3f4f6;
+  padding: 1px 6px;
   border-radius: 4px;
-  margin-left: 5px;
+  font-size: 11px;
+  margin-left: 4px;
 }
 
 .preview-more {
-  padding: 10px 15px;
-  text-align: center;
-  color: #999;
   font-size: 12px;
-  background: #f8f9fa;
+  color: #9ca3af;
+  text-align: center;
+  padding: 8px 0;
 }
 
 .sidebar-footer {
-  padding: 15px 20px;
-  border-top: 1px solid #e0e0e0;
+  padding: 16px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .user-info {
+  flex: 1;
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  gap: 10px;
+  cursor: pointer;
+  min-width: 0;
 }
 
 .avatar {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  margin-right: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .user-details {
   flex: 1;
+  min-width: 0;
 }
 
 .username {
+  font-size: 14px;
   font-weight: 500;
-  color: #333;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .user-status {
   font-size: 12px;
-  color: #28a745;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .chat-main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: #f5f5f5;
-  overflow: hidden;
-}
-
-.no-room {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #999;
-  font-size: 18px;
+  min-width: 0;
 }
 
 .chat-wrapper {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
 }
 
 .chat-header {
-  padding: 20px;
+  padding: 16px 24px;
   background: white;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e5e7eb;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .header-left h3 {
-  color: #333;
-  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
 }
 
 .header-left p {
-  color: #666;
-  font-size: 14px;
+  font-size: 13px;
+  color: #9ca3af;
+  margin-top: 2px;
 }
 
 .header-right {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
 .message-list {
   flex: 1;
   overflow-y: auto;
-  padding: 20px;
-  min-height: 0;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .message {
   display: flex;
-  margin-bottom: 15px;
+  gap: 12px;
+  max-width: 70%;
 }
 
 .message-own {
   flex-direction: row-reverse;
+  align-self: flex-end;
 }
 
 .message-avatar {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  margin: 0 10px;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .message-content {
-  max-width: 60%;
-}
-
-.message-own .message-content {
-  align-items: flex-end;
+  flex: 1;
+  min-width: 0;
 }
 
 .message-header {
   display: flex;
   align-items: center;
-  margin-bottom: 5px;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.message-own .message-header {
+  flex-direction: row-reverse;
 }
 
 .message-sender {
+  font-size: 13px;
   font-weight: 500;
-  color: #333;
-  margin-right: 10px;
+  color: #1a1a1a;
 }
 
 .message-time {
-  font-size: 12px;
-  color: #999;
+  font-size: 11px;
+  color: #9ca3af;
 }
 
 .message-text {
   background: white;
-  padding: 10px 15px;
-  border-radius: 8px;
-  word-wrap: break-word;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+  color: #1a1a1a;
+  line-height: 1.5;
+  word-break: break-word;
 }
 
 .message-own .message-text {
-  background: #007bff;
+  background: #1a1a1a;
   color: white;
+  border-color: #1a1a1a;
 }
 
 .message-input {
-  display: flex;
-  padding: 20px;
+  padding: 16px 24px;
   background: white;
-  border-top: 1px solid #e0e0e0;
-  gap: 10px;
-}
-
-.message-input .input {
-  flex: 1;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
 .muted-notice {
   position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #dc3545;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-/* 弹窗样式 */
-.modal-overlay {
-  position: fixed;
-  top: 0;
+  bottom: 100%;
   left: 0;
   right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: #fef2f2;
+  color: #dc2626;
+  font-size: 13px;
+  padding: 10px 24px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 1000;
+  gap: 8px;
+  border-bottom: 1px solid #fecaca;
 }
 
-.modal {
-  background: white;
-  padding: 30px;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 450px;
+.message-input {
   position: relative;
 }
 
-.danger-modal {
-  max-width: 500px;
+.message-input .input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+  transition: all 0.2s;
+  background: #fafafa;
 }
 
-.modal-header {
+.message-input .input:focus {
+  outline: none;
+  border-color: #1a1a1a;
+  background: white;
+}
+
+.no-room {
+  flex: 1;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.modal-header h3 {
-  color: #333;
-  margin: 0;
-}
-
-.danger-title {
-  color: #dc3545;
-}
-
-.close-btn {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #999;
-  padding: 0;
-  width: 30px;
-  height: 30px;
-  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  color: #9ca3af;
 }
 
-.close-btn:hover {
-  color: #333;
+.no-room svg {
+  margin-bottom: 16px;
 }
 
-.modal-body {
-  margin-bottom: 20px;
+.no-room p {
+  font-size: 15px;
 }
 
-.modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  padding-top: 20px;
-  border-top: 1px solid #e0e0e0;
+.modal .form-group {
+  margin-bottom: 16px;
 }
 
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
+.modal .form-group label {
   display: block;
-  margin-bottom: 5px;
+  font-size: 13px;
   font-weight: 500;
-  color: #333;
+  color: #374151;
+  margin-bottom: 6px;
 }
 
-.form-group .input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-.form-group textarea.input {
+.modal textarea.input {
   resize: vertical;
+  min-height: 80px;
 }
 
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.btn {
-  padding: 8px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.btn-primary {
-  background: #007bff;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #0069d9;
-}
-
-.btn-secondary {
-  background: #6c757d;
-  color: white;
-}
-
-.btn-secondary:hover {
-  background: #5a6268;
-}
-
-.btn-danger {
-  background: #dc3545;
-  color: white;
-}
-
-.btn-danger:hover {
-  background: #c82333;
-}
-
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* 头像上传弹窗样式 */
-.user-info {
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-
-.user-info:hover {
-  opacity: 0.8;
+.modal select.input {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6L8 10L12 6' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
 }
 
 .avatar-preview {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 16px;
 }
 
 .preview-image {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border: 3px solid #e0e0e0;
 }
 
 .upload-area {
   text-align: center;
-  padding: 20px;
 }
 
 .upload-hint {
-  margin-top: 10px;
   font-size: 12px;
-  color: #999;
+  color: #9ca3af;
+  margin-top: 8px;
 }
 
 .uploading {
   text-align: center;
-  padding: 10px;
-  color: #007bff;
-  font-weight: 500;
+  color: #6b7280;
+  font-size: 13px;
+  margin-top: 12px;
 }
 
-.error {
+.modal .error {
+  color: #dc2626;
+  font-size: 13px;
+  margin-top: 12px;
   text-align: center;
-  padding: 10px;
-  color: #dc3545;
-  font-size: 14px;
 }
 
-/* 成员管理弹窗 */
 .member-management-modal {
   max-width: 600px;
-  max-height: 80vh;
-  overflow: hidden;
 }
 
 .member-list {
@@ -1680,156 +1583,158 @@ onUnmounted(() => {
 .member-item {
   display: flex;
   align-items: center;
-  padding: 12px 15px;
+  gap: 12px;
+  padding: 12px 0;
   border-bottom: 1px solid #f0f0f0;
 }
 
+.member-item:last-child {
+  border-bottom: none;
+}
+
 .member-avatar {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  margin-right: 15px;
+  object-fit: cover;
 }
 
 .member-info {
   flex: 1;
+  min-width: 0;
 }
 
 .member-name {
+  font-size: 14px;
   font-weight: 500;
-  color: #333;
-  margin-bottom: 4px;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .role-badge {
   font-size: 11px;
   padding: 2px 6px;
   border-radius: 4px;
-  margin-left: 8px;
+  font-weight: 500;
 }
 
 .role-badge.owner {
-  background: #dc3545;
-  color: white;
+  background: #fef3c7;
+  color: #92400e;
 }
 
 .role-badge.admin {
-  background: #007bff;
-  color: white;
+  background: #e0e7ff;
+  color: #3730a3;
 }
 
 .role-badge.member {
-  background: #e9ecef;
-  color: #495057;
+  background: #f3f4f6;
+  color: #6b7280;
 }
 
 .member-status {
   font-size: 12px;
-  color: #666;
+  color: #6b7280;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
+  margin-top: 2px;
 }
 
 .muted-badge {
-  background: #dc3545;
-  color: white;
-  font-size: 10px;
-  padding: 1px 4px;
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 1px 6px;
   border-radius: 4px;
+  font-size: 11px;
+  margin-left: 4px;
 }
 
 .member-actions {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .action-btn {
-  padding: 5px 12px;
+  padding: 6px 12px;
+  border-radius: 6px;
   font-size: 12px;
-  border: none;
-  border-radius: 4px;
   cursor: pointer;
+  transition: all 0.15s;
+  border: 1px solid transparent;
 }
 
 .btn-admin {
-  background: #28a745;
-  color: white;
+  background: #e0e7ff;
+  color: #3730a3;
 }
 
 .btn-admin:hover {
-  background: #218838;
+  background: #c7d2fe;
 }
 
 .btn-remove-admin {
-  background: #ffc107;
-  color: #333;
+  background: #f3f4f6;
+  color: #6b7280;
 }
 
 .btn-remove-admin:hover {
-  background: #e0a800;
+  background: #e5e7eb;
 }
 
 .btn-mute {
-  background: #dc3545;
-  color: white;
+  background: #fef3c7;
+  color: #92400e;
 }
 
 .btn-mute:hover {
-  background: #c82333;
+  background: #fde68a;
 }
 
 .btn-unmute {
-  background: #6c757d;
-  color: white;
+  background: #f0fdf4;
+  color: #166534;
 }
 
 .btn-unmute:hover {
-  background: #5a6268;
+  background: #dcfce7;
 }
 
-/* 禁言时长选项 */
 .duration-options {
   display: flex;
-  flex-wrap: nowrap;
-  gap: 6px;
-  overflow-x: auto;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .duration-btn {
-  padding: 6px 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 8px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
   background: white;
+  font-size: 13px;
+  color: #374151;
   cursor: pointer;
-  font-size: 12px;
-  transition: all 0.2s;
-  white-space: nowrap;
-  flex-shrink: 0;
+  transition: all 0.15s;
 }
 
 .duration-btn:hover {
-  border-color: #007bff;
+  border-color: #1a1a1a;
 }
 
 .duration-btn.active {
-  background: #007bff;
+  background: #1a1a1a;
   color: white;
-  border-color: #007bff;
-}
-
-.duration-btn.custom-btn {
-  order: 5;
+  border-color: #1a1a1a;
 }
 
 .custom-duration-input {
   display: flex;
-  align-items: center;
   gap: 12px;
-  margin-top: 12px;
-  padding: 12px;
-  background: #f8f9fa;
-  border-radius: 6px;
+  align-items: center;
 }
 
 .duration-input-group {
@@ -1841,72 +1746,61 @@ onUnmounted(() => {
 .input-small {
   width: 60px;
   padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  font-size: 13px;
   text-align: center;
 }
 
-.input-small:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
-
 .duration-label {
-  font-size: 14px;
-  color: #666;
-  font-weight: 500;
+  font-size: 13px;
+  color: #6b7280;
 }
 
-/* 危险操作确认 */
-.warning-text {
-  color: #dc3545;
-  font-weight: 500;
-  margin-bottom: 20px;
-}
-
-.confirm-check {
-  margin-top: 15px;
+.danger-title {
+  color: #dc2626;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.confirm-check input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
+.warning-text {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.6;
 }
 
-/* Toast 提示 */
 .toast {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
   padding: 12px 24px;
-  border-radius: 4px;
-  color: white;
+  border-radius: 8px;
+  font-size: 14px;
   font-weight: 500;
   z-index: 2000;
-  animation: slideIn 0.3s ease;
+  animation: slideUp 0.3s ease;
 }
 
 .toast.success {
-  background: #28a745;
+  background: #1a1a1a;
+  color: white;
 }
 
 .toast.error {
-  background: #dc3545;
+  background: #dc2626;
+  color: white;
 }
 
-@keyframes slideIn {
+@keyframes slideUp {
   from {
-    transform: translateX(100%);
     opacity: 0;
+    transform: translateX(-50%) translateY(10px);
   }
   to {
-    transform: translateX(0);
     opacity: 1;
+    transform: translateX(-50%) translateY(0);
   }
 }
 </style>
