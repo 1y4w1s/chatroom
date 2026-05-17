@@ -193,6 +193,11 @@ io.on('connection', (socket) => {
       
       console.log('消息创建成功:', message);
       io.to(roomId).emit('new_message', message);
+      
+      // @提及：通知所有客户端刷新未读状态（被@用户可能不在当前房间）
+      if (message.is_mention) {
+        io.emit('read_status_update', { roomId });
+      }
     } catch (error) {
       console.error('发送消息失败:', error.message);
       console.error('堆栈:', error.stack);

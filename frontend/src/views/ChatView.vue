@@ -1395,6 +1395,20 @@ const setupSocketListeners = () => {
       messages.value.push(messageWithAvatar)
       nextTick(() => scrollToBottom())
     }
+    const map = { ...roomReadStatus.value }
+    if (!map[message.room_id]) {
+      map[message.room_id] = { unread_count: 0, is_mentioned: false }
+    }
+    if (message.room_id !== currentRoomId.value) {
+      map[message.room_id].unread_count++
+    }
+    if (message.is_mention == 1 || message.is_mention === true) {
+      map[message.room_id].is_mentioned = true
+    }
+    roomReadStatus.value = map
+  })
+  
+  socket.on('read_status_update', () => {
     loadReadStatus()
   })
   
