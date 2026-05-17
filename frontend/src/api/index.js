@@ -83,7 +83,18 @@ export const roomAPI = {
     api.delete(`/rooms/${roomId}/force`, { data: { operatorId, reason } }),
   
   // 获取用户权限
-  getPermissions: (roomId, userId) => api.get(`/rooms/${roomId}/members/${userId}/permissions`)
+  getPermissions: (roomId, userId) => api.get(`/rooms/${roomId}/members/${userId}/permissions`),
+  
+  // 更新聊天室信息
+  updateRoom: (roomId, userId, data) => api.put(`/rooms/${roomId}`, { userId, ...data }),
+  
+  // 上传聊天室头像
+  uploadRoomAvatar: (roomId, userId, formData) => {
+    formData.append('userId', userId)
+    return api.post(`/rooms/${roomId}/avatar`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+  }
 }
 
 export const messageAPI = {

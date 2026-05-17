@@ -351,7 +351,7 @@ router.post('/:id/join', async (req, res) => {
     
     // 检查聊天室是否存在
     const room = await query(
-      'SELECT id FROM chat_rooms WHERE id = ? AND is_active = TRUE',
+      'SELECT id, type, owner_id FROM chat_rooms WHERE id = ? AND is_active = TRUE',
       [roomId]
     );
     
@@ -360,6 +360,21 @@ router.post('/:id/join', async (req, res) => {
         success: false,
         error: { message: '聊天室不存在' }
       });
+    }
+    
+    // 私有聊天室只允许已加入的成员或房主加入
+    if (room[0].type === 'private' && room[0].owner_id !== parseInt(userId)) {
+      // 检查是否是已有成员
+      const isMember = await query(
+        'SELECT id FROM room_members WHERE room_id = ? AND user_id = ?',
+        [roomId, userId]
+      );
+      if (isMember.length === 0) {
+        return res.status(403).json({
+          success: false,
+          error: { message: '该聊天室为私有，无法直接加入' }
+        });
+      }
     }
     
     const existing = await query(
@@ -444,6 +459,90 @@ router.post('/:id/leave', async (req, res) => {
       success: false,
       error: { message: '离开聊天室失败' }
     });
+  }
+});
+
+/**
+ * PUT /api/rooms/:id
+ * 更新聊天室信息（名称/描述）
+ */
+router.put('/:id', [
+  body('name').optional().trim().isLength({ min: 2, max: 50 }).withMessage('聊天室名称 2-50 个字符'),
+  body('description').optional().isLength({ max: 500 }).withMessage('描述最多 500 字符'),
+  body('userId').notEmpty().withMessage('缺少用户 ID')
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ success: false, errors: errors.array() });
+  }
+
+  try {
+    const roomId = req.params.id;
+    const { name, description, userId } = req.body;
+
+    const rooms = await query(
+      'SELECT owner_id FROM chat_rooms WHERE id = ? AND is_active = TRUE', [roomId]
+    );
+    if (rooms.length === 0) {
+      return res.status(404).json({ success: false, error: { message: '聊天室不存在' } });
+    }
+
+    const isAdmin = await query(
+      `SELECT id FROM room_members WHERE room_id = ? AND user_id = ? AND role IN ('owner', 'admin')`,
+      [roomId, userId]
+    );
+    if (isAdmin.length === 0) {
+      return res.status(403).json({ success: false, error: { message: '无权操作' } });
+    }
+
+    const updates = [];
+    const params = [];
+    if (name !== undefined) { updates.push('name = ?'); params.push(name); }
+    if (description !== undefined) { updates.push('description = ?'); params.push(description); }
+
+    if (updates.length > 0) {
+      params.push(roomId);
+      await query(`UPDATE chat_rooms SET ${updates.join(', ')} WHERE id = ?`, params);
+    }
+
+    res.json({ success: true, message: '更新成功' });
+  } catch (error) {
+    console.error('更新聊天室失败:', error);
+    res.status(500).json({ success: false, error: { message: '更新失败' } });
+  }
+});
+
+/**
+ * POST /api/rooms/:id/avatar
+ * 上传聊天室头像
+ */
+router.post('/:id/avatar', upload.single('avatar'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ success: false, error: { message: '请上传文件' } });
+    }
+
+    const roomId = req.params.id;
+    const { userId } = req.body;
+    if (!userId) {
+      return res.status(400).json({ success: false, error: { message: '缺少用户 ID' } });
+    }
+
+    const isAdmin = await query(
+      `SELECT id FROM room_members WHERE room_id = ? AND user_id = ? AND role IN ('owner', 'admin')`,
+      [roomId, userId]
+    );
+    if (isAdmin.length === 0) {
+      return res.status(403).json({ success: false, error: { message: '无权操作' } });
+    }
+
+    const avatarUrl = `/uploads/avatars/${req.file.filename}`;
+    await query('UPDATE chat_rooms SET avatar = ? WHERE id = ?', [avatarUrl, roomId]);
+
+    res.json({ success: true, data: { avatar: avatarUrl } });
+  } catch (error) {
+    console.error('上传聊天室头像失败:', error);
+    res.status(500).json({ success: false, error: { message: '上传失败' } });
   }
 });
 

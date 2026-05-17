@@ -35,7 +35,11 @@
             </svg>
           </div>
           <div class="room-info">
-            <div class="room-name">{{ room.name }}</div>
+            <div class="room-name">
+              {{ room.name }}
+              <span v-if="room.type === 'private'" class="private-badge">🔒</span>
+            </div>
+            <div class="room-desc" v-if="room.description">{{ room.description }}</div>
             <div class="room-members">{{ room.member_count }} 人</div>
           </div>
         </div>
@@ -139,9 +143,9 @@
             <button 
               v-if="currentPermissions.isAdmin" 
               class="btn btn-secondary btn-sm" 
-              @click="showMemberManagement = true"
+              @click="openRoomSettings"
             >
-              管理成员
+              聊天室设置
             </button>
             <button 
               v-if="isSuperAdmin" 
@@ -275,18 +279,51 @@
       </div>
     </div>
 
-    <div v-if="showMemberManagement" class="modal-overlay" @click="showMemberManagement = false">
-      <div class="modal member-management-modal" @click.stop>
+    <div v-if="showRoomSettings" class="modal-overlay" @click="showRoomSettings = false">
+      <div class="modal room-settings-modal" @click.stop>
         <div class="modal-header">
-          <h3>成员管理 - {{ currentRoom?.name }}</h3>
-          <button class="close-btn" @click="showMemberManagement = false">
+          <h3>聊天室设置 - {{ currentRoom?.name }}</h3>
+          <button class="close-btn" @click="showRoomSettings = false">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </button>
         </div>
         <div class="modal-body">
-          <div class="member-list">
+          <div class="settings-tabs">
+            <button class="tab-btn" :class="{ active: roomSettingsTab === 'info' }" @click="roomSettingsTab = 'info'">基本资料</button>
+            <button class="tab-btn" :class="{ active: roomSettingsTab === 'members' }" @click="roomSettingsTab = 'members'">成员管理</button>
+          </div>
+
+          <div v-if="roomSettingsTab === 'info'">
+            <div class="form-section">
+              <h4>聊天室头像</h4>
+              <div class="room-avatar-upload">
+                <div class="room-avatar-wrapper" @click="$refs.roomAvatarInput.click()">
+                  <img :src="roomAvatarUrl" class="room-settings-avatar" />
+                  <div class="room-avatar-overlay">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                      <path d="M8 2V14M2 8H14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </div>
+                </div>
+                <input type="file" ref="roomAvatarInput" accept="image/*" @change="handleRoomAvatarChange" style="display:none" />
+                <div v-if="roomAvatarUploading" class="upload-progress">上传中...</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>聊天室名称</label>
+              <input v-model="roomEditName" type="text" class="input" maxlength="50" />
+            </div>
+            <div class="form-group">
+              <label>聊天室简介</label>
+              <textarea v-model="roomEditDesc" class="input" rows="3" maxlength="500"></textarea>
+            </div>
+            <button class="btn btn-primary" @click="saveRoomSettings" :disabled="roomSaving">保存修改</button>
+            <div v-if="roomSettingsMsg" class="msg" :class="roomSettingsMsgType">{{ roomSettingsMsg }}</div>
+          </div>
+
+          <div v-if="roomSettingsTab === 'members'" class="member-list">
             <div
               v-for="member in currentMembers"
               :key="member.id"
@@ -313,37 +350,28 @@
                   v-if="currentPermissions.isOwner && member.role === 'member'"
                   class="action-btn btn-admin"
                   @click="grantAdmin(member.id)"
-                >
-                  设为管理员
-                </button>
+                >设为管理员</button>
                 <button 
                   v-if="currentPermissions.isOwner && member.role === 'admin'"
                   class="action-btn btn-remove-admin"
                   @click="revokeAdmin(member.id)"
-                >
-                  撤销管理员
-                </button>
-                
+                >撤销管理员</button>
                 <button 
                   v-if="currentPermissions.isAdmin && member.role === 'member' && !isEffectivelyMuted(member)"
                   class="action-btn btn-mute"
                   @click="openMuteModal(member)"
-                >
-                  禁言
-                </button>
+                >禁言</button>
                 <button 
                   v-if="currentPermissions.isAdmin && isEffectivelyMuted(member)"
                   class="action-btn btn-unmute"
                   @click="unmuteMember(member.id)"
-                >
-                  解除禁言
-                </button>
+                >解除禁言</button>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" @click="showMemberManagement = false">关闭</button>
+          <button class="btn btn-secondary" @click="showRoomSettings = false">关闭</button>
         </div>
       </div>
     </div>
@@ -587,6 +615,25 @@ const showToast = ref(false)
 const toastMessage = ref('')
 const toastType = ref('success')
 
+// 聊天室设置
+const showRoomSettings = ref(false)
+const roomSettingsTab = ref('info')
+const roomEditName = ref('')
+const roomEditDesc = ref('')
+const roomSaving = ref(false)
+const roomSettingsMsg = ref('')
+const roomSettingsMsgType = ref('')
+const roomAvatarUploading = ref(false)
+
+const roomAvatarUrl = computed(() => {
+  if (!currentRoom.value) return '/default-avatar.png'
+  const avatar = currentRoom.value.avatar
+  if (!avatar) return '/default-avatar.png'
+  if (avatar.startsWith('http')) return avatar
+  if (avatar.startsWith('/')) return `${window.location.origin}${avatar}`
+  return avatar
+})
+
 // 表情选择器
 const showEmojiPicker = ref(false)
 const currentEmojiCat = ref(0)
@@ -742,6 +789,69 @@ const createRoom = async () => {
   } catch (error) {
     console.error('创建聊天室失败:', error)
     showToastMessage('创建聊天室失败', 'error')
+  }
+}
+
+const saveRoomSettings = async () => {
+  if (!roomEditName.value.trim()) return
+  roomSaving.value = true
+  roomSettingsMsg.value = ''
+  try {
+    const response = await roomAPI.updateRoom(currentRoomId.value, authStore.userId, {
+      name: roomEditName.value.trim(),
+      description: roomEditDesc.value.trim()
+    })
+    if (response.success) {
+      currentRoom.value = { ...currentRoom.value, name: roomEditName.value.trim(), description: roomEditDesc.value.trim() }
+      rooms.value = rooms.value.map(r =>
+        r.id === currentRoomId.value ? { ...r, name: roomEditName.value.trim(), description: roomEditDesc.value.trim() } : r
+      )
+      roomSettingsMsg.value = '保存成功'
+      roomSettingsMsgType.value = 'success'
+    }
+  } catch (error) {
+    roomSettingsMsg.value = error.message || '保存失败'
+    roomSettingsMsgType.value = 'error'
+  } finally {
+    roomSaving.value = false
+  }
+}
+
+const handleRoomAvatarChange = async (event) => {
+  const file = event.target.files[0]
+  if (!file) return
+  const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+  if (!validTypes.includes(file.type)) return
+  if (file.size > 5 * 1024 * 1024) return
+
+  roomAvatarUploading.value = true
+  try {
+    const formData = new FormData()
+    formData.append('avatar', file)
+    const response = await roomAPI.uploadRoomAvatar(currentRoomId.value, authStore.userId, formData)
+    if (response.success) {
+      const avatarPath = response.data.avatar
+      const fullUrl = avatarPath.startsWith('/') ? `${window.location.origin}${avatarPath}` : avatarPath
+      currentRoom.value = { ...currentRoom.value, avatar: fullUrl }
+      rooms.value = rooms.value.map(r =>
+        r.id === currentRoomId.value ? { ...r, avatar: fullUrl } : r
+      )
+    }
+  } catch (error) {
+    console.error('上传聊天室头像失败:', error)
+  } finally {
+    roomAvatarUploading.value = false
+    event.target.value = ''
+  }
+}
+
+const openRoomSettings = () => {
+  if (currentRoom.value) {
+    roomEditName.value = currentRoom.value.name || ''
+    roomEditDesc.value = currentRoom.value.description || ''
+    roomSettingsTab.value = 'info'
+    roomSettingsMsg.value = ''
+    showRoomSettings.value = true
   }
 }
 
@@ -1253,6 +1363,23 @@ onUnmounted(() => {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.private-badge {
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.room-desc {
+  font-size: 12px;
+  color: #9ca3af;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
 }
 
 .room-members {
@@ -1662,6 +1789,105 @@ onUnmounted(() => {
 .emoji-grid::-webkit-scrollbar-thumb {
   background: #d1d5db;
   border-radius: 2px;
+}
+
+/* 聊天室设置弹窗 */
+.settings-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 12px;
+}
+
+.tab-btn {
+  padding: 6px 16px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: #6b7280;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+
+.tab-btn:hover {
+  background: #f3f4f6;
+}
+
+.tab-btn.active {
+  background: #1a1a1a;
+  color: white;
+}
+
+.room-avatar-upload {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.room-avatar-wrapper {
+  position: relative;
+  cursor: pointer;
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.room-settings-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  object-fit: cover;
+  display: block;
+  background: #f3f4f6;
+}
+
+.room-avatar-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+  border-radius: 12px;
+}
+
+.room-avatar-wrapper:hover .room-avatar-overlay {
+  opacity: 1;
+}
+
+.room-settings-modal {
+  max-width: 560px;
+}
+
+.form-section h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 12px;
+}
+
+.msg {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.msg.success {
+  background: #f0fff4;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.msg.error {
+  background: #fff0f0;
+  color: #d32f2f;
+  border: 1px solid #ffcdd2;
 }
 
 .no-room {

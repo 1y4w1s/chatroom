@@ -152,6 +152,51 @@ async function initDatabase() {
     `);
     console.log('✅ rooms 表已创建');
     
+    // 给 rooms 表添加缺失字段
+    try {
+      // 检查并添加 avatar 字段
+      const hasRoomAvatar = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'rooms' AND COLUMN_NAME = 'avatar'
+      `);
+      if (hasRoomAvatar[0].count === 0) {
+        await connection.query(`ALTER TABLE rooms ADD COLUMN avatar VARCHAR(255) DEFAULT NULL`);
+        console.log('✅ 添加 rooms.avatar 字段');
+      }
+      
+      // 检查并添加 type 字段
+      const hasType = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'rooms' AND COLUMN_NAME = 'type'
+      `);
+      if (hasType[0].count === 0) {
+        await connection.query(`ALTER TABLE rooms ADD COLUMN type ENUM('public', 'private') DEFAULT 'public'`);
+        console.log('✅ 添加 rooms.type 字段');
+      }
+      
+      // 检查并添加 owner_id 字段
+      const hasOwnerId = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'rooms' AND COLUMN_NAME = 'owner_id'
+      `);
+      if (hasOwnerId[0].count === 0) {
+        await connection.query(`ALTER TABLE rooms ADD COLUMN owner_id INT DEFAULT NULL`);
+        console.log('✅ 添加 rooms.owner_id 字段');
+      }
+      
+      // 检查并添加 is_active 字段
+      const hasIsActive = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'rooms' AND COLUMN_NAME = 'is_active'
+      `);
+      if (hasIsActive[0].count === 0) {
+        await connection.query(`ALTER TABLE rooms ADD COLUMN is_active BOOLEAN DEFAULT TRUE`);
+        console.log('✅ 添加 rooms.is_active 字段');
+      }
+    } catch (err) {
+      console.log('⚠️ rooms 表字段更新跳过:', err.message);
+    }
+    
     // 创建消息表
     await connection.query(`
       CREATE TABLE IF NOT EXISTS messages (
