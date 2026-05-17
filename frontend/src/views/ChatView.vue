@@ -944,7 +944,7 @@ watch(currentRoomId, (val) => {
     muteCheckTimer = setInterval(() => {
       loadMembers(val)
       loadPermissions(val)
-    }, 10000)
+    }, 20000)
   }
 })
 
