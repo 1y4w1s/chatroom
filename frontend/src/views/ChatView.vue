@@ -764,13 +764,13 @@ const loadReadStatus = async () => {
   if (!authStore.userId) return
   try {
     const response = await roomAPI.getReadStatus(authStore.userId)
+    console.log('未读状态原始数据:', response.data)
     const map = {}
     for (const s of response.data) {
       map[s.room_id] = { unread_count: s.unread_count, is_mentioned: s.is_mentioned }
     }
     roomReadStatus.value = map
   } catch (e) {
-    // 静默失败
   }
 }
 
