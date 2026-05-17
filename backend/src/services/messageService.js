@@ -34,7 +34,7 @@ class MessageService {
     // 敏感词过滤
     const filteredContent = await this.filterSensitiveWords(content);
     
-    // 检测 @提及
+    // 检测 @提及（只是检测，不写入 read_status）
     const mentionRegex = /@(\S+)/g;
     let mentionMatch;
     const mentionedNames = [];
@@ -42,38 +42,39 @@ class MessageService {
       mentionedNames.push(mentionMatch[1].replace(/[：:，,。.！!？?]/g, ''));
     }
     
+    const placeholders = mentionedNames.map(() => '?').join(',');
+    let mentionedUsers = [];
     let isMention = false;
     if (mentionedNames.length > 0) {
-      // 手动展开 IN 占位符
-      const placeholders = mentionedNames.map(() => '?').join(',');
-      // 查找被提及的用户
-      const mentionedUsers = await query(
+      mentionedUsers = await query(
         `SELECT u.id FROM users u
          JOIN room_members rm ON u.id = rm.user_id AND rm.room_id = ?
          WHERE u.username IN (${placeholders}) OR u.nickname IN (${placeholders})`,
         [roomId, ...mentionedNames, ...mentionedNames]
       );
-      
-      if (mentionedUsers.length > 0) {
-        isMention = true;
-        // 设置被提及用户的 is_mentioned 标记
-        for (const mu of mentionedUsers) {
-          await query(
-            `INSERT INTO room_read_status (user_id, room_id, last_read_message_id, is_mentioned)
-             VALUES (?, ?, 0, TRUE)
-             ON DUPLICATE KEY UPDATE is_mentioned = TRUE`,
-            [mu.id, roomId]
-          );
-        }
-      }
+      isMention = mentionedUsers.length > 0;
     }
     
-    // 插入消息
+    // 插入消息（先保存，成功后处理 @标记）
     const result = await query(
       `INSERT INTO messages (room_id, user_id, content, type, file_url, file_name, file_size, is_mention) 
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [roomId, userId, filteredContent, type, fileUrl, fileName, fileSize, isMention]
     );
+    
+    const newMessageId = result.insertId;
+    
+    // 消息保存成功后，再更新被 @用户的 room_read_status
+    if (isMention && mentionedUsers.length > 0) {
+      for (const mu of mentionedUsers) {
+        await query(
+          `INSERT INTO room_read_status (user_id, room_id, last_read_message_id, is_mentioned)
+           VALUES (?, ?, ?, TRUE)
+           ON DUPLICATE KEY UPDATE last_read_message_id = ?, is_mentioned = TRUE`,
+          [mu.id, roomId, newMessageId, newMessageId]
+        );
+      }
+    }
     
     // 获取完整的消息信息
     const message = await query(
