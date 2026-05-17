@@ -1398,6 +1398,7 @@ onUnmounted(() => {
 
 .chat-wrapper {
   flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
 }
@@ -1430,6 +1431,7 @@ onUnmounted(() => {
 
 .message-list {
   flex: 1;
+  min-height: 0;
   overflow-y: auto;
   padding: 24px;
   display: flex;
@@ -1506,7 +1508,7 @@ onUnmounted(() => {
   background: white;
   border-top: 1px solid #e5e7eb;
   display: flex;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
 }
 
@@ -1542,7 +1544,7 @@ onUnmounted(() => {
   justify-content: center;
   cursor: pointer;
   transition: all 0.15s;
-  padding: 0;
+  flex-shrink: 0;
 }
 
 .emoji-btn:hover {
