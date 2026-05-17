@@ -22,7 +22,8 @@
           @mouseleave="hideMemberPreview"
         >
           <div class="room-icon">
-            <svg v-if="room.type === 'public'" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <img v-if="room.avatar" :src="getRoomListAvatar(room)" class="room-list-avatar" />
+            <svg v-else-if="room.type === 'public'" width="20" height="20" viewBox="0 0 20 20" fill="none">
               <circle cx="10" cy="10" r="8" stroke="#6b7280" stroke-width="1.5"/>
               <path d="M10 2C10 2 14 6 14 10C14 14 10 18 10 18" stroke="#6b7280" stroke-width="1.5"/>
               <path d="M10 2C10 2 6 6 6 10C6 14 10 18 10 18" stroke="#6b7280" stroke-width="1.5"/>
@@ -589,6 +590,14 @@ const getAvatarUrl = (avatarPath) => {
   if (path.startsWith('/')) {
     return `${window.location.origin}${path}`
   }
+  return `${window.location.origin}/${path}`
+}
+
+const getRoomListAvatar = (room) => {
+  if (!room.avatar) return '/default-avatar.png'
+  const path = room.avatar.trim()
+  if (path.startsWith('http://') || path.startsWith('https://')) return path
+  if (path.startsWith('/')) return `${window.location.origin}${path}`
   return `${window.location.origin}/${path}`
 }
 
@@ -1414,6 +1423,14 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.room-list-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .room-item.active .room-icon {
