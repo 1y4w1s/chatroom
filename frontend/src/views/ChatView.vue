@@ -1394,18 +1394,8 @@ const setupSocketListeners = () => {
       const messageWithAvatar = { ...message, avatar }
       messages.value.push(messageWithAvatar)
       nextTick(() => scrollToBottom())
-    } else {
-      // 不在当前房间，增加未读计数
-      const map = { ...roomReadStatus.value }
-      if (!map[message.room_id]) {
-        map[message.room_id] = { unread_count: 0, is_mentioned: false }
-      }
-      map[message.room_id].unread_count++
-      if (message.is_mention) {
-        map[message.room_id].is_mentioned = true
-      }
-      roomReadStatus.value = map
     }
+    loadReadStatus()
   })
   
   socket.on('user_avatar_updated', (data) => {
