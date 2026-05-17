@@ -44,12 +44,14 @@ class MessageService {
     
     let isMention = false;
     if (mentionedNames.length > 0) {
+      // 手动展开 IN 占位符
+      const placeholders = mentionedNames.map(() => '?').join(',');
       // 查找被提及的用户
       const mentionedUsers = await query(
         `SELECT u.id FROM users u
          JOIN room_members rm ON u.id = rm.user_id AND rm.room_id = ?
-         WHERE u.username IN (?) OR u.nickname IN (?)`,
-        [roomId, mentionedNames, mentionedNames]
+         WHERE u.username IN (${placeholders}) OR u.nickname IN (${placeholders})`,
+        [roomId, ...mentionedNames, ...mentionedNames]
       );
       
       if (mentionedUsers.length > 0) {

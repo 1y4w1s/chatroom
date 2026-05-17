@@ -331,9 +331,8 @@
               v-for="member in currentMembers"
               :key="member.id"
               class="member-item"
-              @click="openMemberAction(member, $event)"
             >
-              <img :src="getAvatarUrl(member.avatar)" class="member-avatar" />
+              <img :src="getAvatarUrl(member.avatar)" class="member-avatar" @click="openMemberAction(member, $event)" style="cursor:pointer" />
               <div class="member-info">
                 <div class="member-name">
                   {{ member.nickname || member.username }}
@@ -534,6 +533,14 @@
           <button class="member-action-btn" @click="addFriend" v-if="memberActionTarget?.id !== authStore.userId">
             添加好友
           </button>
+          <template v-if="currentPermissions.isAdmin && memberActionTarget?.id !== authStore.userId">
+            <button class="member-action-btn action-mute" @click="muteFromCard" v-if="!isEffectivelyMuted(memberActionTarget)">
+              禁言
+            </button>
+            <button class="member-action-btn action-unmute" @click="unmuteFromCard" v-if="isEffectivelyMuted(memberActionTarget)">
+              解除禁言
+            </button>
+          </template>
         </div>
       </div>
     </div>
@@ -810,7 +817,22 @@ function mentionMember() {
 
 function addFriend() {
   showMemberAction.value = false
-  // 后续实现发送好友请求
+}
+
+function muteFromCard() {
+  if (memberActionTarget.value) {
+    const member = memberActionTarget.value
+    showMemberAction.value = false
+    openMuteModal(member)
+  }
+}
+
+function unmuteFromCard() {
+  if (memberActionTarget.value) {
+    const memberId = memberActionTarget.value.id
+    showMemberAction.value = false
+    unmuteMember(memberId)
+  }
 }
 
 function openMessageMemberAction(message, event) {

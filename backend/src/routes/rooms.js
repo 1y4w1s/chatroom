@@ -688,11 +688,17 @@ router.put('/:id/members/:userId/mute', checkAdmin, [
       });
     }
     
-    // 不能禁言所有者或其他管理员
-    if (targetMember[0].role === 'owner' || targetMember[0].role === 'admin') {
+    // 不能禁言所有者；管理员不能禁言其他管理员
+    if (targetMember[0].role === 'owner') {
       return res.status(403).json({
         success: false,
-        error: { message: '不能禁言管理员' }
+        error: { message: '不能禁言所有者' }
+      });
+    }
+    if (targetMember[0].role === 'admin' && req.memberRole !== 'owner') {
+      return res.status(403).json({
+        success: false,
+        error: { message: '只有群主可以禁言管理员' }
       });
     }
     
