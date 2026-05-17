@@ -43,7 +43,6 @@
               <span v-if="room.type === 'private'" class="private-badge">🔒</span>
             </div>
             <div class="room-desc" v-if="room.description">{{ room.description }}</div>
-            <div class="room-members">{{ room.member_count }} 人</div>
           </div>
         </div>
         

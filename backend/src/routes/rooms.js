@@ -174,6 +174,35 @@ router.get('/', async (req, res) => {
 });
 
 /**
+ * GET /api/rooms/read-status?userId=
+ * 获取所有聊天室的未读状态（必须放在 /:id 前面避免路由冲突）
+ */
+router.get('/read-status', async (req, res) => {
+  try {
+    const { userId } = req.query;
+    if (!userId) return res.status(400).json({ success: false, error: { message: '缺少用户 ID' } });
+
+    const statuses = await query(
+      `SELECT rrs.room_id, rrs.is_mentioned,
+              (SELECT COUNT(*) FROM messages m WHERE m.room_id = rrs.room_id AND m.id > IFNULL(rrs.last_read_message_id, 0)) as unread_count
+       FROM room_read_status rrs
+       WHERE rrs.user_id = ?
+       UNION
+       SELECT rm.room_id, FALSE as is_mentioned,
+              (SELECT COUNT(*) FROM messages m WHERE m.room_id = rm.room_id) as unread_count
+       FROM room_members rm
+       WHERE rm.user_id = ? AND rm.room_id NOT IN (SELECT room_id FROM room_read_status WHERE user_id = ?)`,
+      [userId, userId, userId]
+    );
+
+    res.json({ success: true, data: statuses });
+  } catch (error) {
+    console.error('获取未读状态失败:', error);
+    res.status(500).json({ success: false, error: { message: '获取未读状态失败' } });
+  }
+});
+
+/**
  * GET /api/rooms/:id
  * 获取聊天室详情
  */
@@ -1014,35 +1043,6 @@ router.post('/:id/read', async (req, res) => {
   } catch (error) {
     console.error('标记已读失败:', error);
     res.status(500).json({ success: false, error: { message: '标记已读失败' } });
-  }
-});
-
-/**
- * GET /api/rooms/read-status?userId=
- * 获取所有聊天室的未读状态
- */
-router.get('/read-status', async (req, res) => {
-  try {
-    const { userId } = req.query;
-    if (!userId) return res.status(400).json({ success: false, error: { message: '缺少用户 ID' } });
-
-    const statuses = await query(
-      `SELECT rrs.room_id, rrs.is_mentioned,
-              (SELECT COUNT(*) FROM messages m WHERE m.room_id = rrs.room_id AND m.id > IFNULL(rrs.last_read_message_id, 0)) as unread_count
-       FROM room_read_status rrs
-       WHERE rrs.user_id = ?
-       UNION
-       SELECT rm.room_id, FALSE as is_mentioned,
-              (SELECT COUNT(*) FROM messages m WHERE m.room_id = rm.room_id) as unread_count
-       FROM room_members rm
-       WHERE rm.user_id = ? AND rm.room_id NOT IN (SELECT room_id FROM room_read_status WHERE user_id = ?)`,
-      [userId, userId, userId]
-    );
-
-    res.json({ success: true, data: statuses });
-  } catch (error) {
-    console.error('获取未读状态失败:', error);
-    res.status(500).json({ success: false, error: { message: '获取未读状态失败' } });
   }
 });
 
