@@ -533,12 +533,13 @@
             </svg>
             @ 提及
           </button>
-          <button class="member-action-btn" @click="viewMemberProfile">
+          <button class="member-action-btn" @click="addFriend">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="5" r="2.5" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M3 14C3 11 5.2 9 8 9C10.8 9 13 11 13 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="6" cy="4" r="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <path d="M2 13C2 10.8 3.8 9 6 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
-            查看资料
+            添加好友
           </button>
         </div>
       </div>
@@ -770,8 +771,9 @@ function mentionMember() {
   }
 }
 
-function viewMemberProfile() {
+function addFriend() {
   showMemberAction.value = false
+  // 后续实现发送好友请求
 }
 
 function openMessageMemberAction(message, event) {
