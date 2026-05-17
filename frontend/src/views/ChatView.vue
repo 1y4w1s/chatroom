@@ -527,18 +527,9 @@
         </div>
         <div class="member-action-buttons">
           <button class="member-action-btn" @click="mentionMember" v-if="memberActionTarget?.id !== authStore.userId">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M11 8C11 6.3 9.7 5 8 5C6.3 5 5 6.3 5 8C5 9.7 6.3 11 8 11C8.8 11 9.5 10.7 10.1 10.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
             @ 提及
           </button>
           <button class="member-action-btn" @click="addFriend" v-if="memberActionTarget?.id !== authStore.userId">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M8 3V13M3 8H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="6" cy="4" r="2" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <path d="M2 13C2 10.8 3.8 9 6 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
             添加好友
           </button>
         </div>
@@ -1412,7 +1403,7 @@ const setupSocketListeners = () => {
       currentMembers.value = []
       messages.value = []
       loadRooms()
-      showToastMessage('聊天室已被强制删除', 'error')
+      showToastMessage('聊天室已被删除', 'error')
     }
   })
 }

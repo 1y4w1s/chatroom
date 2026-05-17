@@ -893,13 +893,13 @@ router.delete('/:id/force', checkSuperAdmin, [
     
     res.json({
       success: true,
-      message: '聊天室已被强制删除'
+      message: '聊天室已删除'
     });
   } catch (error) {
     console.error('强制删除聊天室失败:', error);
     res.status(500).json({
       success: false,
-      error: { message: '强制删除聊天室失败' }
+      error: { message: '删除聊天室失败' }
     });
   }
 });
