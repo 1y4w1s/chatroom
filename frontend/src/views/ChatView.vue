@@ -1474,6 +1474,14 @@ onUnmounted(() => {
   flex-direction: row-reverse;
 }
 
+.message-own .message-content {
+  text-align: right;
+}
+
+.message-own .message-text {
+  text-align: left;
+}
+
 .message-sender {
   font-size: 13px;
   font-weight: 500;
