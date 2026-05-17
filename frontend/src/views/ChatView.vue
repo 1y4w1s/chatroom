@@ -227,7 +227,7 @@
             :disabled="hasActiveMute"
           />
           <button 
-            class="btn btn-primary" 
+            class="btn btn-primary btn-sm send-btn" 
             @click="sendMessage" 
             :disabled="!newMessage.trim() || hasActiveMute"
           >
@@ -1510,6 +1510,11 @@ onUnmounted(() => {
   display: flex;
   gap: 10px;
   align-items: center;
+}
+
+.send-btn {
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .muted-notice {
