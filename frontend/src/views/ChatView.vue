@@ -187,6 +187,36 @@
             </svg>
             您已被禁言，无法发送消息
           </div>
+          <div class="emoji-picker-wrapper" ref="emojiPickerRef">
+            <button class="emoji-btn" @click="toggleEmojiPicker" :disabled="hasActiveMute" title="选择表情">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="7" cy="8" r="1" fill="currentColor"/>
+                <circle cx="13" cy="8" r="1" fill="currentColor"/>
+                <path d="M6 12C6 12 7.5 14 10 14C12.5 14 14 12 14 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div v-if="showEmojiPicker" class="emoji-picker">
+              <div class="emoji-categories">
+                <button
+                  v-for="(cat, idx) in emojiCategories"
+                  :key="idx"
+                  class="emoji-cat-btn"
+                  :class="{ active: currentEmojiCat === idx }"
+                  @click="currentEmojiCat = idx"
+                  :title="cat.name"
+                >{{ cat.icon }}</button>
+              </div>
+              <div class="emoji-grid">
+                <button
+                  v-for="(emoji, eidx) in emojiCategories[currentEmojiCat].emojis"
+                  :key="eidx"
+                  class="emoji-item"
+                  @click="insertEmoji(emoji)"
+                >{{ emoji }}</button>
+              </div>
+            </div>
+          </div>
           <input
             v-model="newMessage"
             type="text"
@@ -442,6 +472,7 @@ import { ref, watch, onMounted, onUnmounted, nextTick, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { roomAPI, userAPI } from '@/api'
+import { emojiCategories } from '@/utils/emojis'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -555,6 +586,26 @@ const showDissolveConfirm = ref(false)
 const showToast = ref(false)
 const toastMessage = ref('')
 const toastType = ref('success')
+
+// 表情选择器
+const showEmojiPicker = ref(false)
+const currentEmojiCat = ref(0)
+const emojiPickerRef = ref(null)
+
+function toggleEmojiPicker() {
+  showEmojiPicker.value = !showEmojiPicker.value
+}
+
+function insertEmoji(emoji) {
+  newMessage.value += emoji
+  showEmojiPicker.value = false
+}
+
+function handleClickOutsideEmoji(e) {
+  if (emojiPickerRef.value && !emojiPickerRef.value.contains(e.target)) {
+    showEmojiPicker.value = false
+  }
+}
 
 const showToastMessage = (message, type = 'success') => {
   toastMessage.value = message
@@ -1094,9 +1145,11 @@ const setupSocketListeners = () => {
 onMounted(() => {
   loadRooms()
   setupSocketListeners()
+  document.addEventListener('click', handleClickOutsideEmoji)
 })
 
 onUnmounted(() => {
+  document.removeEventListener('click', handleClickOutsideEmoji)
   if (muteTickTimer) {
     clearInterval(muteTickTimer)
     muteTickTimer = null
@@ -1448,11 +1501,12 @@ onUnmounted(() => {
 }
 
 .message-input {
+  position: relative;
   padding: 16px 24px;
   background: white;
   border-top: 1px solid #e5e7eb;
   display: flex;
-  gap: 12px;
+  gap: 8px;
   align-items: center;
 }
 
@@ -1471,24 +1525,121 @@ onUnmounted(() => {
   border-bottom: 1px solid #fecaca;
 }
 
-.message-input {
+.emoji-picker-wrapper {
   position: relative;
+  flex-shrink: 0;
 }
 
-.message-input .input {
-  flex: 1;
-  padding: 12px 16px;
-  border: 1px solid #e5e7eb;
+.emoji-btn {
+  width: 38px;
+  height: 38px;
   border-radius: 10px;
-  font-size: 14px;
-  transition: all 0.2s;
+  border: 1px solid #e5e7eb;
   background: #fafafa;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  padding: 0;
 }
 
-.message-input .input:focus {
-  outline: none;
-  border-color: #1a1a1a;
+.emoji-btn:hover {
+  background: #f3f4f6;
+  color: #1a1a1a;
+  border-color: #d1d5db;
+}
+
+.emoji-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.emoji-picker {
+  position: absolute;
+  bottom: 48px;
+  left: 0;
+  width: 330px;
+  height: 320px;
   background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.emoji-categories {
+  display: flex;
+  gap: 2px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #e5e7eb;
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+
+.emoji-cat-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.emoji-cat-btn:hover {
+  background: #f3f4f6;
+}
+
+.emoji-cat-btn.active {
+  background: #e5e7eb;
+}
+
+.emoji-grid {
+  flex: 1;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 2px;
+  padding: 8px;
+}
+
+.emoji-item {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.1s;
+  padding: 0;
+}
+
+.emoji-item:hover {
+  background: #f3f4f6;
+}
+
+.emoji-grid::-webkit-scrollbar {
+  width: 4px;
+}
+
+.emoji-grid::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 2px;
 }
 
 .no-room {
