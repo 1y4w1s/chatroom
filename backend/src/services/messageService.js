@@ -64,14 +64,14 @@ class MessageService {
     
     const newMessageId = result.insertId;
     
-    // 消息保存成功后，再更新被 @用户的 room_read_status
+    // 消息保存成功后，@提及用户不需要额外操作，API 查询时自动从 messages 表计算
     if (isMention && mentionedUsers.length > 0) {
+      // 确保被 @用户有 room_read_status 记录（用 0 表示未读）
       for (const mu of mentionedUsers) {
         await query(
-          `INSERT INTO room_read_status (user_id, room_id, last_read_message_id, is_mentioned)
-           VALUES (?, ?, ?, TRUE)
-           ON DUPLICATE KEY UPDATE last_read_message_id = ?, is_mentioned = TRUE`,
-          [mu.id, roomId, newMessageId, newMessageId]
+          `INSERT IGNORE INTO room_read_status (user_id, room_id, last_read_message_id)
+           VALUES (?, ?, 0)`,
+          [mu.id, roomId]
         );
       }
     }

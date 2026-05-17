@@ -183,15 +183,14 @@ router.get('/read-status', async (req, res) => {
     if (!userId) return res.status(400).json({ success: false, error: { message: '缺少用户 ID' } });
 
     const statuses = await query(
-      `SELECT rrs.room_id, rrs.is_mentioned,
-              (SELECT COUNT(*) FROM messages m WHERE m.room_id = rrs.room_id AND m.id > IFNULL(rrs.last_read_message_id, 0)) as unread_count
-       FROM room_read_status rrs
-       WHERE rrs.user_id = ?
-       UNION
-       SELECT rm.room_id, FALSE as is_mentioned,
-              (SELECT COUNT(*) FROM messages m WHERE m.room_id = rm.room_id) as unread_count
+      `SELECT rm.room_id,
+              (SELECT COUNT(*) FROM messages m WHERE m.room_id = rm.room_id
+               AND m.id > IFNULL((SELECT last_read_message_id FROM room_read_status rrs WHERE rrs.user_id = ? AND rrs.room_id = rm.room_id), 0)
+               AND m.is_mention = TRUE) > 0 as is_mentioned,
+              (SELECT COUNT(*) FROM messages m WHERE m.room_id = rm.room_id
+               AND m.id > IFNULL((SELECT last_read_message_id FROM room_read_status rrs WHERE rrs.user_id = ? AND rrs.room_id = rm.room_id), 0)) as unread_count
        FROM room_members rm
-       WHERE rm.user_id = ? AND rm.room_id NOT IN (SELECT room_id FROM room_read_status WHERE user_id = ?)`,
+       WHERE rm.user_id = ?`,
       [userId, userId, userId]
     );
 
@@ -1033,9 +1032,9 @@ router.post('/:id/read', async (req, res) => {
     const lastId = lastMsg[0]?.max_id || 0;
 
     await query(
-      `INSERT INTO room_read_status (user_id, room_id, last_read_message_id, is_mentioned)
-       VALUES (?, ?, ?, FALSE)
-       ON DUPLICATE KEY UPDATE last_read_message_id = ?, is_mentioned = FALSE`,
+      `INSERT INTO room_read_status (user_id, room_id, last_read_message_id)
+       VALUES (?, ?, ?)
+       ON DUPLICATE KEY UPDATE last_read_message_id = ?`,
       [userId, roomId, lastId, lastId]
     );
 

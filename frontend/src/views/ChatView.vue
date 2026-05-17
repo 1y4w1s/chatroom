@@ -753,7 +753,7 @@ const getRoomUnread = (roomId) => {
 }
 
 const getRoomMention = (roomId) => {
-  return roomReadStatus.value[roomId]?.is_mentioned || false
+  return !!roomReadStatus.value[roomId]?.is_mentioned
 }
 
 const formatUnread = (count) => {
