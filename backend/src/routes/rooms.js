@@ -7,12 +7,14 @@ const { query } = require('../config/database');
 const { body, validationResult } = require('express-validator');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
+const roomAvatarDir = path.join(__dirname, '../../uploads/avatars');
+if (!fs.existsSync(roomAvatarDir)) {
+  fs.mkdirSync(roomAvatarDir, { recursive: true });
+}
 const roomAvatarStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const uploadDir = path.join(__dirname, '../../uploads/avatars');
-    cb(null, uploadDir);
-  },
+  destination: (req, file, cb) => cb(null, roomAvatarDir),
   filename: (req, file, cb) => {
     const ext = path.extname(file.originalname);
     cb(null, `room_${req.params.id}_${Date.now()}${ext}`);

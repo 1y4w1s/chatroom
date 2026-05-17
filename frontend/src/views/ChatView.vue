@@ -135,7 +135,7 @@
     <main class="chat-main">
       <div v-if="currentRoomId" class="chat-wrapper">
         <header class="chat-header">
-          <div class="header-left">
+          <div class="header-left" @click="showRoomDetail = true" style="cursor:pointer">
             <h3>{{ currentRoom?.name }}</h3>
             <p>{{ currentRoom?.description }}</p>
           </div>
@@ -452,6 +452,64 @@
       </div>
     </div>
 
+    <div v-if="showRoomDetail" class="modal-overlay" @click="showRoomDetail = false">
+      <div class="modal room-detail-modal" @click.stop>
+        <div class="modal-header">
+          <h3>{{ currentRoom?.name }}</h3>
+          <button class="close-btn" @click="showRoomDetail = false">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="room-detail-avatar">
+            <img :src="roomDetailAvatarUrl" class="detail-room-avatar" />
+          </div>
+          <div class="room-detail-info">
+            <div class="detail-row">
+              <span class="detail-label">名称</span>
+              <span class="detail-value">{{ currentRoom?.name }}</span>
+            </div>
+            <div class="detail-row" v-if="currentRoom?.description">
+              <span class="detail-label">简介</span>
+              <span class="detail-value">{{ currentRoom?.description }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">类型</span>
+              <span class="detail-value">{{ currentRoom?.type === 'private' ? '私有' : '公开' }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">成员数</span>
+              <span class="detail-value">{{ currentMembers.length }} 人</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">创建者</span>
+              <span class="detail-value">{{ currentRoom?.owner_name }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">创建时间</span>
+              <span class="detail-value">{{ formatTime(currentRoom?.created_at) }}</span>
+            </div>
+          </div>
+          <div class="room-detail-members">
+            <h4>成员列表（{{ currentMembers.length }}）</h4>
+            <div class="detail-member-list">
+              <div v-for="member in currentMembers" :key="member.id" class="detail-member-item">
+                <img :src="getAvatarUrl(member.avatar)" class="detail-member-avatar" />
+                <div class="detail-member-name">{{ member.nickname || member.username }}</div>
+                <span v-if="member.role === 'owner'" class="role-badge owner">群主</span>
+                <span v-else-if="member.role === 'admin'" class="role-badge admin">管理员</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" @click="showRoomDetail = false">关闭</button>
+        </div>
+      </div>
+    </div>
+
     <div v-if="showDissolveConfirm" class="modal-overlay" @click="showDissolveConfirm = false">
       <div class="modal danger-modal" @click.stop>
         <div class="modal-header">
@@ -633,6 +691,17 @@ const roomAvatarUrl = computed(() => {
   if (avatar.startsWith('/')) return `${window.location.origin}${avatar}`
   return avatar
 })
+
+const roomDetailAvatarUrl = computed(() => {
+  if (!currentRoom.value) return '/default-avatar.png'
+  const avatar = currentRoom.value.avatar
+  if (!avatar) return '/default-avatar.png'
+  if (avatar.startsWith('http')) return avatar
+  if (avatar.startsWith('/')) return `${window.location.origin}${avatar}`
+  return avatar
+})
+
+const showRoomDetail = ref(false)
 
 // 表情选择器
 const showEmojiPicker = ref(false)
@@ -1862,6 +1931,86 @@ onUnmounted(() => {
 
 .room-settings-modal {
   max-width: 560px;
+}
+
+.room-detail-modal {
+  max-width: 480px;
+}
+
+.room-detail-avatar {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.detail-room-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  object-fit: cover;
+  background: #f3f4f6;
+}
+
+.room-detail-info {
+  margin-bottom: 20px;
+}
+
+.detail-row {
+  display: flex;
+  padding: 8px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.detail-label {
+  width: 80px;
+  font-size: 13px;
+  color: #9ca3af;
+  flex-shrink: 0;
+}
+
+.detail-value {
+  font-size: 14px;
+  color: #1a1a1a;
+  word-break: break-word;
+}
+
+.room-detail-members h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 10px;
+}
+
+.detail-member-list {
+  max-height: 200px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detail-member-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 8px;
+}
+
+.detail-member-item:hover {
+  background: #f9fafb;
+}
+
+.detail-member-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.detail-member-name {
+  flex: 1;
+  font-size: 13px;
+  color: #1a1a1a;
 }
 
 .form-section h4 {
