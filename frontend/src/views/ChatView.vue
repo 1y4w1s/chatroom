@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -247,21 +247,21 @@
           </div>
           <div class="header-right">
             <button 
-              v-if="currentPermissions.isAdmin" 
+              v-if="currentPermissions.isAdmin && currentRoom?.type !== 'private'" 
               class="btn btn-secondary btn-sm" 
               @click="openRoomSettings"
             >
               聊天室设置
             </button>
             <button 
-              v-if="isSuperAdmin" 
+              v-if="isSuperAdmin && currentRoom?.type !== 'private'" 
               class="btn btn-danger btn-sm" 
               @click="showDissolveConfirm = true"
             >
               删除聊天室
             </button>
             <button 
-              v-else-if="currentPermissions.isOwner" 
+              v-else-if="currentPermissions.isOwner && currentRoom?.type !== 'private'" 
               class="btn btn-danger btn-sm" 
               @click="showDissolveConfirm = true"
             >
