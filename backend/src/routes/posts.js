@@ -53,7 +53,7 @@ router.get('/', authMiddleware, async (req, res) => {
     }
 
     const posts = await query(
-      `SELECT p.id, p.user_id, p.title, p.content, p.images, p.tags, p.likes_count, p.comments_count, p.created_at,
+      `SELECT p.id, p.user_id, p.content, p.images, p.tags, p.likes_count, p.comments_count, p.created_at,
               u.username, u.nickname, u.avatar, ${isLikedCol}
        FROM posts p
        JOIN users u ON p.user_id = u.id
@@ -82,26 +82,22 @@ router.get('/', authMiddleware, async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('获取贴子列表失败:', error.message, error.stack);
     res.status(500).json({ success: false, error: { message: error.message } });
   }
 });
 
 router.post('/', authMiddleware, upload.array('images', 9), async (req, res) => {
   try {
-    const { title, content } = req.body;
+    const { content } = req.body;
     if (!content || !content.trim()) {
       return res.status(400).json({ success: false, error: { message: '请输入贴子内容' } });
-    }
-    if (title && title.trim().length > 100) {
-      return res.status(400).json({ success: false, error: { message: '标题不能超过100个字符' } });
     }
     if (content.trim().length > 10000) {
       return res.status(400).json({ success: false, error: { message: '内容不能超过10000个字符' } });
     }
 
-    const tagRegex = /#([^#\s]+)/g;
     const tags = [];
+    const tagRegex = /#([^#\s]+)/g;
     let match;
     while ((match = tagRegex.exec(content)) !== null) {
       tags.push(match[1]);
@@ -115,7 +111,7 @@ router.post('/', authMiddleware, upload.array('images', 9), async (req, res) => 
     );
 
     const post = await query(
-      `SELECT p.id, p.user_id, p.title, p.content, p.images, p.tags, p.likes_count, p.comments_count, p.created_at,
+      `SELECT p.id, p.user_id, p.content, p.images, p.tags, p.likes_count, p.comments_count, p.created_at,
               u.username, u.nickname, u.avatar
        FROM posts p JOIN users u ON p.user_id = u.id
        WHERE p.id = ?`,
@@ -124,7 +120,6 @@ router.post('/', authMiddleware, upload.array('images', 9), async (req, res) => 
 
     res.status(201).json({ success: true, data: { post: { ...post[0], is_liked: false } } });
   } catch (error) {
-    console.error('创建贴子失败:', error.message, error.stack);
     res.status(500).json({ success: false, error: { message: error.message } });
   }
 });
@@ -137,7 +132,6 @@ router.post('/:id/like', authMiddleware, async (req, res) => {
     const likes = await query('SELECT COUNT(*) as count FROM post_likes WHERE post_id = ?', [postId]);
     res.json({ success: true, data: { likes_count: likes[0].count, is_liked: true } });
   } catch (error) {
-    console.error('点赞失败:', error);
     res.status(500).json({ success: false, error: { message: error.message } });
   }
 });
@@ -150,7 +144,6 @@ router.post('/:id/unlike', authMiddleware, async (req, res) => {
     const likes = await query('SELECT COUNT(*) as count FROM post_likes WHERE post_id = ?', [postId]);
     res.json({ success: true, data: { likes_count: likes[0].count, is_liked: false } });
   } catch (error) {
-    console.error('取消点赞失败:', error);
     res.status(500).json({ success: false, error: { message: error.message } });
   }
 });
@@ -163,7 +156,6 @@ router.delete('/:id', authMiddleware, async (req, res) => {
     await query('DELETE FROM posts WHERE id = ?', [parseInt(req.params.id)]);
     res.json({ success: true, message: '贴子已删除' });
   } catch (error) {
-    console.error('删除贴子失败:', error);
     res.status(500).json({ success: false, error: { message: error.message } });
   }
 });
