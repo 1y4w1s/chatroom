@@ -478,11 +478,11 @@ async function initDatabase() {
     
     // 创建 DeepSeek 机器人账号（如果不存在）
     try {
-      const botUser = await connection.query(
+      const [botUserRows] = await connection.query(
         'SELECT id FROM users WHERE username = ?',
         ['deepseek']
       );
-      if (botUser.length === 0) {
+      if (botUserRows.length === 0) {
         const hashedPassword = '$2b$10$placeholder'; // 占位密码，无法用于登录
         await connection.query(
           'INSERT INTO users (username, email, password_hash, nickname, is_bot) VALUES (?, ?, ?, ?, TRUE)',

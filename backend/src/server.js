@@ -246,9 +246,43 @@ io.on('connection', (socket) => {
 
 // ==================== DeepSeek AI 机器人 ====================
 
-// 机器人用户 ID 常量（对应数据库中 username='deepseek' 的用户）
-const BOT_USER_ID = 1;
-const BOT_USERNAME = 'DeepSeek AI';
+/**
+ * 获取或创建机器人用户 ID
+ */
+async function getBotUserId() {
+  const { query } = require('./config/database');
+  
+  // 先尝试查找已存在的机器人账号
+  let botUsers;
+  try {
+    botUsers = await query('SELECT id FROM users WHERE username = ?', ['deepseek']);
+  } catch (e) {
+    console.error('查找机器人用户失败:', e.message);
+  }
+  
+  if (botUsers && botUsers.length > 0) {
+    return botUsers[0].id;
+  }
+  
+  // 没找到则尝试创建机器人账号
+  try {
+    const { pool } = require('./config/database');
+    if (!pool) {
+      console.error('数据库连接不可用，无法创建机器人账号');
+      return null;
+    }
+    const hashedPassword = '$2b$10$placeholder';
+    const [result] = await pool.execute(
+      'INSERT INTO users (username, email, password_hash, nickname, is_bot) VALUES (?, ?, ?, ?, TRUE)',
+      ['deepseek', 'bot@deepseek.ai', hashedPassword, 'DeepSeek AI']
+    );
+    console.log('✅ 动态创建 DeepSeek 机器人账号，ID:', result.insertId);
+    return result.insertId;
+  } catch (e) {
+    console.error('创建机器人账号失败:', e.message);
+    return null;
+  }
+}
 
 /**
  * 调用 DeepSeek API 获取 AI 回复
@@ -261,16 +295,11 @@ async function callDeepSeek(roomId, userId, username, userContent, socket) {
     return;
   }
   
-  // 查找机器人用户的实际 ID
-  const { query } = require('./config/database');
-  let botUserId = BOT_USER_ID;
-  try {
-    const botUsers = await query('SELECT id FROM users WHERE username = ?', ['deepseek']);
-    if (botUsers.length > 0) {
-      botUserId = botUsers[0].id;
-    }
-  } catch (e) {
-    console.error('查找机器人用户失败:', e.message);
+  // 获取机器人用户 ID（如果获取不到则放弃发送）
+  const botUserId = await getBotUserId();
+  if (!botUserId) {
+    console.error('无法获取机器人用户 ID，放弃回复');
+    return;
   }
   
   // 构造发送者标识
