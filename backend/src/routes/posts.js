@@ -87,14 +87,13 @@ router.get('/', authMiddleware, async (req, res) => {
               (SELECT COUNT(*) FROM post_likes pl WHERE pl.post_id = p.id AND pl.user_id = ?) > 0 as is_liked
        FROM posts p
         JOIN users u ON p.user_id = u.id
-        WHERE p.is_deleted = FALSE
        ORDER BY p.created_at DESC
        LIMIT ? OFFSET ?`,
       [req.user.id, parseInt(limit), parseInt(offset)]
     );
 
     const total = await query(
-      'SELECT COUNT(*) as count FROM posts WHERE is_deleted = FALSE'
+      'SELECT COUNT(*) as count FROM posts'
     );
 
     res.json({
@@ -110,8 +109,8 @@ router.get('/', authMiddleware, async (req, res) => {
       }
     });
   } catch (error) {
-    console.error('获取贴子列表失败:', error);
-    res.status(500).json({ success: false, error: { message: '获取贴子列表失败' } });
+    console.error('获取贴子列表失败:', error.message, error.stack);
+    res.status(500).json({ success: false, error: { message: error.message } });
   }
 });
 
@@ -158,8 +157,8 @@ router.post('/', authMiddleware, upload.array('images', 9), async (req, res) => 
 
     res.status(201).json({ success: true, data: { post: { ...post[0], is_liked: false } } });
   } catch (error) {
-    console.error('创建贴子失败:', error);
-    res.status(500).json({ success: false, error: { message: '创建贴子失败' } });
+    console.error('创建贴子失败:', error.message, error.stack);
+    res.status(500).json({ success: false, error: { message: error.message } });
   }
 });
 
@@ -198,7 +197,8 @@ router.delete('/:id', authMiddleware, async (req, res) => {
     const post = await query('SELECT user_id FROM posts WHERE id = ?', [req.params.id]);
     if (post.length === 0) return res.status(404).json({ success: false, error: { message: '贴子不存在' } });
     if (post[0].user_id !== req.user.id) return res.status(403).json({ success: false, error: { message: '无权删除' } });
-    await query('UPDATE posts SET is_deleted = TRUE WHERE id = ?', [req.params.id]);
+    await query('DELETE FROM post_likes WHERE post_id = ?', [req.params.id]);
+    await query('DELETE FROM posts WHERE id = ?', [req.params.id]);
     res.json({ success: true, message: '贴子已删除' });
   } catch (error) {
     console.error('删除贴子失败:', error);
