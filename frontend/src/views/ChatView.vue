@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -276,15 +276,15 @@
     </div>
 
     <main class="chat-main">
-      <div v-if="postTabVisible || roomTabVisible" class="main-tabs">
-        <button class="main-tab" :class="{ active: activeMainTab === 'chat' }" @click="switchToChat" v-if="roomTabVisible">
+      <div v-if="selectedPost || currentRoomId" class="main-tabs">
+         <button class="main-tab" :class="{ active: activeMainTab === 'chat' }" @click="switchToChat" v-if="currentRoomId">
           聊天室
         </button>
-        <button class="main-tab" :class="{ active: activeMainTab === 'post' }" @click="switchToPost" v-if="postTabVisible">
+        <button class="main-tab" :class="{ active: activeMainTab === 'post' }" @click="switchToPost" v-if="selectedPost">
           帖子详情
         </button>
       </div>
-      <div v-show="activeMainTab === 'post' && postTabVisible" class="post-detail">
+      <div v-if="activeMainTab === 'post' && selectedPost" class="post-detail">
         <div class="post-detail-header">
           <h3>贴子详情</h3>
           <div class="post-detail-actions" v-if="selectedPost.user_id === authStore.userId">
@@ -406,7 +406,7 @@
           </div>
         </div>
       </div>
-      <div v-show="activeMainTab === 'chat' && roomTabVisible" class="chat-wrapper">
+      <div v-if="activeMainTab === 'chat' && currentRoomId" class="chat-wrapper">
         <header class="chat-header">
           <div class="header-left" @click="showRoomDetail = true" style="cursor:pointer">
             <h3>{{ currentRoom?.name }}</h3>
@@ -512,7 +512,7 @@
         </footer>
       </div>
 
-      <div v-if="!postTabVisible && !roomTabVisible" class="no-room">
+      <div v-if="!selectedPost && !currentRoomId" class="no-room">
         <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
           <rect x="8" y="12" width="48" height="40" rx="4" stroke="#e5e7eb" stroke-width="2"/>
           <path d="M8 24H56" stroke="#e5e7eb" stroke-width="2"/>
@@ -1303,8 +1303,6 @@ const formatTime = (dateStr) => {
 
 // 贴子详情
 const activeMainTab = ref('chat')
-const postTabVisible = computed(() => !!selectedPost.value)
-const roomTabVisible = computed(() => !!currentRoomId.value)
 const selectedPost = ref(null)
 
 const switchToChat = () => { activeMainTab.value = 'chat' }
