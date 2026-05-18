@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -449,7 +449,8 @@
                 <span class="message-sender">{{ message.nickname || message.username }}</span>
                 <span class="message-time">{{ formatTime(message.created_at) }}</span>
               </div>
-              <div class="message-text">{{ message.content }}</div>
+              <img v-if="message.type === 'image'" :src="getMessageImageUrl(message)" class="message-image" @click="previewMessageImage(message)" />
+              <div v-else class="message-text">{{ message.content }}</div>
             </div>
           </div>
         </div>
@@ -1284,6 +1285,16 @@ const getPostImageUrl = (imgPath) => {
   return `${window.location.origin}/${path}`
 }
 
+const getMessageImageUrl = (msg) => {
+  const url = msg.file_url || msg.content
+  return getPostImageUrl(url)
+}
+
+const previewMessageImage = (msg) => {
+  previewImageUrl.value = getMessageImageUrl(msg)
+  showPostImagePreview.value = true
+}
+
 const formatTime = (dateStr) => {
   if (!dateStr) return ''
   const d = new Date(dateStr)
@@ -1815,24 +1826,24 @@ const sendMessage = async () => {
     return
   }
 
-  if (chatImages.value.length) {
-    for (const img of chatImages.value) {
-      const formData = new FormData()
-      formData.append('file', img.file)
-      try {
-        const response = await messageAPI.upload(authStore.userId, formData)
-        if (response.success) {
-          authStore.sendMessage(currentRoomId.value, response.data.url, 'image')
-        }
-      } catch (e) {
-      }
-    }
-    chatImages.value = []
-    return
+  if (newMessage.value.trim()) {
+    authStore.sendMessage(currentRoomId.value, newMessage.value)
   }
 
-  authStore.sendMessage(currentRoomId.value, newMessage.value)
+  for (const img of chatImages.value) {
+    const formData = new FormData()
+    formData.append('file', img.file)
+    try {
+      const response = await messageAPI.upload(authStore.userId, formData)
+      if (response.success) {
+        authStore.sendMessage(currentRoomId.value, response.data.url, 'image')
+      }
+    } catch (e) {
+    }
+  }
+
   newMessage.value = ''
+  chatImages.value = []
 }
 
 let typingTimeout = null
@@ -3976,6 +3987,20 @@ onUnmounted(() => {
   line-height: 1.5;
   word-break: break-word;
   max-width: 100%;
+}
+
+.message-image {
+  display: block;
+  max-width: 280px;
+  max-height: 300px;
+  border-radius: 12px;
+  cursor: pointer;
+  object-fit: cover;
+  border: 1px solid #e5e7eb;
+}
+
+.message-own .message-image {
+  border-color: transparent;
 }
 
 .message-own .message-text {
