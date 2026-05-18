@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -208,7 +208,7 @@
                 <img v-for="(img, i) in post.images.slice(0, 9)" :key="i" :src="getPostImageUrl(img)" class="post-image" @click="previewPostImage(img)" />
               </div>
               <div class="post-actions">
-                <button class="post-action-btn" :class="{ liked: post.is_liked }" @click="toggleLike(post)">
+                <button class="post-action-btn" :class="{ liked: post.is_liked }" @click.stop="toggleLike(post)">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="post.is_liked ? 'currentColor' : 'none'" :stroke="post.is_liked ? 'currentColor' : '#9ca3af'" stroke-width="1.2"/>
                   </svg>
@@ -1259,10 +1259,18 @@ const toggleLike = async (post) => {
       const response = await postAPI.unlike(authStore.userId, post.id)
       post.likes_count = response.data.likes_count
       post.is_liked = false
+      if (selectedPost.value && selectedPost.value.id === post.id) {
+        selectedPost.value.likes_count = response.data.likes_count
+        selectedPost.value.is_liked = false
+      }
     } else {
       const response = await postAPI.like(authStore.userId, post.id)
       post.likes_count = response.data.likes_count
       post.is_liked = true
+      if (selectedPost.value && selectedPost.value.id === post.id) {
+        selectedPost.value.likes_count = response.data.likes_count
+        selectedPost.value.is_liked = true
+      }
     }
   } catch (e) {
   }

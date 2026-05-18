@@ -41,7 +41,7 @@ router.get('/', authMiddleware, async (req, res) => {
     const page = parseInt(req.query.page) || 1, limit = parseInt(req.query.limit) || 20, offset = (page - 1) * limit;
     const titleCol = await colSql('posts', 'title', ''), isPublicCol = await colSql('posts', 'is_public', '1'), allowCommentsCol = await colSql('posts', 'allow_comments', '1');
     let hasLikes = false; try { await pool.query('SELECT 1 FROM post_likes LIMIT 0'); hasLikes = true; } catch (e) {}
-    const likedCol = hasLikes ? `EXISTS (SELECT 1 FROM post_likes pl WHERE pl.post_id = p.id AND pl.user_id = ${req.user.id})` : 'FALSE';
+    const likedCol = hasLikes ? `IFNULL((SELECT 1 FROM post_likes pl WHERE pl.post_id = p.id AND pl.user_id = ${req.user.id}), 0)` : '0';
     const [posts] = await pool.query(`SELECT p.id, p.user_id, ${titleCol}, p.content, p.images, p.tags, p.likes_count, p.comments_count, ${isPublicCol}, ${allowCommentsCol}, p.created_at, u.username, u.nickname, u.avatar, ${likedCol} as is_liked FROM posts p JOIN users u ON p.user_id = u.id ORDER BY p.created_at DESC LIMIT ${limit} OFFSET ${offset}`);
     const [total] = await pool.query('SELECT COUNT(*) as count FROM posts');
     res.json({ success: true, data: { posts, pagination: { page, limit, total: total[0].count, hasMore: offset + limit < total[0].count } } });
@@ -52,7 +52,7 @@ router.get('/:id', authMiddleware, async (req, res) => {
   try {
     const titleCol = await colSql('posts', 'title', ''), isPublicCol = await colSql('posts', 'is_public', '1'), allowCommentsCol = await colSql('posts', 'allow_comments', '1');
     let hasLikes = false; try { await pool.query('SELECT 1 FROM post_likes LIMIT 0'); hasLikes = true; } catch (e) {}
-    const likedCol = hasLikes ? `EXISTS (SELECT 1 FROM post_likes pl WHERE pl.post_id = p.id AND pl.user_id = ${req.user.id})` : 'FALSE';
+    const likedCol = hasLikes ? `IFNULL((SELECT 1 FROM post_likes pl WHERE pl.post_id = p.id AND pl.user_id = ${req.user.id}), 0)` : '0';
     const [posts] = await pool.query(`SELECT p.id, p.user_id, ${titleCol}, p.content, p.images, p.tags, p.likes_count, p.comments_count, ${isPublicCol}, ${allowCommentsCol}, p.created_at, u.username, u.nickname, u.avatar, ${likedCol} as is_liked FROM posts p JOIN users u ON p.user_id = u.id WHERE p.id = ${parseInt(req.params.id)}`);
     if (posts.length === 0) return res.status(404).json({ success: false, error: { message: '贴子不存在' } });
     res.json({ success: true, data: { post: posts[0] } });
@@ -159,7 +159,7 @@ router.get('/:id/comments', authMiddleware, async (req, res) => {
   try {
     await ensureCommentParentId();
     let hasLikes = false; try { await pool.query('SELECT 1 FROM comment_likes LIMIT 0'); hasLikes = true; } catch (e) {}
-    const likedCol = hasLikes ? `EXISTS (SELECT 1 FROM comment_likes cl WHERE cl.comment_id = c.id AND cl.user_id = ${req.user.id})` : 'FALSE';
+    const likedCol = hasLikes ? `IFNULL((SELECT 1 FROM comment_likes cl WHERE cl.comment_id = c.id AND cl.user_id = ${req.user.id}), 0)` : '0';
     const [comments] = await pool.query(`SELECT c.*, u.username, u.nickname, u.avatar, ${likedCol} as is_liked FROM post_comments c JOIN users u ON c.user_id = u.id WHERE c.post_id = ${parseInt(req.params.id)} ORDER BY c.created_at ASC`);
     res.json({ success: true, data: { comments } });
   } catch (error) { res.status(500).json({ success: false, error: { message: error.message } }); }
