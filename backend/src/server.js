@@ -220,10 +220,14 @@ io.on('connection', (socket) => {
     socket.to(roomId).emit('user_stop_typing', { userId, roomId });
   });
   
-  socket.on('disconnect', () => {
+  socket.on('disconnect', async () => {
     console.log(`用户断开：${socket.id}`);
     if (socket.userId) {
       socket.broadcast.emit('user_status_changed', { userId: socket.userId, status: 'offline' });
+      try {
+        const { query } = require('./config/database');
+        await query('UPDATE users SET status = ? WHERE id = ?', ['offline', socket.userId]);
+      } catch (e) {}
     }
   });
   
