@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -129,7 +129,7 @@
                 :key="member.id"
                 class="preview-member"
               >
-                <img :src="getAvatarUrl(member.avatar)" class="preview-avatar" />
+                <img :src="getAvatarUrl(member.avatar, member.nickname || member.username)" class="preview-avatar" />
                 <div class="preview-info">
                   <div class="preview-name">{{ member.nickname || member.username }}</div>
                   <div class="preview-status" :class="member.status">
@@ -162,7 +162,7 @@
             @click="openChatWithFriend(friend)"
           >
             <div class="room-icon">
-              <img v-if="friend.avatar" :src="getAvatarUrl(friend.avatar)" class="room-list-avatar" />
+              <img v-if="friend.avatar" :src="getAvatarUrl(friend.avatar, friend.nickname || friend.username)" class="room-list-avatar" />
               <div v-else class="default-avatar" :style="{ background: nameColor(friend.nickname || friend.username) }">
                 <span>{{ (friend.nickname || friend.username)[0] }}</span>
               </div>
@@ -184,7 +184,7 @@
 
       <div class="sidebar-footer">
         <div class="user-info" @click="goToProfile" title="点击进入个人中心">
-          <img :src="getAvatarUrl(authStore.user?.avatar)" class="avatar" />
+          <img :src="getAvatarUrl(authStore.user?.avatar, authStore.user?.nickname || authStore.user?.username)" class="avatar" />
           <div class="user-details">
             <div class="username">{{ authStore.user?.nickname || authStore.user?.username }}</div>
             <div class="user-status">
@@ -275,7 +275,7 @@
             class="message"
             :class="{ 'message-own': message.sender_id === authStore.user?.id }"
           >
-            <img :src="message.avatar || '/default-avatar.png'" class="message-avatar" @click="openMessageMemberAction(message, $event)" style="cursor:pointer" />
+            <img :src="getAvatarUrl(message.avatar, message.nickname || message.username)" class="message-avatar" @click="openMessageMemberAction(message, $event)" style="cursor:pointer" />
             <div class="message-content">
               <div class="message-header">
                 <span class="message-sender">{{ message.nickname || message.username }}</span>
@@ -433,7 +433,7 @@
               :key="member.id"
               class="member-item"
             >
-              <img :src="getAvatarUrl(member.avatar)" class="member-avatar" @click="openMemberAction(member, $event)" style="cursor:pointer" />
+              <img :src="getAvatarUrl(member.avatar, member.nickname || member.username)" class="member-avatar" @click="openMemberAction(member, $event)" style="cursor:pointer" />
               <div class="member-info">
                 <div class="member-name">
                   {{ member.nickname || member.username }}
@@ -600,7 +600,7 @@
             <h4>成员列表（{{ currentMembers.length }}）</h4>
             <div class="detail-member-list">
               <div v-for="member in currentMembers" :key="member.id" class="detail-member-item" @click="openMemberAction(member, $event)">
-                <img :src="getAvatarUrl(member.avatar)" class="detail-member-avatar" />
+                <img :src="getAvatarUrl(member.avatar, member.nickname || member.username)" class="detail-member-avatar" />
                 <div class="detail-member-name">{{ member.nickname || member.username }}</div>
                 <span v-if="member.role === 'owner'" class="role-badge owner">群主</span>
                 <span v-else-if="member.role === 'admin'" class="role-badge admin">管理员</span>
@@ -639,7 +639,7 @@
               class="notification-item"
               :class="{ unread: !n.is_read }"
             >
-              <img :src="getAvatarUrl(n.avatar)" class="notification-avatar" />
+              <img :src="getAvatarUrl(n.avatar, n.nickname || n.username)" class="notification-avatar" />
               <div class="notification-content">
                 <div class="notification-text">
                   <strong>{{ n.nickname || n.username }}</strong>
@@ -667,7 +667,7 @@
     <div v-if="showMemberAction" class="modal-overlay" @click="showMemberAction = false">
       <div class="member-action-card" :style="memberActionStyle" @click.stop>
         <div class="member-action-header">
-          <img :src="getAvatarUrl(memberActionTarget?.avatar)" class="action-member-avatar" />
+          <img :src="getAvatarUrl(memberActionTarget?.avatar, (memberActionTarget?.nickname || memberActionTarget?.username))" class="action-member-avatar" />
           <div class="action-member-info">
             <div class="action-member-name">{{ memberActionTarget?.nickname || memberActionTarget?.username }}</div>
             <div class="action-member-status">
@@ -763,9 +763,12 @@ const isSuperAdmin = computed(() => {
   }
 })
 
-const getAvatarUrl = (avatarPath) => {
+const getAvatarUrl = (avatarPath, name) => {
   if (!avatarPath || !avatarPath.trim()) {
-    return '/default-avatar.png'
+    const n = String(name || '?')
+    const color = nameColor(n)
+    const letter = n[0].toUpperCase()
+    return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><rect width="40" height="40" rx="8" fill="${color}"/><text x="20" y="26" text-anchor="middle" fill="white" font-size="18" font-weight="600" font-family="system-ui,sans-serif">${letter}</text></svg>`)}`
   }
   const path = avatarPath.trim()
   if (path.startsWith('http://') || path.startsWith('https://')) {
