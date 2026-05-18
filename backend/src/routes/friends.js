@@ -37,12 +37,10 @@ router.get('/', authMiddleware, async (req, res) => {
     const friends = await query(
       `SELECT u.id, u.username, u.nickname, u.avatar, u.status, f.created_at as friend_since
        FROM friendships f
-       JOIN users u ON (f.friend_id = u.id OR f.user_id = u.id)
-       WHERE (f.user_id = ? OR f.friend_id = u.id) 
-         AND f.status = 'accepted'
-         AND u.id != ?
+       JOIN users u ON u.id = CASE WHEN f.user_id = ? THEN f.friend_id ELSE f.user_id END
+       WHERE (f.user_id = ? OR f.friend_id = ?) AND f.status = 'accepted'
        ORDER BY u.status DESC, f.created_at DESC`,
-      [req.user.id, req.user.id]
+      [req.user.id, req.user.id, req.user.id]
     );
     
     res.json({
