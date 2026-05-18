@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -45,45 +45,77 @@
       <div class="sidebar-content">
         <div v-show="sidebarTab === 'rooms'" class="room-list">
           <div class="room-list-header">
-            <span class="room-list-title">聊天室列表</span>
+            <span class="room-list-title">聊天列表</span>
             <button class="btn btn-primary btn-sm" @click="showCreateModal = true">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                 <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
-              新建
+              新建群聊
             </button>
           </div>
-          <div
-            v-for="room in rooms"
-            :key="room.id"
-            class="room-item"
-            :class="{ active: currentRoomId === room.id }"
-            @click="joinRoom(room.id)"
-            @mouseenter="showMemberPreview(room.id)"
-            @mouseleave="hideMemberPreview"
-          >
-            <div class="room-icon">
-              <img v-if="room.avatar" :src="getRoomListAvatar(room)" class="room-list-avatar" />
-              <svg v-else-if="room.type === 'public'" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <circle cx="10" cy="10" r="8" stroke="#6b7280" stroke-width="1.5"/>
-                <path d="M10 2C10 2 14 6 14 10C14 14 10 18 10 18" stroke="#6b7280" stroke-width="1.5"/>
-                <path d="M10 2C10 2 6 6 6 10C6 14 10 18 10 18" stroke="#6b7280" stroke-width="1.5"/>
-                <path d="M2 10H18" stroke="#6b7280" stroke-width="1.5"/>
-              </svg>
-              <svg v-else width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <rect x="3" y="7" width="14" height="11" rx="2" stroke="#6b7280" stroke-width="1.5"/>
-                <path d="M7 7V5C7 3.34315 8.34315 2 10 2C11.6569 2 13 3.34315 13 5V7" stroke="#6b7280" stroke-width="1.5"/>
-                <circle cx="10" cy="13" r="1.5" fill="#6b7280"/>
-              </svg>
-              <span v-if="getRoomUnread(room.id)" class="unread-badge">{{ formatUnread(getRoomUnread(room.id)) }}</span>
-              <span v-if="getRoomMention(room.id)" class="mention-badge">@</span>
+
+          <div class="room-category">
+            <div class="category-header" @click="showGroupChats = !showGroupChats">
+              <span class="category-arrow" :class="{ expanded: showGroupChats }">▸</span>
+              <span class="category-label">群聊</span>
+              <span class="category-count">{{ groupRooms.length }}</span>
             </div>
-            <div class="room-info">
-              <div class="room-name">
-                {{ room.name }}
-                <span v-if="room.type === 'private'" class="private-badge">🔒</span>
+            <div v-show="showGroupChats">
+              <div
+                v-for="room in groupRooms"
+                :key="room.id"
+                class="room-item"
+                :class="{ active: currentRoomId === room.id }"
+                @click="joinRoom(room.id)"
+                @mouseenter="showMemberPreview(room.id)"
+                @mouseleave="hideMemberPreview"
+              >
+                <div class="room-icon">
+                  <img v-if="room.avatar" :src="getRoomListAvatar(room)" class="room-list-avatar" />
+                  <svg v-else width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <circle cx="10" cy="10" r="8" stroke="#6b7280" stroke-width="1.5"/>
+                    <path d="M10 2C10 2 14 6 14 10C14 14 10 18 10 18" stroke="#6b7280" stroke-width="1.5"/>
+                    <path d="M10 2C10 2 6 6 6 10C6 14 10 18 10 18" stroke="#6b7280" stroke-width="1.5"/>
+                    <path d="M2 10H18" stroke="#6b7280" stroke-width="1.5"/>
+                  </svg>
+                  <span v-if="getRoomUnread(room.id)" class="unread-badge">{{ formatUnread(getRoomUnread(room.id)) }}</span>
+                  <span v-if="getRoomMention(room.id)" class="mention-badge">@</span>
+                </div>
+                <div class="room-info">
+                  <div class="room-name">{{ room.name }}</div>
+                  <div class="room-desc" v-if="room.description">{{ room.description }}</div>
+                </div>
               </div>
-              <div class="room-desc" v-if="room.description">{{ room.description }}</div>
+            </div>
+          </div>
+
+          <div class="room-category">
+            <div class="category-header" @click="showPrivateChats = !showPrivateChats">
+              <span class="category-arrow" :class="{ expanded: showPrivateChats }">▸</span>
+              <span class="category-label">私聊</span>
+              <span class="category-count">{{ privateRooms.length }}</span>
+            </div>
+            <div v-show="showPrivateChats">
+              <div
+                v-for="room in privateRooms"
+                :key="room.id"
+                class="room-item"
+                :class="{ active: currentRoomId === room.id }"
+                @click="joinRoom(room.id)"
+              >
+                <div class="room-icon">
+                  <img v-if="room.avatar" :src="getRoomListAvatar(room)" class="room-list-avatar" />
+                  <svg v-else width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <rect x="3" y="7" width="14" height="11" rx="2" stroke="#6b7280" stroke-width="1.5"/>
+                    <path d="M7 7V5C7 3.34315 8.34315 2 10 2C11.6569 2 13 3.34315 13 5V7" stroke="#6b7280" stroke-width="1.5"/>
+                    <circle cx="10" cy="13" r="1.5" fill="#6b7280"/>
+                  </svg>
+                  <span v-if="getRoomUnread(room.id)" class="unread-badge">{{ formatUnread(getRoomUnread(room.id)) }}</span>
+                </div>
+                <div class="room-info">
+                  <div class="room-name">{{ room.name }}</div>
+                </div>
+              </div>
             </div>
           </div>
           
@@ -124,6 +156,7 @@
         <div v-show="sidebarTab === 'friends'" class="friend-list">
           <div class="room-list-header">
             <span class="room-list-title">好友列表</span>
+            <span class="friend-count">{{ friends.length }}</span>
           </div>
           <div v-if="friends.length === 0" class="empty-list-hint">暂无好友</div>
           <div
@@ -138,7 +171,7 @@
             </div>
             <div class="room-info">
               <div class="room-name">{{ friend.nickname || friend.username }}</div>
-              <div class="room-desc" :class="friend.status">
+              <div class="friend-status" :class="friend.status">
                 <span class="status-dot" :class="friend.status"></span>
                 {{ friend.status === 'online' ? '在线' : friend.status === 'away' ? '离开' : '离线' }}
               </div>
@@ -867,6 +900,11 @@ const showRoomDetail = ref(false)
 
 // 侧边栏 Tab
 const sidebarTab = ref('rooms')
+const showGroupChats = ref(true)
+const showPrivateChats = ref(true)
+
+const groupRooms = computed(() => rooms.value.filter(r => r.type !== 'private'))
+const privateRooms = computed(() => rooms.value.filter(r => r.type === 'private'))
 const friends = ref([])
 const currentFriendRoomId = ref(null)
 
@@ -1967,8 +2005,57 @@ onUnmounted(() => {
   padding: 4px 12px 12px;
 }
 
+.room-category {
+  margin-bottom: 2px;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 4px 4px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.category-header:hover {
+  color: #6b7280;
+}
+
+.category-arrow {
+  font-size: 10px;
+  transition: transform 0.15s;
+  line-height: 1;
+}
+
+.category-arrow.expanded {
+  transform: rotate(90deg);
+}
+
+.category-label {
+  font-weight: 500;
+}
+
+.category-count {
+  font-size: 11px;
+  color: #d1d5db;
+  margin-left: auto;
+}
+
 .friend-list {
   padding: 4px 12px 12px;
+}
+
+.friend-count {
+  font-size: 12px;
+  color: #d1d5db;
+}
+
+.friend-status {
+  font-size: 13px;
+  color: #6b7280;
 }
 
 .room-item {
