@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -454,7 +454,7 @@
           </div>
         </div>
 
-        <footer class="message-input">
+        <footer class="chat-input-footer">
           <div v-if="hasActiveMute" class="muted-notice">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <circle cx="8" cy="8" r="7" stroke="#dc2626" stroke-width="1.5"/>
@@ -463,52 +463,36 @@
             </svg>
             您已被禁言，无法发送消息
           </div>
-          <div class="emoji-picker-wrapper" ref="emojiPickerRef">
-            <button class="emoji-btn" @click="toggleEmojiPicker" :disabled="hasActiveMute" title="选择表情">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
-                <circle cx="7" cy="8" r="1" fill="currentColor"/>
-                <circle cx="13" cy="8" r="1" fill="currentColor"/>
-                <path d="M6 12C6 12 7.5 14 10 14C12.5 14 14 12 14 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-            </button>
-            <div v-if="showEmojiPicker" class="emoji-picker">
-              <div class="emoji-categories">
-                <button
-                  v-for="(cat, idx) in emojiCategories"
-                  :key="idx"
-                  class="emoji-cat-btn"
-                  :class="{ active: currentEmojiCat === idx }"
-                  @click="currentEmojiCat = idx"
-                  :title="cat.name"
-                >{{ cat.icon }}</button>
+          <div class="cc-card" v-else>
+            <div class="cc-input-row">
+              <input v-model="newMessage" class="cc-input" placeholder="输入消息..." @keyup.enter="sendMessage" @input="handleTyping" />
+              <button v-if="showChatEmoji" class="cc-icon-btn active" @click="showChatEmoji = false">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              </button>
+              <button v-else class="cc-icon-btn" @click="showChatEmoji = true" title="表情">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              </button>
+              <label class="cc-icon-btn" title="图片">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2.5" y="3.5" width="15" height="13" rx="2" stroke="currentColor" stroke-width="1.3"/><circle cx="7" cy="8" r="1.5" fill="currentColor"/><path d="M2.5 13L7 9L11 13L14.5 10L17.5 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                <input type="file" accept="image/*" multiple @change="handleChatImageSelect" hidden />
+              </label>
+              <button class="cc-send-btn" @click="sendMessage" :disabled="!newMessage.trim() && chatImages.length === 0">发送</button>
+            </div>
+            <div v-if="chatImages.length" class="cc-previews">
+              <div v-for="(img, i) in chatImages" :key="i" class="cc-preview-item">
+                <img :src="img.preview" />
+                <button class="cc-preview-del" @click="removeChatImage(i)">×</button>
               </div>
-              <div class="emoji-grid">
-                <button
-                  v-for="(emoji, eidx) in emojiCategories[currentEmojiCat].emojis"
-                  :key="eidx"
-                  class="emoji-item"
-                  @click="insertEmoji(emoji)"
-                >{{ emoji }}</button>
+            </div>
+            <div v-if="showChatEmoji" ref="chatEmojiRef" class="cc-emoji-panel">
+              <div v-for="category in emojiCategories" :key="category.name" class="cc-emoji-group">
+                <div class="cc-emoji-label">{{ category.name }}</div>
+                <div class="cc-emoji-grid">
+                  <button v-for="emoji in category.emojis" :key="emoji" class="cc-emoji-cell" @click="insertChatEmoji(emoji)">{{ emoji }}</button>
+                </div>
               </div>
             </div>
           </div>
-          <input
-            v-model="newMessage"
-            type="text"
-            class="input"
-            placeholder="输入消息..."
-            @keyup.enter="sendMessage"
-            @input="handleTyping"
-            :disabled="hasActiveMute"
-          />
-          <button 
-            class="btn btn-primary btn-sm send-btn" 
-            @click="sendMessage" 
-            :disabled="!newMessage.trim() || hasActiveMute"
-          >
-            发送
-          </button>
         </footer>
       </div>
 
@@ -1696,24 +1680,25 @@ function openMessageMemberAction(message, event) {
   }
 }
 
-// 表情选择器
-const showEmojiPicker = ref(false)
-const currentEmojiCat = ref(0)
-const emojiPickerRef = ref(null)
+// 聊天输入表情和图片
+const showChatEmoji = ref(false)
+const chatImages = ref([])
+const chatEmojiRef = ref(null)
 
-function toggleEmojiPicker() {
-  showEmojiPicker.value = !showEmojiPicker.value
-}
-
-function insertEmoji(emoji) {
+function insertChatEmoji(emoji) {
   newMessage.value += emoji
-  showEmojiPicker.value = false
 }
 
-function handleClickOutsideEmoji(e) {
-  if (emojiPickerRef.value && !emojiPickerRef.value.contains(e.target)) {
-    showEmojiPicker.value = false
+const handleChatImageSelect = (e) => {
+  for (const file of e.target.files) {
+    chatImages.value.push({ file, preview: URL.createObjectURL(file) })
   }
+  e.target.value = ''
+}
+
+const removeChatImage = (i) => {
+  URL.revokeObjectURL(chatImages.value[i].preview)
+  chatImages.value.splice(i, 1)
 }
 
 const showToastMessage = (message, type = 'success') => {
@@ -1825,11 +1810,27 @@ const hideMemberPreview = () => {
   previewMembers.value = []
 }
 
-const sendMessage = () => {
-  if (!newMessage.value.trim() || !currentRoomId.value || hasActiveMute.value) {
+const sendMessage = async () => {
+  if ((!newMessage.value.trim() && chatImages.value.length === 0) || !currentRoomId.value || hasActiveMute.value) {
     return
   }
-  
+
+  if (chatImages.value.length) {
+    for (const img of chatImages.value) {
+      const formData = new FormData()
+      formData.append('file', img.file)
+      try {
+        const response = await messageAPI.upload(authStore.userId, formData)
+        if (response.success) {
+          authStore.sendMessage(currentRoomId.value, response.data.url, 'image')
+        }
+      } catch (e) {
+      }
+    }
+    chatImages.value = []
+    return
+  }
+
   authStore.sendMessage(currentRoomId.value, newMessage.value)
   newMessage.value = ''
 }
@@ -3983,34 +3984,21 @@ onUnmounted(() => {
   border-color: #1a1a1a;
 }
 
-.message-input {
-  position: relative;
-  padding: 16px 24px;
-  background: white;
-  border-top: 1px solid #e5e7eb;
-  display: flex;
-  gap: 10px;
-  align-items: center;
+.chat-input-footer {
+  padding: 0;
+  background: transparent;
+  border: none;
 }
 
-.send-btn {
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.muted-notice {
-  position: absolute;
-  bottom: 100%;
-  left: 0;
-  right: 0;
+.chat-input-footer .muted-notice {
+  padding: 10px 24px;
   background: #fef2f2;
   color: #dc2626;
   font-size: 13px;
-  padding: 10px 24px;
   display: flex;
   align-items: center;
   gap: 8px;
-  border-bottom: 1px solid #fecaca;
+  border-top: 1px solid #fecaca;
 }
 
 .emoji-picker-wrapper {
