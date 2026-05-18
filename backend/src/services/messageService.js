@@ -77,16 +77,34 @@ class MessageService {
     }
     
     // 获取完整的消息信息
-    const message = await query(
-      `SELECT m.*, 
-              u.username, u.nickname, u.avatar, u.is_bot,
-              r.name as room_name
-       FROM messages m
-       JOIN users u ON m.user_id = u.id
-       JOIN rooms r ON m.room_id = r.id
-       WHERE m.id = ?`,
-      [result.insertId]
-    );
+    let message;
+    try {
+      message = await query(
+        `SELECT m.*, 
+                u.username, u.nickname, u.avatar, u.is_bot,
+                r.name as room_name
+         FROM messages m
+         JOIN users u ON m.user_id = u.id
+         JOIN rooms r ON m.room_id = r.id
+         WHERE m.id = ?`,
+        [result.insertId]
+      );
+    } catch (e) {
+      if (e.message.includes('is_bot')) {
+        message = await query(
+          `SELECT m.*, 
+                  u.username, u.nickname, u.avatar,
+                  r.name as room_name
+           FROM messages m
+           JOIN users u ON m.user_id = u.id
+           JOIN rooms r ON m.room_id = r.id
+           WHERE m.id = ?`,
+          [result.insertId]
+        );
+      } else {
+        throw e;
+      }
+    }
     
     // 向后兼容：添加 sender_id 字段（等于 user_id）
     if (message[0]) {
@@ -100,15 +118,32 @@ class MessageService {
    * 获取聊天室消息历史
    */
   static async getRoomMessages(roomId, limit = 50, offset = 0) {
-    const messages = await query(
-      `SELECT m.*, 
-              u.username, u.nickname, u.avatar, u.is_bot
-       FROM messages m
-       JOIN users u ON m.user_id = u.id
-       WHERE m.room_id = ? AND m.is_deleted = FALSE
-       ORDER BY m.created_at DESC`,
-      [roomId]
-    );
+    let messages;
+    try {
+      messages = await query(
+         `SELECT m.*, 
+                 u.username, u.nickname, u.avatar, u.is_bot
+          FROM messages m
+          JOIN users u ON m.user_id = u.id
+         WHERE m.room_id = ? AND m.is_deleted = FALSE
+         ORDER BY m.created_at DESC`,
+        [roomId]
+      );
+    } catch (e) {
+      if (e.message.includes('is_bot')) {
+        messages = await query(
+          `SELECT m.*, 
+                  u.username, u.nickname, u.avatar
+           FROM messages m
+           JOIN users u ON m.user_id = u.id
+           WHERE m.room_id = ? AND m.is_deleted = FALSE
+           ORDER BY m.created_at DESC`,
+          [roomId]
+        );
+      } else {
+        throw e;
+      }
+    }
     
     // 向后兼容：添加 sender_id 字段（等于 user_id）
     const messagesWithSenderId = messages.map(msg => ({
