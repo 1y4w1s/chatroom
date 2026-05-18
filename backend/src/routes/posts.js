@@ -39,7 +39,26 @@ const upload = multer({
   }
 });
 
-async function ensurePostLikesTable() {
+async function ensurePostsTables() {
+  try {
+    await query(`SELECT 1 FROM posts LIMIT 1`);
+  } catch (e) {
+    await query(`
+      CREATE TABLE IF NOT EXISTS posts (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        title VARCHAR(100) DEFAULT NULL,
+        content TEXT DEFAULT NULL,
+        images JSON DEFAULT NULL,
+        tags JSON DEFAULT NULL,
+        likes_count INT DEFAULT 0,
+        comments_count INT DEFAULT 0,
+        is_deleted BOOLEAN DEFAULT FALSE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+  }
   try {
     await query(`SELECT 1 FROM post_likes LIMIT 1`);
   } catch (e) {
@@ -61,7 +80,7 @@ router.get('/', authMiddleware, async (req, res) => {
     const { page = 1, limit = 20 } = req.query;
     const offset = (page - 1) * limit;
 
-    await ensurePostLikesTable();
+    await ensurePostsTables();
 
     const posts = await query(
       `SELECT p.*, u.username, u.nickname, u.avatar,
@@ -146,7 +165,7 @@ router.post('/', authMiddleware, upload.array('images', 9), async (req, res) => 
 
 router.post('/:id/like', authMiddleware, async (req, res) => {
   try {
-    await ensurePostLikesTable();
+    await ensurePostsTables();
     const postId = req.params.id;
     await query(
       'INSERT IGNORE INTO post_likes (user_id, post_id) VALUES (?, ?)',
