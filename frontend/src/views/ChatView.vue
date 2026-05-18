@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -190,7 +190,7 @@
           <div v-if="posts.length === 0 && !postsLoading" class="empty-list-hint">暂无贴子，快来发第一条吧</div>
           <div v-if="postsLoading" class="empty-list-hint" style="padding:20px">加载中...</div>
           <div class="posts-scroll">
-            <div v-for="post in posts" :key="post.id" class="post-card">
+            <div v-for="post in posts" :key="post.id" class="post-card" @click="openPostDetail(post)" style="cursor:pointer">
               <div class="post-header">
                 <img :src="getAvatarUrl(post.avatar, post.nickname || post.username)" class="post-avatar" />
                 <div class="post-author">
@@ -381,6 +381,78 @@
             发送
           </button>
         </footer>
+      </div>
+
+      <div v-else-if="selectedPost" class="post-detail">
+        <div class="post-detail-header">
+          <button class="post-detail-back" @click="closePostDetail">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9L11 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+          <h3>贴子详情</h3>
+          <div class="post-detail-actions" v-if="selectedPost.user_id === authStore.userId">
+            <button class="btn-icon" @click="showPostManageMenu = !showPostManageMenu">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="4.5" r="1.2" fill="currentColor"/><circle cx="9" cy="9" r="1.2" fill="currentColor"/><circle cx="9" cy="13.5" r="1.2" fill="currentColor"/></svg>
+            </button>
+            <div v-if="showPostManageMenu" class="post-manage-menu">
+              <button @click="openEditPost">编辑</button>
+              <button @click="togglePostVisibility">{{ selectedPost.is_public ? '设为私密' : '设为公开' }}</button>
+              <button @click="togglePostComments">{{ selectedPost.allow_comments ? '关闭评论' : '开启评论' }}</button>
+              <button class="danger" @click="deletePostFromDetail">删除</button>
+            </div>
+          </div>
+        </div>
+        <div class="post-detail-body">
+          <div class="post-detail-author">
+            <img :src="getAvatarUrl(selectedPost.avatar, selectedPost.nickname || selectedPost.username)" class="pd-avatar" />
+            <div>
+              <div class="pd-name">{{ selectedPost.nickname || selectedPost.username }}</div>
+              <div class="pd-time">{{ formatTime(selectedPost.created_at) }}
+                <span v-if="!selectedPost.is_public" class="pd-badge private">私密</span>
+                <span v-if="selectedPost.allow_comments === false" class="pd-badge no-comment">禁评</span>
+              </div>
+            </div>
+          </div>
+          <div v-if="selectedPost.title" class="pd-title">{{ selectedPost.title }}</div>
+          <div class="pd-content">{{ selectedPost.content }}</div>
+          <div v-if="selectedPost.tags && selectedPost.tags.length" class="pd-tags">
+            <span v-for="tag in selectedPost.tags" :key="tag" class="pd-tag">#{{ tag }}</span>
+          </div>
+          <div v-if="selectedPost.images && selectedPost.images.length" class="pd-images">
+            <img v-for="(img, i) in selectedPost.images" :key="i" :src="getPostImageUrl(img)" class="pd-image" @click="previewPostImage(img)" />
+          </div>
+          <div class="pd-actions">
+            <button class="pd-action-btn" :class="{ liked: selectedPost.is_liked }" @click="toggleLike(selectedPost)">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="selectedPost.is_liked ? 'currentColor' : 'none'" :stroke="selectedPost.is_liked ? 'currentColor' : '#9ca3af'" stroke-width="1.2"/></svg>
+              <span>{{ selectedPost.likes_count || '' }}</span>
+            </button>
+          </div>
+          <div class="pd-comments-section">
+            <div class="pd-comments-title">评论（{{ selectedPost.comments_count || 0 }}）</div>
+            <div v-if="postComments.length === 0" class="pd-no-comments">暂无评论</div>
+            <div v-for="comment in postComments" :key="comment.id" class="pd-comment">
+              <img :src="getAvatarUrl(comment.avatar, comment.nickname || comment.username)" class="pd-comment-avatar" />
+              <div class="pd-comment-body">
+                <div class="pd-comment-header">
+                  <span class="pd-comment-name">{{ comment.nickname || comment.username }}</span>
+                  <span class="pd-comment-time">{{ formatTime(comment.created_at) }}</span>
+                </div>
+                <div class="pd-comment-text">{{ comment.content }}</div>
+                <div class="pd-comment-actions">
+                  <button class="pd-comment-like" :class="{ liked: comment.is_liked }" @click="toggleCommentLike(comment)">
+                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="comment.is_liked ? 'currentColor' : 'none'" :stroke="comment.is_liked ? 'currentColor' : '#9ca3af'" stroke-width="1.2"/></svg>
+                    <span>{{ comment.likes_count || '' }}</span>
+                  </button>
+                  <button v-if="comment.user_id === authStore.userId || selectedPost.user_id === authStore.userId" class="pd-comment-del" @click="deleteComment(comment.id)">删除</button>
+                </div>
+              </div>
+            </div>
+            <div v-if="selectedPost.allow_comments !== false" class="pd-comment-input-area">
+              <input v-model="commentInput" class="input" placeholder="写评论..." @keyup.enter="submitComment" />
+              <button class="btn btn-primary btn-sm" @click="submitComment" :disabled="!commentInput.trim()">发送</button>
+            </div>
+            <div v-else class="pd-comments-closed">评论已关闭</div>
+          </div>
+        </div>
       </div>
 
       <div v-else class="no-room">
@@ -699,6 +771,30 @@
     <!-- 图片预览弹窗 -->
     <div v-if="showPostImagePreview" class="modal-overlay" @click="showPostImagePreview = false">
       <img :src="previewImageUrl" class="post-image-full" @click.stop />
+    </div>
+
+    <!-- 编辑贴子弹窗 -->
+    <div v-if="showEditPost" class="modal-overlay" @click="showEditPost = false">
+      <div class="modal create-post-modal" @click.stop>
+        <div class="modal-header">
+          <h3>编辑贴子</h3>
+          <button class="close-btn" @click="showEditPost = false">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input v-model="editTitle" class="post-title-input" placeholder="标题" maxlength="100" />
+          <div class="post-title-counter">{{ editTitle.length }}/100</div>
+          <textarea v-model="editContent" class="post-input" placeholder="内容" rows="6" maxlength="10000"></textarea>
+          <div class="post-content-counter">{{ editContent.length }}/10000</div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" @click="showEditPost = false">取消</button>
+          <button class="btn btn-primary" @click="submitEditPost" :disabled="!editContent.trim()">保存</button>
+        </div>
+      </div>
     </div>
 
     <!-- 通知面板 -->
@@ -1147,6 +1243,136 @@ const formatTime = (dateStr) => {
   if (diff < 86400) return Math.floor(diff / 3600) + '小时前'
   if (diff < 2592000) return Math.floor(diff / 86400) + '天前'
   return d.toLocaleDateString('zh-CN')
+}
+
+// 贴子详情
+const selectedPost = ref(null)
+const postComments = ref([])
+const commentInput = ref('')
+const showEditPost = ref(false)
+const editTitle = ref('')
+const editContent = ref('')
+const showPostManageMenu = ref(false)
+
+const openPostDetail = async (post) => {
+  sidebarTab.value = 'posts'
+  try {
+    const response = await postAPI.getDetail(authStore.userId, post.id)
+    selectedPost.value = response.data.post
+  } catch (e) {
+    selectedPost.value = post
+  }
+  loadComments(post.id)
+}
+
+const closePostDetail = () => {
+  selectedPost.value = null
+  postComments.value = []
+}
+
+const loadComments = async (postId) => {
+  try {
+    const response = await postAPI.getComments(authStore.userId, postId)
+    postComments.value = response.data.comments
+  } catch (e) {
+  }
+}
+
+const submitComment = async () => {
+  if (!commentInput.value.trim() || !selectedPost.value) return
+  try {
+    const response = await postAPI.addComment(authStore.userId, selectedPost.value.id, commentInput.value.trim())
+    postComments.value.push(response.data.comment)
+    selectedPost.value.comments_count = (selectedPost.value.comments_count || 0) + 1
+    commentInput.value = ''
+    const p = posts.value.find(p => p.id === selectedPost.value.id)
+    if (p) p.comments_count = selectedPost.value.comments_count
+  } catch (e) {
+  }
+}
+
+const toggleCommentLike = async (comment) => {
+  try {
+    if (comment.is_liked) {
+      const response = await postAPI.unlikeComment(authStore.userId, comment.id)
+      comment.likes_count = response.data.likes_count
+      comment.is_liked = false
+    } else {
+      const response = await postAPI.likeComment(authStore.userId, comment.id)
+      comment.likes_count = response.data.likes_count
+      comment.is_liked = true
+    }
+  } catch (e) {
+  }
+}
+
+const deleteComment = async (commentId) => {
+  try {
+    await postAPI.deleteComment(authStore.userId, commentId)
+    postComments.value = postComments.value.filter(c => c.id !== commentId)
+    if (selectedPost.value) {
+      selectedPost.value.comments_count = Math.max(0, (selectedPost.value.comments_count || 0) - 1)
+      const p = posts.value.find(p => p.id === selectedPost.value.id)
+      if (p) p.comments_count = selectedPost.value.comments_count
+    }
+  } catch (e) {
+  }
+}
+
+const openEditPost = () => {
+  if (!selectedPost.value) return
+  editTitle.value = selectedPost.value.title || ''
+  editContent.value = selectedPost.value.content || ''
+  showEditPost.value = true
+  showPostManageMenu.value = false
+}
+
+const submitEditPost = async () => {
+  if (!editContent.value.trim() || !selectedPost.value) return
+  try {
+    await postAPI.update(authStore.userId, selectedPost.value.id, { title: editTitle.value.trim(), content: editContent.value.trim() })
+    selectedPost.value.title = editTitle.value.trim()
+    selectedPost.value.content = editContent.value.trim()
+    showEditPost.value = false
+    const p = posts.value.find(p => p.id === selectedPost.value.id)
+    if (p) { p.title = editTitle.value.trim(); p.content = editContent.value.trim() }
+  } catch (e) {
+  }
+}
+
+const togglePostVisibility = async () => {
+  if (!selectedPost.value) return
+  try {
+    const isPublic = !selectedPost.value.is_public
+    await postAPI.setVisibility(authStore.userId, selectedPost.value.id, isPublic)
+    selectedPost.value.is_public = isPublic
+    showPostManageMenu.value = false
+    const p = posts.value.find(p => p.id === selectedPost.value.id)
+    if (p) p.is_public = isPublic
+  } catch (e) {
+  }
+}
+
+const togglePostComments = async () => {
+  if (!selectedPost.value) return
+  try {
+    const allow = !selectedPost.value.allow_comments
+    await postAPI.setCommentsToggle(authStore.userId, selectedPost.value.id, allow)
+    selectedPost.value.allow_comments = allow
+    showPostManageMenu.value = false
+  } catch (e) {
+  }
+}
+
+const deletePostFromDetail = async () => {
+  if (!selectedPost.value) return
+  try {
+    await postAPI.delete(authStore.userId, selectedPost.value.id)
+    posts.value = posts.value.filter(p => p.id !== selectedPost.value.id)
+    showPostManageMenu.value = false
+    closePostDetail()
+  } catch (e) {
+  }
 }
 
 // 通知
@@ -2490,6 +2716,314 @@ onUnmounted(() => {
   max-height: 90vh;
   border-radius: 8px;
   object-fit: contain;
+}
+
+/* ==================== 贴子详情 ==================== */
+.post-detail {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.post-detail-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f3f4f6;
+  position: relative;
+}
+
+.post-detail-back {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  padding: 4px;
+  display: flex;
+}
+
+.post-detail-back:hover {
+  color: #1a1a1a;
+}
+
+.post-detail-header h3 {
+  font-size: 15px;
+  font-weight: 600;
+  flex: 1;
+}
+
+.post-detail-actions {
+  position: relative;
+}
+
+.post-manage-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: white;
+  border: 1px solid #f3f4f6;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  min-width: 130px;
+  z-index: 50;
+  padding: 4px;
+}
+
+.post-manage-menu button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  font-size: 13px;
+  color: #374151;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.post-manage-menu button:hover {
+  background: #f3f4f6;
+}
+
+.post-manage-menu button.danger {
+  color: #ef4444;
+}
+
+.post-manage-menu button.danger:hover {
+  background: #fef2f2;
+}
+
+.post-detail-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+.post-detail-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.pd-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.pd-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.pd-time {
+  font-size: 12px;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pd-badge {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.pd-badge.private {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.pd-badge.no-comment {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.pd-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.pd-content {
+  font-size: 15px;
+  color: #374151;
+  line-height: 1.7;
+  margin-bottom: 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.pd-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.pd-tag {
+  font-size: 13px;
+  color: #6366f1;
+}
+
+.pd-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 6px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.pd-image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.pd-actions {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f4f6;
+  margin-bottom: 16px;
+}
+
+.pd-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+
+.pd-action-btn:hover { background: #fef2f2; color: #ef4444; }
+.pd-action-btn.liked { color: #ef4444; }
+
+.pd-comments-section {
+  margin-top: 4px;
+}
+
+.pd-comments-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 12px;
+}
+
+.pd-no-comments, .pd-comments-closed {
+  text-align: center;
+  padding: 20px;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.pd-comment {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.pd-comment-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.pd-comment-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.pd-comment-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.pd-comment-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.pd-comment-time {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.pd-comment-text {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.pd-comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.pd-comment-like {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  font-size: 11px;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+
+.pd-comment-like:hover { color: #ef4444; }
+.pd-comment-like.liked { color: #ef4444; }
+
+.pd-comment-del {
+  font-size: 11px;
+  color: #9ca3af;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 1px 4px;
+}
+
+.pd-comment-del:hover {
+  color: #ef4444;
+}
+
+.pd-comment-input-area {
+  display: flex;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+  margin-top: 4px;
+}
+
+.pd-comment-input-area .input {
+  flex: 1;
 }
 
 .room-list {

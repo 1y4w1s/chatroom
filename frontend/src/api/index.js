@@ -138,13 +138,22 @@ export { api }
 
 export const postAPI = {
   getList: (userId, params) => api.get('/posts', { params: { userId, ...params } }),
+  getDetail: (userId, id) => api.get(`/posts/${id}`, { params: { userId } }),
   create: (userId, formData) => api.post('/posts', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
     params: { userId }
   }),
+  update: (userId, id, data) => api.put(`/posts/${id}`, { userId, ...data }),
   like: (userId, id) => api.post(`/posts/${id}/like`, { userId }),
   unlike: (userId, id) => api.post(`/posts/${id}/unlike`, { userId }),
-  delete: (userId, id) => api.delete(`/posts/${id}`, { data: { userId } })
+  delete: (userId, id) => api.delete(`/posts/${id}`, { data: { userId } }),
+  setVisibility: (userId, id, isPublic) => api.patch(`/posts/${id}/visibility`, { userId, is_public: isPublic }),
+  setCommentsToggle: (userId, id, allow) => api.patch(`/posts/${id}/comments-toggle`, { userId, allow_comments: allow }),
+  getComments: (userId, id) => api.get(`/posts/${id}/comments`, { params: { userId } }),
+  addComment: (userId, id, content) => api.post(`/posts/${id}/comments`, { userId, content }),
+  likeComment: (userId, id) => api.post(`/comments/${id}/like`, { userId }),
+  unlikeComment: (userId, id) => api.post(`/comments/${id}/unlike`, { userId }),
+  deleteComment: (userId, id) => api.delete(`/comments/${id}`, { data: { userId } })
 }
 
 export default api
