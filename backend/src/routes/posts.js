@@ -174,7 +174,7 @@ router.post('/:id/comments', authMiddleware, upload.single('image'), async (req,
     if (content && content.trim().length > 1000) return res.status(400).json({ success: false, error: { message: '评论不超过1000字符' } });
 
     const allowCol = await colSql('posts', 'allow_comments', '1');
-    const [posts] = await pool.query(`SELECT user_id, ${allowCol} as allow_comments FROM posts WHERE id = ${postId}`);
+    const [posts] = await pool.query(`SELECT user_id, ${allowCol} FROM posts WHERE id = ${postId}`);
     if (posts.length === 0) return res.status(404).json({ success: false, error: { message: '贴子不存在' } });
     if (!posts[0].allow_comments) return res.status(403).json({ success: false, error: { message: '该贴子已关闭评论' } });
 

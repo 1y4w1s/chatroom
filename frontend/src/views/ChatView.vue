@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -368,27 +368,27 @@
                 回复 @{{ replyTo.nickname || replyTo.username }}
                 <button class="pd-reply-cancel" @click="cancelReply">取消</button>
               </div>
-              <div class="pd-comment-input-row">
-                <input v-model="commentInput" class="input" :placeholder="replyTo ? '输入回复...' : '写评论...'" @keyup.enter="submitComment" ref="commentInputRef" />
-                <label class="btn-icon pd-img-btn">
-                  <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="12" rx="2" stroke="#6b7280" stroke-width="1.3"/><circle cx="6" cy="7" r="1.5" fill="#6b7280"/><path d="M2 12L6 8L10 12L13 9L16 12" stroke="#6b7280" stroke-width="1.3" stroke-linecap="round"/></svg>
-                  <input type="file" accept="image/*" @change="handleCommentImageSelect" hidden />
-                </label>
-                <button v-if="showCommentEmojiPicker" class="emoji-btn-active" @click="showCommentEmojiPicker = false">
-                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-                </button>
-                <button v-else class="emoji-btn" @click="showCommentEmojiPicker = true">
-                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-                </button>
-                <button class="btn btn-primary btn-sm" @click="submitComment" :disabled="!commentInput.trim() && !commentImage">发送</button>
-              </div>
-              <div v-if="showCommentEmojiPicker" ref="commentEmojiPickerRef" class="emoji-picker comment-emoji-picker">
+              <div v-if="showCommentEmojiPicker" ref="commentEmojiPickerRef" class="comment-emoji-picker">
                 <div v-for="category in emojiCategories" :key="category.name" class="emoji-category">
                   <div class="emoji-category-name">{{ category.name }}</div>
                   <div class="emoji-list">
                     <button v-for="emoji in category.emojis" :key="emoji" class="emoji-item" @click="insertCommentEmoji(emoji)">{{ emoji }}</button>
                   </div>
                 </div>
+              </div>
+              <div class="pd-comment-input-row">
+                <input v-model="commentInput" class="input" :placeholder="replyTo ? '输入回复...' : '写评论...'" @keyup.enter="submitComment" ref="commentInputRef" />
+                <button v-if="showCommentEmojiPicker" class="emoji-btn-active" @click="showCommentEmojiPicker = false">
+                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                </button>
+                <button v-else class="emoji-btn" @click="showCommentEmojiPicker = true">
+                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                </button>
+                <label class="btn-icon pd-img-btn">
+                  <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="12" rx="2" stroke="#6b7280" stroke-width="1.3"/><circle cx="6" cy="7" r="1.5" fill="#6b7280"/><path d="M2 12L6 8L10 12L13 9L16 12" stroke="#6b7280" stroke-width="1.3" stroke-linecap="round"/></svg>
+                  <input type="file" accept="image/*" @change="handleCommentImageSelect" hidden />
+                </label>
+                <button class="btn btn-primary btn-sm" @click="submitComment" :disabled="!commentInput.trim() && !commentImage">发送</button>
               </div>
               <div v-if="commentImagePreview" class="pd-comment-img-preview">
                 <img :src="commentImagePreview" />
@@ -3220,14 +3220,48 @@ onUnmounted(() => {
 }
 
 .comment-emoji-picker {
-  position: static;
-  margin-top: 8px;
-  max-height: 200px;
-  overflow-y: auto;
-  border: 1px solid #f3f4f6;
-  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
   background: white;
   padding: 8px;
+  max-height: 220px;
+  overflow-y: auto;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.comment-emoji-picker .emoji-category {
+  margin-bottom: 4px;
+}
+
+.comment-emoji-picker .emoji-category-name {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-bottom: 4px;
+  padding: 0 4px;
+}
+
+.comment-emoji-picker .emoji-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.comment-emoji-picker .emoji-item {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 6px;
+}
+
+.comment-emoji-picker .emoji-item:hover {
+  background: #f3f4f6;
 }
 
 .pd-comment-wrapper {
