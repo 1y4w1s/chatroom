@@ -92,9 +92,17 @@ router.post('/request', authMiddleware, [
     }
     
     // 创建好友申请
-    await query(
+    const requestResult = await query(
       `INSERT INTO friend_requests (sender_id, receiver_id, message) VALUES (?, ?, ?)`,
       [userId, friendId, message || '我想加你为好友']
+    );
+    
+    // 创建通知
+    await query(
+      `INSERT INTO notifications (user_id, type, from_user_id, message)
+       SELECT ?, 'friend_request', ?, ?
+       FROM users WHERE id = ?`,
+      [friendId, userId, `${message || '我想加你为好友'}`, friendId]
     );
     
     res.json({
@@ -184,6 +192,14 @@ router.post('/requests/:id/respond', authMiddleware, [
       await query(
         `INSERT INTO friendships (user_id, friend_id, status) VALUES (?, ?, 'accepted')`,
         [request.sender_id, request.receiver_id]
+      );
+      
+      // 通知发送者：好友请求已接受
+      await query(
+        `INSERT INTO notifications (user_id, type, from_user_id, message)
+         SELECT ?, 'friend_accepted', ?, ?
+         FROM users WHERE id = ?`,
+        [request.sender_id, request.receiver_id, '对方已接受你的好友请求', request.sender_id]
       );
     }
     

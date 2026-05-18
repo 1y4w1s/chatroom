@@ -113,6 +113,7 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/rooms', require('./routes/rooms'));
 app.use('/api/messages', require('./routes/messages'));
 app.use('/api/friends', require('./routes/friends'));
+app.use('/api/notifications', require('./routes/notifications'));
 
 // 错误处理中间件
 app.use((err, req, res, next) => {

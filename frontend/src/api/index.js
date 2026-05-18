@@ -123,4 +123,12 @@ export const friendAPI = {
   delete: (userId, id) => api.delete(`/friends/${id}`, { data: { userId } })
 }
 
+export const notificationAPI = {
+  getList: (userId) => api.get('/notifications', { params: { userId } }),
+  markRead: (userId, id) => api.post(`/notifications/${id}/read`, { userId }),
+  markAllRead: (userId) => api.post('/notifications/read-all', { userId })
+}
+
+export { api }
+
 export default api

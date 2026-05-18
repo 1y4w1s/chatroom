@@ -1,14 +1,27 @@
-﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
         <h2>聊天室列表</h2>
-        <button class="btn btn-primary btn-sm" @click="showCreateModal = true">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-            <path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          新建
-        </button>
+        <div class="sidebar-header-actions">
+          <button class="btn-icon" @click="showNotificationPanel = true" :class="{ 'has-notification': notificationUnread > 0 }">
+            <svg v-if="notificationUnread === 0" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 2C5.8 2 4 3.8 4 6V9L3 11H13L12 9V6C12 3.8 10.2 2 8 2Z" stroke="currentColor" stroke-width="1.3"/>
+              <path d="M6.5 11V12C6.5 12.8 7.2 13.5 8 13.5C8.8 13.5 9.5 12.8 9.5 12V11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+            <svg v-else width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 2C5.8 2 4 3.8 4 6V9L3 11H13L12 9V6C12 3.8 10.2 2 8 2Z" fill="currentColor" stroke="currentColor" stroke-width="1.3"/>
+              <path d="M6.5 11V12C6.5 12.8 7.2 13.5 8 13.5C8.8 13.5 9.5 12.8 9.5 12V11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+            <span v-if="notificationUnread > 0" class="bell-badge">{{ notificationUnread > 99 ? '99+' : notificationUnread }}</span>
+          </button>
+          <button class="btn btn-primary btn-sm" @click="showCreateModal = true">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            新建
+          </button>
+        </div>
       </div>
 
       <div class="room-list">
@@ -512,6 +525,55 @@
       </div>
     </div>
 
+    <!-- 通知面板 -->
+    <div v-if="showNotificationPanel" class="modal-overlay" @click="showNotificationPanel = false">
+      <div class="modal notification-modal" @click.stop>
+        <div class="modal-header">
+          <h3>通知</h3>
+          <div class="modal-header-actions">
+            <button v-if="notificationUnread > 0" class="btn btn-text btn-xs" @click="markAllNotificationsRead">全部已读</button>
+            <button class="close-btn" @click="showNotificationPanel = false">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="modal-body">
+          <div v-if="notifications.length === 0" class="empty-state">
+            <p>暂无通知</p>
+          </div>
+          <div v-else class="notification-list">
+            <div
+              v-for="n in notifications"
+              :key="n.id"
+              class="notification-item"
+              :class="{ unread: !n.is_read }"
+            >
+              <img :src="getAvatarUrl(n.avatar)" class="notification-avatar" />
+              <div class="notification-content">
+                <div class="notification-text">
+                  <strong>{{ n.nickname || n.username }}</strong>
+                  <span v-if="n.type === 'friend_request'"> 请求加你为好友</span>
+                  <span v-else-if="n.type === 'friend_accepted'"> 接受了你的好友请求</span>
+                  <span v-else-if="n.type === 'room_invite'"> 邀请你加入聊天室</span>
+                </div>
+                <div class="notification-meta">{{ formatTime(n.created_at) }}</div>
+              </div>
+              <div class="notification-actions" v-if="n.type === 'friend_request' && !n.is_read">
+                <button class="btn btn-primary btn-xs" @click="acceptFriendRequest(n)">接受</button>
+                <button class="btn btn-secondary btn-xs" @click="rejectFriendRequest(n)">拒绝</button>
+              </div>
+              <button v-if="!n.is_read && n.type !== 'friend_request'" class="btn btn-text btn-xs" @click="markNotificationRead(n.id)">标记已读</button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" @click="showNotificationPanel = false">关闭</button>
+        </div>
+      </div>
+    </div>
+
     <!-- 成员操作卡片 -->
     <div v-if="showMemberAction" class="modal-overlay" @click="showMemberAction = false">
       <div class="member-action-card" :style="memberActionStyle" @click.stop>
@@ -591,7 +653,7 @@
 import { ref, watch, onMounted, onUnmounted, nextTick, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import { roomAPI, userAPI } from '@/api'
+import { roomAPI, userAPI, notificationAPI, friendAPI } from '@/api'
 import { emojiCategories } from '@/utils/emojis'
 
 const router = useRouter()
@@ -745,6 +807,68 @@ const roomDetailAvatarUrl = computed(() => {
 
 const showRoomDetail = ref(false)
 
+// 通知
+const showNotificationPanel = ref(false)
+const notifications = ref([])
+const notificationUnread = computed(() => notifications.value.filter(n => !n.is_read).length)
+
+const loadNotifications = async () => {
+  if (!authStore.userId) return
+  try {
+    const response = await notificationAPI.getList(authStore.userId)
+    notifications.value = response.data.notifications
+  } catch (e) {
+  }
+}
+
+const markNotificationRead = async (id) => {
+  try {
+    await notificationAPI.markRead(authStore.userId, id)
+    notifications.value = notifications.value.map(n =>
+      n.id === id ? { ...n, is_read: 1 } : n
+    )
+  } catch (e) {
+  }
+}
+
+const markAllNotificationsRead = async () => {
+  try {
+    await notificationAPI.markAllRead(authStore.userId)
+    notifications.value = notifications.value.map(n => ({ ...n, is_read: 1 }))
+  } catch (e) {
+  }
+}
+
+const acceptFriendRequest = async (notification) => {
+  try {
+    const requests = await friendAPI.getRequests(authStore.userId)
+    const pending = requests.data.requests.find(r => r.sender_id === notification.from_user_id)
+    if (pending) {
+      await friendAPI.respondRequest(authStore.userId, pending.id, 'accept')
+    }
+    await notificationAPI.markRead(authStore.userId, notification.id)
+    notifications.value = notifications.value.map(n =>
+      n.id === notification.id ? { ...n, is_read: 1 } : n
+    )
+  } catch (e) {
+  }
+}
+
+const rejectFriendRequest = async (notification) => {
+  try {
+    const requests = await friendAPI.getRequests(authStore.userId)
+    const pending = requests.data.requests.find(r => r.sender_id === notification.from_user_id)
+    if (pending) {
+      await friendAPI.respondRequest(authStore.userId, pending.id, 'reject')
+    }
+    await notificationAPI.markRead(authStore.userId, notification.id)
+    notifications.value = notifications.value.map(n =>
+      n.id === notification.id ? { ...n, is_read: 1 } : n
+    )
+  } catch (e) {
+  }
+}
+
 // 未读状态
 const roomReadStatus = ref({})
 
@@ -816,6 +940,15 @@ function mentionMember() {
 
 function addFriend() {
   showMemberAction.value = false
+  if (memberActionTarget.value && authStore.userId) {
+    friendAPI.sendRequest(authStore.userId, { friendId: memberActionTarget.value.id })
+      .then(() => {
+        showToastMessage('好友申请已发送')
+      })
+      .catch(err => {
+        showToastMessage(err.message || '发送好友申请失败', 'error')
+      })
+  }
 }
 
 function muteFromCard() {
@@ -1494,6 +1627,7 @@ const setupSocketListeners = () => {
 
 onMounted(() => {
   loadRooms()
+  loadNotifications()
   setupSocketListeners()
   document.addEventListener('click', handleClickOutsideEmoji)
 })
@@ -1541,6 +1675,150 @@ onUnmounted(() => {
   font-size: 16px;
   font-weight: 600;
   color: #1a1a1a;
+}
+
+.sidebar-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-icon {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #6b7280;
+  position: relative;
+  transition: all 0.15s;
+}
+
+.btn-icon:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.btn-icon.has-notification {
+  color: #1a1a1a;
+}
+
+.bell-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background: #ef4444;
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  min-width: 14px;
+  height: 14px;
+  padding: 0 3px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.btn-text {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.btn-text:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.btn-xs {
+  padding: 2px 8px;
+  font-size: 12px;
+}
+
+.notification-modal {
+  max-width: 420px;
+}
+
+.notification-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+
+.notification-item.unread {
+  background: #f0f7ff;
+}
+
+.notification-item:hover {
+  background: #f9fafb;
+}
+
+.notification-item.unread:hover {
+  background: #e8f2ff;
+}
+
+.notification-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.notification-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-text {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.4;
+}
+
+.notification-meta {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-top: 2px;
+}
+
+.notification-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.modal-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #9ca3af;
+  font-size: 14px;
 }
 
 .room-list {
