@@ -100,7 +100,10 @@ export const roomAPI = {
   markRead: (roomId, userId) => api.post(`/rooms/${roomId}/read`, { userId }),
   
   // 获取未读状态
-  getReadStatus: (userId) => api.get('/rooms/read-status', { params: { userId } })
+  getReadStatus: (userId) => api.get('/rooms/read-status', { params: { userId } }),
+  
+  // 查找或创建私聊房间
+  findOrCreatePrivateRoom: (userId, friendId) => api.post('/rooms/private', { userId, friendId })
 }
 
 export const messageAPI = {

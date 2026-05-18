@@ -1,95 +1,153 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
-        <h2>聊天室列表</h2>
-        <div class="sidebar-header-actions">
-          <button class="btn-icon" @click="showNotificationPanel = true" :class="{ 'has-notification': notificationUnread > 0 }">
-            <svg v-if="notificationUnread === 0" width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M8 2C5.8 2 4 3.8 4 6V9L3 11H13L12 9V6C12 3.8 10.2 2 8 2Z" stroke="currentColor" stroke-width="1.3"/>
-              <path d="M6.5 11V12C6.5 12.8 7.2 13.5 8 13.5C8.8 13.5 9.5 12.8 9.5 12V11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-            </svg>
-            <svg v-else width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M8 2C5.8 2 4 3.8 4 6V9L3 11H13L12 9V6C12 3.8 10.2 2 8 2Z" fill="currentColor" stroke="currentColor" stroke-width="1.3"/>
-              <path d="M6.5 11V12C6.5 12.8 7.2 13.5 8 13.5C8.8 13.5 9.5 12.8 9.5 12V11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-            </svg>
-            <span v-if="notificationUnread > 0" class="bell-badge">{{ notificationUnread > 99 ? '99+' : notificationUnread }}</span>
-          </button>
-          <button class="btn btn-primary btn-sm" @click="showCreateModal = true">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M7 1V13M1 7H13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            新建
-          </button>
-        </div>
+        <h2>聊天</h2>
+        <button class="btn-icon" @click="showNotificationPanel = true" :class="{ 'has-notification': notificationUnread > 0 }">
+          <svg v-if="notificationUnread === 0" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 2C5.8 2 4 3.8 4 6V9L3 11H13L12 9V6C12 3.8 10.2 2 8 2Z" stroke="currentColor" stroke-width="1.3"/>
+            <path d="M6.5 11V12C6.5 12.8 7.2 13.5 8 13.5C8.8 13.5 9.5 12.8 9.5 12V11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+          <svg v-else width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M8 2C5.8 2 4 3.8 4 6V9L3 11H13L12 9V6C12 3.8 10.2 2 8 2Z" fill="currentColor" stroke="currentColor" stroke-width="1.3"/>
+            <path d="M6.5 11V12C6.5 12.8 7.2 13.5 8 13.5C8.8 13.5 9.5 12.8 9.5 12V11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+          <span v-if="notificationUnread > 0" class="bell-badge">{{ notificationUnread > 99 ? '99+' : notificationUnread }}</span>
+        </button>
       </div>
 
-      <div class="room-list">
-        <div
-          v-for="room in rooms"
-          :key="room.id"
-          class="room-item"
-          :class="{ active: currentRoomId === room.id }"
-          @click="joinRoom(room.id)"
-          @mouseenter="showMemberPreview(room.id)"
-          @mouseleave="hideMemberPreview"
-        >
-          <div class="room-icon">
-            <img v-if="room.avatar" :src="getRoomListAvatar(room)" class="room-list-avatar" />
-            <svg v-else-if="room.type === 'public'" width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="10" r="8" stroke="#6b7280" stroke-width="1.5"/>
-              <path d="M10 2C10 2 14 6 14 10C14 14 10 18 10 18" stroke="#6b7280" stroke-width="1.5"/>
-              <path d="M10 2C10 2 6 6 6 10C6 14 10 18 10 18" stroke="#6b7280" stroke-width="1.5"/>
-              <path d="M2 10H18" stroke="#6b7280" stroke-width="1.5"/>
-            </svg>
-            <svg v-else width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <rect x="3" y="7" width="14" height="11" rx="2" stroke="#6b7280" stroke-width="1.5"/>
-              <path d="M7 7V5C7 3.34315 8.34315 2 10 2C11.6569 2 13 3.34315 13 5V7" stroke="#6b7280" stroke-width="1.5"/>
-              <circle cx="10" cy="13" r="1.5" fill="#6b7280"/>
-            </svg>
-            <span v-if="getRoomUnread(room.id)" class="unread-badge">{{ formatUnread(getRoomUnread(room.id)) }}</span>
-            <span v-if="getRoomMention(room.id)" class="mention-badge">@</span>
+      <div class="sidebar-tabs">
+        <button class="sidebar-tab" :class="{ active: sidebarTab === 'rooms' }" @click="sidebarTab = 'rooms'">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <path d="M4 9H14M9 4V14" :stroke="sidebarTab === 'rooms' ? 'currentColor' : '#9ca3af'" :stroke-width="sidebarTab === 'rooms' ? 2.2 : 1.5" stroke-linecap="round"/>
+            <circle cx="9" cy="9" r="7.5" :stroke="sidebarTab === 'rooms' ? 'currentColor' : '#9ca3af'" :fill="sidebarTab === 'rooms' ? 'currentColor' : 'none'" stroke-width="1.5"/>
+          </svg>
+          <span>聊天室</span>
+        </button>
+        <button class="sidebar-tab" :class="{ active: sidebarTab === 'friends' }" @click="sidebarTab = 'friends'; loadFriends()">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <circle cx="7" cy="5.5" r="3" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'" stroke-width="1.5"/>
+            <path d="M2 15.5C2 12.7 4.2 10.5 7 10.5C9.8 10.5 12 12.7 12 15.5" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="13" cy="5.5" r="2" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" stroke-width="1.2" fill="none"/>
+            <path d="M16 15.5C16 13.3 14.6 11.5 13 11.5" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+          </svg>
+          <span>好友</span>
+        </button>
+        <button class="sidebar-tab" :class="{ active: sidebarTab === 'posts' }" @click="sidebarTab = 'posts'">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+            <rect x="2.5" y="2.5" width="13" height="13" rx="2" :stroke="sidebarTab === 'posts' ? 'currentColor' : '#9ca3af'" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'" stroke-width="1.5"/>
+            <path d="M5.5 7H12.5M5.5 10H10.5" :stroke="sidebarTab === 'posts' ? 'white' : '#9ca3af'" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <span>贴子</span>
+        </button>
+      </div>
+
+      <div class="sidebar-content">
+        <div v-show="sidebarTab === 'rooms'" class="room-list">
+          <div class="room-list-header">
+            <span class="room-list-title">聊天室列表</span>
+            <button class="btn btn-primary btn-sm" @click="showCreateModal = true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              新建
+            </button>
           </div>
-          <div class="room-info">
-            <div class="room-name">
-              {{ room.name }}
-              <span v-if="room.type === 'private'" class="private-badge">🔒</span>
+          <div
+            v-for="room in rooms"
+            :key="room.id"
+            class="room-item"
+            :class="{ active: currentRoomId === room.id }"
+            @click="joinRoom(room.id)"
+            @mouseenter="showMemberPreview(room.id)"
+            @mouseleave="hideMemberPreview"
+          >
+            <div class="room-icon">
+              <img v-if="room.avatar" :src="getRoomListAvatar(room)" class="room-list-avatar" />
+              <svg v-else-if="room.type === 'public'" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <circle cx="10" cy="10" r="8" stroke="#6b7280" stroke-width="1.5"/>
+                <path d="M10 2C10 2 14 6 14 10C14 14 10 18 10 18" stroke="#6b7280" stroke-width="1.5"/>
+                <path d="M10 2C10 2 6 6 6 10C6 14 10 18 10 18" stroke="#6b7280" stroke-width="1.5"/>
+                <path d="M2 10H18" stroke="#6b7280" stroke-width="1.5"/>
+              </svg>
+              <svg v-else width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <rect x="3" y="7" width="14" height="11" rx="2" stroke="#6b7280" stroke-width="1.5"/>
+                <path d="M7 7V5C7 3.34315 8.34315 2 10 2C11.6569 2 13 3.34315 13 5V7" stroke="#6b7280" stroke-width="1.5"/>
+                <circle cx="10" cy="13" r="1.5" fill="#6b7280"/>
+              </svg>
+              <span v-if="getRoomUnread(room.id)" class="unread-badge">{{ formatUnread(getRoomUnread(room.id)) }}</span>
+              <span v-if="getRoomMention(room.id)" class="mention-badge">@</span>
             </div>
-            <div class="room-desc" v-if="room.description">{{ room.description }}</div>
+            <div class="room-info">
+              <div class="room-name">
+                {{ room.name }}
+                <span v-if="room.type === 'private'" class="private-badge">🔒</span>
+              </div>
+              <div class="room-desc" v-if="room.description">{{ room.description }}</div>
+            </div>
           </div>
-        </div>
-        
-        <div 
-          v-if="previewRoomId && previewMembers.length > 0" 
-          class="member-preview"
-          :style="previewPosition"
-        >
-          <div class="preview-header">
-            <span>{{ rooms.find(r => r.id === previewRoomId)?.name || '成员列表' }}</span>
-            <span class="member-count">{{ previewMembers.length }}人</span>
-          </div>
-          <div class="preview-list">
-            <div
-              v-for="member in previewMembers.slice(0, 6)"
-              :key="member.id"
-              class="preview-member"
-            >
-              <img :src="getAvatarUrl(member.avatar)" class="preview-avatar" />
-              <div class="preview-info">
-                <div class="preview-name">{{ member.nickname || member.username }}</div>
-                <div class="preview-status" :class="member.status">
-                  <span class="status-dot" :class="member.status"></span>
-                  {{ member.status === 'online' ? '在线' : member.status === 'away' ? '离开' : '离线' }}
-                  <span v-if="member.role === 'owner' || member.role === 'admin'" class="preview-role">
-                    {{ member.role === 'owner' ? '群主' : '管理员' }}
-                  </span>
+          
+          <div 
+            v-if="previewRoomId && previewMembers.length > 0" 
+            class="member-preview"
+            :style="previewPosition"
+          >
+            <div class="preview-header">
+              <span>{{ rooms.find(r => r.id === previewRoomId)?.name || '成员列表' }}</span>
+              <span class="member-count">{{ previewMembers.length }}人</span>
+            </div>
+            <div class="preview-list">
+              <div
+                v-for="member in previewMembers.slice(0, 6)"
+                :key="member.id"
+                class="preview-member"
+              >
+                <img :src="getAvatarUrl(member.avatar)" class="preview-avatar" />
+                <div class="preview-info">
+                  <div class="preview-name">{{ member.nickname || member.username }}</div>
+                  <div class="preview-status" :class="member.status">
+                    <span class="status-dot" :class="member.status"></span>
+                    {{ member.status === 'online' ? '在线' : member.status === 'away' ? '离开' : '离线' }}
+                    <span v-if="member.role === 'owner' || member.role === 'admin'" class="preview-role">
+                      {{ member.role === 'owner' ? '群主' : '管理员' }}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div v-if="previewMembers.length > 6" class="preview-more">
-              还有 {{ previewMembers.length - 6 }} 位成员...
+              <div v-if="previewMembers.length > 6" class="preview-more">
+                还有 {{ previewMembers.length - 6 }} 位成员...
+              </div>
             </div>
           </div>
+        </div>
+
+        <div v-show="sidebarTab === 'friends'" class="friend-list">
+          <div class="room-list-header">
+            <span class="room-list-title">好友列表</span>
+          </div>
+          <div v-if="friends.length === 0" class="empty-list-hint">暂无好友</div>
+          <div
+            v-for="friend in friends"
+            :key="friend.id"
+            class="room-item"
+            :class="{ active: currentFriendRoomId === friend.id }"
+            @click="openChatWithFriend(friend)"
+          >
+            <div class="room-icon">
+              <img :src="getAvatarUrl(friend.avatar)" class="room-list-avatar" />
+            </div>
+            <div class="room-info">
+              <div class="room-name">{{ friend.nickname || friend.username }}</div>
+              <div class="room-desc" :class="friend.status">
+                <span class="status-dot" :class="friend.status"></span>
+                {{ friend.status === 'online' ? '在线' : friend.status === 'away' ? '离开' : '离线' }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div v-show="sidebarTab === 'posts'" class="posts-placeholder">
+          <div class="empty-list-hint">贴子广场 · 敬请期待</div>
         </div>
       </div>
 
@@ -806,6 +864,32 @@ const roomDetailAvatarUrl = computed(() => {
 })
 
 const showRoomDetail = ref(false)
+
+// 侧边栏 Tab
+const sidebarTab = ref('rooms')
+const friends = ref([])
+const currentFriendRoomId = ref(null)
+
+const loadFriends = async () => {
+  if (!authStore.userId) return
+  try {
+    const response = await friendAPI.getList(authStore.userId)
+    friends.value = response.data.friends
+  } catch (e) {
+  }
+}
+
+const openChatWithFriend = async (friend) => {
+  try {
+    const response = await roomAPI.findOrCreatePrivateRoom(authStore.userId, friend.id)
+    if (response.success) {
+      currentFriendRoomId.value = friend.id
+      await joinRoom(response.data.room_id)
+      sidebarTab.value = 'rooms'
+    }
+  } catch (e) {
+  }
+}
 
 // 通知
 const showNotificationPanel = ref(false)
@@ -1681,10 +1765,64 @@ onUnmounted(() => {
   color: #1a1a1a;
 }
 
-.sidebar-header-actions {
+.sidebar-tabs {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0 12px;
+  gap: 2px;
+}
+
+.sidebar-tab {
+  flex: 1;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
+  padding: 10px 4px;
+  border: none;
+  background: transparent;
+  font-size: 13px;
+  color: #9ca3af;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.sidebar-tab:hover {
+  color: #6b7280;
+}
+
+.sidebar-tab.active {
+  color: #1a1a1a;
+  border-bottom-color: #1a1a1a;
+}
+
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.room-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px 8px;
+}
+
+.room-list-title {
+  font-size: 12px;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.empty-list-hint {
+  text-align: center;
+  padding: 40px 20px;
+  color: #9ca3af;
+  font-size: 13px;
 }
 
 .btn-icon {
@@ -1826,9 +1964,11 @@ onUnmounted(() => {
 }
 
 .room-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 12px;
+  padding: 4px 12px 12px;
+}
+
+.friend-list {
+  padding: 4px 12px 12px;
 }
 
 .room-item {

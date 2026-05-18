@@ -1045,6 +1045,47 @@ router.post('/:id/read', async (req, res) => {
   }
 });
 
+/**
+ * POST /api/rooms/private
+ * 查找或创建私聊房间（1对1）
+ */
+router.post('/private', async (req, res) => {
+  try {
+    const { userId, friendId } = req.body;
+    if (!userId || !friendId) {
+      return res.status(400).json({ success: false, error: { message: '缺少用户 ID' } });
+    }
+
+    const a = Math.min(parseInt(userId), parseInt(friendId));
+    const b = Math.max(parseInt(userId), parseInt(friendId));
+
+    const existing = await query(
+      `SELECT id FROM chat_rooms WHERE type = 'private' AND owner_id = ? AND name = CONCAT('private_', ?)`,
+      [a, b]
+    );
+
+    if (existing.length > 0) {
+      return res.json({ success: true, data: { room_id: existing[0].id } });
+    }
+
+    const result = await query(
+      `INSERT INTO chat_rooms (name, description, type, owner_id, is_active) VALUES (?, ?, 'private', ?, TRUE)`,
+      [`private_${b}`, ``, a]
+    );
+    const newRoomId = result.insertId;
+
+    await query(
+      'INSERT INTO room_members (room_id, user_id, role) VALUES (?, ?, ?), (?, ?, ?)',
+      [newRoomId, a, 'owner', newRoomId, b, 'member']
+    );
+
+    res.json({ success: true, data: { room_id: newRoomId } });
+  } catch (error) {
+    console.error('创建私聊房间失败:', error);
+    res.status(500).json({ success: false, error: { message: '创建私聊房间失败' } });
+  }
+});
+
 // ==================== WebSocket通知函数 ====================
 
 // 发送权限变更通知到聊天室所有成员
