@@ -159,9 +159,9 @@ export const postAPI = {
     headers: { 'Content-Type': 'multipart/form-data' },
     params: { userId }
   }),
-  likeComment: (userId, id) => api.post(`/comments/${id}/like`, { userId }),
-  unlikeComment: (userId, id) => api.post(`/comments/${id}/unlike`, { userId }),
-  deleteComment: (userId, id) => api.delete(`/comments/${id}`, { data: { userId } })
+  likeComment: (userId, id) => api.post(`/posts/comments/${id}/like`, { userId }),
+  unlikeComment: (userId, id) => api.post(`/posts/comments/${id}/unlike`, { userId }),
+  deleteComment: (userId, id) => api.delete(`/posts/comments/${id}`, { data: { userId } })
 }
 
 export default api

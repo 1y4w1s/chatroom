@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -368,14 +368,6 @@
                 回复 @{{ replyTo.nickname || replyTo.username }}
                 <button class="pd-reply-cancel" @click="cancelReply">取消</button>
               </div>
-              <div v-if="showCommentEmojiPicker" ref="commentEmojiPickerRef" class="comment-emoji-picker">
-                <div v-for="category in emojiCategories" :key="category.name" class="emoji-category">
-                  <div class="emoji-category-name">{{ category.name }}</div>
-                  <div class="emoji-list">
-                    <button v-for="emoji in category.emojis" :key="emoji" class="emoji-item" @click="insertCommentEmoji(emoji)">{{ emoji }}</button>
-                  </div>
-                </div>
-              </div>
               <div class="pd-comment-input-row">
                 <input v-model="commentInput" class="input" :placeholder="replyTo ? '输入回复...' : '写评论...'" @keyup.enter="submitComment" ref="commentInputRef" />
                 <button v-if="showCommentEmojiPicker" class="emoji-btn-active" @click="showCommentEmojiPicker = false">
@@ -386,13 +378,23 @@
                 </button>
                 <label class="btn-icon pd-img-btn">
                   <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="12" rx="2" stroke="#6b7280" stroke-width="1.3"/><circle cx="6" cy="7" r="1.5" fill="#6b7280"/><path d="M2 12L6 8L10 12L13 9L16 12" stroke="#6b7280" stroke-width="1.3" stroke-linecap="round"/></svg>
-                  <input type="file" accept="image/*" @change="handleCommentImageSelect" hidden />
+                  <input type="file" accept="image/*" multiple @change="handleCommentImageSelect" hidden />
                 </label>
-                <button class="btn btn-primary btn-sm" @click="submitComment" :disabled="!commentInput.trim() && !commentImage">发送</button>
+                <button class="btn btn-primary btn-sm" @click="submitComment" :disabled="!commentInput.trim() && commentImages.length === 0">发送</button>
               </div>
-              <div v-if="commentImagePreview" class="pd-comment-img-preview">
-                <img :src="commentImagePreview" />
-                <button class="remove-image" @click="commentImage = null; commentImagePreview = ''">×</button>
+              <div v-if="commentImages.length" class="pd-comment-previews">
+                <div v-for="(img, i) in commentImages" :key="i" class="pd-comment-preview-item">
+                  <img :src="img.preview" />
+                  <button class="remove-image" @click="removeCommentImage(i)">×</button>
+                </div>
+              </div>
+              <div v-if="showCommentEmojiPicker" ref="commentEmojiPickerRef" class="comment-emoji-picker">
+                <div v-for="category in emojiCategories" :key="category.name" class="emoji-category">
+                  <div class="emoji-category-name">{{ category.name }}</div>
+                  <div class="emoji-list">
+                    <button v-for="emoji in category.emojis" :key="emoji" class="emoji-item" @click="insertCommentEmoji(emoji)">{{ emoji }}</button>
+                  </div>
+                </div>
               </div>
             </div>
             <div v-else class="pd-comments-closed">评论已关闭</div>
@@ -1304,8 +1306,7 @@ const editContent = ref('')
 const showPostManageMenu = ref(false)
 const replyTo = ref(null)
 const showCommentEmojiPicker = ref(false)
-const commentImage = ref(null)
-const commentImagePreview = ref('')
+const commentImages = ref([])
 const commentInputRef = ref(null)
 
 const topLevelComments = computed(() => postComments.value.filter(c => !c.parent_id))
@@ -1324,12 +1325,16 @@ const cancelReply = () => {
 }
 
 const handleCommentImageSelect = (e) => {
-  const file = e.target.files[0]
-  if (file) {
-    commentImage.value = file
-    commentImagePreview.value = URL.createObjectURL(file)
+  const files = e.target.files
+  for (const file of files) {
+    commentImages.value.push({ file, preview: URL.createObjectURL(file) })
   }
   e.target.value = ''
+}
+
+const removeCommentImage = (i) => {
+  URL.revokeObjectURL(commentImages.value[i].preview)
+  commentImages.value.splice(i, 1)
 }
 
 const insertCommentEmoji = (emoji) => {
@@ -1351,8 +1356,7 @@ const closePostDetail = () => {
   selectedPost.value = null
   postComments.value = []
   replyTo.value = null
-  commentImage.value = null
-  commentImagePreview.value = ''
+  commentImages.value = []
 }
 
 const loadComments = async (postId) => {
@@ -1364,13 +1368,13 @@ const loadComments = async (postId) => {
 }
 
 const submitComment = async () => {
-  if ((!commentInput.value.trim() && !commentImage.value) || !selectedPost.value) return
+  if ((!commentInput.value.trim() && commentImages.value.length === 0) || !selectedPost.value) return
   try {
     let response
-    if (commentImage.value) {
+    if (commentImages.value.length) {
       const formData = new FormData()
       if (commentInput.value.trim()) formData.append('content', commentInput.value.trim())
-      formData.append('image', commentImage.value)
+      formData.append('image', commentImages.value[0].file)
       if (replyTo.value) formData.append('parent_id', replyTo.value.id)
       response = await postAPI.addCommentWithImage(authStore.userId, selectedPost.value.id, formData)
     } else {
@@ -1379,8 +1383,7 @@ const submitComment = async () => {
     postComments.value.push(response.data.comment)
     selectedPost.value.comments_count = (selectedPost.value.comments_count || 0) + 1
     commentInput.value = ''
-    commentImage.value = null
-    commentImagePreview.value = ''
+    commentImages.value = []
     replyTo.value = null
     const p = posts.value.find(p => p.id === selectedPost.value.id)
     if (p) p.comments_count = selectedPost.value.comments_count
@@ -3219,6 +3222,44 @@ onUnmounted(() => {
   border-radius: 8px;
 }
 
+.pd-comment-previews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.pd-comment-preview-item {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.pd-comment-preview-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.pd-comment-preview-item .remove-image {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: none;
+  background: #ef4444;
+  color: white;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .comment-emoji-picker {
   border: 1px solid #e5e7eb;
   border-radius: 10px;
@@ -3226,7 +3267,7 @@ onUnmounted(() => {
   padding: 8px;
   max-height: 220px;
   overflow-y: auto;
-  margin-bottom: 8px;
+  margin-top: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
