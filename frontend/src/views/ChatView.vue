@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -276,11 +276,16 @@
     </div>
 
     <main class="chat-main">
-      <div v-if="selectedPost" class="post-detail">
+      <div v-if="postTabVisible || roomTabVisible" class="main-tabs">
+        <button class="main-tab" :class="{ active: activeMainTab === 'chat' }" @click="switchToChat" v-if="roomTabVisible">
+          聊天室
+        </button>
+        <button class="main-tab" :class="{ active: activeMainTab === 'post' }" @click="switchToPost" v-if="postTabVisible">
+          帖子详情
+        </button>
+      </div>
+      <div v-show="activeMainTab === 'post' && postTabVisible" class="post-detail">
         <div class="post-detail-header">
-          <button class="post-detail-back" @click="closePostDetail">
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9L11 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-          </button>
           <h3>贴子详情</h3>
           <div class="post-detail-actions" v-if="selectedPost.user_id === authStore.userId">
             <button class="btn-icon" @click="showPostManageMenu = !showPostManageMenu">
@@ -401,7 +406,7 @@
           </div>
         </div>
       </div>
-      <div v-else-if="currentRoomId" class="chat-wrapper">
+      <div v-show="activeMainTab === 'chat' && roomTabVisible" class="chat-wrapper">
         <header class="chat-header">
           <div class="header-left" @click="showRoomDetail = true" style="cursor:pointer">
             <h3>{{ currentRoom?.name }}</h3>
@@ -507,7 +512,7 @@
         </footer>
       </div>
 
-      <div v-else class="no-room">
+      <div v-if="!postTabVisible && !roomTabVisible" class="no-room">
         <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
           <rect x="8" y="12" width="48" height="40" rx="4" stroke="#e5e7eb" stroke-width="2"/>
           <path d="M8 24H56" stroke="#e5e7eb" stroke-width="2"/>
@@ -1297,7 +1302,13 @@ const formatTime = (dateStr) => {
 }
 
 // 贴子详情
+const activeMainTab = ref('chat')
+const postTabVisible = computed(() => !!selectedPost.value)
+const roomTabVisible = computed(() => !!currentRoomId.value)
 const selectedPost = ref(null)
+
+const switchToChat = () => { activeMainTab.value = 'chat' }
+const switchToPost = () => { activeMainTab.value = 'post' }
 const postComments = ref([])
 const commentInput = ref('')
 const showEditPost = ref(false)
@@ -1342,7 +1353,7 @@ const insertCommentEmoji = (emoji) => {
 }
 
 const openPostDetail = async (post) => {
-  sidebarTab.value = 'posts'
+  activeMainTab.value = 'post'
   try {
     const response = await postAPI.getDetail(authStore.userId, post.id)
     selectedPost.value = response.data.post
@@ -1707,6 +1718,7 @@ const loadRooms = async () => {
 }
 
 const joinRoom = async (roomId) => {
+  activeMainTab.value = 'chat'
   try {
     await roomAPI.join(roomId, authStore.userId)
     currentRoomId.value = roomId
@@ -2816,6 +2828,44 @@ onUnmounted(() => {
   max-height: 90vh;
   border-radius: 8px;
   object-fit: contain;
+}
+
+/* ==================== 主区域 Tab 切换 ==================== */
+.main-tabs {
+  display: flex;
+  border-bottom: 1px solid #f3f4f6;
+  background: white;
+  flex-shrink: 0;
+}
+
+.main-tab {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.15s;
+}
+
+.main-tab:hover { color: #1a1a1a; }
+
+.main-tab.active {
+  color: #6366f1;
+}
+
+.main-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20%;
+  right: 20%;
+  height: 2.5px;
+  background: #6366f1;
+  border-radius: 2px 2px 0 0;
 }
 
 /* ==================== 贴子详情 ==================== */
