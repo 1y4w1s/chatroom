@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -1826,19 +1826,25 @@ const sendMessage = async () => {
     return
   }
 
-  if (newMessage.value.trim()) {
-    authStore.sendMessage(currentRoomId.value, newMessage.value)
+  const roomId = currentRoomId.value
+  const text = newMessage.value.trim()
+
+  if (text) {
+    authStore.sendMessage(roomId, text)
   }
 
   for (const img of chatImages.value) {
     const formData = new FormData()
     formData.append('file', img.file)
     try {
-      const response = await messageAPI.upload(authStore.userId, formData)
-      if (response.success) {
-        authStore.sendMessage(currentRoomId.value, response.data.url, 'image')
+      const res = await messageAPI.upload(authStore.userId, formData)
+      if (res && res.data && res.data.url) {
+        authStore.sendMessage(roomId, res.data.url, 'image')
+      } else {
+        console.error('图片上传返回异常:', res)
       }
     } catch (e) {
+      console.error('图片上传失败:', e)
     }
   }
 
