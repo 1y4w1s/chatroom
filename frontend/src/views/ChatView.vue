@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -929,6 +929,14 @@ const openChatWithFriend = async (friend) => {
   }
 }
 
+let readStatusTimer = null
+const debouncedLoadReadStatus = () => {
+  if (readStatusTimer) clearTimeout(readStatusTimer)
+  readStatusTimer = setTimeout(() => {
+    loadReadStatus()
+  }, 3000)
+}
+
 // 通知
 const showNotificationPanel = ref(false)
 const notifications = ref([])
@@ -1661,6 +1669,7 @@ const setupSocketListeners = () => {
       map[message.room_id].is_mentioned = true
     }
     roomReadStatus.value = map
+    debouncedLoadReadStatus()
   })
   
   socket.on('read_status_update', () => {

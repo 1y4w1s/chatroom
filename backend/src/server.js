@@ -56,14 +56,15 @@ app.use(cors(corsOptions));
 // 配置信任代理（解决 Railway 的 X-Forwarded-For 警告）
 app.set('trust proxy', true);
 
-// 3. 速率限制 - 防止暴力破解
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 分钟
-  max: 300, // 最多 300 个请求
+// 3. 速率限制 - 仅用于敏感接口（登录注册）
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 50,
   message: '请求过于频繁，请稍后再试',
-  validate: { trustProxy: false } // 禁用 trust proxy 验证
+  validate: { trustProxy: false }
 });
-app.use('/api/', limiter);
+app.use('/api/auth/login', authLimiter);
+app.use('/api/auth/register', authLimiter);
 
 // 4. 解析中间件
 app.use(express.json({ limit: '10mb' }));
