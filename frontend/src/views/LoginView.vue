@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="login-container">
     <div class="login-card card">
       <div class="login-header">
@@ -8,11 +8,11 @@
             <path d="M14 24L20 30L34 16" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h1 class="login-title">安全聊天室</h1>
-        <p class="login-subtitle">登录您的账号继续</p>
+        <h1 class="login-title">{{ showForgot ? '找回密码' : '安全聊天室' }}</h1>
+        <p class="login-subtitle">{{ showForgot ? (resetStep === 1 ? '验证您的身份' : '设置新密码') : '登录您的账号继续' }}</p>
       </div>
 
-      <form @submit.prevent="handleLogin">
+      <form v-if="!showForgot" @submit.prevent="handleLogin">
         <div class="form-group">
           <label>用户名或邮箱</label>
           <input
@@ -40,9 +40,76 @@
         <button type="submit" class="btn btn-primary btn-block" :disabled="loading">
           {{ loading ? '登录中...' : '登录' }}
         </button>
+
+        <div class="forgot-link" @click="openForgot">忘记密码？</div>
       </form>
 
-      <div class="login-footer">
+      <form v-else-if="resetStep === 1" @submit.prevent="handleVerify">
+        <div class="form-group">
+          <label>用户名</label>
+          <input
+            v-model="resetForm.username"
+            type="text"
+            class="input"
+            placeholder="请输入注册时的用户名"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>注册邮箱</label>
+          <input
+            v-model="resetForm.email"
+            type="email"
+            class="input"
+            placeholder="请输入注册时的邮箱"
+            required
+          />
+        </div>
+
+        <div v-if="error" class="error-message">{{ error }}</div>
+
+        <button type="submit" class="btn btn-primary btn-block" :disabled="loading">
+          {{ loading ? '验证中...' : '验证' }}
+        </button>
+
+        <div class="forgot-link" @click="closeForgot">返回登录</div>
+      </form>
+
+      <form v-else @submit.prevent="handleReset">
+        <div class="form-group">
+          <label>新密码</label>
+          <input
+            v-model="resetForm.newPassword"
+            type="password"
+            class="input"
+            placeholder="请输入新密码（6-32位）"
+            required
+            minlength="6"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>确认密码</label>
+          <input
+            v-model="resetForm.confirmPassword"
+            type="password"
+            class="input"
+            placeholder="再次输入新密码"
+            required
+          />
+        </div>
+
+        <div v-if="error" class="error-message">{{ error }}</div>
+
+        <button type="submit" class="btn btn-primary btn-block" :disabled="loading">
+          {{ loading ? '重置中...' : '重置密码' }}
+        </button>
+
+        <div class="forgot-link" @click="closeForgot">返回登录</div>
+      </form>
+
+      <div v-if="!showForgot" class="login-footer">
         还没有账号？<router-link to="/register">立即注册</router-link>
       </div>
     </div>
@@ -53,6 +120,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { authAPI } from '@/api'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -61,6 +129,16 @@ const form = ref({
   username: '',
   password: ''
 })
+
+const showForgot = ref(false)
+const resetStep = ref(1)
+const resetForm = ref({
+  username: '',
+  email: '',
+  newPassword: '',
+  confirmPassword: ''
+})
+const resetUserId = ref(null)
 
 const loading = ref(false)
 const error = ref('')
@@ -75,6 +153,69 @@ const handleLogin = async () => {
     router.push('/')
   } else {
     error.value = result.message
+  }
+
+  loading.value = false
+}
+
+const openForgot = () => {
+  showForgot.value = true
+  resetStep.value = 1
+  error.value = ''
+  resetForm.value = { username: '', email: '', newPassword: '', confirmPassword: '' }
+}
+
+const closeForgot = () => {
+  showForgot.value = false
+  error.value = ''
+}
+
+const handleVerify = async () => {
+  loading.value = true
+  error.value = ''
+
+  try {
+    const response = await authAPI.verifyReset({
+      username: resetForm.value.username,
+      email: resetForm.value.email
+    })
+    resetUserId.value = response.data.userId
+    resetStep.value = 2
+    error.value = ''
+  } catch (e) {
+    error.value = e.message
+  }
+
+  loading.value = false
+}
+
+const handleReset = async () => {
+  loading.value = true
+  error.value = ''
+
+  if (resetForm.value.newPassword !== resetForm.value.confirmPassword) {
+    error.value = '两次密码不一致'
+    loading.value = false
+    return
+  }
+
+  if (resetForm.value.newPassword.length < 6) {
+    error.value = '密码长度至少 6 位'
+    loading.value = false
+    return
+  }
+
+  try {
+    await authAPI.resetPassword({
+      userId: resetUserId.value,
+      newPassword: resetForm.value.newPassword
+    })
+    showForgot.value = false
+    resetStep.value = 1
+    error.value = ''
+    form.value.password = ''
+  } catch (e) {
+    error.value = e.message
   }
 
   loading.value = false
@@ -181,6 +322,20 @@ const handleLogin = async () => {
 }
 
 .login-footer a:hover {
+  text-decoration: underline;
+}
+
+.forgot-link {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: #6b7280;
+  cursor: pointer;
+  user-select: none;
+}
+
+.forgot-link:hover {
+  color: #1a1a1a;
   text-decoration: underline;
 }
 </style>

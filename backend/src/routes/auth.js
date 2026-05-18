@@ -282,4 +282,85 @@ router.get('/verify', async (req, res) => {
   }
 });
 
+/**
+ * POST /api/auth/verify-reset
+ * 验证用户名和邮箱是否匹配（找回密码第一步）
+ */
+router.post('/verify-reset', async (req, res) => {
+  const { username, email } = req.body;
+  if (!username || !email) {
+    return res.status(400).json({
+      success: false,
+      error: { message: '请填写用户名和邮箱' }
+    });
+  }
+
+  try {
+    const users = await query(
+      'SELECT id, username, email FROM users WHERE (username = ? OR email = ?) AND email = ?',
+      [username, username, email]
+    );
+
+    if (users.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: { message: '用户名与邮箱不匹配' }
+      });
+    }
+
+    res.json({
+      success: true,
+      data: { userId: users[0].id }
+    });
+  } catch (error) {
+    console.error('验证失败:', error);
+    res.status(500).json({
+      success: false,
+      error: { message: '验证失败' }
+    });
+  }
+});
+
+/**
+ * POST /api/auth/reset-password
+ * 重置密码（找回密码第二步）
+ */
+router.post('/reset-password', async (req, res) => {
+  const { userId, newPassword } = req.body;
+  if (!userId || !newPassword) {
+    return res.status(400).json({
+      success: false,
+      error: { message: '参数不完整' }
+    });
+  }
+
+  if (newPassword.length < 6 || newPassword.length > 32) {
+    return res.status(400).json({
+      success: false,
+      error: { message: '密码长度 6-32 个字符' }
+    });
+  }
+
+  try {
+    const saltRounds = 10;
+    const passwordHash = await bcrypt.hash(newPassword, saltRounds);
+
+    await query(
+      'UPDATE users SET password_hash = ? WHERE id = ?',
+      [passwordHash, userId]
+    );
+
+    res.json({
+      success: true,
+      message: '密码已重置，请使用新密码登录'
+    });
+  } catch (error) {
+    console.error('重置密码失败:', error);
+    res.status(500).json({
+      success: false,
+      error: { message: '重置密码失败' }
+    });
+  }
+});
+
 module.exports = router;

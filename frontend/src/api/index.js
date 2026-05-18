@@ -35,7 +35,9 @@ export const authAPI = {
   login: (data) => api.post('/auth/login', data),
   register: (data) => api.post('/auth/register', data),
   logout: (userId) => api.post('/auth/logout', { userId }),
-  verify: (userId) => api.get('/auth/verify', { params: { userId } })
+  verify: (userId) => api.get('/auth/verify', { params: { userId } }),
+  verifyReset: (data) => api.post('/auth/verify-reset', data),
+  resetPassword: (data) => api.post('/auth/reset-password', data)
 }
 
 export const userAPI = {
