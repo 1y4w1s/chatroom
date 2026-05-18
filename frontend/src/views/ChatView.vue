@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -71,13 +71,10 @@
                 @mouseleave="hideMemberPreview"
               >
                 <div class="room-icon">
-                  <img v-if="room.avatar" :src="getRoomListAvatar(room)" class="room-list-avatar" />
-                  <svg v-else width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <circle cx="10" cy="10" r="8" stroke="#6b7280" stroke-width="1.5"/>
-                    <path d="M10 2C10 2 14 6 14 10C14 14 10 18 10 18" stroke="#6b7280" stroke-width="1.5"/>
-                    <path d="M10 2C10 2 6 6 6 10C6 14 10 18 10 18" stroke="#6b7280" stroke-width="1.5"/>
-                    <path d="M2 10H18" stroke="#6b7280" stroke-width="1.5"/>
-                  </svg>
+                  <img v-if="getRoomListAvatar(room)" :src="getRoomListAvatar(room)" class="room-list-avatar" />
+                  <div v-else class="default-avatar" :style="{ background: nameColor(room.display_name || room.name) }">
+                    <span>{{ (room.display_name || room.name)[0] }}</span>
+                  </div>
                   <span v-if="getRoomUnread(room.id)" class="unread-badge">{{ formatUnread(getRoomUnread(room.id)) }}</span>
                   <span v-if="getRoomMention(room.id)" class="mention-badge">@</span>
                 </div>
@@ -104,12 +101,10 @@
                  @click="joinRoom(room.id)"
                >
                  <div class="room-icon">
-                   <img v-if="room.avatar" :src="getRoomListAvatar(room)" class="room-list-avatar" />
-                   <svg v-else width="20" height="20" viewBox="0 0 20 20" fill="none">
-                     <rect x="3" y="7" width="14" height="11" rx="2" stroke="#6b7280" stroke-width="1.5"/>
-                     <path d="M7 7V5C7 3.34315 8.34315 2 10 2C11.6569 2 13 3.34315 13 5V7" stroke="#6b7280" stroke-width="1.5"/>
-                     <circle cx="10" cy="13" r="1.5" fill="#6b7280"/>
-                   </svg>
+                   <img v-if="getRoomListAvatar(room)" :src="getRoomListAvatar(room)" class="room-list-avatar" />
+                   <div v-else class="default-avatar" :style="{ background: nameColor(room.display_name || room.name) }">
+                     <span>{{ (room.display_name || room.name)[0] }}</span>
+                   </div>
                    <span v-if="getRoomUnread(room.id)" class="unread-badge">{{ formatUnread(getRoomUnread(room.id)) }}</span>
                  </div>
                  <div class="room-info">
@@ -167,7 +162,10 @@
             @click="openChatWithFriend(friend)"
           >
             <div class="room-icon">
-              <img :src="getAvatarUrl(friend.avatar)" class="room-list-avatar" />
+              <img v-if="friend.avatar" :src="getAvatarUrl(friend.avatar)" class="room-list-avatar" />
+              <div v-else class="default-avatar" :style="{ background: nameColor(friend.nickname || friend.username) }">
+                <span>{{ (friend.nickname || friend.username)[0] }}</span>
+              </div>
             </div>
             <div class="room-info">
               <div class="room-name">{{ friend.nickname || friend.username }}</div>
@@ -780,11 +778,20 @@ const getAvatarUrl = (avatarPath) => {
 }
 
 const getRoomListAvatar = (room) => {
-  if (!room.avatar) return '/default-avatar.png'
-  const path = room.avatar.trim()
+  const avatar = room.type === 'private' ? (room.friend_avatar || '') : (room.avatar || '')
+  if (!avatar) return null
+  const path = avatar.trim()
   if (path.startsWith('http://') || path.startsWith('https://')) return path
   if (path.startsWith('/')) return `${window.location.origin}${path}`
   return `${window.location.origin}/${path}`
+}
+
+const avatarColors = ['#f59e0b','#ef4444','#8b5cf6','#06b6d4','#10b981','#f97316','#ec4899','#6366f1','#14b8a6','#eab308']
+const nameColor = (name) => {
+  if (!name) return avatarColors[0]
+  let hash = 0
+  for (let i = 0; i < name.length; i++) hash = name.charCodeAt(i) + ((hash << 5) - hash)
+  return avatarColors[Math.abs(hash) % avatarColors.length]
 }
 
 function isEffectivelyMuted(member) {
@@ -2127,6 +2134,23 @@ onUnmounted(() => {
   height: 100%;
   object-fit: cover;
   border-radius: 8px;
+}
+
+.default-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.default-avatar span {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
 }
 
 .unread-badge {

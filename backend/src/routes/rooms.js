@@ -129,6 +129,11 @@ router.get('/', async (req, res) => {
     let sql = `
       SELECT r.*, u.username as owner_name,
              (SELECT COUNT(*) FROM room_members WHERE room_id = r.id) as member_count,
+             CASE WHEN r.type = 'private' THEN
+               (SELECT COALESCE(u2.avatar, '') FROM room_members rm2
+                JOIN users u2 ON rm2.user_id = u2.id
+                WHERE rm2.room_id = r.id AND rm2.user_id != ?)
+             ELSE r.avatar END as friend_avatar,
              CASE WHEN r.type = 'private' AND r.name LIKE 'private_%' THEN
                (SELECT COALESCE(u2.nickname, u2.username) FROM room_members rm2
                 JOIN users u2 ON rm2.user_id = u2.id
@@ -140,7 +145,10 @@ router.get('/', async (req, res) => {
     `;
     
     const params = [];
-    if (userId) params.push(userId);
+    if (userId) {
+      params.push(userId);
+      params.push(userId);
+    }
     
     // 私有房间仅对成员可见
     if (userId) {
