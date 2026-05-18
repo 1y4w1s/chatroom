@@ -147,7 +147,15 @@ export const postAPI = {
   setVisibility: (userId, id, isPublic) => api.patch(`/posts/${id}/visibility`, { userId, is_public: isPublic }),
   setCommentsToggle: (userId, id, allow) => api.patch(`/posts/${id}/comments-toggle`, { userId, allow_comments: allow }),
   getComments: (userId, id) => api.get(`/posts/${id}/comments`, { params: { userId } }),
-  addComment: (userId, id, content) => api.post(`/posts/${id}/comments`, { userId, content }),
+  addComment: (userId, id, content, parentId) => {
+    const data = { userId, content }
+    if (parentId) data.parent_id = parentId
+    return api.post(`/posts/${id}/comments`, data)
+  },
+  addCommentWithImage: (userId, id, formData) => api.post(`/posts/${id}/comments`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    params: { userId }
+  }),
   likeComment: (userId, id) => api.post(`/comments/${id}/like`, { userId }),
   unlikeComment: (userId, id) => api.post(`/comments/${id}/unlike`, { userId }),
   deleteComment: (userId, id) => api.delete(`/comments/${id}`, { data: { userId } })

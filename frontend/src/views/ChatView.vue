@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -398,27 +398,79 @@
           </div>
           <div class="pd-comments-section">
             <div class="pd-comments-title">评论（{{ selectedPost.comments_count || 0 }}）</div>
-            <div v-if="postComments.length === 0" class="pd-no-comments">暂无评论</div>
-            <div v-for="comment in postComments" :key="comment.id" class="pd-comment">
-              <img :src="getAvatarUrl(comment.avatar, comment.nickname || comment.username)" class="pd-comment-avatar" />
-              <div class="pd-comment-body">
-                <div class="pd-comment-header">
-                  <span class="pd-comment-name">{{ comment.nickname || comment.username }}</span>
-                  <span class="pd-comment-time">{{ formatTime(comment.created_at) }}</span>
+            <div v-if="topLevelComments.length === 0" class="pd-no-comments">暂无评论</div>
+            <div v-for="comment in topLevelComments" :key="comment.id" class="pd-comment-wrapper">
+              <div class="pd-comment">
+                <img :src="getAvatarUrl(comment.avatar, comment.nickname || comment.username)" class="pd-comment-avatar" />
+                <div class="pd-comment-body">
+                  <div class="pd-comment-header">
+                    <span class="pd-comment-name">{{ comment.nickname || comment.username }}</span>
+                    <span class="pd-comment-time">{{ formatTime(comment.created_at) }}</span>
+                  </div>
+                  <div class="pd-comment-text">{{ comment.content }}</div>
+                  <img v-if="comment.image" :src="getPostImageUrl(comment.image)" class="pd-comment-image" @click="previewPostImage(comment.image)" />
+                  <div class="pd-comment-actions">
+                    <button class="pd-comment-like" :class="{ liked: comment.is_liked }" @click="toggleCommentLike(comment)">
+                      <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="comment.is_liked ? 'currentColor' : 'none'" :stroke="comment.is_liked ? 'currentColor' : '#9ca3af'" stroke-width="1.2"/></svg>
+                      <span>{{ comment.likes_count || '' }}</span>
+                    </button>
+                    <button class="pd-comment-reply-btn" @click="startReply(comment)">回复</button>
+                    <button v-if="comment.user_id === authStore.userId || selectedPost.user_id === authStore.userId" class="pd-comment-del" @click="deleteComment(comment.id)">删除</button>
+                  </div>
                 </div>
-                <div class="pd-comment-text">{{ comment.content }}</div>
-                <div class="pd-comment-actions">
-                  <button class="pd-comment-like" :class="{ liked: comment.is_liked }" @click="toggleCommentLike(comment)">
-                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="comment.is_liked ? 'currentColor' : 'none'" :stroke="comment.is_liked ? 'currentColor' : '#9ca3af'" stroke-width="1.2"/></svg>
-                    <span>{{ comment.likes_count || '' }}</span>
-                  </button>
-                  <button v-if="comment.user_id === authStore.userId || selectedPost.user_id === authStore.userId" class="pd-comment-del" @click="deleteComment(comment.id)">删除</button>
+              </div>
+              <div v-if="commentReplies(comment.id).length" class="pd-replies">
+                <div v-for="reply in commentReplies(comment.id)" :key="reply.id" class="pd-comment pd-reply">
+                  <img :src="getAvatarUrl(reply.avatar, reply.nickname || reply.username)" class="pd-comment-avatar" />
+                  <div class="pd-comment-body">
+                    <div class="pd-comment-header">
+                      <span class="pd-comment-name">{{ reply.nickname || reply.username }}</span>
+                      <span class="pd-comment-time">{{ formatTime(reply.created_at) }}</span>
+                    </div>
+                    <div class="pd-comment-text">{{ reply.content }}</div>
+                    <img v-if="reply.image" :src="getPostImageUrl(reply.image)" class="pd-comment-image" @click="previewPostImage(reply.image)" />
+                    <div class="pd-comment-actions">
+                      <button class="pd-comment-like" :class="{ liked: reply.is_liked }" @click="toggleCommentLike(reply)">
+                        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="reply.is_liked ? 'currentColor' : 'none'" :stroke="reply.is_liked ? 'currentColor' : '#9ca3af'" stroke-width="1.2"/></svg>
+                        <span>{{ reply.likes_count || '' }}</span>
+                      </button>
+                      <button v-if="reply.user_id === authStore.userId || selectedPost.user_id === authStore.userId" class="pd-comment-del" @click="deleteComment(reply.id)">删除</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             <div v-if="selectedPost.allow_comments !== false" class="pd-comment-input-area">
-              <input v-model="commentInput" class="input" placeholder="写评论..." @keyup.enter="submitComment" />
-              <button class="btn btn-primary btn-sm" @click="submitComment" :disabled="!commentInput.trim()">发送</button>
+              <div v-if="replyTo" class="pd-reply-indicator">
+                回复 @{{ replyTo.nickname || replyTo.username }}
+                <button class="pd-reply-cancel" @click="cancelReply">取消</button>
+              </div>
+              <div class="pd-comment-input-row">
+                <input v-model="commentInput" class="input" :placeholder="replyTo ? '输入回复...' : '写评论...'" @keyup.enter="submitComment" ref="commentInputRef" />
+                <label class="btn-icon pd-img-btn">
+                  <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="12" rx="2" stroke="#6b7280" stroke-width="1.3"/><circle cx="6" cy="7" r="1.5" fill="#6b7280"/><path d="M2 12L6 8L10 12L13 9L16 12" stroke="#6b7280" stroke-width="1.3" stroke-linecap="round"/></svg>
+                  <input type="file" accept="image/*" @change="handleCommentImageSelect" hidden />
+                </label>
+                <button v-if="showCommentEmojiPicker" class="emoji-btn-active" @click="showCommentEmojiPicker = false">
+                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                </button>
+                <button v-else class="emoji-btn" @click="showCommentEmojiPicker = true">
+                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                </button>
+                <button class="btn btn-primary btn-sm" @click="submitComment" :disabled="!commentInput.trim() && !commentImage">发送</button>
+              </div>
+              <div v-if="showCommentEmojiPicker" ref="commentEmojiPickerRef" class="emoji-picker comment-emoji-picker">
+                <div v-for="category in emojiCategories" :key="category.name" class="emoji-category">
+                  <div class="emoji-category-name">{{ category.name }}</div>
+                  <div class="emoji-list">
+                    <button v-for="emoji in category.emojis" :key="emoji" class="emoji-item" @click="insertCommentEmoji(emoji)">{{ emoji }}</button>
+                  </div>
+                </div>
+              </div>
+              <div v-if="commentImagePreview" class="pd-comment-img-preview">
+                <img :src="commentImagePreview" />
+                <button class="remove-image" @click="commentImage = null; commentImagePreview = ''">×</button>
+              </div>
             </div>
             <div v-else class="pd-comments-closed">评论已关闭</div>
           </div>
@@ -1208,6 +1260,39 @@ const showEditPost = ref(false)
 const editTitle = ref('')
 const editContent = ref('')
 const showPostManageMenu = ref(false)
+const replyTo = ref(null)
+const showCommentEmojiPicker = ref(false)
+const commentImage = ref(null)
+const commentImagePreview = ref('')
+const commentInputRef = ref(null)
+
+const topLevelComments = computed(() => postComments.value.filter(c => !c.parent_id))
+
+const commentReplies = (parentId) => postComments.value.filter(c => c.parent_id === parentId)
+
+const startReply = (comment) => {
+  replyTo.value = comment
+  commentInput.value = ''
+  setTimeout(() => commentInputRef.value?.focus(), 50)
+}
+
+const cancelReply = () => {
+  replyTo.value = null
+  commentInput.value = ''
+}
+
+const handleCommentImageSelect = (e) => {
+  const file = e.target.files[0]
+  if (file) {
+    commentImage.value = file
+    commentImagePreview.value = URL.createObjectURL(file)
+  }
+  e.target.value = ''
+}
+
+const insertCommentEmoji = (emoji) => {
+  commentInput.value += emoji
+}
 
 const openPostDetail = async (post) => {
   sidebarTab.value = 'posts'
@@ -1223,6 +1308,9 @@ const openPostDetail = async (post) => {
 const closePostDetail = () => {
   selectedPost.value = null
   postComments.value = []
+  replyTo.value = null
+  commentImage.value = null
+  commentImagePreview.value = ''
 }
 
 const loadComments = async (postId) => {
@@ -1234,12 +1322,24 @@ const loadComments = async (postId) => {
 }
 
 const submitComment = async () => {
-  if (!commentInput.value.trim() || !selectedPost.value) return
+  if ((!commentInput.value.trim() && !commentImage.value) || !selectedPost.value) return
   try {
-    const response = await postAPI.addComment(authStore.userId, selectedPost.value.id, commentInput.value.trim())
+    let response
+    if (commentImage.value) {
+      const formData = new FormData()
+      if (commentInput.value.trim()) formData.append('content', commentInput.value.trim())
+      formData.append('image', commentImage.value)
+      if (replyTo.value) formData.append('parent_id', replyTo.value.id)
+      response = await postAPI.addCommentWithImage(authStore.userId, selectedPost.value.id, formData)
+    } else {
+      response = await postAPI.addComment(authStore.userId, selectedPost.value.id, commentInput.value.trim(), replyTo.value?.id)
+    }
     postComments.value.push(response.data.comment)
     selectedPost.value.comments_count = (selectedPost.value.comments_count || 0) + 1
     commentInput.value = ''
+    commentImage.value = null
+    commentImagePreview.value = ''
+    replyTo.value = null
     const p = posts.value.find(p => p.id === selectedPost.value.id)
     if (p) p.comments_count = selectedPost.value.comments_count
   } catch (e) {
@@ -2979,6 +3079,137 @@ onUnmounted(() => {
 
 .pd-comment-input-area .input {
   flex: 1;
+}
+
+.pd-comment-input-area {
+  border-top: 1px solid #f3f4f6;
+  padding-top: 12px;
+  margin-top: 4px;
+}
+
+.pd-comment-input-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.pd-comment-input-row .input {
+  flex: 1;
+}
+
+.pd-img-btn {
+  cursor: pointer;
+  display: flex;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.pd-img-btn:hover {
+  background: #f3f4f6;
+}
+
+.pd-reply-indicator {
+  font-size: 12px;
+  color: #6366f1;
+  padding: 4px 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pd-reply-cancel {
+  font-size: 11px;
+  color: #9ca3af;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.pd-reply-cancel:hover {
+  color: #ef4444;
+}
+
+.pd-comment-reply-btn {
+  font-size: 11px;
+  color: #6366f1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 1px 4px;
+}
+
+.pd-comment-reply-btn:hover {
+  text-decoration: underline;
+}
+
+.pd-replies {
+  margin-left: 38px;
+  border-left: 2px solid #f3f4f6;
+  padding-left: 12px;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+.pd-reply {
+  margin-bottom: 8px;
+}
+
+.pd-comment-image {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 8px;
+  margin-top: 6px;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.pd-comment-img-preview {
+  margin-top: 8px;
+  position: relative;
+  display: inline-block;
+}
+
+.pd-comment-img-preview img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.comment-emoji-picker {
+  position: static;
+  margin-top: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #f3f4f6;
+  border-radius: 8px;
+  background: white;
+  padding: 8px;
+}
+
+.pd-comment-wrapper {
+  margin-bottom: 4px;
+}
+
+.emoji-btn, .emoji-btn-active {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  padding: 6px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.emoji-btn:hover, .emoji-btn-active:hover {
+  background: #f3f4f6;
+  color: #1a1a1a;
+}
+
+.emoji-btn-active {
+  color: #6366f1;
 }
 
 .room-list {
