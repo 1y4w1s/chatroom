@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -82,38 +82,38 @@
                   <span v-if="getRoomMention(room.id)" class="mention-badge">@</span>
                 </div>
                 <div class="room-info">
-                  <div class="room-name">{{ room.name }}</div>
-                  <div class="room-desc" v-if="room.description">{{ room.description }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="room-category">
-            <div class="category-header" @click="showPrivateChats = !showPrivateChats">
-              <span class="category-arrow" :class="{ expanded: showPrivateChats }">▸</span>
-              <span class="category-label">私聊</span>
-              <span class="category-count">{{ privateRooms.length }}</span>
-            </div>
-            <div v-show="showPrivateChats">
-              <div
-                v-for="room in privateRooms"
-                :key="room.id"
-                class="room-item"
-                :class="{ active: currentRoomId === room.id }"
-                @click="joinRoom(room.id)"
-              >
-                <div class="room-icon">
-                  <img v-if="room.avatar" :src="getRoomListAvatar(room)" class="room-list-avatar" />
-                  <svg v-else width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <rect x="3" y="7" width="14" height="11" rx="2" stroke="#6b7280" stroke-width="1.5"/>
-                    <path d="M7 7V5C7 3.34315 8.34315 2 10 2C11.6569 2 13 3.34315 13 5V7" stroke="#6b7280" stroke-width="1.5"/>
-                    <circle cx="10" cy="13" r="1.5" fill="#6b7280"/>
-                  </svg>
-                  <span v-if="getRoomUnread(room.id)" class="unread-badge">{{ formatUnread(getRoomUnread(room.id)) }}</span>
-                </div>
-                <div class="room-info">
-                  <div class="room-name">{{ room.name }}</div>
+                  <div class="room-name">{{ room.display_name || room.name }}</div>
+                   <div class="room-desc" v-if="room.description">{{ room.description }}</div>
+                 </div>
+               </div>
+             </div>
+           </div>
+ 
+           <div class="room-category">
+             <div class="category-header" @click="showPrivateChats = !showPrivateChats">
+               <span class="category-arrow" :class="{ expanded: showPrivateChats }">▸</span>
+               <span class="category-label">私聊</span>
+               <span class="category-count">{{ privateRooms.length }}</span>
+             </div>
+             <div v-show="showPrivateChats">
+               <div
+                 v-for="room in privateRooms"
+                 :key="room.id"
+                 class="room-item"
+                 :class="{ active: currentRoomId === room.id }"
+                 @click="joinRoom(room.id)"
+               >
+                 <div class="room-icon">
+                   <img v-if="room.avatar" :src="getRoomListAvatar(room)" class="room-list-avatar" />
+                   <svg v-else width="20" height="20" viewBox="0 0 20 20" fill="none">
+                     <rect x="3" y="7" width="14" height="11" rx="2" stroke="#6b7280" stroke-width="1.5"/>
+                     <path d="M7 7V5C7 3.34315 8.34315 2 10 2C11.6569 2 13 3.34315 13 5V7" stroke="#6b7280" stroke-width="1.5"/>
+                     <circle cx="10" cy="13" r="1.5" fill="#6b7280"/>
+                   </svg>
+                   <span v-if="getRoomUnread(room.id)" class="unread-badge">{{ formatUnread(getRoomUnread(room.id)) }}</span>
+                 </div>
+                 <div class="room-info">
+                   <div class="room-name">{{ room.display_name || room.name }}</div>
                 </div>
               </div>
             </div>

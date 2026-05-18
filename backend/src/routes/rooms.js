@@ -128,13 +128,19 @@ router.get('/', async (req, res) => {
     
     let sql = `
       SELECT r.*, u.username as owner_name,
-             (SELECT COUNT(*) FROM room_members WHERE room_id = r.id) as member_count
+             (SELECT COUNT(*) FROM room_members WHERE room_id = r.id) as member_count,
+             CASE WHEN r.type = 'private' AND r.name LIKE 'private_%' THEN
+               (SELECT COALESCE(u2.nickname, u2.username) FROM room_members rm2
+                JOIN users u2 ON rm2.user_id = u2.id
+                WHERE rm2.room_id = r.id AND rm2.user_id != ?)
+             ELSE r.name END as display_name
       FROM chat_rooms r
       JOIN users u ON r.owner_id = u.id
       WHERE r.is_active = TRUE
     `;
     
     const params = [];
+    if (userId) params.push(userId);
     
     // 私有房间仅对成员可见
     if (userId) {
@@ -1059,18 +1065,30 @@ router.post('/private', async (req, res) => {
     const a = Math.min(parseInt(userId), parseInt(friendId));
     const b = Math.max(parseInt(userId), parseInt(friendId));
 
+    // 检查是否已有私聊房间（兼容旧 room_name 格式）
     const existing = await query(
-      `SELECT id FROM chat_rooms WHERE type = 'private' AND owner_id = ? AND name = CONCAT('private_', ?)`,
-      [a, b]
+      `SELECT cr.id, cr.name FROM chat_rooms cr
+       WHERE cr.type = 'private'
+       AND cr.owner_id = ?
+       AND (cr.name = CONCAT('private_', ?) OR cr.id IN (
+         SELECT rm1.room_id FROM room_members rm1
+         JOIN room_members rm2 ON rm1.room_id = rm2.room_id
+         WHERE rm1.user_id = ? AND rm2.user_id = ?
+       ))`,
+      [a, b, a, b]
     );
 
     if (existing.length > 0) {
       return res.json({ success: true, data: { room_id: existing[0].id } });
     }
 
+    // 获取好友昵称作为房间名
+    const friend = await query('SELECT nickname, username FROM users WHERE id = ?', [b]);
+    const friendName = friend[0]?.nickname || friend[0]?.username || '私聊';
+
     const result = await query(
       `INSERT INTO chat_rooms (name, description, type, owner_id, is_active) VALUES (?, ?, 'private', ?, TRUE)`,
-      [`private_${b}`, ``, a]
+      [`${friendName}`, ``, a]
     );
     const newRoomId = result.insertId;
 
