@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -84,7 +84,35 @@
                  </div>
                </div>
              </div>
-           </div>
+          </div>
+
+          <div class="room-category">
+            <div class="category-header" @click="showPrivateChats = !showPrivateChats">
+              <span class="category-arrow" :class="{ expanded: showPrivateChats }">▸</span>
+              <span class="category-label">私聊</span>
+              <span class="category-count">{{ privateRooms.length }}</span>
+            </div>
+            <div v-show="showPrivateChats">
+              <div
+                v-for="room in privateRooms"
+                :key="room.id"
+                class="room-item"
+                :class="{ active: currentRoomId === room.id }"
+                @click="joinRoom(room.id)"
+              >
+                <div class="room-icon">
+                  <img v-if="getRoomListAvatar(room)" :src="getRoomListAvatar(room)" class="room-list-avatar" />
+                  <div v-else class="default-avatar" :style="{ background: nameColor(room.display_name || room.name) }">
+                    <span>{{ (room.display_name || room.name)[0] }}</span>
+                  </div>
+                  <span v-if="getRoomUnread(room.id)" class="unread-badge">{{ formatUnread(getRoomUnread(room.id)) }}</span>
+                </div>
+                <div class="room-info">
+                  <div class="room-name">{{ room.display_name || room.name }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
           
           <div 
             v-if="previewRoomId && previewMembers.length > 0" 
@@ -130,6 +158,8 @@
             v-for="friend in friends"
             :key="friend.id"
             class="room-item"
+            :class="{ active: currentFriendRoomId === friend.id }"
+            @click="openChatWithFriend(friend)"
           >
             <div class="room-icon">
               <img v-if="friend.avatar" :src="getAvatarUrl(friend.avatar, friend.nickname || friend.username)" class="room-list-avatar" />
@@ -246,114 +276,7 @@
     </div>
 
     <main class="chat-main">
-      <div v-if="currentRoomId" class="chat-wrapper">
-        <header class="chat-header">
-          <div class="header-left" @click="showRoomDetail = true" style="cursor:pointer">
-            <h3>{{ currentRoom?.name }}</h3>
-            <p>{{ currentRoom?.description }}</p>
-          </div>
-          <div class="header-right">
-            <button 
-              v-if="currentPermissions.isAdmin && currentRoom?.type !== 'private'" 
-              class="btn btn-secondary btn-sm" 
-              @click="openRoomSettings"
-            >
-              聊天室设置
-            </button>
-            <button 
-              v-if="isSuperAdmin && currentRoom?.type !== 'private'" 
-              class="btn btn-danger btn-sm" 
-              @click="showDissolveConfirm = true"
-            >
-              删除聊天室
-            </button>
-            <button 
-              v-else-if="currentPermissions.isOwner && currentRoom?.type !== 'private'" 
-              class="btn btn-danger btn-sm" 
-              @click="showDissolveConfirm = true"
-            >
-              解散
-            </button>
-          </div>
-        </header>
-
-        <div class="message-list" ref="messageListRef">
-          <div
-            v-for="message in messages"
-            :key="message.id"
-            class="message"
-            :class="{ 'message-own': message.sender_id === authStore.user?.id }"
-          >
-            <img :src="getAvatarUrl(message.avatar, message.nickname || message.username)" class="message-avatar" @click="openMessageMemberAction(message, $event)" style="cursor:pointer" />
-            <div class="message-content">
-              <div class="message-header">
-                <span class="message-sender">{{ message.nickname || message.username }}</span>
-                <span class="message-time">{{ formatTime(message.created_at) }}</span>
-              </div>
-              <div class="message-text">{{ message.content }}</div>
-            </div>
-          </div>
-        </div>
-
-        <footer class="message-input">
-          <div v-if="hasActiveMute" class="muted-notice">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="7" stroke="#dc2626" stroke-width="1.5"/>
-              <path d="M8 4V9" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="8" cy="11.5" r="1" fill="#dc2626"/>
-            </svg>
-            您已被禁言，无法发送消息
-          </div>
-          <div class="emoji-picker-wrapper" ref="emojiPickerRef">
-            <button class="emoji-btn" @click="toggleEmojiPicker" :disabled="hasActiveMute" title="选择表情">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
-                <circle cx="7" cy="8" r="1" fill="currentColor"/>
-                <circle cx="13" cy="8" r="1" fill="currentColor"/>
-                <path d="M6 12C6 12 7.5 14 10 14C12.5 14 14 12 14 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-            </button>
-            <div v-if="showEmojiPicker" class="emoji-picker">
-              <div class="emoji-categories">
-                <button
-                  v-for="(cat, idx) in emojiCategories"
-                  :key="idx"
-                  class="emoji-cat-btn"
-                  :class="{ active: currentEmojiCat === idx }"
-                  @click="currentEmojiCat = idx"
-                  :title="cat.name"
-                >{{ cat.icon }}</button>
-              </div>
-              <div class="emoji-grid">
-                <button
-                  v-for="(emoji, eidx) in emojiCategories[currentEmojiCat].emojis"
-                  :key="eidx"
-                  class="emoji-item"
-                  @click="insertEmoji(emoji)"
-                >{{ emoji }}</button>
-              </div>
-            </div>
-          </div>
-          <input
-            v-model="newMessage"
-            type="text"
-            class="input"
-            placeholder="输入消息..."
-            @keyup.enter="sendMessage"
-            @input="handleTyping"
-            :disabled="hasActiveMute"
-          />
-          <button 
-            class="btn btn-primary btn-sm send-btn" 
-            @click="sendMessage" 
-            :disabled="!newMessage.trim() || hasActiveMute"
-          >
-            发送
-          </button>
-        </footer>
-      </div>
-
-      <div v-else-if="selectedPost" class="post-detail">
+      <div v-if="selectedPost" class="post-detail">
         <div class="post-detail-header">
           <button class="post-detail-back" @click="closePostDetail">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9L11 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -475,6 +398,111 @@
             <div v-else class="pd-comments-closed">评论已关闭</div>
           </div>
         </div>
+      </div>
+      <div v-else-if="currentRoomId" class="chat-wrapper">
+        <header class="chat-header">
+          <div class="header-left" @click="showRoomDetail = true" style="cursor:pointer">
+            <h3>{{ currentRoom?.name }}</h3>
+            <p>{{ currentRoom?.description }}</p>
+          </div>
+          <div class="header-right">
+            <button 
+              v-if="currentPermissions.isAdmin && currentRoom?.type !== 'private'" 
+              class="btn btn-secondary btn-sm" 
+              @click="openRoomSettings"
+            >
+              聊天室设置
+            </button>
+            <button 
+              v-if="isSuperAdmin && currentRoom?.type !== 'private'" 
+              class="btn btn-danger btn-sm" 
+              @click="showDissolveConfirm = true"
+            >
+              删除聊天室
+            </button>
+            <button 
+              v-else-if="currentPermissions.isOwner && currentRoom?.type !== 'private'" 
+              class="btn btn-danger btn-sm" 
+              @click="showDissolveConfirm = true"
+            >
+              解散
+            </button>
+          </div>
+        </header>
+        <div class="message-list" ref="messageListRef">
+          <div
+            v-for="message in messages"
+            :key="message.id"
+            class="message"
+            :class="{ 'message-own': message.sender_id === authStore.user?.id }"
+          >
+            <img :src="getAvatarUrl(message.avatar, message.nickname || message.username)" class="message-avatar" @click="openMessageMemberAction(message, $event)" style="cursor:pointer" />
+            <div class="message-content">
+              <div class="message-header">
+                <span class="message-sender">{{ message.nickname || message.username }}</span>
+                <span class="message-time">{{ formatTime(message.created_at) }}</span>
+              </div>
+              <div class="message-text">{{ message.content }}</div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="message-input">
+          <div v-if="hasActiveMute" class="muted-notice">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="7" stroke="#dc2626" stroke-width="1.5"/>
+              <path d="M8 4V9" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="8" cy="11.5" r="1" fill="#dc2626"/>
+            </svg>
+            您已被禁言，无法发送消息
+          </div>
+          <div class="emoji-picker-wrapper" ref="emojiPickerRef">
+            <button class="emoji-btn" @click="toggleEmojiPicker" :disabled="hasActiveMute" title="选择表情">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="7" cy="8" r="1" fill="currentColor"/>
+                <circle cx="13" cy="8" r="1" fill="currentColor"/>
+                <path d="M6 12C6 12 7.5 14 10 14C12.5 14 14 12 14 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div v-if="showEmojiPicker" class="emoji-picker">
+              <div class="emoji-categories">
+                <button
+                  v-for="(cat, idx) in emojiCategories"
+                  :key="idx"
+                  class="emoji-cat-btn"
+                  :class="{ active: currentEmojiCat === idx }"
+                  @click="currentEmojiCat = idx"
+                  :title="cat.name"
+                >{{ cat.icon }}</button>
+              </div>
+              <div class="emoji-grid">
+                <button
+                  v-for="(emoji, eidx) in emojiCategories[currentEmojiCat].emojis"
+                  :key="eidx"
+                  class="emoji-item"
+                  @click="insertEmoji(emoji)"
+                >{{ emoji }}</button>
+              </div>
+            </div>
+          </div>
+          <input
+            v-model="newMessage"
+            type="text"
+            class="input"
+            placeholder="输入消息..."
+            @keyup.enter="sendMessage"
+            @input="handleTyping"
+            :disabled="hasActiveMute"
+          />
+          <button 
+            class="btn btn-primary btn-sm send-btn" 
+            @click="sendMessage" 
+            :disabled="!newMessage.trim() || hasActiveMute"
+          >
+            发送
+          </button>
+        </footer>
       </div>
 
       <div v-else class="no-room">
@@ -1116,8 +1144,11 @@ const showRoomDetail = ref(false)
 // 侧边栏 Tab
 const sidebarTab = ref('rooms')
 const showGroupChats = ref(true)
-const groupRooms = computed(() => rooms.value)
+const showPrivateChats = ref(true)
+const groupRooms = computed(() => rooms.value.filter(r => r.type !== 'private'))
+const privateRooms = computed(() => rooms.value.filter(r => r.type === 'private'))
 const friends = ref([])
+const currentFriendRoomId = ref(null)
 
 const loadFriends = async () => {
   if (!authStore.userId) return
@@ -1128,6 +1159,17 @@ const loadFriends = async () => {
   }
 }
 
+const openChatWithFriend = async (friend) => {
+  try {
+    const response = await roomAPI.findOrCreatePrivateRoom(authStore.userId, friend.id)
+    if (response.success) {
+      currentFriendRoomId.value = friend.id
+      await joinRoom(response.data.room_id)
+      sidebarTab.value = 'rooms'
+    }
+  } catch (e) {
+  }
+}
 
 let readStatusTimer = null
 const debouncedLoadReadStatus = () => {
