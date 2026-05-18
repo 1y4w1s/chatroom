@@ -80,9 +80,15 @@ router.get('/', authMiddleware, async (req, res) => {
 
 router.post('/', authMiddleware, upload.array('images', 9), async (req, res) => {
   try {
-    const { content } = req.body;
+    const { title, content } = req.body;
     if (!content || !content.trim()) {
       return res.status(400).json({ success: false, error: { message: '请输入贴子内容' } });
+    }
+    if (title && title.trim().length > 100) {
+      return res.status(400).json({ success: false, error: { message: '标题不能超过100个字符' } });
+    }
+    if (content.trim().length > 10000) {
+      return res.status(400).json({ success: false, error: { message: '内容不能超过10000个字符' } });
     }
 
     const tagRegex = /#([^#\s]+)/g;
@@ -95,8 +101,8 @@ router.post('/', authMiddleware, upload.array('images', 9), async (req, res) => 
     const images = req.files ? req.files.map(f => `/uploads/posts/${f.filename}`) : [];
 
     const result = await query(
-      `INSERT INTO posts (user_id, content, images, tags) VALUES (?, ?, ?, ?)`,
-      [req.user.id, content.trim(), JSON.stringify(images), JSON.stringify(tags)]
+      `INSERT INTO posts (user_id, title, content, images, tags) VALUES (?, ?, ?, ?, ?)`,
+      [req.user.id, (title || '').trim(), content.trim(), JSON.stringify(images), JSON.stringify(tags)]
     );
 
     const post = await query(

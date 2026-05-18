@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -199,6 +199,7 @@
                 </div>
                 <button v-if="post.user_id === authStore.userId" class="post-delete-btn" @click="deletePost(post.id)">×</button>
               </div>
+              <div v-if="post.title" class="post-title">{{ post.title }}</div>
               <div class="post-content">{{ post.content }}</div>
               <div v-if="post.tags && post.tags.length" class="post-tags">
                 <span v-for="tag in post.tags" :key="tag" class="post-tag">#{{ tag }}</span>
@@ -664,7 +665,10 @@
           </button>
         </div>
         <div class="modal-body">
-          <textarea v-model="postContent" class="post-input" placeholder="说点什么… 使用 #话题 添加标签" rows="4"></textarea>
+          <input v-model="postTitle" class="post-title-input" placeholder="标题（可选）" maxlength="100" />
+          <div class="post-title-counter">{{ postTitle.length }}/100</div>
+          <textarea v-model="postContent" class="post-input" placeholder="说点什么… 使用 #话题 添加标签" rows="4" maxlength="10000"></textarea>
+          <div class="post-content-counter">{{ postContent.length }}/10000</div>
           <div class="post-image-preview" v-if="postImages.length">
             <div v-for="(img, i) in postImages" :key="i" class="post-image-thumb">
               <img :src="img.url" />
@@ -1032,6 +1036,7 @@ const debouncedLoadReadStatus = () => {
 
 // 贴子
 const showCreatePost = ref(false)
+const postTitle = ref('')
 const postContent = ref('')
 const postImages = ref([])
 const postSubmitting = ref(false)
@@ -1079,12 +1084,14 @@ const submitPost = async () => {
   postError.value = ''
   try {
     const formData = new FormData()
+    formData.append('title', postTitle.value.trim())
     formData.append('content', postContent.value.trim())
     for (const img of postImages.value) {
       formData.append('images', img.file)
     }
     await postAPI.create(authStore.userId, formData)
     showCreatePost.value = false
+    postTitle.value = ''
     postContent.value = ''
     postImages.value = []
     loadPosts(true)
@@ -2442,6 +2449,40 @@ onUnmounted(() => {
 
 .post-toolbar .btn-icon {
   cursor: pointer;
+}
+
+.post-title-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  margin-bottom: 10px;
+  transition: border-color 0.15s;
+}
+
+.post-title-input:focus {
+  outline: none;
+  border-color: #1a1a1a;
+}
+
+.post-title-counter,
+.post-content-counter {
+  text-align: right;
+  font-size: 11px;
+  color: #d1d5db;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+.post-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+  line-height: 1.4;
 }
 
 .post-image-full {

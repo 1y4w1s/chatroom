@@ -257,6 +257,7 @@ async function initDatabase() {
       CREATE TABLE IF NOT EXISTS posts (
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
+        title VARCHAR(100) DEFAULT NULL,
         content TEXT DEFAULT NULL,
         images JSON DEFAULT NULL,
         tags JSON DEFAULT NULL,
@@ -368,6 +369,20 @@ async function initDatabase() {
       console.log('✅ messages 表字段已更新');
     } catch (err) {
       console.log('⚠️ messages 表字段更新跳过:', err.message);
+    }
+    
+    // 检查 posts 表是否有 title 字段
+    try {
+      const hasPostTitle = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'posts' AND COLUMN_NAME = 'title'
+      `);
+      if (hasPostTitle[0].count === 0) {
+        await connection.query(`ALTER TABLE posts ADD COLUMN title VARCHAR(100) DEFAULT NULL AFTER user_id`);
+        console.log('✅ 添加 posts.title 字段');
+      }
+    } catch (err) {
+      console.log('⚠️ posts 表字段更新跳过:', err.message);
     }
     
     // 创建聊天室成员表
