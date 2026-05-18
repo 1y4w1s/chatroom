@@ -313,8 +313,7 @@ async function callDeepSeek(roomId, userId, username, userContent, socket) {
       type: 'text'
     });
     
-    // 广播机器人消息到聊天室
-    const io = getIo();
+    // 广播机器人消息到聊天室（io 是模块级变量，直接使用）
     io.to(roomId).emit('new_message', botMessage);
     
     console.log(`DeepSeek AI 回复消息已发送到房间 ${roomId}`);

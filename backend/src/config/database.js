@@ -125,7 +125,13 @@ async function initDatabase() {
         console.log('✅ 添加 ban_reason 字段');
       }
       
-      // 检查并添加 is_bot 字段
+      console.log('✅ users 表字段已更新');
+    } catch (err) {
+      console.log('⚠️ users 表字段更新跳过:', err.message);
+    }
+    
+    // 独立处理 is_bot 字段迁移（不依赖前面的 migration 代码）
+    try {
       const hasIsBot = await connection.query(`
         SELECT COUNT(*) as count FROM information_schema.COLUMNS 
         WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' AND COLUMN_NAME = 'is_bot'
@@ -134,8 +140,12 @@ async function initDatabase() {
         await connection.query(`ALTER TABLE users ADD COLUMN is_bot BOOLEAN DEFAULT FALSE`);
         console.log('✅ 添加 is_bot 字段');
       }
-      
-      // 检查并添加 last_login_at 字段
+    } catch (err) {
+      console.log('⚠️ is_bot 字段迁移跳过:', err.message);
+    }
+    
+    // 独立处理 last_login_at 字段迁移
+    try {
       const hasLastLoginAt = await connection.query(`
         SELECT COUNT(*) as count FROM information_schema.COLUMNS 
         WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' AND COLUMN_NAME = 'last_login_at'
