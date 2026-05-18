@@ -225,6 +225,15 @@ router.post('/logout', async (req, res) => {
       'UPDATE users SET status = ? WHERE id = ?',
       ['offline', userId]
     );
+
+    // 广播状态变化
+    try {
+      const { getIo } = require('../server');
+      const io = getIo();
+      if (io) {
+        io.emit('user_status_changed', { userId: parseInt(userId), status: 'offline' });
+      }
+    } catch (e) {}
     
     res.json({
       success: true,

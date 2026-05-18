@@ -162,6 +162,8 @@ io.on('connection', (socket) => {
   socket.on('join_room', (data) => {
     const { roomId, userId, username } = data;
     socket.join(roomId);
+    socket.userId = userId;
+    socket.username = username;
     console.log(`用户 ${username || userId} 加入聊天室 ${roomId}`);
     
     socket.to(roomId).emit('user_joined', { userId, username, roomId });
@@ -219,6 +221,9 @@ io.on('connection', (socket) => {
   
   socket.on('disconnect', () => {
     console.log(`用户断开：${socket.id}`);
+    if (socket.userId) {
+      socket.broadcast.emit('user_status_changed', { userId: socket.userId, status: 'offline' });
+    }
   });
   
   socket.on('error', (error) => {

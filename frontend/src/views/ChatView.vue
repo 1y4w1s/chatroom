@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -980,6 +980,7 @@ const acceptFriendRequest = async (notification) => {
     notifications.value = notifications.value.map(n =>
       n.id === notification.id ? { ...n, is_read: 1 } : n
     )
+    loadRooms()
   } catch (e) {
   }
 }
@@ -1022,6 +1023,10 @@ const loadReadStatus = async () => {
     const map = {}
     for (const s of response.data) {
       map[s.room_id] = { unread_count: Number(s.unread_count), is_mentioned: s.is_mentioned == '1' || s.is_mentioned === true }
+    }
+    if (currentRoomId.value && map[currentRoomId.value]) {
+      map[currentRoomId.value].unread_count = 0
+      map[currentRoomId.value].is_mentioned = false
     }
     roomReadStatus.value = map
   } catch (e) {
@@ -1074,6 +1079,7 @@ function addFriend() {
     friendAPI.sendRequest(authStore.userId, { friendId: memberActionTarget.value.id })
       .then(() => {
         showToastMessage('好友申请已发送')
+        loadRooms()
       })
       .catch(err => {
         showToastMessage(err.message || '发送好友申请失败', 'error')
@@ -1153,6 +1159,9 @@ const loadRooms = async () => {
   try {
     const response = await roomAPI.getList({ userId: authStore.userId })
     rooms.value = response.data.rooms
+    if (currentRoomId.value) {
+      currentRoom.value = rooms.value.find(r => r.id === currentRoomId.value) || currentRoom.value
+    }
     loadReadStatus()
   } catch (error) {
     console.error('加载聊天室失败:', error)
@@ -1678,6 +1687,12 @@ const setupSocketListeners = () => {
 
   socket.on('notification_update', () => {
     loadNotifications()
+  })
+
+  socket.on('user_status_changed', (data) => {
+    friends.value = friends.value.map(f =>
+      f.id === data.userId ? { ...f, status: data.status } : f
+    )
   })
 
   socket.on('user_avatar_updated', (data) => {

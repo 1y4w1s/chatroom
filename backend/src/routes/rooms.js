@@ -1065,17 +1065,15 @@ router.post('/private', async (req, res) => {
     const a = Math.min(parseInt(userId), parseInt(friendId));
     const b = Math.max(parseInt(userId), parseInt(friendId));
 
-    // 检查是否已有私聊房间（兼容旧 room_name 格式）
+    // 通过成员匹配查找私聊房间
     const existing = await query(
-      `SELECT cr.id, cr.name FROM chat_rooms cr
-       WHERE cr.type = 'private'
-       AND cr.owner_id = ?
-       AND (cr.name = CONCAT('private_', ?) OR cr.id IN (
+      `SELECT cr.id FROM chat_rooms cr
+       WHERE cr.type = 'private' AND cr.id IN (
          SELECT rm1.room_id FROM room_members rm1
          JOIN room_members rm2 ON rm1.room_id = rm2.room_id
          WHERE rm1.user_id = ? AND rm2.user_id = ?
-       ))`,
-      [a, b, a, b]
+       ) LIMIT 1`,
+      [a, b]
     );
 
     if (existing.length > 0) {

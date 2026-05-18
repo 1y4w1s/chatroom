@@ -1,4 +1,4 @@
-﻿﻿<template>
+﻿﻿﻿<template>
   <div class="profile-container">
     <div class="profile-header">
       <button class="btn btn-secondary" @click="goBack">
