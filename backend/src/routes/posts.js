@@ -1,41 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { query } = require('../config/database');
+const { pool } = require('../config/database');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-
-// 启动时自动确保 posts 表有 title 列（延迟到首次请求时执行）
-let titleColumnReady = false;
-async function ensureTitleColumn() {
-  if (titleColumnReady) return true;
-  try {
-    const check = await query(
-      `SELECT COUNT(*) as count FROM information_schema.COLUMNS 
-       WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'posts' AND COLUMN_NAME = 'title'`
-    );
-    if (check[0].count > 0) {
-      titleColumnReady = true;
-      return true;
-    }
-    await query(`ALTER TABLE posts ADD COLUMN title VARCHAR(100) DEFAULT NULL AFTER user_id`);
-    console.log('✅ 添加 posts.title 字段成功');
-    titleColumnReady = true;
-    return true;
-  } catch (e) {
-    console.log('⚠️ 添加 title 字段跳过:', e.message);
-    return false;
-  }
-}
-
-async function getTitleCol() {
-  try {
-    await query('SELECT title FROM posts LIMIT 0');
-    return 'p.title';
-  } catch (e) {
-    return 'NULL as title';
-  }
-}
 
 const authMiddleware = async (req, res, next) => {
   const userId = req.query.userId || req.body.userId;
@@ -71,36 +39,33 @@ const upload = multer({
   }
 });
 
+// 直接用 pool.query（非预处理）避免参数数量不匹配问题
 router.get('/', authMiddleware, async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
     const offset = (page - 1) * limit;
 
-    let isLikedCol = 'FALSE as is_liked';
+    let hasLikesTable = false;
     try {
-      await query('SELECT 1 FROM post_likes LIMIT 0');
-      isLikedCol = `EXISTS (SELECT 1 FROM post_likes pl WHERE pl.post_id = p.id AND pl.user_id = ${parseInt(req.user.id)}) as is_liked`;
+      await pool.execute('SELECT 1 FROM post_likes LIMIT 0');
+      hasLikesTable = true;
     } catch (e) {
     }
 
-    await ensureTitleColumn();
+    const sql = `SELECT p.id, p.user_id, p.content, p.images, p.tags, p.likes_count, p.comments_count, p.created_at,
+                        u.username, u.nickname, u.avatar
+                        ${hasLikesTable ? `, EXISTS (SELECT 1 FROM post_likes pl WHERE pl.post_id = p.id AND pl.user_id = ${req.user.id}) as is_liked` : ', FALSE as is_liked'}
+                 FROM posts p
+                 JOIN users u ON p.user_id = u.id
+                 ORDER BY p.created_at DESC
+                 LIMIT ${limit} OFFSET ${offset}`;
 
-    const titleCol = await getTitleCol();
-
-    const posts = await query(
-      `SELECT p.id, p.user_id, ${titleCol}, p.content, p.images, p.tags, p.likes_count, p.comments_count, p.created_at,
-              u.username, u.nickname, u.avatar, ${isLikedCol}
-       FROM posts p
-       JOIN users u ON p.user_id = u.id
-       ORDER BY p.created_at DESC
-       LIMIT ? OFFSET ?`,
-      [limit, offset]
-    );
+    const [posts] = await pool.query(sql);
 
     let totalCount = 0;
     try {
-      const total = await query('SELECT COUNT(*) as count FROM posts');
+      const [total] = await pool.query('SELECT COUNT(*) as count FROM posts');
       totalCount = total[0].count;
     } catch (e) {
     }
@@ -138,8 +103,6 @@ router.post('/', authMiddleware, upload.array('images', 9), async (req, res) => 
       return res.status(400).json({ success: false, error: { message: '内容不能超过10000个字符' } });
     }
 
-    await ensureTitleColumn();
-
     const tags = [];
     const tagRegex = /#([^#\s]+)/g;
     let match;
@@ -149,29 +112,26 @@ router.post('/', authMiddleware, upload.array('images', 9), async (req, res) => 
 
     const images = req.files ? req.files.map(f => `/uploads/posts/${f.filename}`) : [];
 
-    const result = await query(
+    const [result] = await pool.execute(
       `INSERT INTO posts (user_id, content, images, tags) VALUES (?, ?, ?, ?)`,
       [req.user.id, content.trim(), JSON.stringify(images), JSON.stringify(tags)]
     );
 
     if (title && title.trim()) {
       try {
-        await query('UPDATE posts SET title = ? WHERE id = ?', [title.trim(), result.insertId]);
+        await pool.execute('UPDATE posts SET title = ? WHERE id = ?', [title.trim(), result.insertId]);
       } catch (e) {
       }
     }
 
-    const titleCol = await getTitleCol();
-
-    const post = await query(
-      `SELECT p.id, p.user_id, ${titleCol}, p.content, p.images, p.tags, p.likes_count, p.comments_count, p.created_at,
-              u.username, u.nickname, u.avatar
+    const [posts] = await pool.query(
+      `SELECT p.id, p.user_id, p.content, p.images, p.tags, p.likes_count, p.comments_count, p.created_at,
+              u.username, u.nickname, u.avatar, FALSE as is_liked
        FROM posts p JOIN users u ON p.user_id = u.id
-       WHERE p.id = ?`,
-      [result.insertId]
+       WHERE p.id = ${result.insertId}`
     );
 
-    res.status(201).json({ success: true, data: { post: { ...post[0], is_liked: false } } });
+    res.status(201).json({ success: true, data: { post: posts[0] } });
   } catch (error) {
     res.status(500).json({ success: false, error: { message: error.message } });
   }
@@ -180,9 +140,9 @@ router.post('/', authMiddleware, upload.array('images', 9), async (req, res) => 
 router.post('/:id/like', authMiddleware, async (req, res) => {
   try {
     const postId = parseInt(req.params.id);
-    await query('INSERT IGNORE INTO post_likes (user_id, post_id) VALUES (?, ?)', [req.user.id, postId]);
-    await query('UPDATE posts SET likes_count = (SELECT COUNT(*) FROM post_likes WHERE post_id = ?) WHERE id = ?', [postId, postId]);
-    const likes = await query('SELECT COUNT(*) as count FROM post_likes WHERE post_id = ?', [postId]);
+    await pool.execute('INSERT IGNORE INTO post_likes (user_id, post_id) VALUES (?, ?)', [req.user.id, postId]);
+    await pool.query(`UPDATE posts SET likes_count = (SELECT COUNT(*) FROM post_likes WHERE post_id = ${postId}) WHERE id = ${postId}`);
+    const [likes] = await pool.query(`SELECT COUNT(*) as count FROM post_likes WHERE post_id = ${postId}`);
     res.json({ success: true, data: { likes_count: likes[0].count, is_liked: true } });
   } catch (error) {
     res.status(500).json({ success: false, error: { message: error.message } });
@@ -192,9 +152,9 @@ router.post('/:id/like', authMiddleware, async (req, res) => {
 router.post('/:id/unlike', authMiddleware, async (req, res) => {
   try {
     const postId = parseInt(req.params.id);
-    await query('DELETE FROM post_likes WHERE user_id = ? AND post_id = ?', [req.user.id, postId]);
-    await query('UPDATE posts SET likes_count = (SELECT COUNT(*) FROM post_likes WHERE post_id = ?) WHERE id = ?', [postId, postId]);
-    const likes = await query('SELECT COUNT(*) as count FROM post_likes WHERE post_id = ?', [postId]);
+    await pool.execute('DELETE FROM post_likes WHERE user_id = ? AND post_id = ?', [req.user.id, postId]);
+    await pool.query(`UPDATE posts SET likes_count = (SELECT COUNT(*) FROM post_likes WHERE post_id = ${postId}) WHERE id = ${postId}`);
+    const [likes] = await pool.query(`SELECT COUNT(*) as count FROM post_likes WHERE post_id = ${postId}`);
     res.json({ success: true, data: { likes_count: likes[0].count, is_liked: false } });
   } catch (error) {
     res.status(500).json({ success: false, error: { message: error.message } });
@@ -203,10 +163,10 @@ router.post('/:id/unlike', authMiddleware, async (req, res) => {
 
 router.delete('/:id', authMiddleware, async (req, res) => {
   try {
-    const post = await query('SELECT user_id FROM posts WHERE id = ?', [parseInt(req.params.id)]);
-    if (post.length === 0) return res.status(404).json({ success: false, error: { message: '贴子不存在' } });
-    if (post[0].user_id !== req.user.id) return res.status(403).json({ success: false, error: { message: '无权删除' } });
-    await query('DELETE FROM posts WHERE id = ?', [parseInt(req.params.id)]);
+    const [posts] = await pool.query(`SELECT user_id FROM posts WHERE id = ${parseInt(req.params.id)}`);
+    if (posts.length === 0) return res.status(404).json({ success: false, error: { message: '贴子不存在' } });
+    if (posts[0].user_id !== req.user.id) return res.status(403).json({ success: false, error: { message: '无权删除' } });
+    await pool.query(`DELETE FROM posts WHERE id = ${parseInt(req.params.id)}`);
     res.json({ success: true, message: '贴子已删除' });
   } catch (error) {
     res.status(500).json({ success: false, error: { message: error.message } });
