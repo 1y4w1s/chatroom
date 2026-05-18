@@ -134,7 +134,7 @@ router.get('/', async (req, res) => {
                 JOIN users u2 ON rm2.user_id = u2.id
                 WHERE rm2.room_id = r.id AND rm2.user_id != ?)
              ELSE r.avatar END as friend_avatar,
-             CASE WHEN r.type = 'private' AND r.name LIKE 'private_%' THEN
+             CASE WHEN r.type = 'private' THEN
                (SELECT COALESCE(u2.nickname, u2.username) FROM room_members rm2
                 JOIN users u2 ON rm2.user_id = u2.id
                 WHERE rm2.room_id = r.id AND rm2.user_id != ?)
