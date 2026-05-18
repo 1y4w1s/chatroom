@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -85,34 +85,6 @@
                </div>
              </div>
            </div>
- 
-           <div class="room-category">
-             <div class="category-header" @click="showPrivateChats = !showPrivateChats">
-               <span class="category-arrow" :class="{ expanded: showPrivateChats }">▸</span>
-               <span class="category-label">私聊</span>
-               <span class="category-count">{{ privateRooms.length }}</span>
-             </div>
-             <div v-show="showPrivateChats">
-               <div
-                 v-for="room in privateRooms"
-                 :key="room.id"
-                 class="room-item"
-                 :class="{ active: currentRoomId === room.id }"
-                 @click="joinRoom(room.id)"
-               >
-                 <div class="room-icon">
-                   <img v-if="getRoomListAvatar(room)" :src="getRoomListAvatar(room)" class="room-list-avatar" />
-                   <div v-else class="default-avatar" :style="{ background: nameColor(room.display_name || room.name) }">
-                     <span>{{ (room.display_name || room.name)[0] }}</span>
-                   </div>
-                   <span v-if="getRoomUnread(room.id)" class="unread-badge">{{ formatUnread(getRoomUnread(room.id)) }}</span>
-                 </div>
-                 <div class="room-info">
-                   <div class="room-name">{{ room.display_name || room.name }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
           
           <div 
             v-if="previewRoomId && previewMembers.length > 0" 
@@ -158,8 +130,6 @@
             v-for="friend in friends"
             :key="friend.id"
             class="room-item"
-            :class="{ active: currentFriendRoomId === friend.id }"
-            @click="openChatWithFriend(friend)"
           >
             <div class="room-icon">
               <img v-if="friend.avatar" :src="getAvatarUrl(friend.avatar, friend.nickname || friend.username)" class="room-list-avatar" />
@@ -1094,12 +1064,8 @@ const showRoomDetail = ref(false)
 // 侧边栏 Tab
 const sidebarTab = ref('rooms')
 const showGroupChats = ref(true)
-const showPrivateChats = ref(true)
-
-const groupRooms = computed(() => rooms.value.filter(r => r.type !== 'private'))
-const privateRooms = computed(() => rooms.value.filter(r => r.type === 'private'))
+const groupRooms = computed(() => rooms.value)
 const friends = ref([])
-const currentFriendRoomId = ref(null)
 
 const loadFriends = async () => {
   if (!authStore.userId) return
@@ -1110,17 +1076,6 @@ const loadFriends = async () => {
   }
 }
 
-const openChatWithFriend = async (friend) => {
-  try {
-    const response = await roomAPI.findOrCreatePrivateRoom(authStore.userId, friend.id)
-    if (response.success) {
-      currentFriendRoomId.value = friend.id
-      await joinRoom(response.data.room_id)
-      sidebarTab.value = 'rooms'
-    }
-  } catch (e) {
-  }
-}
 
 let readStatusTimer = null
 const debouncedLoadReadStatus = () => {

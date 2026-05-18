@@ -29,43 +29,18 @@ const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 }, fileFil
 
 // ==================== 工具函数 ====================
 
-async function ensurePostFields() {
+async function hasCol(table, col) {
   try {
-    const check = await pool.query(`SELECT COUNT(*) as c FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'posts' AND COLUMN_NAME = 'is_public'`);
-    if (check[0][0].c === 0) {
-      await pool.query('ALTER TABLE posts ADD COLUMN is_public BOOLEAN DEFAULT TRUE AFTER comments_count');
-      await pool.query('ALTER TABLE posts ADD COLUMN allow_comments BOOLEAN DEFAULT TRUE AFTER is_public');
-    }
-  } catch (e) {}
-  try {
-    await pool.query('SELECT 1 FROM post_comments LIMIT 0');
+    const [r] = await pool.query(`SELECT COUNT(*) as c FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${table}' AND COLUMN_NAME = '${col}'`);
+    return r[0].c > 0;
   } catch (e) {
-    await pool.query(`CREATE TABLE IF NOT EXISTS post_comments (
-      id INT AUTO_INCREMENT PRIMARY KEY, post_id INT NOT NULL, user_id INT NOT NULL,
-      content TEXT NOT NULL, likes_count INT DEFAULT 0, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
-      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
-  }
-  try {
-    await pool.query('SELECT 1 FROM comment_likes LIMIT 0');
-  } catch (e) {
-    await pool.query(`CREATE TABLE IF NOT EXISTS comment_likes (
-      user_id INT NOT NULL, comment_id INT NOT NULL,
-      PRIMARY KEY (user_id, comment_id),
-      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-      FOREIGN KEY (comment_id) REFERENCES post_comments(id) ON DELETE CASCADE
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci`);
+    return false;
   }
 }
 
-async function getLikedCol(table, alias) {
-  try {
-    await pool.query('SELECT 1 FROM comment_likes LIMIT 0');
-    return `EXISTS (SELECT 1 FROM ${table} cl WHERE cl.${alias}_id = p.${alias}_id AND cl.user_id = ${req.user.id}) as is_liked`;
-  } catch (e) {
-    return 'FALSE as is_liked';
-  }
+async function colSql(table, col, def) {
+  const ok = await hasCol(table, col);
+  return ok ? `${col}` : `'${def}' as ${col}`;
 }
 
 // ==================== 贴子 API ====================
@@ -75,13 +50,16 @@ router.get('/', authMiddleware, async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 20;
     const offset = (page - 1) * limit;
-    await ensurePostFields();
+
+    const titleCol = await colSql('posts', 'title', '');
+    const isPublicCol = await colSql('posts', 'is_public', '1');
+    const allowCommentsCol = await colSql('posts', 'allow_comments', '1');
 
     let hasLikes = false;
     try { await pool.query('SELECT 1 FROM post_likes LIMIT 0'); hasLikes = true; } catch (e) {}
     const likedCol = hasLikes ? `EXISTS (SELECT 1 FROM post_likes pl WHERE pl.post_id = p.id AND pl.user_id = ${req.user.id})` : 'FALSE';
 
-    const [posts] = await pool.query(`SELECT p.id, p.user_id, p.content, p.images, p.tags, p.likes_count, p.comments_count, p.is_public, p.allow_comments, p.created_at,
+    const [posts] = await pool.query(`SELECT p.id, p.user_id, ${titleCol}, p.content, p.images, p.tags, p.likes_count, p.comments_count, ${isPublicCol}, ${allowCommentsCol}, p.created_at,
       u.username, u.nickname, u.avatar, ${likedCol} as is_liked FROM posts p JOIN users u ON p.user_id = u.id ORDER BY p.created_at DESC LIMIT ${limit} OFFSET ${offset}`);
     const [total] = await pool.query('SELECT COUNT(*) as count FROM posts');
 
@@ -93,12 +71,15 @@ router.get('/', authMiddleware, async (req, res) => {
 
 router.get('/:id', authMiddleware, async (req, res) => {
   try {
-    await ensurePostFields();
+    const titleCol = await colSql('posts', 'title', '');
+    const isPublicCol = await colSql('posts', 'is_public', '1');
+    const allowCommentsCol = await colSql('posts', 'allow_comments', '1');
+
     let hasLikes = false;
     try { await pool.query('SELECT 1 FROM post_likes LIMIT 0'); hasLikes = true; } catch (e) {}
     const likedCol = hasLikes ? `EXISTS (SELECT 1 FROM post_likes pl WHERE pl.post_id = p.id AND pl.user_id = ${req.user.id})` : 'FALSE';
 
-    const [posts] = await pool.query(`SELECT p.*, u.username, u.nickname, u.avatar, ${likedCol} as is_liked
+    const [posts] = await pool.query(`SELECT p.id, p.user_id, ${titleCol}, p.content, p.images, p.tags, p.likes_count, p.comments_count, ${isPublicCol}, ${allowCommentsCol}, p.created_at, u.username, u.nickname, u.avatar, ${likedCol} as is_liked
       FROM posts p JOIN users u ON p.user_id = u.id WHERE p.id = ${parseInt(req.params.id)}`);
     if (posts.length === 0) return res.status(404).json({ success: false, error: { message: '贴子不存在' } });
 
@@ -121,7 +102,10 @@ router.post('/', authMiddleware, upload.array('images', 9), async (req, res) => 
 
     const [result] = await pool.execute('INSERT INTO posts (user_id, content, images, tags) VALUES (?, ?, ?, ?)', [req.user.id, content.trim(), JSON.stringify(images), JSON.stringify(tags)]);
     try { await pool.execute('UPDATE posts SET title = ? WHERE id = ?', [title.trim(), result.insertId]); } catch (e) {}
-    const [post] = await pool.query(`SELECT p.id, p.user_id, p.content, p.images, p.tags, p.likes_count, p.comments_count, p.is_public, p.allow_comments, p.created_at,
+    const titleCol = await colSql('posts', 'title', '');
+    const isPublicCol = await colSql('posts', 'is_public', '1');
+    const allowCommentsCol = await colSql('posts', 'allow_comments', '1');
+    const [post] = await pool.query(`SELECT p.id, p.user_id, ${titleCol}, p.content, p.images, p.tags, p.likes_count, p.comments_count, ${isPublicCol}, ${allowCommentsCol}, p.created_at,
       u.username, u.nickname, u.avatar, FALSE as is_liked FROM posts p JOIN users u ON p.user_id = u.id WHERE p.id = ${result.insertId}`);
 
     res.status(201).json({ success: true, data: { post: post[0] } });
@@ -217,7 +201,6 @@ router.delete('/:id', authMiddleware, async (req, res) => {
 
 router.get('/:id/comments', authMiddleware, async (req, res) => {
   try {
-    await ensurePostFields();
     let hasLikes = false;
     try { await pool.query('SELECT 1 FROM comment_likes LIMIT 0'); hasLikes = true; } catch (e) {}
     const likedCol = hasLikes ? `EXISTS (SELECT 1 FROM comment_likes cl WHERE cl.comment_id = c.id AND cl.user_id = ${req.user.id})` : 'FALSE';
