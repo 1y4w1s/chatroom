@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -665,7 +665,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <input v-model="postTitle" class="post-title-input" placeholder="标题（可选）" maxlength="100" />
+          <input v-model="postTitle" class="post-title-input" placeholder="标题" maxlength="100" required />
           <div class="post-title-counter">{{ postTitle.length }}/100</div>
           <textarea v-model="postContent" class="post-input" placeholder="说点什么… 使用 #话题 添加标签" rows="4" maxlength="10000"></textarea>
           <div class="post-content-counter">{{ postContent.length }}/10000</div>
@@ -689,7 +689,7 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" @click="showCreatePost = false">取消</button>
-          <button class="btn btn-primary" @click="submitPost" :disabled="postSubmitting || !postContent.trim()">
+          <button class="btn btn-primary" @click="submitPost" :disabled="postSubmitting || !postTitle.trim() || !postContent.trim()">
             {{ postSubmitting ? '发布中...' : '发布' }}
           </button>
         </div>
