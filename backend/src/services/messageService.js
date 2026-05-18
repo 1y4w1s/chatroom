@@ -79,7 +79,7 @@ class MessageService {
     // 获取完整的消息信息
     const message = await query(
       `SELECT m.*, 
-              u.username, u.nickname, u.avatar,
+              u.username, u.nickname, u.avatar, u.is_bot,
               r.name as room_name
        FROM messages m
        JOIN users u ON m.user_id = u.id
@@ -102,7 +102,7 @@ class MessageService {
   static async getRoomMessages(roomId, limit = 50, offset = 0) {
     const messages = await query(
       `SELECT m.*, 
-              u.username, u.nickname, u.avatar
+              u.username, u.nickname, u.avatar, u.is_bot
        FROM messages m
        JOIN users u ON m.user_id = u.id
        WHERE m.room_id = ? AND m.is_deleted = FALSE

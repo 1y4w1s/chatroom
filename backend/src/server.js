@@ -203,6 +203,14 @@ io.on('connection', (socket) => {
       if (message.is_mention) {
         io.emit('read_status_update', { roomId });
       }
+      
+      // @DeepSeek 检测：如果消息中包含 @deepseek 或 @DeepSeek，调用 AI 回复
+      const contentLower = content.toLowerCase();
+      if (contentLower.includes('@deepseek')) {
+        callDeepSeek(roomId, userId, username, content, socket).catch(err => {
+          console.error('DeepSeek AI 调用失败:', err.message);
+        });
+      }
     } catch (error) {
       console.error('发送消息失败:', error.message);
       console.error('堆栈:', error.stack);
@@ -235,6 +243,85 @@ io.on('connection', (socket) => {
     console.error('Socket 错误:', error);
   });
 });
+
+// ==================== DeepSeek AI 机器人 ====================
+
+// 机器人用户 ID 常量（对应数据库中 username='deepseek' 的用户）
+const BOT_USER_ID = 1;
+const BOT_USERNAME = 'DeepSeek AI';
+
+/**
+ * 调用 DeepSeek API 获取 AI 回复
+ */
+async function callDeepSeek(roomId, userId, username, userContent, socket) {
+  const API_KEY = process.env.DEEPSEEK_API_KEY;
+  
+  if (!API_KEY) {
+    console.error('DeepSeek API Key 未配置');
+    return;
+  }
+  
+  // 查找机器人用户的实际 ID
+  const { query } = require('./config/database');
+  let botUserId = BOT_USER_ID;
+  try {
+    const botUsers = await query('SELECT id FROM users WHERE username = ?', ['deepseek']);
+    if (botUsers.length > 0) {
+      botUserId = botUsers[0].id;
+    }
+  } catch (e) {
+    console.error('查找机器人用户失败:', e.message);
+  }
+  
+  // 构造发送者标识
+  const senderName = username || `用户${userId}`;
+  
+  // 调用 DeepSeek API
+  try {
+    const response = await fetch('https://api.deepseek.com/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'deepseek-chat',
+        messages: [
+          { role: 'system', content: '你是一个友好的聊天机器人，名叫DeepSeek。请用中文回复，保持简洁有趣的风格。' },
+          { role: 'user', content: userContent }
+        ],
+        max_tokens: 1000,
+        temperature: 0.7
+      })
+    });
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('DeepSeek API 响应错误:', response.status, errorText);
+      return;
+    }
+    
+    const data = await response.json();
+    const reply = data.choices[0].message.content;
+    
+    // 保存机器人消息到数据库
+    const MessageService = require('./services/messageService');
+    const botMessage = await MessageService.createMessage({
+      roomId,
+      userId: botUserId,
+      content: reply,
+      type: 'text'
+    });
+    
+    // 广播机器人消息到聊天室
+    const io = getIo();
+    io.to(roomId).emit('new_message', botMessage);
+    
+    console.log(`DeepSeek AI 回复消息已发送到房间 ${roomId}`);
+  } catch (error) {
+    console.error('调用 DeepSeek API 失败:', error.message);
+  }
+}
 
 // ==================== 启动服务器 ====================
 

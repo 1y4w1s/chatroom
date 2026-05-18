@@ -55,6 +55,7 @@ async function initDatabase() {
         status ENUM('online', 'offline', 'away') DEFAULT 'offline',
         is_banned BOOLEAN DEFAULT FALSE,
         ban_reason VARCHAR(255) DEFAULT NULL,
+        is_bot BOOLEAN DEFAULT FALSE,
         last_login_at TIMESTAMP NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -122,6 +123,16 @@ async function initDatabase() {
       if (hasBanReason[0].count === 0) {
         await connection.query(`ALTER TABLE users ADD COLUMN ban_reason VARCHAR(255) DEFAULT NULL`);
         console.log('✅ 添加 ban_reason 字段');
+      }
+      
+      // 检查并添加 is_bot 字段
+      const hasIsBot = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'users' AND COLUMN_NAME = 'is_bot'
+      `);
+      if (hasIsBot[0].count === 0) {
+        await connection.query(`ALTER TABLE users ADD COLUMN is_bot BOOLEAN DEFAULT FALSE`);
+        console.log('✅ 添加 is_bot 字段');
       }
       
       // 检查并添加 last_login_at 字段
@@ -453,6 +464,26 @@ async function initDatabase() {
       console.log('✅ 默认聊天室已创建');
     } catch (err) {
       console.log('⚠️ 默认聊天室已存在，跳过');
+    }
+    
+    // 创建 DeepSeek 机器人账号（如果不存在）
+    try {
+      const botUser = await connection.query(
+        'SELECT id FROM users WHERE username = ?',
+        ['deepseek']
+      );
+      if (botUser.length === 0) {
+        const hashedPassword = '$2b$10$placeholder'; // 占位密码，无法用于登录
+        await connection.query(
+          'INSERT INTO users (username, email, password_hash, nickname, is_bot) VALUES (?, ?, ?, ?, TRUE)',
+          ['deepseek', 'bot@deepseek.ai', hashedPassword, 'DeepSeek AI']
+        );
+        console.log('✅ 创建 DeepSeek 机器人账号');
+      } else {
+        console.log('⚠️ 机器人账号已存在');
+      }
+    } catch (err) {
+      console.log('⚠️ 机器人账号创建跳过:', err.message);
     }
     
     connection.release();
