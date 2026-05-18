@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -1206,10 +1206,13 @@ const loadPosts = async (reset = false) => {
   postsLoading.value = true
   try {
     const response = await postAPI.getList(authStore.userId, { page: postsPage.value, limit: 20 })
+    const normalizeIsLiked = (p) => { p.is_liked = p.is_liked === 1 || p.is_liked === true || p.is_liked === '1'; return p }
+    const normalizeNums = (p) => { p.likes_count = Number(p.likes_count) || 0; p.comments_count = Number(p.comments_count) || 0; return p }
+    const normalized = (response.data.posts || []).map(p => normalizeNums(normalizeIsLiked(p)))
     if (reset) {
-      posts.value = response.data.posts
+      posts.value = normalized
     } else {
-      posts.value = [...posts.value, ...response.data.posts]
+      posts.value = [...posts.value, ...normalized]
     }
     postsHasMore.value = response.data.pagination.hasMore
   } catch (e) {
@@ -1358,13 +1361,23 @@ const insertCommentEmoji = (emoji) => {
   commentInput.value += emoji
 }
 
+const normalizeIsLiked = (obj) => { if (obj) obj.is_liked = obj.is_liked === 1 || obj.is_liked === true || obj.is_liked === '1' }
+
+const normalizePost = (p) => {
+  if (!p) return p
+  normalizeIsLiked(p)
+  p.likes_count = Number(p.likes_count) || 0
+  p.comments_count = Number(p.comments_count) || 0
+  return p
+}
+
 const openPostDetail = async (post) => {
   activeMainTab.value = 'post'
   try {
     const response = await postAPI.getDetail(authStore.userId, post.id)
-    selectedPost.value = response.data.post
+    selectedPost.value = normalizePost(response.data.post)
   } catch (e) {
-    selectedPost.value = post
+    selectedPost.value = normalizePost(post)
   }
   loadComments(post.id)
 }
@@ -1379,7 +1392,7 @@ const closePostDetail = () => {
 const loadComments = async (postId) => {
   try {
     const response = await postAPI.getComments(authStore.userId, postId)
-    postComments.value = response.data.comments
+    postComments.value = (response.data.comments || []).map(c => { normalizeIsLiked(c); c.likes_count = Number(c.likes_count) || 0; return c })
   } catch (e) {
   }
 }
@@ -1397,6 +1410,8 @@ const submitComment = async () => {
     } else {
       response = await postAPI.addComment(authStore.userId, selectedPost.value.id, commentInput.value.trim(), replyTo.value?.id)
     }
+    normalizeIsLiked(response.data.comment)
+    response.data.comment.likes_count = Number(response.data.comment.likes_count) || 0
     postComments.value.push(response.data.comment)
     selectedPost.value.comments_count = (selectedPost.value.comments_count || 0) + 1
     commentInput.value = ''
