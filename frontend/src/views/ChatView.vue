@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -363,36 +363,36 @@
                 </div>
               </div>
             </div>
-            <div v-if="selectedPost.allow_comments !== false" class="pd-comment-input-area">
-              <div v-if="replyTo" class="pd-reply-indicator">
+            <div v-if="selectedPost.allow_comments !== false" class="cc-card">
+              <div v-if="replyTo" class="cc-reply-hint">
                 回复 @{{ replyTo.nickname || replyTo.username }}
-                <button class="pd-reply-cancel" @click="cancelReply">取消</button>
+                <button class="cc-reply-cancel" @click="cancelReply">取消</button>
               </div>
-              <div class="pd-comment-input-row">
-                <input v-model="commentInput" class="input" :placeholder="replyTo ? '输入回复...' : '写评论...'" @keyup.enter="submitComment" ref="commentInputRef" />
-                <button v-if="showCommentEmojiPicker" class="emoji-btn-active" @click="showCommentEmojiPicker = false">
-                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              <div class="cc-input-row">
+                <input v-model="commentInput" class="cc-input" :placeholder="replyTo ? '输入回复...' : '写评论...'" @keyup.enter="submitComment" ref="commentInputRef" />
+                <button v-if="showCommentEmojiPicker" class="cc-icon-btn active" @click="showCommentEmojiPicker = false">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
                 </button>
-                <button v-else class="emoji-btn" @click="showCommentEmojiPicker = true">
-                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                <button v-else class="cc-icon-btn" @click="showCommentEmojiPicker = true" title="表情">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
                 </button>
-                <label class="btn-icon pd-img-btn">
-                  <svg width="16" height="16" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="12" rx="2" stroke="#6b7280" stroke-width="1.3"/><circle cx="6" cy="7" r="1.5" fill="#6b7280"/><path d="M2 12L6 8L10 12L13 9L16 12" stroke="#6b7280" stroke-width="1.3" stroke-linecap="round"/></svg>
+                <label class="cc-icon-btn" title="图片">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2.5" y="3.5" width="15" height="13" rx="2" stroke="currentColor" stroke-width="1.3"/><circle cx="7" cy="8" r="1.5" fill="currentColor"/><path d="M2.5 13L7 9L11 13L14.5 10L17.5 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
                   <input type="file" accept="image/*" multiple @change="handleCommentImageSelect" hidden />
                 </label>
-                <button class="btn btn-primary btn-sm" @click="submitComment" :disabled="!commentInput.trim() && commentImages.length === 0">发送</button>
+                <button class="cc-send-btn" @click="submitComment" :disabled="!commentInput.trim() && commentImages.length === 0">发布</button>
               </div>
-              <div v-if="commentImages.length" class="pd-comment-previews">
-                <div v-for="(img, i) in commentImages" :key="i" class="pd-comment-preview-item">
+              <div v-if="commentImages.length" class="cc-previews">
+                <div v-for="(img, i) in commentImages" :key="i" class="cc-preview-item">
                   <img :src="img.preview" />
-                  <button class="remove-image" @click="removeCommentImage(i)">×</button>
+                  <button class="cc-preview-del" @click="removeCommentImage(i)">×</button>
                 </div>
               </div>
-              <div v-if="showCommentEmojiPicker" ref="commentEmojiPickerRef" class="comment-emoji-picker">
-                <div v-for="category in emojiCategories" :key="category.name" class="emoji-category">
-                  <div class="emoji-category-name">{{ category.name }}</div>
-                  <div class="emoji-list">
-                    <button v-for="emoji in category.emojis" :key="emoji" class="emoji-item" @click="insertCommentEmoji(emoji)">{{ emoji }}</button>
+              <div v-if="showCommentEmojiPicker" ref="commentEmojiPickerRef" class="cc-emoji-panel">
+                <div v-for="category in emojiCategories" :key="category.name" class="cc-emoji-group">
+                  <div class="cc-emoji-label">{{ category.name }}</div>
+                  <div class="cc-emoji-grid">
+                    <button v-for="emoji in category.emojis" :key="emoji" class="cc-emoji-cell" @click="insertCommentEmoji(emoji)">{{ emoji }}</button>
                   </div>
                 </div>
               </div>
@@ -3126,78 +3126,51 @@ onUnmounted(() => {
   flex: 1;
 }
 
-.pd-comment-input-area {
-  border-top: 1px solid #f3f4f6;
-  padding-top: 12px;
-  margin-top: 4px;
+/* ==================== 评论列表 ==================== */
+.pd-comment-wrapper {
+  margin-bottom: 6px;
 }
 
-.pd-comment-input-row {
+.pd-comment {
   display: flex;
-  gap: 8px;
-  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
 }
 
-.pd-comment-input-row .input {
-  flex: 1;
+.pd-comment-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
-.pd-img-btn {
-  cursor: pointer;
-  display: flex;
-  padding: 6px;
-  border-radius: 6px;
-}
+.pd-comment-body { flex: 1; min-width: 0; }
 
-.pd-img-btn:hover {
-  background: #f3f4f6;
-}
-
-.pd-reply-indicator {
-  font-size: 12px;
-  color: #6366f1;
-  padding: 4px 0 8px;
+.pd-comment-header {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  margin-bottom: 2px;
 }
 
-.pd-reply-cancel {
+.pd-comment-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.pd-comment-time {
   font-size: 11px;
   color: #9ca3af;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-decoration: underline;
 }
 
-.pd-reply-cancel:hover {
-  color: #ef4444;
-}
-
-.pd-comment-reply-btn {
-  font-size: 11px;
-  color: #6366f1;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 1px 4px;
-}
-
-.pd-comment-reply-btn:hover {
-  text-decoration: underline;
-}
-
-.pd-replies {
-  margin-left: 38px;
-  border-left: 2px solid #f3f4f6;
-  padding-left: 12px;
-  margin-top: 4px;
-  margin-bottom: 8px;
-}
-
-.pd-reply {
-  margin-bottom: 8px;
+.pd-comment-text {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .pd-comment-image {
@@ -3209,124 +3182,273 @@ onUnmounted(() => {
   object-fit: cover;
 }
 
-.pd-comment-img-preview {
-  margin-top: 8px;
-  position: relative;
-  display: inline-block;
+.pd-comment-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
 }
 
-.pd-comment-img-preview img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
+.pd-comment-like {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: none;
+  border: none;
+  font-size: 11px;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: color 0.1s;
+}
+
+.pd-comment-like:hover { color: #ef4444; }
+.pd-comment-like.liked { color: #ef4444; }
+
+.pd-comment-reply-btn {
+  font-size: 11px;
+  color: #6366f1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.pd-comment-reply-btn:hover { background: rgba(99,102,241,0.06); }
+
+.pd-comment-del {
+  font-size: 11px;
+  color: #9ca3af;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.pd-comment-del:hover { color: #ef4444; background: #fef2f2; }
+
+.pd-replies {
+  margin-left: 38px;
+  border-left: 2px solid #f3f4f6;
+  padding-left: 12px;
+  margin-top: 2px;
+  margin-bottom: 10px;
+}
+
+.pd-no-comments {
+  text-align: center;
+  padding: 24px;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.pd-comments-closed {
+  text-align: center;
+  padding: 20px;
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+/* ==================== 卡片式评论区输入 ==================== */
+.cc-card {
+  background: #f8f9fa;
+  border-radius: 14px;
+  padding: 14px 16px 16px;
+  margin: 12px 0 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+
+.cc-reply-hint {
+  font-size: 13px;
+  color: #6366f1;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cc-reply-cancel {
+  font-size: 12px;
+  color: #9ca3af;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.cc-reply-cancel:hover { color: #ef4444; }
+
+.cc-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cc-input {
+  flex: 1;
+  height: 42px;
+  padding: 0 14px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: inherit;
+  background: white;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.cc-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+}
+
+.cc-input::placeholder {
+  color: #9ca3af;
+}
+
+.cc-icon-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: none;
+  color: #6b7280;
+  cursor: pointer;
   border-radius: 8px;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
 }
 
-.pd-comment-previews {
+.cc-icon-btn:hover {
+  background: #e5e7eb;
+  color: #1a1a1a;
+}
+
+.cc-icon-btn.active {
+  color: #6366f1;
+  background: rgba(99,102,241,0.08);
+}
+
+.cc-send-btn {
+  height: 38px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 10px;
+  background: #1a1a1a;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.cc-send-btn:hover { background: #333; }
+
+.cc-send-btn:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+}
+
+.cc-previews {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 8px;
+  gap: 8px;
+  margin-top: 10px;
 }
 
-.pd-comment-preview-item {
+.cc-preview-item {
   position: relative;
   width: 64px;
   height: 64px;
+  flex-shrink: 0;
 }
 
-.pd-comment-preview-item img {
+.cc-preview-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
-.pd-comment-preview-item .remove-image {
+.cc-preview-del {
   position: absolute;
-  top: -6px;
-  right: -6px;
-  width: 18px;
-  height: 18px;
+  top: -7px;
+  right: -7px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   border: none;
   background: #ef4444;
   color: white;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform 0.1s;
 }
 
-.comment-emoji-picker {
+.cc-preview-del:hover { transform: scale(1.15); }
+
+.cc-emoji-panel {
+  margin-top: 10px;
   border: 1px solid #e5e7eb;
-  border-radius: 10px;
+  border-radius: 12px;
   background: white;
-  padding: 8px;
-  max-height: 220px;
+  padding: 10px;
+  max-height: 240px;
   overflow-y: auto;
-  margin-top: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 
-.comment-emoji-picker .emoji-category {
-  margin-bottom: 4px;
+.cc-emoji-group {
+  margin-bottom: 6px;
 }
 
-.comment-emoji-picker .emoji-category-name {
+.cc-emoji-label {
   font-size: 11px;
   color: #9ca3af;
   margin-bottom: 4px;
-  padding: 0 4px;
+  padding: 0 2px;
 }
 
-.comment-emoji-picker .emoji-list {
+.cc-emoji-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 2px;
 }
 
-.comment-emoji-picker .emoji-item {
-  width: 32px;
-  height: 32px;
+.cc-emoji-cell {
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
   background: none;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 19px;
   border-radius: 6px;
+  transition: background 0.1s;
 }
 
-.comment-emoji-picker .emoji-item:hover {
-  background: #f3f4f6;
-}
+.cc-emoji-cell:hover { background: #f3f4f6; }
 
-.pd-comment-wrapper {
-  margin-bottom: 4px;
-}
-
-.emoji-btn, .emoji-btn-active {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #6b7280;
-  padding: 6px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-}
-
-.emoji-btn:hover, .emoji-btn-active:hover {
-  background: #f3f4f6;
-  color: #1a1a1a;
-}
-
-.emoji-btn-active {
-  color: #6366f1;
+@media (max-width: 640px) {
+  .cc-card { padding: 12px; }
+  .cc-input { height: 38px; font-size: 13px; }
+  .cc-icon-btn { width: 32px; height: 32px; }
+  .cc-send-btn { height: 34px; padding: 0 14px; font-size: 13px; }
+  .cc-emoji-cell { width: 30px; height: 30px; font-size: 17px; }
 }
 
 .room-list {
