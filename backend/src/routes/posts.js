@@ -101,9 +101,16 @@ router.post('/', authMiddleware, upload.array('images', 9), async (req, res) => 
     const images = req.files ? req.files.map(f => `/uploads/posts/${f.filename}`) : [];
 
     const result = await query(
-      `INSERT INTO posts (user_id, title, content, images, tags) VALUES (?, ?, ?, ?, ?)`,
-      [req.user.id, (title || '').trim(), content.trim(), JSON.stringify(images), JSON.stringify(tags)]
+      `INSERT INTO posts (user_id, content, images, tags) VALUES (?, ?, ?, ?)`,
+      [req.user.id, content.trim(), JSON.stringify(images), JSON.stringify(tags)]
     );
+
+    if (title && title.trim()) {
+      try {
+        await query('UPDATE posts SET title = ? WHERE id = ?', [title.trim(), result.insertId]);
+      } catch (e) {
+      }
+    }
 
     const post = await query(
       `SELECT p.*, u.username, u.nickname, u.avatar
