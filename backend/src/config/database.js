@@ -252,6 +252,36 @@ async function initDatabase() {
     `);
     console.log('✅ notifications 表已创建');
     
+    // 创建贴子表
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS posts (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        content TEXT DEFAULT NULL,
+        images JSON DEFAULT NULL,
+        tags JSON DEFAULT NULL,
+        likes_count INT DEFAULT 0,
+        comments_count INT DEFAULT 0,
+        is_deleted BOOLEAN DEFAULT FALSE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+    console.log('✅ posts 表已创建');
+    
+    // 创建贴子点赞表
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS post_likes (
+        user_id INT NOT NULL,
+        post_id INT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (user_id, post_id),
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+    console.log('✅ post_likes 表已创建');
+    
     // 创建消息表
     await connection.query(`
       CREATE TABLE IF NOT EXISTS messages (

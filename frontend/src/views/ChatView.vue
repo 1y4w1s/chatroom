@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -177,8 +177,46 @@
           </div>
         </div>
 
-        <div v-show="sidebarTab === 'posts'" class="posts-placeholder">
-          <div class="empty-list-hint">贴子广场 · 敬请期待</div>
+        <div v-show="sidebarTab === 'posts'" class="post-list">
+          <div class="room-list-header">
+            <span class="room-list-title">贴子广场</span>
+            <button class="btn btn-primary btn-sm" @click="showCreatePost = true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              发贴
+            </button>
+          </div>
+          <div v-if="posts.length === 0 && !postsLoading" class="empty-list-hint">暂无贴子，快来发第一条吧</div>
+          <div v-if="postsLoading" class="empty-list-hint" style="padding:20px">加载中...</div>
+          <div class="posts-scroll">
+            <div v-for="post in posts" :key="post.id" class="post-card">
+              <div class="post-header">
+                <img :src="getAvatarUrl(post.avatar, post.nickname || post.username)" class="post-avatar" />
+                <div class="post-author">
+                  <span class="post-name">{{ post.nickname || post.username }}</span>
+                  <span class="post-time">{{ formatTime(post.created_at) }}</span>
+                </div>
+                <button v-if="post.user_id === authStore.userId" class="post-delete-btn" @click="deletePost(post.id)">×</button>
+              </div>
+              <div class="post-content">{{ post.content }}</div>
+              <div v-if="post.tags && post.tags.length" class="post-tags">
+                <span v-for="tag in post.tags" :key="tag" class="post-tag">#{{ tag }}</span>
+              </div>
+              <div v-if="post.images && post.images.length" class="post-images" :class="'grid-' + Math.min(post.images.length, 3)">
+                <img v-for="(img, i) in post.images.slice(0, 9)" :key="i" :src="getPostImageUrl(img)" class="post-image" @click="previewPostImage(img)" />
+              </div>
+              <div class="post-actions">
+                <button class="post-action-btn" :class="{ liked: post.is_liked }" @click="toggleLike(post)">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="post.is_liked ? 'currentColor' : 'none'" :stroke="post.is_liked ? 'currentColor' : '#9ca3af'" stroke-width="1.2"/>
+                  </svg>
+                  <span>{{ post.likes_count || '' }}</span>
+                </button>
+              </div>
+            </div>
+            <div v-if="postsHasMore" class="load-more" @click="loadMorePosts">加载更多</div>
+          </div>
         </div>
       </div>
 
@@ -614,6 +652,51 @@
       </div>
     </div>
 
+    <!-- 发贴弹窗 -->
+    <div v-if="showCreatePost" class="modal-overlay" @click="showCreatePost = false">
+      <div class="modal create-post-modal" @click.stop>
+        <div class="modal-header">
+          <h3>发贴</h3>
+          <button class="close-btn" @click="showCreatePost = false">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <textarea v-model="postContent" class="post-input" placeholder="说点什么… 使用 #话题 添加标签" rows="4"></textarea>
+          <div class="post-image-preview" v-if="postImages.length">
+            <div v-for="(img, i) in postImages" :key="i" class="post-image-thumb">
+              <img :src="img.url" />
+              <button class="remove-image" @click="postImages.splice(i, 1)">×</button>
+            </div>
+          </div>
+          <div class="post-toolbar">
+            <label class="btn-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <rect x="2" y="3" width="14" height="12" rx="2" stroke="#6b7280" stroke-width="1.3"/>
+                <circle cx="6" cy="7" r="1.5" fill="#6b7280"/>
+                <path d="M2 12L6 8L10 12L13 9L16 12" stroke="#6b7280" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+              <input type="file" accept="image/*" multiple @change="handlePostImageSelect" hidden />
+            </label>
+          </div>
+          <div v-if="postError" class="error-message">{{ postError }}</div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" @click="showCreatePost = false">取消</button>
+          <button class="btn btn-primary" @click="submitPost" :disabled="postSubmitting || !postContent.trim()">
+            {{ postSubmitting ? '发布中...' : '发布' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 图片预览弹窗 -->
+    <div v-if="showPostImagePreview" class="modal-overlay" @click="showPostImagePreview = false">
+      <img :src="previewImageUrl" class="post-image-full" @click.stop />
+    </div>
+
     <!-- 通知面板 -->
     <div v-if="showNotificationPanel" class="modal-overlay" @click="showNotificationPanel = false">
       <div class="modal notification-modal" @click.stop>
@@ -742,7 +825,7 @@
 import { ref, watch, onMounted, onUnmounted, nextTick, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
-import { roomAPI, userAPI, notificationAPI, friendAPI } from '@/api'
+import { roomAPI, userAPI, notificationAPI, friendAPI, postAPI } from '@/api'
 import { emojiCategories } from '@/utils/emojis'
 
 const router = useRouter()
@@ -945,6 +1028,118 @@ const debouncedLoadReadStatus = () => {
   readStatusTimer = setTimeout(() => {
     loadReadStatus()
   }, 3000)
+}
+
+// 贴子
+const showCreatePost = ref(false)
+const postContent = ref('')
+const postImages = ref([])
+const postSubmitting = ref(false)
+const postError = ref('')
+const posts = ref([])
+const postsLoading = ref(false)
+const postsPage = ref(1)
+const postsHasMore = ref(true)
+const showPostImagePreview = ref(false)
+const previewImageUrl = ref('')
+
+const loadPosts = async (reset = false) => {
+  if (postsLoading.value) return
+  if (reset) { posts.value = []; postsPage.value = 1; postsHasMore.value = true }
+  postsLoading.value = true
+  try {
+    const response = await postAPI.getList(authStore.userId, { page: postsPage.value, limit: 20 })
+    if (reset) {
+      posts.value = response.data.posts
+    } else {
+      posts.value = [...posts.value, ...response.data.posts]
+    }
+    postsHasMore.value = response.data.pagination.hasMore
+  } catch (e) {
+  }
+  postsLoading.value = false
+}
+
+const loadMorePosts = () => {
+  if (!postsHasMore.value || postsLoading.value) return
+  postsPage.value++
+  loadPosts()
+}
+
+const handlePostImageSelect = (e) => {
+  for (const file of e.target.files) {
+    postImages.value.push({ file, url: URL.createObjectURL(file) })
+  }
+  e.target.value = ''
+}
+
+const submitPost = async () => {
+  if (!postContent.value.trim() || postSubmitting.value) return
+  postSubmitting.value = true
+  postError.value = ''
+  try {
+    const formData = new FormData()
+    formData.append('content', postContent.value.trim())
+    for (const img of postImages.value) {
+      formData.append('images', img.file)
+    }
+    await postAPI.create(authStore.userId, formData)
+    showCreatePost.value = false
+    postContent.value = ''
+    postImages.value = []
+    loadPosts(true)
+  } catch (e) {
+    postError.value = e.message
+  }
+  postSubmitting.value = false
+}
+
+const toggleLike = async (post) => {
+  try {
+    if (post.is_liked) {
+      const response = await postAPI.unlike(authStore.userId, post.id)
+      post.likes_count = response.data.likes_count
+      post.is_liked = false
+    } else {
+      const response = await postAPI.like(authStore.userId, post.id)
+      post.likes_count = response.data.likes_count
+      post.is_liked = true
+    }
+  } catch (e) {
+  }
+}
+
+const deletePost = async (id) => {
+  try {
+    await postAPI.delete(authStore.userId, id)
+    posts.value = posts.value.filter(p => p.id !== id)
+  } catch (e) {
+  }
+}
+
+const previewPostImage = (img) => {
+  previewImageUrl.value = getPostImageUrl(img)
+  showPostImagePreview.value = true
+}
+
+const getPostImageUrl = (imgPath) => {
+  if (!imgPath) return ''
+  const path = imgPath.trim()
+  if (path.startsWith('http://') || path.startsWith('https://')) return path
+  if (path.startsWith('/')) return `${window.location.origin}${path}`
+  return `${window.location.origin}/${path}`
+}
+
+const formatTime = (dateStr) => {
+  if (!dateStr) return ''
+  const d = new Date(dateStr)
+  const now = new Date()
+  const diff = Math.floor((now - d) / 1000)
+  if (diff < 60) return '刚刚'
+  if (diff < 3600) return Math.floor(diff / 60) + '分钟前'
+  if (diff < 86400) return Math.floor(diff / 3600) + '小时前'
+  if (diff < 2592000) return Math.floor(diff / 86400) + '天前'
+  return d.toLocaleDateString('zh-CN')
 }
 
 // 通知
@@ -1608,17 +1803,6 @@ const scrollToBottom = (force = false) => {
   }
 }
 
-const formatTime = (timestamp) => {
-  const date = new Date(timestamp)
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hours = date.getHours().toString().padStart(2, '0')
-  const minutes = date.getMinutes().toString().padStart(2, '0')
-  
-  return `${year}/${month}/${day} ${hours}:${minutes}`
-}
-
 const formatMuteDuration = (mutedUntil) => {
   if (!mutedUntil) {
     console.log('禁言时间为空:', mutedUntil)
@@ -1788,6 +1972,7 @@ const setupSocketListeners = () => {
 onMounted(() => {
   loadRooms()
   loadNotifications()
+  loadPosts()
   setupSocketListeners()
   document.addEventListener('click', handleClickOutsideEmoji)
 })
@@ -2033,6 +2218,237 @@ onUnmounted(() => {
   padding: 40px 20px;
   color: #9ca3af;
   font-size: 14px;
+}
+
+/* ==================== 贴子广场 ==================== */
+.post-list {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.posts-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 12px 12px;
+}
+
+.post-card {
+  background: white;
+  border: 1px solid #f3f4f6;
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.post-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.post-author {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.post-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.post-time {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.post-delete-btn {
+  background: none;
+  border: none;
+  color: #d1d5db;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.post-delete-btn:hover {
+  color: #ef4444;
+}
+
+.post-content {
+  font-size: 14px;
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.post-tag {
+  font-size: 12px;
+  color: #6366f1;
+  cursor: pointer;
+}
+
+.post-images {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.post-images.grid-1 { grid-template-columns: 1fr; }
+.post-images.grid-2 { grid-template-columns: 1fr 1fr; }
+.post-images.grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+.post-image {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.post-actions {
+  display: flex;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.post-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  font-size: 13px;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: all 0.15s;
+}
+
+.post-action-btn:hover {
+  background: #fef2f2;
+  color: #ef4444;
+}
+
+.post-action-btn.liked {
+  color: #ef4444;
+}
+
+.post-action-btn.liked:hover {
+  background: #f3f4f6;
+  color: #dc2626;
+}
+
+.load-more {
+  text-align: center;
+  padding: 16px;
+  color: #6366f1;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.load-more:hover {
+  text-decoration: underline;
+}
+
+.create-post-modal {
+  max-width: 480px;
+}
+
+.post-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 14px;
+  resize: vertical;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+
+.post-input:focus {
+  outline: none;
+  border-color: #1a1a1a;
+}
+
+.post-image-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.post-image-thumb {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.post-image-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.remove-image {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-toolbar {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.post-toolbar .btn-icon {
+  cursor: pointer;
+}
+
+.post-image-full {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 8px;
+  object-fit: contain;
 }
 
 .room-list {

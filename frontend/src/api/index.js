@@ -136,4 +136,15 @@ export const notificationAPI = {
 
 export { api }
 
+export const postAPI = {
+  getList: (userId, params) => api.get('/posts', { params: { userId, ...params } }),
+  create: (userId, formData) => api.post('/posts', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    params: { userId }
+  }),
+  like: (userId, id) => api.post(`/posts/${id}/like`, { userId }),
+  unlike: (userId, id) => api.post(`/posts/${id}/unlike`, { userId }),
+  delete: (userId, id) => api.delete(`/posts/${id}`, { data: { userId } })
+}
+
 export default api
