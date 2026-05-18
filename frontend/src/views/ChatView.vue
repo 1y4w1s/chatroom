@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -764,7 +764,7 @@ const isSuperAdmin = computed(() => {
 })
 
 const getAvatarUrl = (avatarPath, name) => {
-  if (!avatarPath || !avatarPath.trim()) {
+  if (!avatarPath || !avatarPath.trim() || avatarPath.trim() === '/default-avatar.png') {
     const n = String(name || '?')
     const color = nameColor(n)
     const letter = n[0].toUpperCase()
@@ -1188,7 +1188,7 @@ const joinRoom = async (roomId) => {
     const API_BASE_URL = import.meta.env.VITE_API_URL || ''
     messages.value = response.data.messages
       .map(msg => {
-        let avatar = '/default-avatar.png'
+        let avatar = ''
         if (msg.avatar && msg.avatar.trim()) {
           const avatarPath = msg.avatar.trim()
           avatar = avatarPath.startsWith('/') 
@@ -1672,7 +1672,7 @@ const setupSocketListeners = () => {
     if (message.room_id === currentRoomId.value) {
       const avatar = message.avatar && message.avatar.trim()
         ? `${API_BASE_URL}${message.avatar}`
-        : '/default-avatar.png'
+        : ''
       const messageWithAvatar = { ...message, avatar }
       messages.value.push(messageWithAvatar)
       nextTick(() => scrollToBottom())
