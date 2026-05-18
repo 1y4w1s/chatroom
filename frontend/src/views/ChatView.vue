@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -1544,7 +1544,11 @@ const setupSocketListeners = () => {
   socket.on('read_status_update', () => {
     loadReadStatus()
   })
-  
+
+  socket.on('notification_update', () => {
+    loadNotifications()
+  })
+
   socket.on('user_avatar_updated', (data) => {
     const API_BASE_URL = import.meta.env.VITE_API_URL || ''
     messages.value = messages.value.map(msg => {

@@ -6,6 +6,13 @@ const router = express.Router();
 const { query } = require('../config/database');
 const { body, validationResult } = require('express-validator');
 
+// 发送 WebSocket 通知事件
+function emitNotificationEvent(io, userId) {
+  if (io) {
+    io.emit('notification_update', { userId });
+  }
+}
+
 // 简单认证中间件 - 从请求参数获取 userId
 const authMiddleware = async (req, res, next) => {
   const userId = req.query.userId || req.body.userId;
@@ -105,6 +112,10 @@ router.post('/request', authMiddleware, [
       [friendId, userId, `${message || '我想加你为好友'}`, friendId]
     );
     
+    // 实时推送通知
+    const { getIo } = require('../server');
+    emitNotificationEvent(getIo(), friendId);
+    
     res.json({
       success: true,
       message: '好友申请已发送'
@@ -201,6 +212,10 @@ router.post('/requests/:id/respond', authMiddleware, [
          FROM users WHERE id = ?`,
         [request.sender_id, request.receiver_id, '对方已接受你的好友请求', request.sender_id]
       );
+      
+      // 实时推送通知
+      const { getIo } = require('../server');
+      emitNotificationEvent(getIo(), request.sender_id);
     }
     
     // 更新申请状态
