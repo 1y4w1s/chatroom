@@ -39,18 +39,36 @@ const upload = multer({
   }
 });
 
+async function ensurePostLikesTable() {
+  try {
+    await query(`SELECT 1 FROM post_likes LIMIT 1`);
+  } catch (e) {
+    await query(`
+      CREATE TABLE IF NOT EXISTS post_likes (
+        user_id INT NOT NULL,
+        post_id INT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (user_id, post_id),
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+  }
+}
+
 router.get('/', authMiddleware, async (req, res) => {
   try {
     const { page = 1, limit = 20 } = req.query;
     const offset = (page - 1) * limit;
 
+    await ensurePostLikesTable();
+
     const posts = await query(
       `SELECT p.*, u.username, u.nickname, u.avatar,
-              IF(pl.user_id IS NOT NULL, TRUE, FALSE) as is_liked
+              (SELECT COUNT(*) FROM post_likes pl WHERE pl.post_id = p.id AND pl.user_id = ?) > 0 as is_liked
        FROM posts p
-       JOIN users u ON p.user_id = u.id
-       LEFT JOIN post_likes pl ON pl.post_id = p.id AND pl.user_id = ?
-       WHERE p.is_deleted = FALSE
+        JOIN users u ON p.user_id = u.id
+        WHERE p.is_deleted = FALSE
        ORDER BY p.created_at DESC
        LIMIT ? OFFSET ?`,
       [req.user.id, parseInt(limit), parseInt(offset)]
@@ -128,6 +146,7 @@ router.post('/', authMiddleware, upload.array('images', 9), async (req, res) => 
 
 router.post('/:id/like', authMiddleware, async (req, res) => {
   try {
+    await ensurePostLikesTable();
     const postId = req.params.id;
     await query(
       'INSERT IGNORE INTO post_likes (user_id, post_id) VALUES (?, ?)',
