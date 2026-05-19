@@ -8,9 +8,10 @@ set -e  # 遇到错误立即退出
 echo "🚀 开始部署聊天室应用..."
 echo ""
 
-# 1. 进入项目目录
-echo "📁 进入项目目录..."
-cd /root/chatroom  # 请根据实际情况修改路径
+# 1. 进入项目目录（使用当前目录或传入路径）
+PROJECT_DIR="${1:-$(pwd)}"
+echo "📁 进入项目目录: $PROJECT_DIR"
+cd "$PROJECT_DIR"
 
 # 2. 拉取最新代码
 echo "📥 拉取最新代码..."
