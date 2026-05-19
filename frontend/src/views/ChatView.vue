@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -611,10 +611,24 @@
           </div>
 
           <div v-if="roomSettingsTab === 'members'" class="member-list">
+            <div class="member-list-header">
+              <span class="member-list-title">成员管理</span>
+              <div v-if="currentPermissions.isOwner" class="member-list-bot-switch">
+                <span class="bot-toggle-label">🤖 机器人</span>
+                <label class="toggle-switch inline">
+                  <input type="checkbox" :checked="!!currentRoom?.enable_bot" @change="toggleBot" />
+                  <span class="toggle-slider"></span>
+                </label>
+                <span class="bot-toggle-status" :class="{ enabled: currentRoom?.enable_bot }">
+                  {{ currentRoom?.enable_bot ? '已启用' : '已禁用' }}
+                </span>
+              </div>
+            </div>
             <div
-              v-for="member in currentMembers"
+              v-for="member in sortedMembers"
               :key="member.id"
               class="member-item"
+              :class="{ 'bot-member': member.is_bot }"
             >
               <img :src="getAvatarUrl(member.avatar, member.nickname || member.username)" class="member-avatar" @click="member.is_bot ? null : openMemberAction(member, $event)" style="cursor:pointer" />
               <div class="member-info">
@@ -648,35 +662,15 @@
                   @click="revokeAdmin(member.id)"
                 >撤销管理员</button>
                 <button 
-                  v-if="currentPermissions.isAdmin && member.role === 'member' && !member.is_bot && !isEffectivelyMuted(member)"
+                  v-if="((currentPermissions.isOwner && member.role !== 'owner') || (currentPermissions.isAdmin && member.role === 'member')) && !member.is_bot && !isEffectivelyMuted(member)"
                   class="action-btn btn-mute"
                   @click="openMuteModal(member)"
                 >禁言</button>
                 <button 
-                  v-if="currentPermissions.isAdmin && isEffectivelyMuted(member) && !member.is_bot"
+                  v-if="((currentPermissions.isOwner && member.role !== 'owner') || (currentPermissions.isAdmin && member.role === 'member')) && isEffectivelyMuted(member) && !member.is_bot"
                   class="action-btn btn-unmute"
                   @click="unmuteMember(member.id)"
                 >解除禁言</button>
-              </div>
-            </div>
-            <div v-if="currentPermissions.isOwner" class="bot-settings-section">
-              <div class="bot-settings-row">
-                <div class="bot-settings-info">
-                  <span class="bot-settings-icon">🤖</span>
-                  <div class="bot-settings-text">
-                    <span class="bot-settings-title">聊天机器人</span>
-                    <span class="bot-settings-desc">启用后机器人将出现在成员列表中，群成员可通过 @ 机器人 与 AI 对话</span>
-                  </div>
-                </div>
-                <div class="bot-settings-control">
-                  <span class="bot-status-text" :class="{ enabled: currentRoom?.enable_bot }">
-                    {{ currentRoom?.enable_bot ? '已启用' : '已禁用' }}
-                  </span>
-                  <label class="toggle-switch">
-                    <input type="checkbox" :checked="!!currentRoom?.enable_bot" @change="toggleBot" />
-                    <span class="toggle-slider"></span>
-                  </label>
-                </div>
               </div>
             </div>
           </div>
@@ -1109,6 +1103,13 @@ const rooms = ref([])
 const currentRoomId = ref(null)
 const currentRoom = ref(null)
 const currentMembers = ref([])
+const sortedMembers = computed(() => {
+  return [...currentMembers.value].sort((a, b) => {
+    if (a.is_bot && !b.is_bot) return 1
+    if (!a.is_bot && b.is_bot) return -1
+    return 0
+  })
+})
 const currentPermissions = ref({
   hasPermission: false,
   isAdmin: false,
@@ -4806,6 +4807,47 @@ onUnmounted(() => {
   overflow-y: auto;
 }
 
+.member-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0 16px;
+  border-bottom: 1px solid #f0f0f0;
+  margin-bottom: 8px;
+}
+
+.member-list-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.member-list-bot-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bot-toggle-label {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.bot-toggle-status {
+  font-size: 12px;
+  font-weight: 500;
+  color: #9ca3af;
+  min-width: 40px;
+}
+
+.bot-toggle-status.enabled {
+  color: #059669;
+}
+
+.toggle-switch.inline {
+  margin: 0;
+}
+
 .member-item {
   display: flex;
   align-items: center;
@@ -4816,6 +4858,14 @@ onUnmounted(() => {
 
 .member-item:last-child {
   border-bottom: none;
+}
+
+.member-item.bot-member {
+  opacity: 0.7;
+}
+
+.bot-member .member-status {
+  color: #d1d5db;
 }
 
 .member-avatar {
