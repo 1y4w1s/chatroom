@@ -1,9 +1,20 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
         <h2>聊天</h2>
-        <button class="btn-icon" @click="showNotificationPanel = true" :class="{ 'has-notification': notificationUnread > 0 }">
+        <div class="sidebar-header-actions">
+          <button class="btn-icon theme-toggle" @click="toggleTheme" :title="isDark ? '切换到浅色模式' : '切换到深色模式'">
+            <svg v-if="isDark" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="3.5" stroke="currentColor" stroke-width="1.3"/>
+              <path d="M8 1V2.5M8 13.5V15M3.5 8H2M14 8H12.5M4.5 4.5L3.5 3.5M12.5 12.5L11.5 11.5M4.5 11.5L3.5 12.5M12.5 3.5L11.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+            <svg v-else width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M8 1.5V3M8 13V14.5M3 8H1.5M14.5 8H13M4.5 4.5L3.5 3.5M12.5 12.5L11.5 11.5M4.5 11.5L3.5 12.5M12.5 3.5L11.5 4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              <circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.3"/>
+            </svg>
+          </button>
+          <button class="btn-icon" @click="showNotificationPanel = true" :class="{ 'has-notification': notificationUnread > 0 }">
           <svg v-if="notificationUnread === 0" width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M8 2C5.8 2 4 3.8 4 6V9L3 11H13L12 9V6C12 3.8 10.2 2 8 2Z" stroke="currentColor" stroke-width="1.3"/>
             <path d="M6.5 11V12C6.5 12.8 7.2 13.5 8 13.5C8.8 13.5 9.5 12.8 9.5 12V11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
@@ -14,32 +25,33 @@
           </svg>
           <span v-if="notificationUnread > 0" class="bell-badge">{{ notificationUnread > 99 ? '99+' : notificationUnread }}</span>
         </button>
+        </div>
       </div>
 
       <div class="sidebar-tabs">
         <button class="sidebar-tab" :class="{ active: sidebarTab === 'rooms' }" @click="sidebarTab = 'rooms'; showMobileDrawer = false">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M3 4C3 3.4 3.4 3 4 3H14C14.6 3 15 3.4 15 4V12C15 12.6 14.6 13 14 13H10L8 15V13H4C3.4 13 3 12.6 3 12V4Z" :stroke="sidebarTab === 'rooms' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'rooms' ? 'currentColor' : 'none'"/>
-            <circle cx="7.5" cy="8" r="1.5" :fill="sidebarTab === 'rooms' ? 'white' : '#9ca3af'"/>
-            <circle cx="10.5" cy="8" r="1.5" :fill="sidebarTab === 'rooms' ? 'white' : '#9ca3af'"/>
+            <path d="M3 4C3 3.4 3.4 3 4 3H14C14.6 3 15 3.4 15 4V12C15 12.6 14.6 13 14 13H10L8 15V13H4C3.4 13 3 12.6 3 12V4Z" :stroke="sidebarTab === 'rooms' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'rooms' ? 'currentColor' : 'none'"/>
+            <circle cx="7.5" cy="8" r="1.5" :fill="sidebarTab === 'rooms' ? 'white' : 'var(--text-tertiary)'"/>
+            <circle cx="10.5" cy="8" r="1.5" :fill="sidebarTab === 'rooms' ? 'white' : 'var(--text-tertiary)'"/>
           </svg>
           <span>聊天室</span>
         </button>
         <button class="sidebar-tab" :class="{ active: sidebarTab === 'friends' }" @click="sidebarTab = 'friends'; showMobileDrawer = false; loadFriends()">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M5.5 4C5.5 2.6 6.6 1.5 8 1.5C9.4 1.5 10.5 2.6 10.5 4C10.5 5.4 9.4 6.5 8 6.5C6.6 6.5 5.5 5.4 5.5 4Z" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'"/>
-            <path d="M2.5 15C2.5 12.5 4.5 10.5 7 10.5H9C11.5 10.5 13.5 12.5 13.5 15" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'"/>
-            <path d="M12 4.5C13.4 4.5 14.5 5.6 14.5 7C14.5 7.8 14.2 8.5 13.7 9" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-            <path d="M16.5 10.5C16.5 11.4 16.2 12.2 15.7 12.9C15.5 13.2 15.2 13.4 14.9 13.6" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M5.5 4C5.5 2.6 6.6 1.5 8 1.5C9.4 1.5 10.5 2.6 10.5 4C10.5 5.4 9.4 6.5 8 6.5C6.6 6.5 5.5 5.4 5.5 4Z" :stroke="sidebarTab === 'friends' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'"/>
+            <path d="M2.5 15C2.5 12.5 4.5 10.5 7 10.5H9C11.5 10.5 13.5 12.5 13.5 15" :stroke="sidebarTab === 'friends' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'"/>
+            <path d="M12 4.5C13.4 4.5 14.5 5.6 14.5 7C14.5 7.8 14.2 8.5 13.7 9" :stroke="sidebarTab === 'friends' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M16.5 10.5C16.5 11.4 16.2 12.2 15.7 12.9C15.5 13.2 15.2 13.4 14.9 13.6" :stroke="sidebarTab === 'friends' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" fill="none"/>
           </svg>
           <span>好友</span>
         </button>
         <button class="sidebar-tab" :class="{ active: sidebarTab === 'posts' }" @click="sidebarTab = 'posts'; showMobileDrawer = false">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <rect x="1.5" y="1.5" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
-            <rect x="10" y="1.5" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
-            <rect x="1.5" y="10" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
-            <rect x="10" y="10" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
+            <rect x="1.5" y="1.5" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
+            <rect x="10" y="1.5" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
+            <rect x="1.5" y="10" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
+            <rect x="10" y="10" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
           </svg>
           <span>贴子</span>
         </button>
@@ -215,7 +227,7 @@
               <div class="post-actions">
                 <button class="post-action-btn" :class="{ liked: post.is_liked }" @click.stop="toggleLike(post)">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="post.is_liked ? 'currentColor' : 'none'" :stroke="post.is_liked ? 'currentColor' : '#9ca3af'" stroke-width="1.2"/>
+                    <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="post.is_liked ? 'currentColor' : 'none'" :stroke="post.is_liked ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.2"/>
                   </svg>
                   <span>{{ post.likes_count || '' }}</span>
                 </button>
@@ -337,7 +349,7 @@
           </div>
           <div class="pd-actions">
             <button class="pd-action-btn" :class="{ liked: selectedPost.is_liked }" @click="toggleLike(selectedPost)">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="selectedPost.is_liked ? 'currentColor' : 'none'" :stroke="selectedPost.is_liked ? 'currentColor' : '#9ca3af'" stroke-width="1.2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="selectedPost.is_liked ? 'currentColor' : 'none'" :stroke="selectedPost.is_liked ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.2"/></svg>
               <span>{{ selectedPost.likes_count || '' }}</span>
             </button>
           </div>
@@ -356,7 +368,7 @@
                   <img v-if="comment.image" :src="getPostImageUrl(comment.image)" class="pd-comment-image" @click="previewPostImage(comment.image)" />
                   <div class="pd-comment-actions">
                     <button class="pd-comment-like" :class="{ liked: comment.is_liked }" @click="toggleCommentLike(comment)">
-                      <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="comment.is_liked ? 'currentColor' : 'none'" :stroke="comment.is_liked ? 'currentColor' : '#9ca3af'" stroke-width="1.2"/></svg>
+                      <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="comment.is_liked ? 'currentColor' : 'none'" :stroke="comment.is_liked ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.2"/></svg>
                       <span>{{ comment.likes_count || '' }}</span>
                     </button>
                     <button class="pd-comment-reply-btn" @click="startReply(comment)">回复</button>
@@ -376,7 +388,7 @@
                     <img v-if="reply.image" :src="getPostImageUrl(reply.image)" class="pd-comment-image" @click="previewPostImage(reply.image)" />
                     <div class="pd-comment-actions">
                       <button class="pd-comment-like" :class="{ liked: reply.is_liked }" @click="toggleCommentLike(reply)">
-                        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="reply.is_liked ? 'currentColor' : 'none'" :stroke="reply.is_liked ? 'currentColor' : '#9ca3af'" stroke-width="1.2"/></svg>
+                        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="reply.is_liked ? 'currentColor' : 'none'" :stroke="reply.is_liked ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.2"/></svg>
                         <span>{{ reply.likes_count || '' }}</span>
                       </button>
                       <button v-if="reply.user_id === authStore.userId || selectedPost.user_id === authStore.userId" class="pd-comment-del" @click="deleteComment(reply.id)">删除</button>
@@ -491,9 +503,9 @@
         <footer class="chat-input-footer">
           <div v-if="hasActiveMute" class="muted-notice">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="7" stroke="#dc2626" stroke-width="1.5"/>
-              <path d="M8 4V9" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="8" cy="11.5" r="1" fill="#dc2626"/>
+              <circle cx="8" cy="8" r="7" stroke="var(--danger)" stroke-width="1.5"/>
+              <path d="M8 4V9" stroke="var(--danger)" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="8" cy="11.5" r="1" fill="var(--danger)"/>
             </svg>
             您已被禁言，无法发送消息
           </div>
@@ -552,11 +564,11 @@
 
       <div v-if="!selectedPost && !currentRoomId" class="no-room">
         <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-          <rect x="8" y="12" width="48" height="40" rx="4" stroke="#e5e7eb" stroke-width="2"/>
-          <path d="M8 24H56" stroke="#e5e7eb" stroke-width="2"/>
-          <circle cx="16" cy="18" r="2" fill="#e5e7eb"/>
-          <circle cx="24" cy="18" r="2" fill="#e5e7eb"/>
-          <circle cx="32" cy="18" r="2" fill="#e5e7eb"/>
+          <rect x="8" y="12" width="48" height="40" rx="4" stroke="var(--border)" stroke-width="2"/>
+          <path d="M8 24H56" stroke="var(--border)" stroke-width="2"/>
+          <circle cx="16" cy="18" r="2" fill="var(--border)"/>
+          <circle cx="24" cy="18" r="2" fill="var(--border)"/>
+          <circle cx="32" cy="18" r="2" fill="var(--border)"/>
         </svg>
         <p>请选择一个聊天室</p>
       </div>
@@ -864,9 +876,9 @@
           <div class="post-toolbar">
             <label class="btn-icon">
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <rect x="2" y="3" width="14" height="12" rx="2" stroke="#6b7280" stroke-width="1.3"/>
-                <circle cx="6" cy="7" r="1.5" fill="#6b7280"/>
-                <path d="M2 12L6 8L10 12L13 9L16 12" stroke="#6b7280" stroke-width="1.3" stroke-linecap="round"/>
+                <rect x="2" y="3" width="14" height="12" rx="2" stroke="var(--text-secondary)" stroke-width="1.3"/>
+                <circle cx="6" cy="7" r="1.5" fill="var(--text-secondary)"/>
+                <path d="M2 12L6 8L10 12L13 9L16 12" stroke="var(--text-secondary)" stroke-width="1.3" stroke-linecap="round"/>
               </svg>
               <input type="file" accept="image/*" multiple @change="handlePostImageSelect" hidden />
             </label>
@@ -997,9 +1009,9 @@
         <div class="modal-header">
           <h3 class="danger-title">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <circle cx="10" cy="10" r="8" stroke="#dc2626" stroke-width="1.5"/>
-              <path d="M10 5V11" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="10" cy="14" r="1" fill="#dc2626"/>
+              <circle cx="10" cy="10" r="8" stroke="var(--danger)" stroke-width="1.5"/>
+              <path d="M10 5V11" stroke="var(--danger)" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="10" cy="14" r="1" fill="var(--danger)"/>
             </svg>
             {{ isSuperAdmin ? '删除聊天室' : '解散聊天室' }}
           </h3>
@@ -1086,7 +1098,7 @@ const getRoomListAvatar = (room) => {
   return `${window.location.origin}/${path}`
 }
 
-const avatarColors = ['#f59e0b','#ef4444','#8b5cf6','#06b6d4','#10b981','#f97316','#ec4899','#6366f1','#14b8a6','#eab308']
+const avatarColors = ['var(--status-away)','#ef4444','#8b5cf6','#06b6d4','var(--status-online)','#f97316','#ec4899','var(--accent)','#14b8a6','#eab308']
 const nameColor = (name) => {
   if (!name) return avatarColors[0]
   let hash = 0
@@ -1219,6 +1231,18 @@ const showRoomDetail = ref(false)
 // 侧边栏 Tab
 const sidebarTab = ref('rooms')
 const showMobileDrawer = ref(false)
+const isDark = ref(document.documentElement.getAttribute('data-theme') === 'dark')
+
+function toggleTheme() {
+  isDark.value = !isDark.value
+  if (isDark.value) {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    localStorage.setItem('theme', 'dark')
+  } else {
+    document.documentElement.removeAttribute('data-theme')
+    localStorage.setItem('theme', 'light')
+  }
+}
 const showGroupChats = ref(true)
 const showPrivateChats = ref(true)
 const groupRooms = computed(() => rooms.value.filter(r => r.type !== 'private'))
@@ -2720,20 +2744,20 @@ onUnmounted(() => {
 .chat-container {
   display: flex;
   height: 100vh;
-  background: #fafafa;
+  background: var(--bg-secondary);
 }
 
 .sidebar {
   width: 300px;
-  background: white;
-  border-right: 1px solid #e5e7eb;
+  background: var(--bg-primary);
+  border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
 }
 
 .sidebar-header {
   padding: 20px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -2742,12 +2766,27 @@ onUnmounted(() => {
 .sidebar-header h2 {
   font-size: 16px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
+}
+
+.sidebar-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.theme-toggle {
+  color: var(--text-tertiary);
+  transition: color 0.15s;
+}
+
+.theme-toggle:hover {
+  color: var(--text-primary);
 }
 
 .sidebar-tabs {
   display: flex;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border);
   padding: 0 12px;
   gap: 2px;
 }
@@ -2762,7 +2801,7 @@ onUnmounted(() => {
   border: none;
   background: transparent;
   font-size: 13px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   cursor: pointer;
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
@@ -2771,12 +2810,12 @@ onUnmounted(() => {
 }
 
 .sidebar-tab:hover {
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .sidebar-tab.active {
-  color: #1a1a1a;
-  border-bottom-color: #1a1a1a;
+  color: var(--text-primary);
+  border-bottom-color: var(--text-primary);
 }
 
 .sidebar-content {
@@ -2794,14 +2833,14 @@ onUnmounted(() => {
 
 .room-list-title {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   font-weight: 500;
 }
 
 .empty-list-hint {
   text-align: center;
   padding: 40px 20px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   font-size: 13px;
 }
 
@@ -2815,18 +2854,18 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  color: #6b7280;
+  color: var(--text-secondary);
   position: relative;
   transition: all 0.15s;
 }
 
 .btn-icon:hover {
-  background: #f3f4f6;
+  background: var(--hover);
   color: #374151;
 }
 
 .btn-icon.has-notification {
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .bell-badge {
@@ -2850,7 +2889,7 @@ onUnmounted(() => {
 .btn-text {
   background: none;
   border: none;
-  color: #6b7280;
+  color: var(--text-secondary);
   cursor: pointer;
   padding: 4px 8px;
   border-radius: 4px;
@@ -2858,7 +2897,7 @@ onUnmounted(() => {
 }
 
 .btn-text:hover {
-  background: #f3f4f6;
+  background: var(--hover);
   color: #374151;
 }
 
@@ -2891,7 +2930,7 @@ onUnmounted(() => {
 }
 
 .notification-item:hover {
-  background: #f9fafb;
+  background: var(--hover-light);
 }
 
 .notification-item.unread:hover {
@@ -2919,7 +2958,7 @@ onUnmounted(() => {
 
 .notification-meta {
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   margin-top: 2px;
 }
 
@@ -2939,7 +2978,7 @@ onUnmounted(() => {
 .empty-state {
   text-align: center;
   padding: 40px 20px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   font-size: 14px;
 }
 
@@ -2958,8 +2997,8 @@ onUnmounted(() => {
 }
 
 .post-card {
-  background: white;
-  border: 1px solid #f3f4f6;
+  background: var(--bg-primary);
+  border: 1px solid var(--hover);
   border-radius: 10px;
   padding: 14px;
   margin-bottom: 10px;
@@ -2989,18 +3028,18 @@ onUnmounted(() => {
 .post-name {
   font-size: 13px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .post-time {
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .post-delete-btn {
   background: none;
   border: none;
-  color: #d1d5db;
+  color: var(--border-light);
   font-size: 18px;
   cursor: pointer;
   padding: 0 4px;
@@ -3029,7 +3068,7 @@ onUnmounted(() => {
 
 .post-tag {
   font-size: 12px;
-  color: #6366f1;
+  color: var(--accent);
   cursor: pointer;
 }
 
@@ -3057,7 +3096,7 @@ onUnmounted(() => {
   display: flex;
   gap: 12px;
   padding-top: 8px;
-  border-top: 1px solid #f3f4f6;
+  border-top: 1px solid var(--hover);
 }
 
 .post-action-btn {
@@ -3067,7 +3106,7 @@ onUnmounted(() => {
   background: none;
   border: none;
   font-size: 13px;
-  color: #6b7280;
+  color: var(--text-secondary);
   cursor: pointer;
   padding: 2px 6px;
   border-radius: 6px;
@@ -3075,7 +3114,7 @@ onUnmounted(() => {
 }
 
 .post-action-btn:hover {
-  background: #fef2f2;
+  background: var(--danger-bg);
   color: #ef4444;
 }
 
@@ -3084,14 +3123,14 @@ onUnmounted(() => {
 }
 
 .post-action-btn.liked:hover {
-  background: #f3f4f6;
-  color: #dc2626;
+  background: var(--hover);
+  color: var(--danger);
 }
 
 .load-more {
   text-align: center;
   padding: 16px;
-  color: #6366f1;
+  color: var(--accent);
   font-size: 13px;
   cursor: pointer;
 }
@@ -3107,7 +3146,7 @@ onUnmounted(() => {
 .post-input {
   width: 100%;
   padding: 12px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
   border-radius: 10px;
   font-size: 14px;
   resize: vertical;
@@ -3117,7 +3156,7 @@ onUnmounted(() => {
 
 .post-input:focus {
   outline: none;
-  border-color: #1a1a1a;
+  border-color: var(--text-primary);
 }
 
 .post-image-preview {
@@ -3147,7 +3186,7 @@ onUnmounted(() => {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #1a1a1a;
+  background: var(--bubble-own);
   color: white;
   border: none;
   font-size: 12px;
@@ -3170,7 +3209,7 @@ onUnmounted(() => {
 .post-title-input {
   width: 100%;
   padding: 12px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
   border-radius: 10px;
   font-size: 15px;
   font-weight: 600;
@@ -3181,14 +3220,14 @@ onUnmounted(() => {
 
 .post-title-input:focus {
   outline: none;
-  border-color: #1a1a1a;
+  border-color: var(--text-primary);
 }
 
 .post-title-counter,
 .post-content-counter {
   text-align: right;
   font-size: 11px;
-  color: #d1d5db;
+  color: var(--border-light);
   margin-top: 4px;
   margin-bottom: 8px;
 }
@@ -3196,7 +3235,7 @@ onUnmounted(() => {
 .post-title {
   font-size: 16px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 6px;
   line-height: 1.4;
 }
@@ -3211,8 +3250,8 @@ onUnmounted(() => {
 /* ==================== 主区域 Tab 切换 ==================== */
 .main-tabs {
   display: flex;
-  border-bottom: 1px solid #f3f4f6;
-  background: white;
+  border-bottom: 1px solid var(--hover);
+  background: var(--bg-primary);
   flex-shrink: 0;
 }
 
@@ -3223,16 +3262,16 @@ onUnmounted(() => {
   background: none;
   font-size: 14px;
   font-weight: 500;
-  color: #6b7280;
+  color: var(--text-secondary);
   cursor: pointer;
   position: relative;
   transition: color 0.15s;
 }
 
-.main-tab:hover { color: #1a1a1a; }
+.main-tab:hover { color: var(--text-primary); }
 
 .main-tab.active {
-  color: #6366f1;
+  color: var(--accent);
 }
 
 .main-tab.active::after {
@@ -3242,7 +3281,7 @@ onUnmounted(() => {
   left: 20%;
   right: 20%;
   height: 2.5px;
-  background: #6366f1;
+  background: var(--accent);
   border-radius: 2px 2px 0 0;
 }
 
@@ -3258,7 +3297,7 @@ onUnmounted(() => {
   align-items: center;
   gap: 10px;
   padding: 12px 16px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--hover);
   position: relative;
 }
 
@@ -3266,13 +3305,13 @@ onUnmounted(() => {
   background: none;
   border: none;
   cursor: pointer;
-  color: #6b7280;
+  color: var(--text-secondary);
   padding: 4px;
   display: flex;
 }
 
 .post-detail-back:hover {
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .post-detail-header h3 {
@@ -3289,8 +3328,8 @@ onUnmounted(() => {
   position: absolute;
   right: 0;
   top: 100%;
-  background: white;
-  border: 1px solid #f3f4f6;
+  background: var(--bg-primary);
+  border: 1px solid var(--hover);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   min-width: 130px;
@@ -3312,7 +3351,7 @@ onUnmounted(() => {
 }
 
 .post-manage-menu button:hover {
-  background: #f3f4f6;
+  background: var(--hover);
 }
 
 .post-manage-menu button.danger {
@@ -3320,7 +3359,7 @@ onUnmounted(() => {
 }
 
 .post-manage-menu button.danger:hover {
-  background: #fef2f2;
+  background: var(--danger-bg);
 }
 
 .post-detail-body {
@@ -3346,12 +3385,12 @@ onUnmounted(() => {
 .pd-name {
   font-size: 14px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .pd-time {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -3370,14 +3409,14 @@ onUnmounted(() => {
 }
 
 .pd-badge.no-comment {
-  background: #f3f4f6;
-  color: #6b7280;
+  background: var(--hover);
+  color: var(--text-secondary);
 }
 
 .pd-title {
   font-size: 20px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 8px;
   line-height: 1.4;
 }
@@ -3400,7 +3439,7 @@ onUnmounted(() => {
 
 .pd-tag {
   font-size: 13px;
-  color: #6366f1;
+  color: var(--accent);
 }
 
 .pd-images {
@@ -3424,7 +3463,7 @@ onUnmounted(() => {
   display: flex;
   gap: 12px;
   padding: 12px 0;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--hover);
   margin-bottom: 16px;
 }
 
@@ -3435,14 +3474,14 @@ onUnmounted(() => {
   background: none;
   border: none;
   font-size: 14px;
-  color: #6b7280;
+  color: var(--text-secondary);
   cursor: pointer;
   padding: 4px 10px;
   border-radius: 6px;
   transition: all 0.15s;
 }
 
-.pd-action-btn:hover { background: #fef2f2; color: #ef4444; }
+.pd-action-btn:hover { background: var(--danger-bg); color: #ef4444; }
 .pd-action-btn.liked { color: #ef4444; }
 
 .pd-comments-section {
@@ -3452,14 +3491,14 @@ onUnmounted(() => {
 .pd-comments-title {
   font-size: 14px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 12px;
 }
 
 .pd-no-comments, .pd-comments-closed {
   text-align: center;
   padding: 20px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   font-size: 13px;
 }
 
@@ -3492,12 +3531,12 @@ onUnmounted(() => {
 .pd-comment-name {
   font-size: 12px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .pd-comment-time {
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .pd-comment-text {
@@ -3520,7 +3559,7 @@ onUnmounted(() => {
   background: none;
   border: none;
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   cursor: pointer;
   padding: 1px 4px;
   border-radius: 4px;
@@ -3531,7 +3570,7 @@ onUnmounted(() => {
 
 .pd-comment-del {
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   background: none;
   border: none;
   cursor: pointer;
@@ -3546,7 +3585,7 @@ onUnmounted(() => {
   display: flex;
   gap: 8px;
   padding-top: 12px;
-  border-top: 1px solid #f3f4f6;
+  border-top: 1px solid var(--hover);
   margin-top: 4px;
 }
 
@@ -3585,12 +3624,12 @@ onUnmounted(() => {
 .pd-comment-name {
   font-size: 13px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .pd-comment-time {
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .pd-comment-text {
@@ -3624,7 +3663,7 @@ onUnmounted(() => {
   background: none;
   border: none;
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   cursor: pointer;
   padding: 2px 6px;
   border-radius: 4px;
@@ -3636,7 +3675,7 @@ onUnmounted(() => {
 
 .pd-comment-reply-btn {
   font-size: 11px;
-  color: #6366f1;
+  color: var(--accent);
   background: none;
   border: none;
   cursor: pointer;
@@ -3648,7 +3687,7 @@ onUnmounted(() => {
 
 .pd-comment-del {
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   background: none;
   border: none;
   cursor: pointer;
@@ -3656,11 +3695,11 @@ onUnmounted(() => {
   border-radius: 4px;
 }
 
-.pd-comment-del:hover { color: #ef4444; background: #fef2f2; }
+.pd-comment-del:hover { color: #ef4444; background: var(--danger-bg); }
 
 .pd-replies {
   margin-left: 38px;
-  border-left: 2px solid #f3f4f6;
+  border-left: 2px solid var(--hover);
   padding-left: 12px;
   margin-top: 2px;
   margin-bottom: 10px;
@@ -3669,20 +3708,20 @@ onUnmounted(() => {
 .pd-no-comments {
   text-align: center;
   padding: 24px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   font-size: 13px;
 }
 
 .pd-comments-closed {
   text-align: center;
   padding: 20px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   font-size: 13px;
 }
 
 /* ==================== 卡片式评论区输入 ==================== */
 .cc-card {
-  background: #f8f9fa;
+  background: var(--bg-tertiary);
   border-radius: 14px;
   padding: 14px 16px 16px;
   margin: 12px 0 4px;
@@ -3691,7 +3730,7 @@ onUnmounted(() => {
 
 .cc-reply-hint {
   font-size: 13px;
-  color: #6366f1;
+  color: var(--accent);
   margin-bottom: 10px;
   display: flex;
   align-items: center;
@@ -3700,7 +3739,7 @@ onUnmounted(() => {
 
 .cc-reply-cancel {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   background: none;
   border: none;
   cursor: pointer;
@@ -3729,22 +3768,22 @@ onUnmounted(() => {
   flex: 1;
   height: 48px;
   padding: 0 16px;
-  border: 1.5px solid #e5e7eb;
+  border: 1.5px solid var(--border);
   border-radius: 12px;
   font-size: 15px;
   font-family: inherit;
-  background: white;
+  background: var(--bg-primary);
   outline: none;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .cc-input:focus {
-  border-color: #6366f1;
+  border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
 }
 
 .cc-input::placeholder {
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .mention-panel {
@@ -3753,8 +3792,8 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   margin-bottom: 4px;
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.1);
   max-height: 240px;
@@ -3770,8 +3809,8 @@ onUnmounted(() => {
   justify-content: space-between;
   padding: 8px 12px;
   font-size: 12px;
-  color: #9ca3af;
-  border-bottom: 1px solid #f3f4f6;
+  color: var(--text-tertiary);
+  border-bottom: 1px solid var(--hover);
   flex-shrink: 0;
 }
 
@@ -3797,7 +3836,7 @@ onUnmounted(() => {
 
 .mention-panel-item:hover,
 .mention-panel-item.active {
-  background: #f3f4f6;
+  background: var(--hover);
 }
 
 .mention-avatar {
@@ -3819,7 +3858,7 @@ onUnmounted(() => {
 .mention-name {
   font-size: 13px;
   font-weight: 500;
-  color: #1a1a1a;
+  color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -3834,7 +3873,7 @@ onUnmounted(() => {
   text-align: center;
   padding: 20px;
   font-size: 13px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .cc-icon-btn {
@@ -3845,7 +3884,7 @@ onUnmounted(() => {
   justify-content: center;
   border: none;
   background: none;
-  color: #6b7280;
+  color: var(--text-secondary);
   cursor: pointer;
   border-radius: 8px;
   flex-shrink: 0;
@@ -3853,12 +3892,12 @@ onUnmounted(() => {
 }
 
 .cc-icon-btn:hover {
-  background: #e5e7eb;
-  color: #1a1a1a;
+  background: var(--border);
+  color: var(--text-primary);
 }
 
 .cc-icon-btn.active {
-  color: #6366f1;
+  color: var(--accent);
   background: rgba(99,102,241,0.08);
 }
 
@@ -3867,7 +3906,7 @@ onUnmounted(() => {
   padding: 0 18px;
   border: none;
   border-radius: 10px;
-  background: #1a1a1a;
+  background: var(--bubble-own);
   color: white;
   font-size: 14px;
   font-weight: 500;
@@ -3879,7 +3918,7 @@ onUnmounted(() => {
 .cc-send-btn:hover { background: #333; }
 
 .cc-send-btn:disabled {
-  background: #d1d5db;
+  background: var(--border-light);
   cursor: not-allowed;
 }
 
@@ -3928,9 +3967,9 @@ onUnmounted(() => {
 
 .cc-emoji-panel {
   margin-top: 10px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
   border-radius: 12px;
-  background: white;
+  background: var(--bg-primary);
   padding: 10px;
   max-height: 240px;
   overflow-y: auto;
@@ -3943,7 +3982,7 @@ onUnmounted(() => {
 
 .cc-emoji-label {
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   margin-bottom: 4px;
   padding: 0 2px;
 }
@@ -3968,7 +4007,7 @@ onUnmounted(() => {
   transition: background 0.1s;
 }
 
-.cc-emoji-cell:hover { background: #f3f4f6; }
+.cc-emoji-cell:hover { background: var(--hover); }
 
 @media (max-width: 640px) {
   .cc-card { padding: 12px; }
@@ -4019,8 +4058,8 @@ onUnmounted(() => {
     display: flex;
     align-items: center;
     padding: 12px 16px;
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
+    background: var(--bg-primary);
+    border-bottom: 1px solid var(--border);
     gap: 12px;
     flex-shrink: 0;
   }
@@ -4029,7 +4068,7 @@ onUnmounted(() => {
     background: none;
     border: none;
     padding: 4px;
-    color: #1a1a1a;
+    color: var(--text-primary);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -4039,7 +4078,7 @@ onUnmounted(() => {
     flex: 1;
     font-size: 16px;
     font-weight: 600;
-    color: #1a1a1a;
+    color: var(--text-primary);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -4057,7 +4096,7 @@ onUnmounted(() => {
     border-radius: 8px;
     border: none;
     background: transparent;
-    color: #6b7280;
+    color: var(--text-secondary);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -4065,7 +4104,7 @@ onUnmounted(() => {
   }
 
   .mobile-header-btn:hover {
-    background: #f3f4f6;
+    background: var(--hover);
   }
 
   .chat-container {
@@ -4131,11 +4170,11 @@ onUnmounted(() => {
   cursor: pointer;
   user-select: none;
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .category-header:hover {
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .category-arrow {
@@ -4154,7 +4193,7 @@ onUnmounted(() => {
 
 .category-count {
   font-size: 11px;
-  color: #d1d5db;
+  color: var(--border-light);
   margin-left: auto;
 }
 
@@ -4164,12 +4203,12 @@ onUnmounted(() => {
 
 .friend-count {
   font-size: 12px;
-  color: #d1d5db;
+  color: var(--border-light);
 }
 
 .friend-status {
   font-size: 13px;
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .room-item {
@@ -4184,11 +4223,11 @@ onUnmounted(() => {
 }
 
 .room-item:hover {
-  background: #f5f5f5;
+  background: var(--bg-body);
 }
 
 .room-item.active {
-  background: #1a1a1a;
+  background: var(--bubble-own);
 }
 
 .room-item.active .room-name {
@@ -4203,7 +4242,7 @@ onUnmounted(() => {
   width: 36px;
   height: 36px;
   border-radius: 8px;
-  background: #f5f5f5;
+  background: var(--bg-body);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4260,7 +4299,7 @@ onUnmounted(() => {
   position: absolute;
   top: -4px;
   right: -4px;
-  background: #f59e0b;
+  background: var(--status-away);
   color: white;
   font-size: 10px;
   font-weight: 700;
@@ -4291,7 +4330,7 @@ onUnmounted(() => {
 .room-name {
   font-size: 14px;
   font-weight: 500;
-  color: #1a1a1a;
+  color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -4307,7 +4346,7 @@ onUnmounted(() => {
 
 .room-desc {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -4316,12 +4355,12 @@ onUnmounted(() => {
 
 .room-members {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   margin-top: 2px;
 }
 
 .member-preview {
-  background: white;
+  background: var(--bg-primary);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.12);
   padding: 16px;
@@ -4331,16 +4370,16 @@ onUnmounted(() => {
 .preview-header {
   font-size: 14px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 12px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--bubble-other);
   display: flex;
   justify-content: space-between;
 }
 
 .member-count {
-  color: #9ca3af;
+  color: var(--text-tertiary);
   font-weight: 400;
 }
 
@@ -4357,7 +4396,7 @@ onUnmounted(() => {
 }
 
 .preview-member:not(:last-child) {
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 1px solid var(--bg-body);
 }
 
 .preview-avatar {
@@ -4375,19 +4414,19 @@ onUnmounted(() => {
 .preview-name {
   font-size: 13px;
   font-weight: 500;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .preview-status {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
 .preview-role {
-  background: #f3f4f6;
+  background: var(--hover);
   padding: 1px 6px;
   border-radius: 4px;
   font-size: 11px;
@@ -4396,14 +4435,14 @@ onUnmounted(() => {
 
 .preview-more {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   text-align: center;
   padding: 8px 0;
 }
 
 .sidebar-footer {
   padding: 16px;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid var(--border);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -4434,7 +4473,7 @@ onUnmounted(() => {
 .username {
   font-size: 14px;
   font-weight: 500;
-  color: #1a1a1a;
+  color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -4442,7 +4481,7 @@ onUnmounted(() => {
 
 .user-status {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -4464,8 +4503,8 @@ onUnmounted(() => {
 
 .chat-header {
   padding: 16px 24px;
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -4474,12 +4513,12 @@ onUnmounted(() => {
 .header-left h3 {
   font-size: 16px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .header-left p {
   font-size: 13px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   margin-top: 2px;
 }
 
@@ -4547,7 +4586,7 @@ onUnmounted(() => {
 .message-sender {
   font-size: 13px;
   font-weight: 500;
-  color: #1a1a1a;
+  color: var(--text-primary);
   white-space: nowrap;
 }
 
@@ -4559,18 +4598,18 @@ onUnmounted(() => {
 
 .message-time {
   font-size: 11px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   white-space: nowrap;
 }
 
 .message-text {
   display: inline-block;
-  background: white;
+  background: var(--bg-primary);
   padding: 12px 16px;
   border-radius: 12px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
   font-size: 14px;
-  color: #1a1a1a;
+  color: var(--text-primary);
   line-height: 1.5;
   word-break: break-word;
   max-width: 100%;
@@ -4583,7 +4622,7 @@ onUnmounted(() => {
   border-radius: 12px;
   cursor: pointer;
   object-fit: cover;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
 }
 
 .message-own .message-image {
@@ -4591,9 +4630,9 @@ onUnmounted(() => {
 }
 
 .message-own .message-text {
-  background: #1a1a1a;
+  background: var(--bubble-own);
   color: white;
-  border-color: #1a1a1a;
+  border-color: var(--text-primary);
 }
 
 .message-deleted {
@@ -4607,7 +4646,7 @@ onUnmounted(() => {
 
 .message-recalled {
   font-size: 13px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   font-style: italic;
   padding: 4px 0;
 }
@@ -4622,7 +4661,7 @@ onUnmounted(() => {
   border-radius: 6px;
   border: none;
   background: transparent;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -4639,8 +4678,8 @@ onUnmounted(() => {
 
 .message-actions-menu {
   position: fixed;
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
   border-radius: 10px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.12);
   overflow: hidden;
@@ -4662,7 +4701,7 @@ onUnmounted(() => {
 }
 
 .message-actions-menu button:hover {
-  background: #fef2f2;
+  background: var(--danger-bg);
 }
 
 .chat-input-footer {
@@ -4673,13 +4712,13 @@ onUnmounted(() => {
 
 .chat-input-footer .muted-notice {
   padding: 10px 24px;
-  background: #fef2f2;
-  color: #dc2626;
+  background: var(--danger-bg);
+  color: var(--danger);
   font-size: 13px;
   display: flex;
   align-items: center;
   gap: 8px;
-  border-top: 1px solid #fecaca;
+  border-top: 1px solid var(--danger-border);
 }
 
 .emoji-picker-wrapper {
@@ -4691,9 +4730,9 @@ onUnmounted(() => {
   width: 38px;
   height: 38px;
   border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  background: #fafafa;
-  color: #6b7280;
+  border: 1px solid var(--border);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4703,9 +4742,9 @@ onUnmounted(() => {
 }
 
 .emoji-btn:hover {
-  background: #f3f4f6;
-  color: #1a1a1a;
-  border-color: #d1d5db;
+  background: var(--hover);
+  color: var(--text-primary);
+  border-color: var(--border-light);
 }
 
 .emoji-btn:disabled {
@@ -4719,8 +4758,8 @@ onUnmounted(() => {
   left: 0;
   width: 330px;
   height: 320px;
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
   display: flex;
@@ -4733,7 +4772,7 @@ onUnmounted(() => {
   display: flex;
   gap: 2px;
   padding: 8px 10px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border);
   overflow-x: auto;
   flex-shrink: 0;
 }
@@ -4755,11 +4794,11 @@ onUnmounted(() => {
 }
 
 .emoji-cat-btn:hover {
-  background: #f3f4f6;
+  background: var(--hover);
 }
 
 .emoji-cat-btn.active {
-  background: #e5e7eb;
+  background: var(--border);
 }
 
 .emoji-grid {
@@ -4787,7 +4826,7 @@ onUnmounted(() => {
 }
 
 .emoji-item:hover, .emoji-cell:hover {
-  background: #f3f4f6;
+  background: var(--hover);
 }
 
 .emoji-grid::-webkit-scrollbar {
@@ -4795,7 +4834,7 @@ onUnmounted(() => {
 }
 
 .emoji-grid::-webkit-scrollbar-thumb {
-  background: #d1d5db;
+  background: var(--border-light);
   border-radius: 2px;
 }
 
@@ -4804,7 +4843,7 @@ onUnmounted(() => {
   display: flex;
   gap: 8px;
   margin-bottom: 20px;
-  border-bottom: 1px solid #e5e7eb;
+  border-bottom: 1px solid var(--border);
   padding-bottom: 12px;
 }
 
@@ -4813,18 +4852,18 @@ onUnmounted(() => {
   border: none;
   background: transparent;
   font-size: 14px;
-  color: #6b7280;
+  color: var(--text-secondary);
   cursor: pointer;
   border-radius: 6px;
   transition: all 0.15s;
 }
 
 .tab-btn:hover {
-  background: #f3f4f6;
+  background: var(--hover);
 }
 
 .tab-btn.active {
-  background: #1a1a1a;
+  background: var(--bubble-own);
   color: white;
 }
 
@@ -4849,7 +4888,7 @@ onUnmounted(() => {
   border-radius: 12px;
   object-fit: cover;
   display: block;
-  background: #f3f4f6;
+  background: var(--hover);
 }
 
 .room-avatar-overlay {
@@ -4886,7 +4925,7 @@ onUnmounted(() => {
   height: 80px;
   border-radius: 16px;
   object-fit: cover;
-  background: #f3f4f6;
+  background: var(--hover);
 }
 
 .room-detail-info {
@@ -4896,19 +4935,19 @@ onUnmounted(() => {
 .detail-row {
   display: flex;
   padding: 8px 0;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--hover);
 }
 
 .detail-label {
   width: 80px;
   font-size: 13px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   flex-shrink: 0;
 }
 
 .detail-value {
   font-size: 14px;
-  color: #1a1a1a;
+  color: var(--text-primary);
   word-break: break-word;
 }
 
@@ -4936,7 +4975,7 @@ onUnmounted(() => {
 }
 
 .detail-member-item:hover {
-  background: #f9fafb;
+  background: var(--hover-light);
 }
 
 .detail-member-avatar {
@@ -4949,15 +4988,15 @@ onUnmounted(() => {
 .detail-member-name {
   flex: 1;
   font-size: 13px;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 /* 成员操作卡片 */
 .member-action-card {
   position: fixed;
   width: 240px;
-  background: white;
-  border: 1px solid #e5e7eb;
+  background: var(--bg-primary);
+  border: 1px solid var(--border);
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
   padding: 16px;
@@ -4970,7 +5009,7 @@ onUnmounted(() => {
   gap: 12px;
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #f3f4f6;
+  border-bottom: 1px solid var(--hover);
 }
 
 .action-member-avatar {
@@ -4983,12 +5022,12 @@ onUnmounted(() => {
 .action-member-name {
   font-size: 14px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .action-member-status {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -5018,7 +5057,7 @@ onUnmounted(() => {
 }
 
 .member-action-btn:hover {
-  background: #f3f4f6;
+  background: var(--hover);
 }
 
 .form-section h4 {
@@ -5053,7 +5092,7 @@ onUnmounted(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .no-room svg {
@@ -5109,19 +5148,19 @@ onUnmounted(() => {
 
 .upload-hint {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   margin-top: 8px;
 }
 
 .uploading {
   text-align: center;
-  color: #6b7280;
+  color: var(--text-secondary);
   font-size: 13px;
   margin-top: 12px;
 }
 
 .modal .error {
-  color: #dc2626;
+  color: var(--danger);
   font-size: 13px;
   margin-top: 12px;
   text-align: center;
@@ -5141,14 +5180,14 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   padding: 12px 0 16px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--bubble-other);
   margin-bottom: 8px;
 }
 
 .member-list-title {
   font-size: 14px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .member-list-bot-switch {
@@ -5159,13 +5198,13 @@ onUnmounted(() => {
 
 .bot-toggle-label {
   font-size: 13px;
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .bot-toggle-status {
   font-size: 12px;
   font-weight: 500;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   min-width: 40px;
 }
 
@@ -5182,7 +5221,7 @@ onUnmounted(() => {
   align-items: center;
   gap: 12px;
   padding: 12px 0;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--bubble-other);
 }
 
 .member-item:last-child {
@@ -5194,7 +5233,7 @@ onUnmounted(() => {
 }
 
 .bot-member .member-status {
-  color: #d1d5db;
+  color: var(--border-light);
 }
 
 .member-avatar {
@@ -5212,7 +5251,7 @@ onUnmounted(() => {
 .member-name {
   font-size: 14px;
   font-weight: 500;
-  color: #1a1a1a;
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -5231,23 +5270,23 @@ onUnmounted(() => {
 }
 
 .role-badge.admin {
-  background: #e0e7ff;
+  background: var(--accent-light);
   color: #3730a3;
 }
 
 .role-badge.member {
-  background: #f3f4f6;
-  color: #6b7280;
+  background: var(--hover);
+  color: var(--text-secondary);
 }
 
 .role-badge.bot {
-  background: #ede9fe;
+  background: var(--accent-bg);
   color: #6d28d9;
 }
 
 .member-status {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -5255,7 +5294,7 @@ onUnmounted(() => {
 }
 
 .no-status {
-  color: #d1d5db;
+  color: var(--border-light);
 }
 
 .bot-status {
@@ -5264,7 +5303,7 @@ onUnmounted(() => {
 }
 
 .bot-settings-section {
-  border-top: 1px solid #f0f0f0;
+  border-top: 1px solid var(--bubble-other);
   padding: 16px 0;
   margin-top: 8px;
 }
@@ -5297,12 +5336,12 @@ onUnmounted(() => {
 .bot-settings-title {
   font-size: 14px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .bot-settings-desc {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   line-height: 1.4;
 }
 
@@ -5316,7 +5355,7 @@ onUnmounted(() => {
 .bot-status-text {
   font-size: 12px;
   font-weight: 600;
-  color: #9ca3af;
+  color: var(--text-tertiary);
   transition: color 0.2s;
 }
 
@@ -5345,7 +5384,7 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: #d1d5db;
+  background: var(--border-light);
   border-radius: 24px;
   transition: all 0.2s;
 }
@@ -5357,13 +5396,13 @@ onUnmounted(() => {
   width: 18px;
   left: 3px;
   bottom: 3px;
-  background: white;
+  background: var(--bg-primary);
   border-radius: 50%;
   transition: all 0.2s;
 }
 
 .toggle-switch input:checked + .toggle-slider {
-  background: #6366f1;
+  background: var(--accent);
 }
 
 .toggle-switch input:checked + .toggle-slider::before {
@@ -5372,7 +5411,7 @@ onUnmounted(() => {
 
 .muted-badge {
   background: #fee2e2;
-  color: #dc2626;
+  color: var(--danger);
   padding: 1px 6px;
   border-radius: 4px;
   font-size: 11px;
@@ -5395,7 +5434,7 @@ onUnmounted(() => {
 }
 
 .btn-admin {
-  background: #e0e7ff;
+  background: var(--accent-light);
   color: #3730a3;
 }
 
@@ -5404,12 +5443,12 @@ onUnmounted(() => {
 }
 
 .btn-remove-admin {
-  background: #f3f4f6;
-  color: #6b7280;
+  background: var(--hover);
+  color: var(--text-secondary);
 }
 
 .btn-remove-admin:hover {
-  background: #e5e7eb;
+  background: var(--border);
 }
 
 .btn-mute {
@@ -5438,9 +5477,9 @@ onUnmounted(() => {
 
 .duration-btn {
   padding: 8px 14px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: white;
+  background: var(--bg-primary);
   font-size: 13px;
   color: #374151;
   cursor: pointer;
@@ -5448,13 +5487,13 @@ onUnmounted(() => {
 }
 
 .duration-btn:hover {
-  border-color: #1a1a1a;
+  border-color: var(--text-primary);
 }
 
 .duration-btn.active {
-  background: #1a1a1a;
+  background: var(--bubble-own);
   color: white;
-  border-color: #1a1a1a;
+  border-color: var(--text-primary);
 }
 
 .custom-duration-input {
@@ -5472,7 +5511,7 @@ onUnmounted(() => {
 .input-small {
   width: 60px;
   padding: 8px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
   border-radius: 6px;
   font-size: 13px;
   text-align: center;
@@ -5480,11 +5519,11 @@ onUnmounted(() => {
 
 .duration-label {
   font-size: 13px;
-  color: #6b7280;
+  color: var(--text-secondary);
 }
 
 .danger-title {
-  color: #dc2626;
+  color: var(--danger);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -5510,12 +5549,12 @@ onUnmounted(() => {
 }
 
 .toast.success {
-  background: #1a1a1a;
+  background: var(--bubble-own);
   color: white;
 }
 
 .toast.error {
-  background: #dc2626;
+  background: var(--danger);
   color: white;
 }
 

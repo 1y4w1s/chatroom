@@ -117,7 +117,7 @@ const statusOptions = [
   { 
     value: 'invisible', 
     label: '隐身', 
-    icon: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" fill="#9ca3af"/><path d="M4 4L12 12" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>' 
+    icon: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" fill="var(--text-tertiary)"/><path d="M4 4L12 12" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>' 
   }
 ]
 
@@ -264,13 +264,13 @@ onMounted(() => {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: #fafafa;
+  background: var(--bg-secondary);
 }
 
 .profile-header {
   padding: 20px 24px;
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   gap: 16px;
@@ -292,11 +292,11 @@ onMounted(() => {
 }
 
 .profile-card {
-  background: white;
+  background: var(--bg-primary);
   border-radius: 16px;
   padding: 28px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-  border: 1px solid #f3f4f6;
+  border: 1px solid var(--hover);
 }
 
 .avatar-section {
@@ -357,7 +357,7 @@ onMounted(() => {
 
 .display-username {
   font-size: 14px;
-  color: #9ca3af;
+  color: var(--text-tertiary);
 }
 
 .form-section {
@@ -405,17 +405,17 @@ onMounted(() => {
 .input {
   width: 100%;
   padding: 12px 14px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
   border-radius: 10px;
   font-size: 14px;
   transition: all 0.2s;
-  background: #fafafa;
+  background: var(--bg-secondary);
 }
 
 .input:focus {
   outline: none;
   border-color: #1a1a1a;
-  background: white;
+  background: var(--bg-primary);
   box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.05);
 }
 
@@ -430,9 +430,9 @@ onMounted(() => {
   align-items: center;
   gap: 8px;
   padding: 12px 18px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
   border-radius: 10px;
-  background: white;
+  background: var(--bg-primary);
   cursor: pointer;
   font-size: 14px;
   color: #374151;
@@ -441,7 +441,7 @@ onMounted(() => {
 
 .status-btn:hover {
   border-color: #1a1a1a;
-  background: #fafafa;
+  background: var(--bg-secondary);
 }
 
 .status-btn.active {
@@ -458,7 +458,7 @@ onMounted(() => {
 
 .upload-progress {
   text-align: center;
-  color: #6b7280;
+  color: var(--text-secondary);
   font-size: 14px;
   margin-bottom: 16px;
   padding: 12px;
@@ -474,8 +474,8 @@ onMounted(() => {
 }
 
 .msg.error {
-  background: #fef2f2;
-  color: #dc2626;
+  background: var(--danger-bg);
+  color: var(--danger);
   border: 1px solid #fecaca;
 }
 

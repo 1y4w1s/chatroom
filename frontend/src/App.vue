@@ -3,6 +3,14 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
+
+onMounted(() => {
+  const saved = localStorage.getItem('theme')
+  if (saved === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark')
+  }
+})
 </script>
 
 <style>
@@ -12,13 +20,87 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #fafafa;
+  --bg-tertiary: #f8f9fa;
+  --bg-card: #ffffff;
+  --bg-input: #ffffff;
+  --bg-body: #f5f5f5;
+  --bubble-own: #1a1a1a;
+  --bubble-other: #f0f0f0;
+  --text-primary: #1a1a1a;
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
+  --text-placeholder: #9ca3af;
+  --border: #e5e7eb;
+  --border-light: #d1d5db;
+  --accent: #6366f1;
+  --accent-light: #e0e7ff;
+  --accent-bg: #ede9fe;
+  --danger: #dc2626;
+  --danger-bg: #fef2f2;
+  --danger-border: #fecaca;
+  --success: #10b981;
+  --success-bg: #f0fdf4;
+  --hover: #f3f4f6;
+  --hover-light: #f9fafb;
+  --shadow: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+  --overlay: rgba(0,0,0,0.4);
+  --status-online: #10b981;
+  --status-away: #f59e0b;
+  --status-offline: #9ca3af;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #111111;
+  --bg-tertiary: #2a2a2a;
+  --bg-card: #1e1e1e;
+  --bg-input: #2a2a2a;
+  --bg-body: #111111;
+  --bubble-own: #6366f1;
+  --bubble-other: #2a2a2a;
+  --text-primary: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --text-tertiary: #6b7280;
+  --text-placeholder: #6b7280;
+  --border: #333333;
+  --border-light: #444444;
+  --accent: #818cf8;
+  --accent-light: #3730a3;
+  --accent-bg: #2e1065;
+  --danger: #ef4444;
+  --danger-bg: #3a1a1a;
+  --danger-border: #5c2020;
+  --success: #34d399;
+  --success-bg: #1a2a1a;
+  --hover: #333333;
+  --hover-light: #2a2a2a;
+  --shadow: 0 1px 3px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.4);
+  --overlay: rgba(0,0,0,0.6);
+  --status-online: #34d399;
+  --status-away: #fbbf24;
+  --status-offline: #6b7280;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background: #f5f5f5;
+  background: var(--bg-body);
+  color: var(--text-primary);
 }
 
 #app {
   width: 100%;
   height: 100vh;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
 }
 </style>
