@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -4017,6 +4017,53 @@ onUnmounted(() => {
   .cc-emoji-cell { width: 30px; height: 30px; font-size: 17px; }
 }
 
+/* ==================== 深色模式覆写 ==================== */
+[data-theme="dark"] .notification-item.unread {
+  background: var(--accent-light);
+}
+
+[data-theme="dark"] .role-badge.owner {
+  background: #3a2a0a;
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .muted-badge {
+  background: #3a1a1a;
+}
+
+[data-theme="dark"] .btn-mute {
+  background: #3a2a0a;
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .btn-mute:hover {
+  background: #4a3a1a;
+}
+
+[data-theme="dark"] .btn-unmute {
+  background: #1a2a1a;
+  color: #34d399;
+}
+
+[data-theme="dark"] .btn-unmute:hover {
+  background: #2a4a2a;
+}
+
+[data-theme="dark"] .pd-badge.private {
+  background: #3a2a0a;
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .msg.error {
+  background: #3a1a1a;
+  color: #ef4444;
+  border-color: #5c2020;
+}
+
+[data-theme="dark"] .pd-comment-del:hover {
+  color: #ef4444;
+}
+
 /* ==================== 移动端响应式 ==================== */
 .mobile-header {
   display: none;
@@ -4604,7 +4651,7 @@ onUnmounted(() => {
 
 .message-text {
   display: inline-block;
-  background: var(--bg-primary);
+  background: var(--bubble-other);
   padding: 12px 16px;
   border-radius: 12px;
   border: 1px solid var(--border);

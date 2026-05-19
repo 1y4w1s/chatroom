@@ -65,8 +65,8 @@ onMounted(() => {
   --bubble-other: #2a2a2a;
   --text-primary: #e5e7eb;
   --text-secondary: #9ca3af;
-  --text-tertiary: #6b7280;
-  --text-placeholder: #6b7280;
+  --text-tertiary: #8a8a8a;
+  --text-placeholder: #8a8a8a;
   --border: #333333;
   --border-light: #444444;
   --accent: #818cf8;
