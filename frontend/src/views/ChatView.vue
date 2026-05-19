@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -66,9 +66,11 @@
                 :key="room.id"
                 class="room-item"
                 :class="{ active: currentRoomId === room.id }"
-                @click="joinRoom(room.id)"
+                @click="handleRoomClick(room.id)"
                 @mouseenter="showMemberPreview(room.id)"
                 @mouseleave="hideMemberPreview"
+                @touchstart="handleTouchStart(room.id)"
+                @touchend="handleTouchEnd"
               >
                 <div class="room-icon">
                   <img v-if="getRoomListAvatar(room)" :src="getRoomListAvatar(room)" class="room-list-avatar" />
@@ -1147,6 +1149,8 @@ const uploadError = ref('')
 const previewRoomId = ref(null)
 const previewMembers = ref([])
 const previewPosition = ref({})
+const longPressTimer = ref(null)
+const longPressTriggered = ref(false)
 
 const showMemberManagement = ref(false)
 const showMuteModal = ref(false)
@@ -1986,9 +1990,40 @@ const showMemberPreview = async (roomId, event) => {
 }
 
 const hideMemberPreview = () => {
+  if (longPressTriggered.value) return
   previewRoomId.value = null
   previewMembers.value = []
 }
+
+function handleTouchStart(roomId) {
+  longPressTriggered.value = false
+  longPressTimer.value = setTimeout(() => {
+    longPressTriggered.value = true
+    showMemberPreview(roomId)
+  }, 500)
+}
+
+function handleTouchEnd() {
+  clearTimeout(longPressTimer.value)
+}
+
+function handleRoomClick(id) {
+  if (longPressTriggered.value) {
+    longPressTriggered.value = false
+    previewRoomId.value = null
+    previewMembers.value = []
+    return
+  }
+  joinRoom(id)
+}
+
+watch(showMobileDrawer, (val) => {
+  if (!val) {
+    longPressTriggered.value = false
+    previewRoomId.value = null
+    previewMembers.value = []
+  }
+})
 
 const sendMessage = async () => {
   if ((!newMessage.value.trim() && chatImages.value.length === 0) || !currentRoomId.value || hasActiveMute.value) {
