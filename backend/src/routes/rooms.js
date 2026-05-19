@@ -235,7 +235,7 @@ router.get('/:id', async (req, res) => {
     
     // 获取成员列表，动态计算禁言状态（已过期的禁言视为未禁言）
     const members = await query(
-      `SELECT u.id, u.username, u.nickname, u.avatar,
+      `SELECT u.id, u.username, u.nickname, u.avatar, u.is_bot,
               CASE WHEN u.status = 'invisible' THEN 'offline' ELSE u.status END as status,
               rm.role, rm.is_muted,
               DATE_FORMAT(rm.muted_until, '%Y-%m-%dT%T+08:00') as muted_until
@@ -301,13 +301,13 @@ router.get('/:id/members', async (req, res) => {
     }
     
     const members = await query(
-      `SELECT u.id, u.username, u.nickname, u.avatar,
+      `SELECT u.id, u.username, u.nickname, u.avatar, u.is_bot,
               CASE WHEN u.status = 'invisible' THEN 'offline' ELSE u.status END as status,
               rm.role, rm.is_muted,
               DATE_FORMAT(rm.muted_until, '%Y-%m-%dT%T+08:00') as muted_until
        FROM room_members rm
        JOIN users u ON rm.user_id = u.id
-       WHERE rm.room_id = ?
+       WHERE rm.room_id = ? 
        ORDER BY rm.role DESC, u.username ASC`,
       [roomId]
     );
