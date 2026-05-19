@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -19,24 +19,27 @@
       <div class="sidebar-tabs">
         <button class="sidebar-tab" :class="{ active: sidebarTab === 'rooms' }" @click="sidebarTab = 'rooms'; showMobileDrawer = false">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M4 9H14M9 4V14" :stroke="sidebarTab === 'rooms' ? 'currentColor' : '#9ca3af'" :stroke-width="sidebarTab === 'rooms' ? 2.2 : 1.5" stroke-linecap="round"/>
-            <circle cx="9" cy="9" r="7.5" :stroke="sidebarTab === 'rooms' ? 'currentColor' : '#9ca3af'" :fill="sidebarTab === 'rooms' ? 'currentColor' : 'none'" stroke-width="1.5"/>
+            <path d="M3 4C3 3.4 3.4 3 4 3H14C14.6 3 15 3.4 15 4V12C15 12.6 14.6 13 14 13H10L8 15V13H4C3.4 13 3 12.6 3 12V4Z" :stroke="sidebarTab === 'rooms' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'rooms' ? 'currentColor' : 'none'"/>
+            <circle cx="7.5" cy="8" r="1.5" :fill="sidebarTab === 'rooms' ? 'white' : '#9ca3af'"/>
+            <circle cx="10.5" cy="8" r="1.5" :fill="sidebarTab === 'rooms' ? 'white' : '#9ca3af'"/>
           </svg>
           <span>聊天室</span>
         </button>
         <button class="sidebar-tab" :class="{ active: sidebarTab === 'friends' }" @click="sidebarTab = 'friends'; showMobileDrawer = false; loadFriends()">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <circle cx="7" cy="5.5" r="3" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'" stroke-width="1.5"/>
-            <path d="M2 15.5C2 12.7 4.2 10.5 7 10.5C9.8 10.5 12 12.7 12 15.5" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="13" cy="5.5" r="2" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" stroke-width="1.2" fill="none"/>
-            <path d="M16 15.5C16 13.3 14.6 11.5 13 11.5" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            <path d="M5.5 4C5.5 2.6 6.6 1.5 8 1.5C9.4 1.5 10.5 2.6 10.5 4C10.5 5.4 9.4 6.5 8 6.5C6.6 6.5 5.5 5.4 5.5 4Z" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'"/>
+            <path d="M2.5 15C2.5 12.5 4.5 10.5 7 10.5H9C11.5 10.5 13.5 12.5 13.5 15" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'"/>
+            <path d="M12 4.5C13.4 4.5 14.5 5.6 14.5 7C14.5 7.8 14.2 8.5 13.7 9" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M16.5 10.5C16.5 11.4 16.2 12.2 15.7 12.9C15.5 13.2 15.2 13.4 14.9 13.6" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" stroke-linecap="round" fill="none"/>
           </svg>
           <span>好友</span>
         </button>
         <button class="sidebar-tab" :class="{ active: sidebarTab === 'posts' }" @click="sidebarTab = 'posts'; showMobileDrawer = false">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <rect x="2.5" y="2.5" width="13" height="13" rx="2" :stroke="sidebarTab === 'posts' ? 'currentColor' : '#9ca3af'" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'" stroke-width="1.5"/>
-            <path d="M5.5 7H12.5M5.5 10H10.5" :stroke="sidebarTab === 'posts' ? 'white' : '#9ca3af'" stroke-width="1.2" stroke-linecap="round"/>
+            <rect x="1.5" y="1.5" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
+            <rect x="10" y="1.5" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
+            <rect x="1.5" y="10" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
+            <rect x="10" y="10" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : '#9ca3af'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
           </svg>
           <span>贴子</span>
         </button>
@@ -47,8 +50,8 @@
           <div class="room-list-header">
             <span class="room-list-title">聊天列表</span>
             <button class="btn btn-primary btn-sm" @click="showCreateModal = true">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M7 2V12M2 7H12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
               </svg>
               新建群聊
             </button>
