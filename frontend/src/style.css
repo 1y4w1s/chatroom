@@ -49,12 +49,12 @@ body {
 }
 
 .btn-primary {
-  background: var(--bubble-own, #1a1a1a);
+  background: var(--accent, #1a1a1a);
   color: white;
 }
 
 .btn-primary:hover {
-  background: var(--text-primary, #333);
+  background: var(--accent-bg, #333);
 }
 
 .btn-primary:disabled {
@@ -247,7 +247,7 @@ body {
 }
 
 .toast.success {
-  background: var(--bubble-own, #1a1a1a);
+  background: var(--accent, #1a1a1a);
   color: white;
 }
 

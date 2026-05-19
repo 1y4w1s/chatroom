@@ -279,7 +279,7 @@ onMounted(() => {
 .profile-header h2 {
   font-size: 18px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .profile-body {
@@ -304,7 +304,7 @@ onMounted(() => {
   align-items: center;
   gap: 20px;
   padding-bottom: 24px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border);
   margin-bottom: 24px;
 }
 
@@ -351,7 +351,7 @@ onMounted(() => {
 .display-name {
   font-size: 20px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
@@ -371,10 +371,10 @@ onMounted(() => {
 .form-section h3 {
   font-size: 16px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 16px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border);
 }
 
 .form-group {
@@ -414,7 +414,7 @@ onMounted(() => {
 
 .input:focus {
   outline: none;
-  border-color: #1a1a1a;
+  border-color: var(--text-primary);
   background: var(--bg-primary);
   box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.05);
 }
@@ -440,12 +440,12 @@ onMounted(() => {
 }
 
 .status-btn:hover {
-  border-color: #1a1a1a;
+  border-color: var(--text-primary);
   background: var(--bg-secondary);
 }
 
 .status-btn.active {
-  border-color: #1a1a1a;
+  border-color: var(--text-primary);
   background: #1a1a1a;
   color: white;
 }
@@ -462,7 +462,7 @@ onMounted(() => {
   font-size: 14px;
   margin-bottom: 16px;
   padding: 12px;
-  background: #f9fafb;
+  background: var(--hover-light);
   border-radius: 8px;
 }
 
@@ -476,7 +476,7 @@ onMounted(() => {
 .msg.error {
   background: var(--danger-bg);
   color: var(--danger);
-  border: 1px solid #fecaca;
+  border: 1px solid var(--danger-border);
 }
 
 .msg.success {
