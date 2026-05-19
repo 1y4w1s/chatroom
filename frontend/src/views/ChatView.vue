@@ -1,6 +1,6 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
-    <aside class="sidebar">
+    <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
         <h2>聊天</h2>
         <button class="btn-icon" @click="showNotificationPanel = true" :class="{ 'has-notification': notificationUnread > 0 }">
@@ -17,14 +17,14 @@
       </div>
 
       <div class="sidebar-tabs">
-        <button class="sidebar-tab" :class="{ active: sidebarTab === 'rooms' }" @click="sidebarTab = 'rooms'">
+        <button class="sidebar-tab" :class="{ active: sidebarTab === 'rooms' }" @click="sidebarTab = 'rooms'; showMobileDrawer = false">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
             <path d="M4 9H14M9 4V14" :stroke="sidebarTab === 'rooms' ? 'currentColor' : '#9ca3af'" :stroke-width="sidebarTab === 'rooms' ? 2.2 : 1.5" stroke-linecap="round"/>
             <circle cx="9" cy="9" r="7.5" :stroke="sidebarTab === 'rooms' ? 'currentColor' : '#9ca3af'" :fill="sidebarTab === 'rooms' ? 'currentColor' : 'none'" stroke-width="1.5"/>
           </svg>
           <span>聊天室</span>
         </button>
-        <button class="sidebar-tab" :class="{ active: sidebarTab === 'friends' }" @click="sidebarTab = 'friends'; loadFriends()">
+        <button class="sidebar-tab" :class="{ active: sidebarTab === 'friends' }" @click="sidebarTab = 'friends'; showMobileDrawer = false; loadFriends()">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
             <circle cx="7" cy="5.5" r="3" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'" stroke-width="1.5"/>
             <path d="M2 15.5C2 12.7 4.2 10.5 7 10.5C9.8 10.5 12 12.7 12 15.5" :stroke="sidebarTab === 'friends' ? 'currentColor' : '#9ca3af'" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'" stroke-width="1.5" stroke-linecap="round"/>
@@ -33,7 +33,7 @@
           </svg>
           <span>好友</span>
         </button>
-        <button class="sidebar-tab" :class="{ active: sidebarTab === 'posts' }" @click="sidebarTab = 'posts'">
+        <button class="sidebar-tab" :class="{ active: sidebarTab === 'posts' }" @click="sidebarTab = 'posts'; showMobileDrawer = false">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
             <rect x="2.5" y="2.5" width="13" height="13" rx="2" :stroke="sidebarTab === 'posts' ? 'currentColor' : '#9ca3af'" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'" stroke-width="1.5"/>
             <path d="M5.5 7H12.5M5.5 10H10.5" :stroke="sidebarTab === 'posts' ? 'white' : '#9ca3af'" stroke-width="1.2" stroke-linecap="round"/>
@@ -222,7 +222,7 @@
       </div>
 
       <div class="sidebar-footer">
-        <div class="user-info" @click="goToProfile" title="点击进入个人中心">
+        <div class="user-info" @click="goToProfile(); showMobileDrawer = false" title="点击进入个人中心">
           <img :src="getAvatarUrl(authStore.user?.avatar, authStore.user?.nickname || authStore.user?.username)" class="avatar" />
           <div class="user-details">
             <div class="username">{{ authStore.user?.nickname || authStore.user?.username }}</div>
@@ -235,6 +235,25 @@
         <button class="btn btn-secondary btn-sm" @click="handleLogout">退出</button>
       </div>
     </aside>
+
+    <div v-if="showMobileDrawer" class="mobile-overlay" @click="showMobileDrawer = false"></div>
+
+    <header class="mobile-header">
+      <button class="mobile-menu-btn" @click="showMobileDrawer = true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <h3 class="mobile-title">{{ currentRoom?.name || '聊天' }}</h3>
+      <div class="mobile-header-right">
+        <button v-if="currentRoomId" class="btn-icon mobile-header-btn" @click="showRoomDetail = true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M10 7V13M7 10H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </header>
 
     <div v-if="showAvatarUpload" class="modal-overlay" @click="showAvatarUpload = false">
       <div class="modal" @click.stop>
@@ -1182,6 +1201,7 @@ const showRoomDetail = ref(false)
 
 // 侧边栏 Tab
 const sidebarTab = ref('rooms')
+const showMobileDrawer = ref(false)
 const showGroupChats = ref(true)
 const showPrivateChats = ref(true)
 const groupRooms = computed(() => rooms.value.filter(r => r.type !== 'private'))
@@ -1414,6 +1434,7 @@ const normalizePost = (p) => {
 }
 
 const openPostDetail = async (post) => {
+  showMobileDrawer.value = false
   activeMainTab.value = 'post'
   try {
     const response = await postAPI.getDetail(authStore.userId, post.id)
@@ -1882,6 +1903,7 @@ const loadRooms = async () => {
 }
 
 const joinRoom = async (roomId) => {
+  showMobileDrawer.value = false
   activeMainTab.value = 'chat'
   try {
     await roomAPI.join(roomId, authStore.userId)
@@ -3849,6 +3871,143 @@ onUnmounted(() => {
   .cc-icon-btn { width: 32px; height: 32px; }
   .cc-send-btn { height: 34px; padding: 0 14px; font-size: 13px; }
   .cc-emoji-cell { width: 30px; height: 30px; font-size: 17px; }
+}
+
+/* ==================== 移动端响应式 ==================== */
+.mobile-header {
+  display: none;
+}
+
+.mobile-overlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    width: 85vw;
+    max-width: 340px;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .mobile-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 199;
+  }
+
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    background: white;
+    border-bottom: 1px solid #e5e7eb;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .mobile-menu-btn {
+    background: none;
+    border: none;
+    padding: 4px;
+    color: #1a1a1a;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  .mobile-title {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mobile-header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mobile-header-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: #6b7280;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-header-btn:hover {
+    background: #f3f4f6;
+  }
+
+  .chat-container {
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .chat-main {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chat-main > .no-room {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .chat-wrapper {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .message-list {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .chat-input-footer .cc-card {
+    margin: 6px 12px 10px;
+  }
+
+  .modal {
+    width: 92vw;
+    max-width: 92vw;
+  }
+
+  .room-settings-modal {
+    width: 92vw;
+  }
 }
 
 .room-list {
