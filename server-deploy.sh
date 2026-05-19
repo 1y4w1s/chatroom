@@ -30,7 +30,7 @@ npm run build
 # 5. 部署前端到 Nginx 目录
 echo "📂 部署前端到 Nginx..."
 if [ -d "/var/www/html" ]; then
-    sudo cp -r ../frontend/dist/* /var/www/html/
+    sudo cp -r dist/* /var/www/html/
     echo "✅ 前端文件已复制到 /var/www/html/"
     
     # 设置 Nginx 缓存控制
