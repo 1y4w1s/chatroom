@@ -125,7 +125,7 @@ class MessageService {
                  u.username, u.nickname, u.avatar, u.is_bot
           FROM messages m
           JOIN users u ON m.user_id = u.id
-         WHERE m.room_id = ? AND m.is_deleted = FALSE
+         WHERE m.room_id = ?
          ORDER BY m.created_at DESC`,
         [roomId]
       );
@@ -136,7 +136,7 @@ class MessageService {
                   u.username, u.nickname, u.avatar
            FROM messages m
            JOIN users u ON m.user_id = u.id
-           WHERE m.room_id = ? AND m.is_deleted = FALSE
+           WHERE m.room_id = ?
            ORDER BY m.created_at DESC`,
           [roomId]
         );
@@ -184,6 +184,31 @@ class MessageService {
        SET content = ?, is_edited = TRUE, edited_at = NOW() 
        WHERE id = ?`,
       [filteredContent, messageId]
+    );
+    
+    return true;
+  }
+  
+  /**
+   * 撤回消息
+   */
+  static async recallMessage(messageId, userId) {
+    const messages = await query(
+      'SELECT user_id FROM messages WHERE id = ?',
+      [messageId]
+    );
+    
+    if (messages.length === 0) {
+      throw new Error('消息不存在');
+    }
+    
+    if (messages[0].user_id !== userId) {
+      throw new Error('无权撤回此消息');
+    }
+    
+    await query(
+      'UPDATE messages SET is_deleted = TRUE WHERE id = ?',
+      [messageId]
     );
     
     return true;

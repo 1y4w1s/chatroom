@@ -120,6 +120,7 @@ export const messageAPI = {
   },
   edit: (userId, id, data) => api.put(`/messages/${id}`, { userId, ...data }),
   delete: (userId, id) => api.delete(`/messages/${id}`, { data: { userId } }),
+  recall: (userId, id) => api.post(`/messages/${id}/recall`, { userId }),
   markRead: (userId, id) => api.post(`/messages/${id}/read`, { userId })
 }
 

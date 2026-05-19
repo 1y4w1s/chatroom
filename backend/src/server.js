@@ -299,6 +299,13 @@ io.on('connection', (socket) => {
     }
   });
   
+  socket.on('recall_message', (data) => {
+    const { roomId, messageId, userId } = data;
+    if (roomId && messageId) {
+      io.to(roomId).emit('message_recalled', { messageId, roomId, userId });
+    }
+  });
+  
   socket.on('typing', (data) => {
     const { roomId, userId, username } = data;
     socket.to(roomId).emit('user_typing', { userId, username, roomId });

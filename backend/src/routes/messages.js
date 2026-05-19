@@ -148,6 +148,38 @@ router.delete('/:id', async (req, res) => {
 });
 
 /**
+ * POST /api/messages/:id/recall
+ * 撤回消息
+ */
+router.post('/:id/recall', async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const messageId = req.params.id;
+    
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        error: { message: '缺少用户 ID' }
+      });
+    }
+    
+    const MessageService = require('../services/messageService');
+    await MessageService.recallMessage(messageId, userId);
+    
+    res.json({
+      success: true,
+      message: '消息已撤回'
+    });
+  } catch (error) {
+    console.error('撤回消息失败:', error);
+    res.status(500).json({
+      success: false,
+      error: { message: error.message || '撤回失败' }
+    });
+  }
+});
+
+/**
  * POST /api/messages/:id/read
  * 标记消息为已读
  */

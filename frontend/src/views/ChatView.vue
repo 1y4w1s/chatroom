@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -458,7 +458,7 @@
             v-for="message in messages"
             :key="message.id"
             class="message"
-            :class="{ 'message-own': message.sender_id === authStore.user?.id }"
+            :class="{ 'message-own': message.sender_id === authStore.user?.id, 'message-deleted': message.is_deleted }"
           >
             <img :src="getAvatarUrl(message.avatar, message.nickname || message.username)" class="message-avatar" @click="openMessageMemberAction(message, $event)" style="cursor:pointer" />
             <div class="message-content">
@@ -467,8 +467,23 @@
                 <span v-if="message.is_bot" class="bot-badge">🤖</span>
                 <span class="message-time">{{ formatTime(message.created_at) }}</span>
               </div>
-              <img v-if="message.type === 'image'" :src="getMessageImageUrl(message)" class="message-image" @click="previewMessageImage(message)" />
-              <div v-else class="message-text">{{ message.content }}</div>
+              <template v-if="message.is_deleted">
+                <div class="message-recalled">消息已撤回</div>
+              </template>
+              <template v-else>
+                <img v-if="message.type === 'image'" :src="getMessageImageUrl(message)" class="message-image" @click="previewMessageImage(message)" />
+                <div v-else class="message-text">{{ message.content }}</div>
+              </template>
+              <div v-if="message.sender_id === authStore.user?.id && !message.is_deleted" class="message-actions" @click.stop="toggleMessageActions(message.id, $event)">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="4" r="1.5" fill="currentColor"/>
+                  <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+                  <circle cx="8" cy="12" r="1.5" fill="currentColor"/>
+                </svg>
+              </div>
+              <div v-if="showMessageActions === message.id" class="message-actions-menu" :style="messageActionsPos">
+                <button @click.stop="recallMessage(message)">撤回</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1129,6 +1144,8 @@ const messages = ref([])
 const newMessage = ref('')
 const showCreateModal = ref(false)
 const messageListRef = ref(null)
+const showMessageActions = ref(null)
+const messageActionsPos = ref({})
 
 const newRoom = ref({
   name: '',
@@ -2078,6 +2095,36 @@ const handleTyping = () => {
   }
 }
 
+function toggleMessageActions(messageId, event) {
+  if (showMessageActions.value === messageId) {
+    showMessageActions.value = null
+    return
+  }
+  showMessageActions.value = messageId
+  const rect = event.currentTarget.getBoundingClientRect()
+  messageActionsPos.value = {
+    position: 'fixed',
+    top: (rect.top - 4) + 'px',
+    right: (window.innerWidth - rect.right + 4) + 'px',
+    zIndex: '100'
+  }
+}
+
+async function recallMessage(message) {
+  try {
+    await messageAPI.recall(authStore.userId, message.id)
+    authStore.socket.emit('recall_message', {
+      roomId: currentRoomId.value,
+      messageId: message.id,
+      userId: authStore.userId
+    })
+    message.is_deleted = true
+    showMessageActions.value = null
+  } catch (e) {
+    console.error('撤回失败:', e)
+  }
+}
+
 const createRoom = async () => {
   try {
     const response = await roomAPI.create({ ...newRoom.value, owner_id: authStore.userId })
@@ -2581,6 +2628,15 @@ const setupSocketListeners = () => {
     }
   })
   
+  socket.on('message_recalled', (data) => {
+    if (data.roomId === currentRoomId.value) {
+      const msg = messages.value.find(m => m.id === data.messageId)
+      if (msg) {
+        msg.is_deleted = true
+      }
+    }
+  })
+  
   socket.on('room_dissolved', (data) => {
     console.log('聊天室解散:', data)
     if (data.roomId === currentRoomId.value) {
@@ -2635,6 +2691,10 @@ onMounted(() => {
         .catch(() => {})
     }
   }, 30000)
+  
+  document.addEventListener('click', () => {
+    showMessageActions.value = null
+  })
 })
 
 onUnmounted(() => {
@@ -4534,6 +4594,81 @@ onUnmounted(() => {
   background: #1a1a1a;
   color: white;
   border-color: #1a1a1a;
+}
+
+.message-deleted {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.message-deleted .message-avatar {
+  filter: grayscale(1);
+}
+
+.message-recalled {
+  font-size: 13px;
+  color: #9ca3af;
+  font-style: italic;
+  padding: 4px 0;
+}
+
+.message-own .message-recalled {
+  color: #aaa;
+}
+
+.message-actions {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: #9ca3af;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s;
+}
+
+.message-own:hover .message-actions {
+  opacity: 0.6;
+}
+
+.message-own .message-actions:hover {
+  opacity: 1;
+  background: rgba(0,0,0,0.05);
+}
+
+.message-actions-menu {
+  position: fixed;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  overflow: hidden;
+  z-index: 100;
+}
+
+.message-actions-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  color: #ef4444;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  transition: background 0.1s;
+}
+
+.message-actions-menu button:hover {
+  background: #fef2f2;
 }
 
 .chat-input-footer {
