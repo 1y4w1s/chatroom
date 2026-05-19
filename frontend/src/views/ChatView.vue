@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -132,13 +132,13 @@
                 <img :src="getAvatarUrl(member.avatar, member.nickname || member.username)" class="preview-avatar" />
                 <div class="preview-info">
                   <div class="preview-name">{{ member.nickname || member.username }}</div>
-                  <div class="preview-status" :class="member.status">
-                    <span class="status-dot" :class="member.status"></span>
-                    {{ member.status === 'online' ? '在线' : member.status === 'away' ? '离开' : '离线' }}
-                    <span v-if="member.role === 'owner' || member.role === 'admin'" class="preview-role">
-                      {{ member.role === 'owner' ? '群主' : '管理员' }}
-                    </span>
-                  </div>
+                  <template v-if="!member.is_bot">
+                    <div class="preview-status" :class="member.status">
+                      <span class="status-dot" :class="member.status"></span>
+                      {{ member.status === 'online' ? '在线' : member.status === 'away' ? '离开' : '离线' }}
+                    </div>
+                  </template>
+                  <div v-else class="preview-status bot-status">🤖 机器人</div>
                 </div>
               </div>
               <div v-if="previewMembers.length > 6" class="preview-more">
@@ -467,7 +467,36 @@
           </div>
           <div class="cc-card" v-else>
             <div class="cc-input-row">
-              <input v-model="newMessage" class="cc-input" placeholder="输入消息..." @keyup.enter="sendMessage" @input="handleTyping" />
+              <div class="cc-input-wrap">
+                <input v-model="newMessage" class="cc-input" placeholder="输入消息..." @keyup.enter="sendMessage" @input="handleMentionInput($event); handleTyping()" @keydown="handleMentionKeydown" />
+                <div v-if="showMentionPanel" class="mention-panel" ref="mentionPanelRef">
+                  <div class="mention-panel-header">
+                    <span>成员列表</span>
+                    <span class="mention-count">{{ filteredMentionMembers.length }}人</span>
+                  </div>
+                  <div class="mention-panel-list">
+                    <div
+                      v-for="(member, index) in filteredMentionMembers"
+                      :key="member.id"
+                      class="mention-panel-item"
+                      :class="{ active: mentionSelectedIndex === index }"
+                      @click="selectMentionMember(member)"
+                      @mouseenter="mentionSelectedIndex = index"
+                    >
+                      <img :src="getAvatarUrl(member.avatar, member.nickname || member.username)" class="mention-avatar" />
+                      <div class="mention-info">
+                        <span class="mention-name">{{ member.nickname || member.username }}</span>
+                        <span v-if="member.is_bot" class="bot-tag">🤖</span>
+                      </div>
+                      <span v-if="member.role === 'owner'" class="role-badge owner">群主</span>
+                      <span v-else-if="member.role === 'admin'" class="role-badge admin">管理员</span>
+                    </div>
+                    <div v-if="filteredMentionMembers.length === 0" class="mention-panel-empty">
+                      无匹配成员
+                    </div>
+                  </div>
+                </div>
+              </div>
               <button v-if="showChatEmoji" class="cc-icon-btn active" @click="showChatEmoji = false">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
               </button>
@@ -587,43 +616,67 @@
               :key="member.id"
               class="member-item"
             >
-              <img :src="getAvatarUrl(member.avatar, member.nickname || member.username)" class="member-avatar" @click="openMemberAction(member, $event)" style="cursor:pointer" />
+              <img :src="getAvatarUrl(member.avatar, member.nickname || member.username)" class="member-avatar" @click="member.is_bot ? null : openMemberAction(member, $event)" style="cursor:pointer" />
               <div class="member-info">
                 <div class="member-name">
                   {{ member.nickname || member.username }}
-                  <span v-if="member.role === 'owner'" class="role-badge owner">群主</span>
+                  <span v-if="member.is_bot" class="role-badge bot">🤖 机器人</span>
+                  <span v-else-if="member.role === 'owner'" class="role-badge owner">群主</span>
                   <span v-else-if="member.role === 'admin'" class="role-badge admin">管理员</span>
                   <span v-else class="role-badge member">成员</span>
                 </div>
                 <div class="member-status">
-                  <span class="status-dot" :class="member.status"></span>
-                  {{ member.status === 'online' ? '在线' : member.status === 'away' ? '离开' : '离线' }}
-                  <span v-if="isEffectivelyMuted(member)" class="muted-badge" :title="formatMuteTime(member.muted_until)">
-                    已禁言{{ formatMuteDuration(member.muted_until) }}
-                  </span>
+                  <template v-if="!member.is_bot">
+                    <span class="status-dot" :class="member.status"></span>
+                    {{ member.status === 'online' ? '在线' : member.status === 'away' ? '离开' : '离线' }}
+                    <span v-if="isEffectivelyMuted(member)" class="muted-badge" :title="formatMuteTime(member.muted_until)">
+                      已禁言{{ formatMuteDuration(member.muted_until) }}
+                    </span>
+                  </template>
+                  <span v-else class="no-status">-</span>
                 </div>
               </div>
               <div class="member-actions">
                 <button 
-                  v-if="currentPermissions.isOwner && member.role === 'member'"
+                  v-if="currentPermissions.isOwner && member.role === 'member' && !member.is_bot"
                   class="action-btn btn-admin"
                   @click="grantAdmin(member.id)"
                 >设为管理员</button>
                 <button 
-                  v-if="currentPermissions.isOwner && member.role === 'admin'"
+                  v-if="currentPermissions.isOwner && member.role === 'admin' && !member.is_bot"
                   class="action-btn btn-remove-admin"
                   @click="revokeAdmin(member.id)"
                 >撤销管理员</button>
                 <button 
-                  v-if="currentPermissions.isAdmin && member.role === 'member' && !isEffectivelyMuted(member)"
+                  v-if="currentPermissions.isAdmin && member.role === 'member' && !member.is_bot && !isEffectivelyMuted(member)"
                   class="action-btn btn-mute"
                   @click="openMuteModal(member)"
                 >禁言</button>
                 <button 
-                  v-if="currentPermissions.isAdmin && isEffectivelyMuted(member)"
+                  v-if="currentPermissions.isAdmin && isEffectivelyMuted(member) && !member.is_bot"
                   class="action-btn btn-unmute"
                   @click="unmuteMember(member.id)"
                 >解除禁言</button>
+              </div>
+            </div>
+            <div v-if="currentPermissions.isOwner" class="bot-settings-section">
+              <div class="bot-settings-row">
+                <div class="bot-settings-info">
+                  <span class="bot-settings-icon">🤖</span>
+                  <div class="bot-settings-text">
+                    <span class="bot-settings-title">聊天机器人</span>
+                    <span class="bot-settings-desc">启用后机器人将出现在成员列表中，群成员可通过 @ 机器人 与 AI 对话</span>
+                  </div>
+                </div>
+                <div class="bot-settings-control">
+                  <span class="bot-status-text" :class="{ enabled: currentRoom?.enable_bot }">
+                    {{ currentRoom?.enable_bot ? '已启用' : '已禁用' }}
+                  </span>
+                  <label class="toggle-switch">
+                    <input type="checkbox" :checked="!!currentRoom?.enable_bot" @change="toggleBot" />
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
@@ -753,10 +806,11 @@
           <div class="room-detail-members">
             <h4>成员列表（{{ currentMembers.length }}）</h4>
             <div class="detail-member-list">
-              <div v-for="member in currentMembers" :key="member.id" class="detail-member-item" @click="openMemberAction(member, $event)">
+              <div v-for="member in currentMembers" :key="member.id" class="detail-member-item" @click="member.is_bot ? null : openMemberAction(member, $event)">
                 <img :src="getAvatarUrl(member.avatar, member.nickname || member.username)" class="detail-member-avatar" />
                 <div class="detail-member-name">{{ member.nickname || member.username }}</div>
-                <span v-if="member.role === 'owner'" class="role-badge owner">群主</span>
+                <span v-if="member.is_bot" class="role-badge bot">🤖 机器人</span>
+                <span v-else-if="member.role === 'owner'" class="role-badge owner">群主</span>
                 <span v-else-if="member.role === 'admin'" class="role-badge admin">管理员</span>
               </div>
             </div>
@@ -1697,6 +1751,21 @@ const showChatEmoji = ref(false)
 const chatImages = ref([])
 const chatEmojiRef = ref(null)
 
+// @ 提及功能
+const showMentionPanel = ref(false)
+const mentionQuery = ref('')
+const mentionSelectedIndex = ref(0)
+const mentionPanelRef = ref(null)
+
+const filteredMentionMembers = computed(() => {
+  if (!mentionQuery.value) return currentMembers.value
+  const q = mentionQuery.value.toLowerCase()
+  return currentMembers.value.filter(m => {
+    const name = (m.nickname || m.username || '').toLowerCase()
+    return name.includes(q)
+  })
+})
+
 function insertChatEmoji(emoji) {
   newMessage.value += emoji
 }
@@ -1711,6 +1780,90 @@ const handleChatImageSelect = (e) => {
 const removeChatImage = (i) => {
   URL.revokeObjectURL(chatImages.value[i].preview)
   chatImages.value.splice(i, 1)
+}
+
+// @ 提及处理
+function handleMentionInput(event) {
+  const cursorPos = getCursorPosition(event)
+  if (cursorPos === -1) {
+    showMentionPanel.value = false
+    return
+  }
+  
+  const textBefore = newMessage.value.slice(0, cursorPos)
+  const atIndex = textBefore.lastIndexOf('@')
+  
+  if (atIndex !== -1) {
+    const afterAt = textBefore.slice(atIndex + 1)
+    const charBeforeAt = atIndex > 0 ? textBefore[atIndex - 1] : ' '
+    const isNewMention = charBeforeAt === ' ' || charBeforeAt === '\n' || textBefore.length === 1
+    
+    if (isNewMention && afterAt.length <= 20 && !afterAt.includes(' ')) {
+      mentionQuery.value = afterAt
+      mentionSelectedIndex.value = 0
+      showMentionPanel.value = true
+      return
+    }
+  }
+  
+  showMentionPanel.value = false
+}
+
+function getCursorPosition(event) {
+  if (event && event.target) {
+    return event.target.selectionStart
+  }
+  const input = document.querySelector('.cc-input-wrap .cc-input')
+  if (!input) return -1
+  return input.selectionStart
+}
+
+function handleMentionKeydown(e) {
+  if (!showMentionPanel.value) return
+  
+  if (e.key === 'ArrowDown') {
+    e.preventDefault()
+    mentionSelectedIndex.value = Math.min(
+      mentionSelectedIndex.value + 1,
+      filteredMentionMembers.value.length - 1
+    )
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault()
+    mentionSelectedIndex.value = Math.max(mentionSelectedIndex.value - 1, 0)
+  } else if (e.key === 'Enter' || e.key === 'Tab') {
+    if (filteredMentionMembers.value.length > 0 && mentionSelectedIndex.value >= 0) {
+      e.preventDefault()
+      selectMentionMember(filteredMentionMembers.value[mentionSelectedIndex.value])
+    }
+  } else if (e.key === 'Escape') {
+    showMentionPanel.value = false
+  }
+}
+
+function selectMentionMember(member) {
+  const cursorPos = getCursorPosition()
+  if (cursorPos === -1) return
+  
+  const textBefore = newMessage.value.slice(0, cursorPos)
+  const atIndex = textBefore.lastIndexOf('@')
+  
+  if (atIndex === -1) return
+  
+  const name = member.nickname || member.username || member.username
+  const beforeAt = textBefore.slice(0, atIndex)
+  const afterAt = newMessage.value.slice(cursorPos)
+  
+  newMessage.value = beforeAt + '@' + name + ' ' + afterAt
+  showMentionPanel.value = false
+  
+  nextTick(() => {
+    const input = document.querySelector('.cc-input-wrap .cc-input')
+    if (input) {
+      const newPos = beforeAt.length + name.length + 2
+      input.setSelectionRange(newPos, newPos)
+      input.focus()
+    }
+  })
 }
 
 const showToastMessage = (message, type = 'success') => {
@@ -1740,7 +1893,7 @@ const joinRoom = async (roomId) => {
   try {
     await roomAPI.join(roomId, authStore.userId)
     currentRoomId.value = roomId
-    currentRoom.value = rooms.value.find(r => r.id === roomId)
+    currentRoom.value = { ...(rooms.value.find(r => r.id === roomId)), enable_bot: rooms.value.find(r => r.id === roomId)?.enable_bot || 0 }
     
     const response = await roomAPI.getMessages(roomId)
     const API_BASE_URL = import.meta.env.VITE_API_URL || ''
@@ -1929,6 +2082,24 @@ const handleRoomAvatarChange = async (event) => {
   } finally {
     roomAvatarUploading.value = false
     event.target.value = ''
+  }
+}
+
+const toggleBot = async (event) => {
+  try {
+    const enable = event ? event.target.checked : !currentRoom.value?.enable_bot
+    const response = await roomAPI.toggleBot(currentRoomId.value, authStore.userId, enable)
+    if (response.success) {
+      currentRoom.value = { ...currentRoom.value, enable_bot: enable ? 1 : 0 }
+      if (enable) {
+        await loadMembers(currentRoomId.value)
+      } else {
+        currentMembers.value = currentMembers.value.filter(m => !m.is_bot)
+      }
+      showToastMessage(response.message)
+    }
+  } catch (error) {
+    showToastMessage(error.message || '操作失败', 'error')
   }
 }
 
@@ -2126,6 +2297,7 @@ const unmuteMember = async (userId) => {
 }
 
 let muteCheckTimer = null
+let friendStatusTimer = null
 
 watch(currentRoomId, (val) => {
   if (muteTickTimer) {
@@ -2269,9 +2441,29 @@ const setupSocketListeners = () => {
   })
 
   socket.on('user_status_changed', (data) => {
+    // 更新好友列表
     friends.value = friends.value.map(f =>
       f.id === data.userId ? { ...f, status: data.status } : f
     )
+    
+    // 更新当前聊天室成员列表
+    currentMembers.value = currentMembers.value.map(m =>
+      m.id === data.userId ? { ...m, status: data.status } : m
+    )
+
+    // 更新成员预览中的状态
+    previewMembers.value = previewMembers.value.map(m =>
+      m.id === data.userId ? { ...m, status: data.status } : m
+    )
+
+    // 如果状态变更的是当前用户自己，同步到本地存储
+    if (authStore.user && data.userId === authStore.user.id) {
+      const stored = JSON.parse(localStorage.getItem('user') || 'null')
+      if (stored) {
+        stored.status = data.status
+        localStorage.setItem('user', JSON.stringify(stored))
+      }
+    }
   })
 
   socket.on('user_avatar_updated', (data) => {
@@ -2352,6 +2544,20 @@ const setupSocketListeners = () => {
       showToastMessage('聊天室已被删除', 'error')
     }
   })
+  
+  socket.on('bot_toggled', (data) => {
+    console.log('机器人状态变更:', data)
+    if (data.roomId === currentRoomId.value) {
+      if (currentRoom.value) {
+        currentRoom.value = { ...currentRoom.value, enable_bot: data.enable }
+      }
+      if (data.enable) {
+        loadMembers(currentRoomId.value)
+      } else {
+        currentMembers.value = currentMembers.value.filter(m => !m.is_bot)
+      }
+    }
+  })
 }
 
 onMounted(() => {
@@ -2359,6 +2565,16 @@ onMounted(() => {
   loadNotifications()
   loadPosts()
   setupSocketListeners()
+  // 每30秒刷新好友状态
+  friendStatusTimer = setInterval(() => {
+    if (authStore.userId) {
+      friendAPI.getList(authStore.userId)
+        .then(response => {
+          friends.value = response.data.friends
+        })
+        .catch(() => {})
+    }
+  }, 30000)
 })
 
 onUnmounted(() => {
@@ -2369,6 +2585,10 @@ onUnmounted(() => {
   if (muteCheckTimer) {
     clearInterval(muteCheckTimer)
     muteCheckTimer = null
+  }
+  if (friendStatusTimer) {
+    clearInterval(friendStatusTimer)
+    friendStatusTimer = null
   }
   if (currentRoomId.value) {
     authStore.leaveRoom(currentRoomId.value)
@@ -3370,6 +3590,11 @@ onUnmounted(() => {
 
 .cc-reply-cancel:hover { color: #ef4444; }
 
+.cc-input-wrap {
+  position: relative;
+  flex: 1;
+}
+
 .cc-input-row {
   display: flex;
   align-items: center;
@@ -3395,6 +3620,96 @@ onUnmounted(() => {
 }
 
 .cc-input::placeholder {
+  color: #9ca3af;
+}
+
+.mention-panel {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  margin-bottom: 4px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  max-height: 240px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+
+.mention-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #9ca3af;
+  border-bottom: 1px solid #f3f4f6;
+  flex-shrink: 0;
+}
+
+.mention-count {
+  font-size: 11px;
+}
+
+.mention-panel-list {
+  overflow-y: auto;
+  flex: 1;
+  padding: 4px;
+}
+
+.mention-panel-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.mention-panel-item:hover,
+.mention-panel-item.active {
+  background: #f3f4f6;
+}
+
+.mention-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.mention-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mention-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a1a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bot-tag {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.mention-panel-empty {
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
   color: #9ca3af;
 }
 
@@ -4546,6 +4861,11 @@ onUnmounted(() => {
   color: #6b7280;
 }
 
+.role-badge.bot {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
 .member-status {
   font-size: 12px;
   color: #6b7280;
@@ -4553,6 +4873,122 @@ onUnmounted(() => {
   align-items: center;
   gap: 4px;
   margin-top: 2px;
+}
+
+.no-status {
+  color: #d1d5db;
+}
+
+.bot-status {
+  font-size: 12px;
+  color: #7c3aed;
+}
+
+.bot-settings-section {
+  border-top: 1px solid #f0f0f0;
+  padding: 16px 0;
+  margin-top: 8px;
+}
+
+.bot-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.bot-settings-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.bot-settings-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.bot-settings-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bot-settings-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.bot-settings-desc {
+  font-size: 12px;
+  color: #9ca3af;
+  line-height: 1.4;
+}
+
+.bot-settings-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.bot-status-text {
+  font-size: 12px;
+  font-weight: 600;
+  color: #9ca3af;
+  transition: color 0.2s;
+}
+
+.bot-status-text.enabled {
+  color: #059669;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #d1d5db;
+  border-radius: 24px;
+  transition: all 0.2s;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background: #6366f1;
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(20px);
 }
 
 .muted-badge {

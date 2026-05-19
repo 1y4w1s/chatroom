@@ -260,6 +260,9 @@ router.get('/:id', async (req, res) => {
       return member;
     });
     
+    // 如果启用了机器人，添加到成员列表
+    await addBotToMembers(roomId, mappedMembers);
+    
     res.json({
       success: true,
       data: {
@@ -323,6 +326,9 @@ router.get('/:id/members', async (req, res) => {
       }
       return member;
     });
+    
+    // 如果启用了机器人，添加到成员列表
+    await addBotToMembers(roomId, mappedMembers);
     
     res.json({
       success: true,
@@ -1054,6 +1060,67 @@ router.post('/:id/read', async (req, res) => {
 });
 
 /**
+ * PUT /api/rooms/:id/bot
+ * 切换聊天室机器人启用状态（仅群主可用）
+ */
+router.put('/:id/bot', [
+  body('enable').isBoolean().withMessage('enable 必须是布尔值'),
+  body('userId').notEmpty().withMessage('缺少用户 ID')
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ success: false, errors: errors.array() });
+  }
+
+  try {
+    const roomId = req.params.id;
+    const { enable, userId } = req.body;
+
+    // 检查聊天室是否存在
+    const rooms = await query(
+      'SELECT id, owner_id FROM chat_rooms WHERE id = ? AND is_active = TRUE',
+      [roomId]
+    );
+    if (rooms.length === 0) {
+      return res.status(404).json({ success: false, error: { message: '聊天室不存在' } });
+    }
+
+    // 检查是否为群主
+    const member = await query(
+      "SELECT role FROM room_members WHERE room_id = ? AND user_id = ? AND role = 'owner'",
+      [roomId, userId]
+    );
+    if (member.length === 0) {
+      return res.status(403).json({ success: false, error: { message: '仅群主可以管理机器人设置' } });
+    }
+
+    await query(
+      'UPDATE chat_rooms SET enable_bot = ? WHERE id = ?',
+      [enable ? 1 : 0, roomId]
+    );
+
+    // 记录系统日志
+    await logAction(userId, 'toggle_bot', { roomId, enable });
+
+    // 发送 WebSocket 通知
+    emitPermissionChange(roomId, 'bot_toggled', {
+      roomId,
+      enable,
+      operatorId: userId
+    });
+
+    res.json({
+      success: true,
+      message: enable ? '机器人已启用' : '机器人已禁用',
+      data: { enable_bot: enable }
+    });
+  } catch (error) {
+    console.error('切换机器人状态失败:', error);
+    res.status(500).json({ success: false, error: { message: '操作失败' } });
+  }
+});
+
+/**
  * POST /api/rooms/private
  * 查找或创建私聊房间（1对1）
  */
@@ -1103,6 +1170,46 @@ router.post('/private', async (req, res) => {
     res.status(500).json({ success: false, error: { message: '创建私聊房间失败' } });
   }
 });
+
+// ==================== 机器人成员辅助函数 ====================
+
+/**
+ * 如果聊天室启用了机器人，将机器人用户添加到成员列表中
+ */
+async function addBotToMembers(roomId, members) {
+  try {
+    const rooms = await query(
+      'SELECT enable_bot FROM chat_rooms WHERE id = ?',
+      [roomId]
+    );
+    if (rooms.length > 0 && rooms[0].enable_bot) {
+      const botUsers = await query(
+        `SELECT id, username, nickname, avatar, is_bot FROM users WHERE username = 'deepseek' AND is_bot = TRUE LIMIT 1`
+      );
+      if (botUsers.length > 0) {
+        const bot = botUsers[0];
+        // 检查是否已在列表中
+        const alreadyInList = members.some(m => m.id === bot.id);
+        if (!alreadyInList) {
+          members.push({
+            id: bot.id,
+            username: bot.username,
+            nickname: bot.nickname || 'DeepSeek AI',
+            avatar: bot.avatar || '',
+            status: null,
+            role: 'member',
+            is_muted: 0,
+            muted_until: null,
+            is_bot: 1
+          });
+        }
+      }
+    }
+  } catch (e) {
+    console.error('添加机器人到成员列表失败:', e.message);
+  }
+  return members;
+}
 
 // ==================== WebSocket通知函数 ====================
 

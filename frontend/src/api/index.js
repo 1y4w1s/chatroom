@@ -105,7 +105,10 @@ export const roomAPI = {
   getReadStatus: (userId) => api.get('/rooms/read-status', { params: { userId } }),
   
   // 查找或创建私聊房间
-  findOrCreatePrivateRoom: (userId, friendId) => api.post('/rooms/private', { userId, friendId })
+  findOrCreatePrivateRoom: (userId, friendId) => api.post('/rooms/private', { userId, friendId }),
+  
+  // 切换机器人状态
+  toggleBot: (roomId, userId, enable) => api.put(`/rooms/${roomId}/bot`, { userId, enable })
 }
 
 export const messageAPI = {

@@ -222,6 +222,16 @@ async function initDatabase() {
         await connection.query(`ALTER TABLE ?? ADD COLUMN is_active BOOLEAN DEFAULT TRUE`, [roomTable]);
         console.log(`✅ 添加 ${roomTable}.is_active 字段`);
       }
+      
+      // 检查并添加 enable_bot 字段
+      const hasEnableBot = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = 'enable_bot'
+      `, [roomTable]);
+      if (hasEnableBot[0].count === 0) {
+        await connection.query(`ALTER TABLE ?? ADD COLUMN enable_bot BOOLEAN DEFAULT FALSE`, [roomTable]);
+        console.log(`✅ 添加 ${roomTable}.enable_bot 字段`);
+      }
     } catch (err) {
       console.log('⚠️ rooms 表字段更新跳过:', err.message);
     }

@@ -111,6 +111,10 @@ export const useAuthStore = defineStore('auth', {
 
       this.socket.on('connect', () => {
         console.log('WebSocket 已连接，Socket ID:', this.socket.id)
+        if (this.user) {
+          const status = this.user.status || 'online'
+          this.socket.emit('update_status', { userId: this.user.id, status })
+        }
       })
 
       this.socket.on('disconnect', () => {
@@ -126,10 +130,37 @@ export const useAuthStore = defineStore('auth', {
       this.socket.on('error', (error) => {
         console.error('WebSocket 错误:', error)
       })
+
+      // 定期发送心跳，保持连接活跃
+      this._heartbeatTimer = setInterval(() => {
+        if (this.socket && this.socket.connected) {
+          this.socket.emit('ping')
+        }
+      }, 25000)
+
+      // 重新连接时自动同步在线状态
+      this.socket.on('reconnect', () => {
+        console.log('WebSocket 重新连接')
+        if (this.user) {
+          const status = this.user.status || 'online'
+          this.socket.emit('update_status', { userId: this.user.id, status })
+        }
+      })
+
+      // 页面关闭时通知服务器设置为离线
+      window.addEventListener('beforeunload', () => {
+        if (this.socket && this.user) {
+          this.socket.emit('update_status', { userId: this.user.id, status: 'offline' })
+        }
+      })
     },
 
     // 断开 WebSocket
     disconnectSocket() {
+      if (this._heartbeatTimer) {
+        clearInterval(this._heartbeatTimer)
+        this._heartbeatTimer = null
+      }
       if (this.socket) {
         this.socket.disconnect()
         this.socket = null

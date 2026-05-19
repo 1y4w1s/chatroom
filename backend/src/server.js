@@ -156,6 +156,41 @@ io = socketIo(server, {
   maxHttpBufferSize: 1e6 // 1MB
 });
 
+// 跟踪用户的连接数（支持多标签页）
+const userConnections = new Map();
+// 记录用户最后活跃时间（用于心跳检测）
+const userLastActive = new Map();
+
+// ==================== 心跳检测机制 ====================
+// 每30秒检查一次用户连接状态，将断线用户设置为离线
+setInterval(async () => {
+  try {
+    const now = Date.now();
+    const staleTimeout = 70000; // 70秒无活动视为断线（略大于socket.io的pingTimeout 60000ms）
+    
+    for (const [userId, connections] of userConnections.entries()) {
+      if (connections.size === 0) {
+        // 无连接记录但仍在map中，清理并设置离线
+        userConnections.delete(userId);
+        userLastActive.delete(userId);
+        try {
+          const { query } = require('./config/database');
+          await query('UPDATE users SET status = ? WHERE id = ? AND status != ?', ['offline', userId, 'offline']);
+        } catch (e) {}
+      }
+    }
+    
+    // 清理过期活跃记录
+    for (const [userId, lastActive] of userLastActive.entries()) {
+      if (!userConnections.has(userId) || userConnections.get(userId).size === 0) {
+        userLastActive.delete(userId);
+      }
+    }
+  } catch (e) {
+    console.error('心跳检测错误:', e.message);
+  }
+}, 30000);
+
 // Socket.io 连接处理
 io.on('connection', (socket) => {
   console.log(`用户连接：${socket.id}`);
@@ -174,6 +209,40 @@ io.on('connection', (socket) => {
     const { roomId, userId, username } = data;
     socket.leave(roomId);
     socket.to(roomId).emit('user_left', { userId, username, roomId });
+  });
+  
+  // 客户端心跳ping，更新活跃时间
+  socket.on('ping', () => {
+    if (socket.userId) {
+      userLastActive.set(socket.userId, Date.now());
+    }
+  });
+
+  // 客户端主动更新在线状态
+  socket.on('update_status', async (data) => {
+    const { userId, status } = data;
+    if (!userId) return;
+    
+    socket.userId = userId;
+    userLastActive.set(userId, Date.now());
+    
+    // 记录用户连接
+    if (!userConnections.has(userId)) {
+      userConnections.set(userId, new Set());
+    }
+    userConnections.get(userId).add(socket.id);
+    
+    console.log(`用户 ${userId} 状态更新为: ${status}, 当前连接数: ${userConnections.get(userId).size}`);
+    
+    // 广播状态变化
+    socket.broadcast.emit('user_status_changed', { userId, status });
+    
+    try {
+      const { query } = require('./config/database');
+      await query('UPDATE users SET status = ? WHERE id = ?', [status, userId]);
+    } catch (e) {
+      console.error('更新用户状态失败:', e.message);
+    }
   });
   
   socket.on('send_message', async (data) => {
@@ -207,9 +276,21 @@ io.on('connection', (socket) => {
       // @DeepSeek 检测：如果消息中包含 @deepseek 或 @DeepSeek，调用 AI 回复
       const contentLower = content.toLowerCase();
       if (contentLower.includes('@deepseek')) {
-        callDeepSeek(roomId, userId, username, content, socket).catch(err => {
-          console.error('DeepSeek AI 调用失败:', err.message);
-        });
+        // 先检查该聊天室是否启用了机器人
+        try {
+          const { query } = require('./config/database');
+          const roomCheck = await query(
+            'SELECT enable_bot FROM chat_rooms WHERE id = ?',
+            [roomId]
+          );
+          if (roomCheck.length > 0 && roomCheck[0].enable_bot) {
+            callDeepSeek(roomId, userId, username, content, socket).catch(err => {
+              console.error('DeepSeek AI 调用失败:', err.message);
+            });
+          }
+        } catch (e) {
+          console.error('检查机器人启用状态失败:', e.message);
+        }
       }
     } catch (error) {
       console.error('发送消息失败:', error.message);
@@ -231,11 +312,30 @@ io.on('connection', (socket) => {
   socket.on('disconnect', async () => {
     console.log(`用户断开：${socket.id}`);
     if (socket.userId) {
-      socket.broadcast.emit('user_status_changed', { userId: socket.userId, status: 'offline' });
-      try {
-        const { query } = require('./config/database');
-        await query('UPDATE users SET status = ? WHERE id = ?', ['offline', socket.userId]);
-      } catch (e) {}
+      // 从连接记录中移除
+      const connections = userConnections.get(socket.userId);
+      if (connections) {
+        connections.delete(socket.id);
+        console.log(`用户 ${socket.userId} 剩余连接数: ${connections.size}`);
+        
+        // 只有当用户没有任何连接时才设置为离线
+        if (connections.size === 0) {
+          userConnections.delete(socket.userId);
+          console.log(`用户 ${socket.userId} 所有连接已断开，设置为离线`);
+          socket.broadcast.emit('user_status_changed', { userId: socket.userId, status: 'offline' });
+          try {
+            const { query } = require('./config/database');
+            await query('UPDATE users SET status = ? WHERE id = ?', ['offline', socket.userId]);
+          } catch (e) {}
+        }
+      } else {
+        // 没有连接记录，直接设为离线
+        socket.broadcast.emit('user_status_changed', { userId: socket.userId, status: 'offline' });
+        try {
+          const { query } = require('./config/database');
+          await query('UPDATE users SET status = ? WHERE id = ?', ['offline', socket.userId]);
+        } catch (e) {}
+      }
     }
   });
   
