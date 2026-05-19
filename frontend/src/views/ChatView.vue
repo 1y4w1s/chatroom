@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -2861,7 +2861,7 @@ onUnmounted(() => {
 
 .btn-icon:hover {
   background: var(--hover);
-  color: #374151;
+  color: var(--text-secondary);
 }
 
 .btn-icon.has-notification {
@@ -2872,7 +2872,7 @@ onUnmounted(() => {
   position: absolute;
   top: 2px;
   right: 2px;
-  background: #ef4444;
+  background: var(--danger);
   color: white;
   font-size: 9px;
   font-weight: 700;
@@ -2898,7 +2898,7 @@ onUnmounted(() => {
 
 .btn-text:hover {
   background: var(--hover);
-  color: #374151;
+  color: var(--text-secondary);
 }
 
 .btn-xs {
@@ -2952,7 +2952,7 @@ onUnmounted(() => {
 
 .notification-text {
   font-size: 13px;
-  color: #374151;
+  color: var(--text-secondary);
   line-height: 1.4;
 }
 
@@ -3047,12 +3047,12 @@ onUnmounted(() => {
 }
 
 .post-delete-btn:hover {
-  color: #ef4444;
+  color: var(--danger);
 }
 
 .post-content {
   font-size: 14px;
-  color: #374151;
+  color: var(--text-primary);
   line-height: 1.6;
   margin-bottom: 8px;
   white-space: pre-wrap;
@@ -3115,11 +3115,11 @@ onUnmounted(() => {
 
 .post-action-btn:hover {
   background: var(--danger-bg);
-  color: #ef4444;
+  color: var(--danger);
 }
 
 .post-action-btn.liked {
-  color: #ef4444;
+  color: var(--danger);
 }
 
 .post-action-btn.liked:hover {
@@ -3345,7 +3345,7 @@ onUnmounted(() => {
   border: none;
   background: none;
   font-size: 13px;
-  color: #374151;
+  color: var(--text-secondary);
   cursor: pointer;
   border-radius: 4px;
 }
@@ -3355,7 +3355,7 @@ onUnmounted(() => {
 }
 
 .post-manage-menu button.danger {
-  color: #ef4444;
+  color: var(--danger);
 }
 
 .post-manage-menu button.danger:hover {
@@ -3423,7 +3423,7 @@ onUnmounted(() => {
 
 .pd-content {
   font-size: 15px;
-  color: #374151;
+  color: var(--text-secondary);
   line-height: 1.7;
   margin-bottom: 12px;
   white-space: pre-wrap;
@@ -3481,8 +3481,8 @@ onUnmounted(() => {
   transition: all 0.15s;
 }
 
-.pd-action-btn:hover { background: var(--danger-bg); color: #ef4444; }
-.pd-action-btn.liked { color: #ef4444; }
+.pd-action-btn:hover { background: var(--danger-bg); color: var(--danger); }
+.pd-action-btn.liked { color: var(--danger); }
 
 .pd-comments-section {
   margin-top: 4px;
@@ -3541,7 +3541,7 @@ onUnmounted(() => {
 
 .pd-comment-text {
   font-size: 13px;
-  color: #374151;
+  color: var(--text-secondary);
   line-height: 1.5;
 }
 
@@ -3565,8 +3565,8 @@ onUnmounted(() => {
   border-radius: 4px;
 }
 
-.pd-comment-like:hover { color: #ef4444; }
-.pd-comment-like.liked { color: #ef4444; }
+.pd-comment-like:hover { color: var(--danger); }
+.pd-comment-like.liked { color: var(--danger); }
 
 .pd-comment-del {
   font-size: 11px;
@@ -3578,7 +3578,7 @@ onUnmounted(() => {
 }
 
 .pd-comment-del:hover {
-  color: #ef4444;
+  color: var(--danger);
 }
 
 .pd-comment-input-area {
@@ -3634,7 +3634,7 @@ onUnmounted(() => {
 
 .pd-comment-text {
   font-size: 13px;
-  color: #374151;
+  color: var(--text-secondary);
   line-height: 1.5;
   white-space: pre-wrap;
   word-break: break-word;
@@ -3670,8 +3670,8 @@ onUnmounted(() => {
   transition: color 0.1s;
 }
 
-.pd-comment-like:hover { color: #ef4444; }
-.pd-comment-like.liked { color: #ef4444; }
+.pd-comment-like:hover { color: var(--danger); }
+.pd-comment-like.liked { color: var(--danger); }
 
 .pd-comment-reply-btn {
   font-size: 11px;
@@ -3695,7 +3695,7 @@ onUnmounted(() => {
   border-radius: 4px;
 }
 
-.pd-comment-del:hover { color: #ef4444; background: var(--danger-bg); }
+.pd-comment-del:hover { color: var(--danger); background: var(--danger-bg); }
 
 .pd-replies {
   margin-left: 38px;
@@ -3747,7 +3747,7 @@ onUnmounted(() => {
   padding: 0;
 }
 
-.cc-reply-cancel:hover { color: #ef4444; }
+.cc-reply-cancel:hover { color: var(--danger); }
 
 .cc-input-wrap {
   position: relative;
@@ -3951,7 +3951,7 @@ onUnmounted(() => {
   height: 20px;
   border-radius: 50%;
   border: none;
-  background: #ef4444;
+  background: var(--danger);
   color: white;
   font-size: 13px;
   line-height: 1;
@@ -4056,12 +4056,12 @@ onUnmounted(() => {
 
 [data-theme="dark"] .msg.error {
   background: #3a1a1a;
-  color: #ef4444;
+  color: var(--danger);
   border-color: #5c2020;
 }
 
 [data-theme="dark"] .pd-comment-del:hover {
-  color: #ef4444;
+  color: var(--danger);
 }
 
 /* ==================== 移动端响应式 ==================== */
@@ -4326,7 +4326,7 @@ onUnmounted(() => {
   position: absolute;
   top: -4px;
   right: -4px;
-  background: #ef4444;
+  background: var(--danger);
   color: white;
   font-size: 10px;
   font-weight: 600;
@@ -4740,7 +4740,7 @@ onUnmounted(() => {
   border: none;
   background: transparent;
   font-size: 14px;
-  color: #ef4444;
+  color: var(--danger);
   cursor: pointer;
   text-align: left;
   white-space: nowrap;
@@ -5001,7 +5001,7 @@ onUnmounted(() => {
 .room-detail-members h4 {
   font-size: 14px;
   font-weight: 600;
-  color: #374151;
+  color: var(--text-secondary);
   margin-bottom: 10px;
 }
 
@@ -5096,7 +5096,7 @@ onUnmounted(() => {
   background: transparent;
   border-radius: 8px;
   font-size: 14px;
-  color: #374151;
+  color: var(--text-secondary);
   cursor: pointer;
   transition: background 0.15s;
   width: 100%;
@@ -5110,7 +5110,7 @@ onUnmounted(() => {
 .form-section h4 {
   font-size: 14px;
   font-weight: 600;
-  color: #374151;
+  color: var(--text-secondary);
   margin-bottom: 12px;
 }
 
@@ -5158,7 +5158,7 @@ onUnmounted(() => {
   display: block;
   font-size: 13px;
   font-weight: 500;
-  color: #374151;
+  color: var(--text-secondary);
   margin-bottom: 6px;
 }
 
@@ -5528,7 +5528,7 @@ onUnmounted(() => {
   border-radius: 8px;
   background: var(--bg-primary);
   font-size: 13px;
-  color: #374151;
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all 0.15s;
 }
@@ -5578,7 +5578,7 @@ onUnmounted(() => {
 
 .warning-text {
   font-size: 14px;
-  color: #374151;
+  color: var(--text-secondary);
   line-height: 1.6;
 }
 

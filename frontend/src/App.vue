@@ -61,7 +61,7 @@ onMounted(() => {
   --bg-card: #1e1e1e;
   --bg-input: #2a2a2a;
   --bg-body: #141414;
-  --bubble-own: #4f46e5;
+  --bubble-own: #4a4a4a;
   --bubble-other: #2a2a2a;
   --text-primary: #f3f4f6;
   --text-secondary: #d1d5db;
