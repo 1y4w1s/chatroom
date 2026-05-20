@@ -20,8 +20,12 @@ api.interceptors.response.use(
   },
   error => {
     if (error.response) {
-      const message = error.response.data?.error?.message || '请求失败'
-      console.error('API 错误:', message)
+      let message = error.response.data?.error?.message || '请求失败'
+      // 处理验证错误
+      if (error.response.data?.errors && error.response.data.errors.length > 0) {
+        message = error.response.data.errors.map(e => e.msg).join('; ')
+      }
+      console.error('API 错误:', message, error.response.data)
       return Promise.reject(new Error(message))
     }
     
