@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -163,6 +163,7 @@
               </div>
             </div>
           </div>
+          <div ref="scrollAnchor"></div>
         </div>
 
         <div v-show="sidebarTab === 'friends'" class="friend-list">
@@ -498,6 +499,7 @@
               </div>
             </div>
           </div>
+          <div ref="scrollAnchor"></div>
         </div>
 
         <footer class="chat-input-footer">
@@ -906,7 +908,7 @@
 
           <div class="drawer-spacer"></div>
 
-          <div class="drawer-section" v-if="(currentPermissions.isOwner || isSuperAdmin) && currentRoom?.type !== 'private'">
+          <div class="drawer-section" v-if="currentPermissions.isOwner && currentRoom?.type !== 'private'">
             <div class="drawer-divider"></div>
             <div class="drawer-nav-item danger" @click="showRoomDrawer = false; showDissolveConfirm = true">
               <span class="nav-icon">🗑</span>
@@ -1159,7 +1161,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onUnmounted, onUpdated, nextTick, computed } from 'vue'
+import { ref, watch, onMounted, onUnmounted, nextTick, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { roomAPI, userAPI, notificationAPI, friendAPI, postAPI, messageAPI, api } from '@/api'
@@ -1267,7 +1269,7 @@ const messages = ref([])
 const newMessage = ref('')
 const showCreateModal = ref(false)
 const messageListRef = ref(null)
-const pendingScrollToBottom = ref(false)
+const scrollAnchor = ref(null)
 const showMessageActions = ref(null)
 const messageActionsPos = ref({})
 
@@ -1339,6 +1341,7 @@ const roomDetailAvatarUrl = computed(() => {
 })
 
 const showRoomDrawer = ref(false)
+const drawerShowAllMembers = ref(false)
 
 // 侧边栏 Tab
 const sidebarTab = ref('rooms')
@@ -2160,8 +2163,7 @@ const joinRoom = async (roomId) => {
     
     const response = await roomAPI.getMessages(roomId)
     const API_BASE_URL = import.meta.env.VITE_API_URL || ''
-    messages.value = (response.data.messages || [])
-      .reverse()
+    messages.value = response.data.messages
       .map(msg => {
         let avatar = ''
         if (msg.avatar && msg.avatar.trim()) {
@@ -2178,7 +2180,11 @@ const joinRoom = async (roomId) => {
     loadAnnouncements(roomId)
     authStore.joinRoom(roomId)
     markRoomRead(roomId)
-    pendingScrollToBottom.value = true
+    
+    nextTick(() => {
+      scrollToBottom(true)
+    })
+    setTimeout(() => scrollToBottom(), 300)
   } catch (error) {
     console.error('加入聊天室失败:', error)
   }
@@ -2876,7 +2882,12 @@ const isAtBottom = () => {
 const scrollToBottom = (force = false) => {
   if (!messageListRef.value) return
   if (force || isAtBottom()) {
-    messageListRef.value.scrollTop = messageListRef.value.scrollHeight
+    const anchor = scrollAnchor.value
+    if (anchor) {
+      anchor.scrollIntoView({ block: 'nearest' })
+    } else {
+      messageListRef.value.scrollTop = messageListRef.value.scrollHeight
+    }
   }
 }
 
@@ -3145,16 +3156,6 @@ onUnmounted(() => {
   }
   if (currentRoomId.value) {
     authStore.leaveRoom(currentRoomId.value)
-  }
-})
-
-onUpdated(() => {
-  if (pendingScrollToBottom.value) {
-    pendingScrollToBottom.value = false
-    scrollToBottom(true)
-    messageListRef.value.querySelectorAll('img').forEach(img => {
-      img.addEventListener('load', () => scrollToBottom(true), { once: true })
-    })
   }
 })
 </script>
@@ -4822,7 +4823,6 @@ onUpdated(() => {
   .message-list {
     flex: 1;
     overflow-y: auto;
-    min-height: 0;
   }
 
   .chat-input-footer .cc-card {
@@ -5622,6 +5622,11 @@ onUpdated(() => {
 .drawer-close:hover {
   background: var(--hover);
   color: var(--text-primary);
+}
+
+.header-right {
+  display: flex;
+  gap: 8px;
 }
 
 .message-list {

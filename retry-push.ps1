@@ -16,6 +16,5 @@ while ($true) {
     break
   }
   Write-Host " FAILED - retry in 15s" -ForegroundColor Red
-    Write-Host "    Error: $result" -ForegroundColor Gray
   Start-Sleep -Seconds 15
 }
