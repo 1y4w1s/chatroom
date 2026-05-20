@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -1820,7 +1820,9 @@ function openMessageMemberAction(message, event) {
 // 聊天输入表情和图片
 const showChatEmoji = ref(false)
 const emojiTab = ref('emoji')
+const stickerVersion = ref(0)
 const myStickers = computed(() => {
+  void stickerVersion.value
   try {
     return JSON.parse(localStorage.getItem('my_stickers') || '[]')
   } catch { return [] }
@@ -2208,12 +2210,15 @@ function toggleMessageActions(messageId, event) {
     return
   }
   showMessageActions.value = messageId
-  const rect = event.currentTarget.getBoundingClientRect()
-  messageActionsPos.value = {
-    position: 'fixed',
-    top: (rect.top - 4) + 'px',
-    right: (window.innerWidth - rect.right + 4) + 'px',
-    zIndex: '100'
+  const msgEl = event.currentTarget.closest('.message')
+  if (msgEl) {
+    const rect = msgEl.getBoundingClientRect()
+    messageActionsPos.value = {
+      position: 'fixed',
+      left: rect.left + 'px',
+      top: (rect.bottom + 4) + 'px',
+      zIndex: '100'
+    }
   }
 }
 
@@ -2240,6 +2245,7 @@ async function addToStickers(message) {
     if (!stickers.includes(url)) {
       stickers.unshift(url)
       localStorage.setItem('my_stickers', JSON.stringify(stickers))
+      stickerVersion.value++
     }
     showMessageActions.value = null
     showToastMessage('已添加到表情包')
@@ -4957,7 +4963,7 @@ onUnmounted(() => {
   border: none;
   background: transparent;
   font-size: 14px;
-  color: var(--danger);
+  color: var(--text-primary);
   cursor: pointer;
   text-align: left;
   white-space: nowrap;
@@ -4965,7 +4971,7 @@ onUnmounted(() => {
 }
 
 .message-actions-menu button:hover {
-  background: var(--danger-bg);
+  background: var(--hover);
 }
 
 .chat-input-footer {
