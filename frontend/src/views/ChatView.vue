@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -449,7 +449,7 @@
             </svg>
           </button>
         </header>
-        <div ref="messageListRef" class="message-list">
+        <div class="message-list" ref="messageListRef">
           <div
             v-for="message in messages"
             :key="message.id"
@@ -1159,7 +1159,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onUnmounted, nextTick, computed } from 'vue'
+import { ref, watch, onMounted, onUnmounted, onUpdated, nextTick, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { roomAPI, userAPI, notificationAPI, friendAPI, postAPI, messageAPI, api } from '@/api'
@@ -1267,6 +1267,7 @@ const messages = ref([])
 const newMessage = ref('')
 const showCreateModal = ref(false)
 const messageListRef = ref(null)
+const pendingScrollToBottom = ref(false)
 const showMessageActions = ref(null)
 const messageActionsPos = ref({})
 
@@ -2160,6 +2161,7 @@ const joinRoom = async (roomId) => {
     const response = await roomAPI.getMessages(roomId)
     const API_BASE_URL = import.meta.env.VITE_API_URL || ''
     messages.value = (response.data.messages || [])
+      .reverse()
       .map(msg => {
         let avatar = ''
         if (msg.avatar && msg.avatar.trim()) {
@@ -2176,6 +2178,7 @@ const joinRoom = async (roomId) => {
     loadAnnouncements(roomId)
     authStore.joinRoom(roomId)
     markRoomRead(roomId)
+    pendingScrollToBottom.value = true
   } catch (error) {
     console.error('加入聊天室失败:', error)
   }
@@ -2342,7 +2345,7 @@ const sendMessage = async () => {
 
   if (text) {
     authStore.sendMessage(roomId, text)
-    if (messageListRef.value) nextTick(() => { messageListRef.value.scrollTop = 0 })
+    nextTick(() => scrollToBottom(true))
   }
 
   for (const img of chatImages.value) {
@@ -2864,6 +2867,19 @@ const confirmDissolve = async () => {
   }
 }
 
+const isAtBottom = () => {
+  if (!messageListRef.value) return true
+  const { scrollTop, scrollHeight, clientHeight } = messageListRef.value
+  return scrollHeight - scrollTop - clientHeight < 100
+}
+
+const scrollToBottom = (force = false) => {
+  if (!messageListRef.value) return
+  if (force || isAtBottom()) {
+    messageListRef.value.scrollTop = messageListRef.value.scrollHeight
+  }
+}
+
 const formatMuteDuration = (mutedUntil) => {
   if (!mutedUntil) {
     console.log('禁言时间为空:', mutedUntil)
@@ -2919,12 +2935,8 @@ const setupSocketListeners = () => {
         ? `${API_BASE_URL}${message.avatar}`
         : ''
       const messageWithAvatar = parseReplyContent({ ...message, avatar })
-      messages.value.unshift(messageWithAvatar)
-      if (messageListRef.value) {
-        if (message.sender_id === authStore.user?.id || messageListRef.value.scrollTop < 100) {
-          nextTick(() => { messageListRef.value.scrollTop = 0 })
-        }
-      }
+      messages.value.push(messageWithAvatar)
+      nextTick(() => scrollToBottom(message.sender_id === authStore.user?.id))
     }
     const map = { ...roomReadStatus.value }
     if (!map[message.room_id]) {
@@ -3133,6 +3145,16 @@ onUnmounted(() => {
   }
   if (currentRoomId.value) {
     authStore.leaveRoom(currentRoomId.value)
+  }
+})
+
+onUpdated(() => {
+  if (pendingScrollToBottom.value) {
+    pendingScrollToBottom.value = false
+    scrollToBottom(true)
+    messageListRef.value.querySelectorAll('img').forEach(img => {
+      img.addEventListener('load', () => scrollToBottom(true), { once: true })
+    })
   }
 })
 </script>
@@ -4801,9 +4823,6 @@ onUnmounted(() => {
     flex: 1;
     overflow-y: auto;
     min-height: 0;
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 16px;
   }
 
   .chat-input-footer .cc-card {
@@ -5611,7 +5630,7 @@ onUnmounted(() => {
   overflow-y: auto;
   padding: 24px;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   gap: 16px;
 }
 
