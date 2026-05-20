@@ -1242,11 +1242,34 @@ async function logAction(userId, action, details) {
 }
 
 /**
+ * 确保 announcements 表存在
+ */
+async function ensureAnnouncementsTable() {
+  try {
+    await query(`
+      CREATE TABLE IF NOT EXISTS announcements (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        room_id INT NOT NULL,
+        user_id INT NOT NULL,
+        content TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+  } catch (e) {
+    console.error('确保 announcements 表存在失败:', e.message);
+  }
+}
+
+/**
  * GET /api/rooms/:id/announcements
  * 获取聊天室公告列表（时间倒序）
  */
 router.get('/:id/announcements', async (req, res) => {
   try {
+    await ensureAnnouncementsTable();
     const list = await query(
       `SELECT a.*, u.username, u.nickname, u.avatar
        FROM announcements a
@@ -1268,6 +1291,7 @@ router.get('/:id/announcements', async (req, res) => {
  */
 router.post('/:id/announcements', checkAdmin, async (req, res) => {
   try {
+    await ensureAnnouncementsTable();
     const { content, userId } = req.body;
     if (!content || !content.trim()) {
       return res.status(400).json({ success: false, error: { message: '公告内容不能为空' } });
