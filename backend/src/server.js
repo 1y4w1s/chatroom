@@ -35,6 +35,11 @@ if (!fs.existsSync(avatarsDir)) {
   fs.mkdirSync(avatarsDir, { recursive: true });
   console.log('✅ 创建 avatars 目录');
 }
+const filesDir = path.join(uploadsDir, 'files');
+if (!fs.existsSync(filesDir)) {
+  fs.mkdirSync(filesDir, { recursive: true });
+  console.log('✅ 创建 files 目录');
+}
 
 // ==================== 安全配置 ====================
 

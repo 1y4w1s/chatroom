@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -437,37 +437,17 @@
       </div>
       <div v-if="activeMainTab === 'chat' && currentRoomId" class="chat-wrapper">
         <header class="chat-header">
-          <div class="header-left" @click="showRoomDetail = true" style="cursor:pointer">
+          <div class="header-left" @click="showRoomDrawer = true" style="cursor:pointer">
             <h3>{{ currentRoom?.name }}</h3>
             <p>{{ currentRoom?.description }}</p>
           </div>
-          <div v-if="roomAnnouncement" class="announcement-banner" @click="showRoomDetail = true">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1C4.5 1 2 2.5 2 5.5C2 8 3.5 9.5 5 10L7 13L9 10C10.5 9.5 12 8 12 5.5C12 2.5 9.5 1 7 1Z" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="5.5" r="1" fill="currentColor"/></svg>
-            <span>{{ roomAnnouncement }}</span>
-          </div>
-          <div class="header-right">
-            <button 
-              v-if="currentPermissions.isAdmin && currentRoom?.type !== 'private'" 
-              class="btn btn-secondary btn-sm" 
-              @click="openRoomSettings"
-            >
-              聊天室设置
-            </button>
-            <button 
-              v-if="isSuperAdmin && currentRoom?.type !== 'private'" 
-              class="btn btn-danger btn-sm" 
-              @click="showDissolveConfirm = true"
-            >
-              删除聊天室
-            </button>
-            <button 
-              v-else-if="currentPermissions.isOwner && currentRoom?.type !== 'private'" 
-              class="btn btn-danger btn-sm" 
-              @click="showDissolveConfirm = true"
-            >
-              解散
-            </button>
-          </div>
+          <button class="header-more-btn" @click="showRoomDrawer = true" title="更多">
+            <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+            </svg>
+          </button>
         </header>
         <div class="message-list" ref="messageListRef">
           <div
@@ -853,61 +833,62 @@
       </div>
     </div>
 
-    <div v-if="showRoomDetail" class="modal-overlay" @click="showRoomDetail = false">
-      <div class="modal room-detail-modal" @click.stop>
-        <div class="modal-header">
-          <h3>{{ currentRoom?.name }}</h3>
-          <button class="close-btn" @click="showRoomDetail = false">
+    <div v-if="showRoomDrawer" class="drawer-overlay" @click="showRoomDrawer = false">
+      <div class="drawer-panel" @click.stop>
+        <div class="drawer-header">
+          <h3>聊天室信息</h3>
+          <button class="close-btn" @click="showRoomDrawer = false">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </button>
         </div>
-        <div class="modal-body">
-          <div class="room-detail-avatar">
-            <img :src="roomDetailAvatarUrl" class="detail-room-avatar" />
-          </div>
-          <div class="room-detail-info">
-            <div class="detail-row">
-              <span class="detail-label">名称</span>
-              <span class="detail-value">{{ currentRoom?.name }}</span>
-            </div>
-            <div class="detail-row" v-if="currentRoom?.description">
-              <span class="detail-label">简介</span>
-              <span class="detail-value">{{ currentRoom?.description }}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">类型</span>
-              <span class="detail-value">{{ currentRoom?.type === 'private' ? '私有' : '公开' }}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">成员数</span>
-              <span class="detail-value">{{ currentMembers.length }} 人</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">创建者</span>
-              <span class="detail-value">{{ currentRoom?.owner_name }}</span>
-            </div>
-            <div class="detail-row">
-              <span class="detail-label">创建时间</span>
-              <span class="detail-value">{{ formatTime(currentRoom?.created_at) }}</span>
+        <div class="drawer-body">
+          <div class="drawer-room-info">
+            <img :src="roomDetailAvatarUrl" class="drawer-room-avatar" />
+            <div class="drawer-room-detail">
+              <div class="drawer-room-name">{{ currentRoom?.name }}</div>
+              <div class="drawer-room-meta">{{ currentRoom?.owner_name }} · {{ currentMembers.length }} 人</div>
+              <div class="drawer-room-desc" v-if="currentRoom?.description">{{ currentRoom?.description }}</div>
             </div>
           </div>
-          <div class="room-detail-members">
-            <h4>成员列表（{{ currentMembers.length }}）</h4>
-            <div class="detail-member-list">
-              <div v-for="member in currentMembers" :key="member.id" class="detail-member-item" @click="member.is_bot ? null : openMemberAction(member, $event)">
-                <img :src="getAvatarUrl(member.avatar, member.nickname || member.username)" class="detail-member-avatar" />
-                <div class="detail-member-name">{{ member.nickname || member.username }}</div>
-                <span v-if="member.is_bot" class="role-badge bot">🤖 机器人</span>
-                <span v-else-if="member.role === 'owner'" class="role-badge owner">群主</span>
-                <span v-else-if="member.role === 'admin'" class="role-badge admin">管理员</span>
-              </div>
+
+          <div v-if="roomAnnouncement" class="drawer-announcement">
+            <div class="drawer-section-title">📢 公告</div>
+            <div class="drawer-announcement-body">
+              <p>{{ roomAnnouncement }}</p>
+              <button v-if="currentPermissions.isAdmin" class="drawer-edit-btn" @click="openRoomSettings">编辑</button>
             </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" @click="showRoomDetail = false">关闭</button>
+
+          <div class="drawer-divider"></div>
+
+          <div class="drawer-nav">
+            <div class="drawer-nav-item" @click="showRoomDrawer = false; openRoomSettings('members')">
+              <span class="nav-item-icon">👥</span>
+              <span class="nav-item-label">成员管理</span>
+              <span class="nav-item-count">{{ currentMembers.length }} 人</span>
+              <span class="nav-arrow">&gt;</span>
+            </div>
+            <div v-if="currentPermissions.isAdmin && currentRoom?.type !== 'private'" class="drawer-nav-item" @click="showRoomDrawer = false; openRoomSettings('info')">
+              <span class="nav-item-icon">🔧</span>
+              <span class="nav-item-label">聊天室设置</span>
+              <span class="nav-arrow">&gt;</span>
+            </div>
+          </div>
+
+          <div class="drawer-divider"></div>
+
+          <div class="drawer-actions">
+            <div v-if="isSuperAdmin && currentRoom?.type !== 'private'" class="drawer-nav-item danger" @click="showRoomDrawer = false; showDissolveConfirm = true">
+              <span class="nav-item-icon">🗑</span>
+              <span class="nav-item-label">删除聊天室</span>
+            </div>
+            <div v-if="currentPermissions.isOwner && currentRoom?.type !== 'private'" class="drawer-nav-item danger" @click="showRoomDrawer = false; showDissolveConfirm = true">
+              <span class="nav-item-icon">⚡</span>
+              <span class="nav-item-label">解散聊天室</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1288,7 +1269,7 @@ const roomDetailAvatarUrl = computed(() => {
   return avatar
 })
 
-const showRoomDetail = ref(false)
+const showRoomDrawer = ref(false)
 
 // 侧边栏 Tab
 const sidebarTab = ref('rooms')
@@ -2288,6 +2269,7 @@ const sendMessage = async () => {
 
   if (text) {
     authStore.sendMessage(roomId, text)
+    nextTick(() => scrollToBottom(true))
   }
 
   for (const img of chatImages.value) {
@@ -2493,12 +2475,12 @@ const toggleBot = async (event) => {
   }
 }
 
-const openRoomSettings = () => {
+const openRoomSettings = (tab = 'info') => {
   if (currentRoom.value) {
     roomEditName.value = currentRoom.value.name || ''
     roomEditDesc.value = currentRoom.value.description || ''
     roomEditAnnouncement.value = roomAnnouncement.value || ''
-    roomSettingsTab.value = 'info'
+    roomSettingsTab.value = tab
     roomSettingsMsg.value = ''
     showRoomSettings.value = true
   }
@@ -5059,25 +5041,201 @@ onUnmounted(() => {
   margin-top: 2px;
 }
 
-.announcement-banner {
+.header-more-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  background: var(--accent-light);
-  border-radius: 8px;
-  font-size: 13px;
-  color: var(--text-primary);
-  cursor: pointer;
-  flex: 1;
-  max-width: 400px;
-  margin: 0 12px;
+  justify-content: center;
+  transition: all 0.15s;
+  flex-shrink: 0;
 }
 
-.announcement-banner span {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.header-more-btn:hover {
+  background: var(--hover);
+  color: var(--text-primary);
+}
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 2000;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.drawer-panel {
+  width: 320px;
+  max-width: 85vw;
+  height: 100%;
+  background: var(--bg-primary);
+  box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  animation: drawerSlideIn 0.2s ease;
+}
+
+@keyframes drawerSlideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.drawer-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 0;
+}
+
+.drawer-room-info {
+  display: flex;
+  gap: 14px;
+  padding: 0 20px 16px;
+  align-items: center;
+}
+
+.drawer-room-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.drawer-room-detail {
+  flex: 1;
+  min-width: 0;
+}
+
+.drawer-room-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.drawer-room-meta {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+.drawer-room-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.drawer-announcement {
+  padding: 0 20px 12px;
+}
+
+.drawer-section-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.drawer-announcement-body {
+  background: var(--hover);
+  border-radius: 8px;
+  padding: 12px;
+  position: relative;
+}
+
+.drawer-announcement-body p {
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.drawer-edit-btn {
+  margin-top: 8px;
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.drawer-edit-btn:hover {
+  background: var(--hover);
+  color: var(--text-primary);
+}
+
+.drawer-divider {
+  height: 1px;
+  background: var(--hover);
+  margin: 8px 20px;
+}
+
+.drawer-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 14px;
+}
+
+.drawer-nav-item:hover {
+  background: var(--hover);
+}
+
+.drawer-nav-item.danger {
+  color: var(--danger);
+}
+
+.drawer-nav-item.danger:hover {
+  background: var(--danger-bg);
+}
+
+.nav-item-icon {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.nav-item-label {
+  flex: 1;
+  color: inherit;
+}
+
+.nav-item-count {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.nav-arrow {
+  color: var(--text-tertiary);
+  font-size: 14px;
 }
 
 .header-right {
@@ -5570,87 +5728,7 @@ onUnmounted(() => {
   max-width: 560px;
 }
 
-.room-detail-modal {
-  max-width: 480px;
-}
-
-.room-detail-avatar {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.detail-room-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 16px;
-  object-fit: cover;
-  background: var(--hover);
-}
-
-.room-detail-info {
-  margin-bottom: 20px;
-}
-
-.detail-row {
-  display: flex;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--hover);
-}
-
-.detail-label {
-  width: 80px;
-  font-size: 13px;
-  color: var(--text-tertiary);
-  flex-shrink: 0;
-}
-
-.detail-value {
-  font-size: 14px;
-  color: var(--text-primary);
-  word-break: break-word;
-}
-
-.room-detail-members h4 {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin-bottom: 10px;
-}
-
-.detail-member-list {
-  max-height: 200px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.detail-member-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 6px 8px;
-  border-radius: 8px;
-}
-
-.detail-member-item:hover {
-  background: var(--hover-light);
-}
-
-.detail-member-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.detail-member-name {
-  flex: 1;
-  font-size: 13px;
-  color: var(--text-primary);
-}
-
-/* 成员操作卡片 */
+  /* ==================== 成员操作卡片 ==================== */
 .member-action-card {
   position: fixed;
   width: 240px;
