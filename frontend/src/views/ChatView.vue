@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -471,6 +471,7 @@
             :key="message.id"
             class="message"
             :class="{ 'message-own': message.sender_id === authStore.user?.id, 'message-deleted': message.is_deleted }"
+            :data-message-id="message.id"
           >
             <img :src="getAvatarUrl(message.avatar, message.nickname || message.username)" class="message-avatar" @click="openMessageMemberAction(message, $event)" style="cursor:pointer" />
             <div class="message-content">
@@ -483,10 +484,14 @@
                 <div class="message-recalled">消息已撤回</div>
               </template>
               <template v-else>
+                <div v-if="message.reply_to" class="message-reply" @click="scrollToMessage(message.reply_to.id)">
+                  <div class="reply-sender">{{ message.reply_to.sender }}</div>
+                  <div class="reply-content">{{ message.reply_to.content }}</div>
+                </div>
                 <img v-if="message.type === 'image'" :src="getMessageImageUrl(message)" class="message-image" @click="previewMessageImage(message)" />
                 <div v-else class="message-text">{{ message.content }}</div>
               </template>
-              <div v-if="!message.is_deleted && (message.sender_id === authStore.user?.id || message.type === 'image')" class="message-actions" @click.stop="toggleMessageActions(message.id, $event)">
+              <div v-if="!message.is_deleted" class="message-actions" @click.stop="toggleMessageActions(message.id, $event)">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <circle cx="4" cy="8" r="1.5" fill="currentColor"/>
                   <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
@@ -494,6 +499,7 @@
                 </svg>
               </div>
               <div v-if="showMessageActions === message.id" class="message-actions-menu" :style="messageActionsPos">
+                <button @click.stop="replyMessage(message)">回复</button>
                 <button v-if="message.sender_id === authStore.user?.id" @click.stop="recallMessage(message)">撤回</button>
                 <button v-if="message.type === 'image'" @click.stop="addToStickers(message)">添加到表情包</button>
               </div>
@@ -511,6 +517,13 @@
             您已被禁言，无法发送消息
           </div>
           <div class="cc-card" v-else>
+            <div v-if="replyTarget" class="reply-bar">
+              <div class="reply-bar-left">
+                <span class="reply-bar-label">回复 @{{ replyTarget.nickname || replyTarget.username }}</span>
+                <span class="reply-bar-content">{{ replyTarget.display }}</span>
+              </div>
+              <button class="reply-bar-close" @click="replyTarget = null">×</button>
+            </div>
             <div class="cc-input-row">
               <div class="cc-input-wrap">
                 <input v-model="newMessage" class="cc-input" placeholder="输入消息..." @keyup.enter="sendMessage" @input="handleMentionInput($event); handleTyping()" @keydown="handleMentionKeydown" @paste="handlePaste" />
@@ -2050,7 +2063,7 @@ const joinRoom = async (roomId) => {
             ? `${window.location.origin}${avatarPath}`
             : avatarPath
         }
-        return { ...msg, avatar }
+        return parseReplyContent({ ...msg, avatar })
       })
     
     await loadMembers(roomId)
@@ -2160,13 +2173,53 @@ watch(showMobileDrawer, (val) => {
   }
 })
 
+const replyTarget = ref(null)
+
+function replyMessage(message) {
+  const display = message.type === 'image' ? '[图片]' : message.content
+  replyTarget.value = {
+    id: message.id,
+    sender: message.nickname || message.username,
+    display: display.length > 50 ? display.slice(0, 50) + '...' : display
+  }
+  showMessageActions.value = null
+  document.querySelector('.cc-input-wrap .cc-input')?.focus()
+}
+
+function parseReplyContent(msg) {
+  if (msg.reply_to) return msg
+  try {
+    const parsed = JSON.parse(msg.content)
+    if (parsed && parsed.replyTo) {
+      msg.reply_to = parsed.replyTo
+      msg.content = parsed.text
+    }
+  } catch {}
+  return msg
+}
+
+function scrollToMessage(messageId) {
+  if (!messageListRef.value) return
+  const el = messageListRef.value.querySelector(`[data-message-id="${messageId}"]`)
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    el.classList.add('highlight-flash')
+    setTimeout(() => el.classList.remove('highlight-flash'), 1500)
+  }
+}
+
 const sendMessage = async () => {
   if ((!newMessage.value.trim() && chatImages.value.length === 0) || !currentRoomId.value || hasActiveMute.value) {
     return
   }
 
   const roomId = currentRoomId.value
-  const text = newMessage.value.trim()
+  let text = newMessage.value.trim()
+
+  if (text && replyTarget.value) {
+    text = JSON.stringify({ text, replyTo: replyTarget.value })
+    replyTarget.value = null
+  }
 
   if (text) {
     authStore.sendMessage(roomId, text)
@@ -2650,9 +2703,9 @@ const setupSocketListeners = () => {
       const avatar = message.avatar && message.avatar.trim()
         ? `${API_BASE_URL}${message.avatar}`
         : ''
-      const messageWithAvatar = { ...message, avatar }
+      const messageWithAvatar = parseReplyContent({ ...message, avatar })
       messages.value.push(messageWithAvatar)
-      nextTick(() => scrollToBottom())
+      nextTick(() => scrollToBottom(message.sender_id === authStore.user?.id))
     }
     const map = { ...roomReadStatus.value }
     if (!map[message.room_id]) {
@@ -4923,6 +4976,93 @@ onUnmounted(() => {
 
 .message-own .message-recalled {
   color: #aaa;
+}
+
+.reply-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--hover);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.reply-bar-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.reply-bar-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.reply-bar-content {
+  display: block;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+.reply-bar-close {
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.reply-bar-close:hover {
+  color: var(--text-primary);
+}
+
+.message-reply {
+  padding: 6px 10px;
+  margin-bottom: 6px;
+  background: var(--hover);
+  border-left: 3px solid var(--accent);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.message-reply:hover {
+  background: var(--border);
+}
+
+.reply-sender {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+
+.reply-content {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.highlight-flash {
+  animation: flashHighlight 1.5s ease;
+}
+
+@keyframes flashHighlight {
+  0% { background: var(--accent-light); }
+  100% { background: transparent; }
 }
 
 .message-actions {
