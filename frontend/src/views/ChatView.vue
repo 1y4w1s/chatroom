@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -449,7 +449,7 @@
             </svg>
           </button>
         </header>
-        <div :ref="onMessageListMounted" class="message-list">
+        <div ref="messageListRef" class="message-list">
           <div
             v-for="message in messages"
             :key="message.id"
@@ -1267,15 +1267,6 @@ const messages = ref([])
 const newMessage = ref('')
 const showCreateModal = ref(false)
 const messageListRef = ref(null)
-const needScrollOnEnter = ref(false)
-
-function onMessageListMounted(el) {
-  if (el) messageListRef.value = el
-  if (el && needScrollOnEnter.value) {
-    needScrollOnEnter.value = false
-    el.scrollTop = el.scrollHeight
-  }
-}
 const showMessageActions = ref(null)
 const messageActionsPos = ref({})
 
@@ -2169,7 +2160,6 @@ const joinRoom = async (roomId) => {
     const response = await roomAPI.getMessages(roomId)
     const API_BASE_URL = import.meta.env.VITE_API_URL || ''
     messages.value = (response.data.messages || [])
-      .reverse()
       .map(msg => {
         let avatar = ''
         if (msg.avatar && msg.avatar.trim()) {
@@ -2186,7 +2176,6 @@ const joinRoom = async (roomId) => {
     loadAnnouncements(roomId)
     authStore.joinRoom(roomId)
     markRoomRead(roomId)
-    needScrollOnEnter.value = true
   } catch (error) {
     console.error('加入聊天室失败:', error)
   }
@@ -2353,7 +2342,7 @@ const sendMessage = async () => {
 
   if (text) {
     authStore.sendMessage(roomId, text)
-    if (messageListRef.value) nextTick(() => { messageListRef.value.scrollTop = messageListRef.value.scrollHeight })
+    if (messageListRef.value) nextTick(() => { messageListRef.value.scrollTop = 0 })
   }
 
   for (const img of chatImages.value) {
@@ -2930,11 +2919,10 @@ const setupSocketListeners = () => {
         ? `${API_BASE_URL}${message.avatar}`
         : ''
       const messageWithAvatar = parseReplyContent({ ...message, avatar })
-      messages.value.push(messageWithAvatar)
+      messages.value.unshift(messageWithAvatar)
       if (messageListRef.value) {
-        const { scrollTop, scrollHeight, clientHeight } = messageListRef.value
-        if (message.sender_id === authStore.user?.id || scrollHeight - scrollTop - clientHeight < 100) {
-          nextTick(() => { messageListRef.value.scrollTop = messageListRef.value.scrollHeight })
+        if (message.sender_id === authStore.user?.id || messageListRef.value.scrollTop < 100) {
+          nextTick(() => { messageListRef.value.scrollTop = 0 })
         }
       }
     }
@@ -5620,7 +5608,7 @@ onUnmounted(() => {
   overflow-y: auto;
   padding: 24px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 16px;
 }
 
