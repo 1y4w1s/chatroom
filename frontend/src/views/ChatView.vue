@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -837,56 +837,73 @@
       <div class="drawer-panel" @click.stop>
         <div class="drawer-header">
           <h3>聊天室信息</h3>
-          <button class="close-btn" @click="showRoomDrawer = false">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+          <button class="drawer-close" @click="showRoomDrawer = false">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           </button>
         </div>
         <div class="drawer-body">
-          <div class="drawer-room-info">
+          <div class="drawer-room-top">
             <img :src="roomDetailAvatarUrl" class="drawer-room-avatar" />
-            <div class="drawer-room-detail">
+            <div class="drawer-room-info">
               <div class="drawer-room-name">{{ currentRoom?.name }}</div>
               <div class="drawer-room-meta">{{ currentRoom?.owner_name }} · {{ currentMembers.length }} 人</div>
               <div class="drawer-room-desc" v-if="currentRoom?.description">{{ currentRoom?.description }}</div>
             </div>
           </div>
 
-          <div v-if="roomAnnouncement" class="drawer-announcement">
-            <div class="drawer-section-title">📢 公告</div>
-            <div class="drawer-announcement-body">
+          <div class="drawer-section">
+            <div class="drawer-section-title">
+              <span>📢 公告</span>
+              <button v-if="currentPermissions.isAdmin" class="drawer-section-action" @click="showRoomDrawer = false; openRoomSettings('info')">编辑</button>
+            </div>
+            <div class="drawer-announcement-body" v-if="roomAnnouncement">
               <p>{{ roomAnnouncement }}</p>
-              <button v-if="currentPermissions.isAdmin" class="drawer-edit-btn" @click="openRoomSettings">编辑</button>
+            </div>
+            <div class="drawer-announcement-empty" v-else>
+              <span class="text-tertiary">暂无公告</span>
             </div>
           </div>
 
           <div class="drawer-divider"></div>
 
-          <div class="drawer-nav">
-            <div class="drawer-nav-item" @click="showRoomDrawer = false; openRoomSettings('members')">
-              <span class="nav-item-icon">👥</span>
-              <span class="nav-item-label">成员管理</span>
-              <span class="nav-item-count">{{ currentMembers.length }} 人</span>
-              <span class="nav-arrow">&gt;</span>
+          <div class="drawer-section">
+            <div class="drawer-section-title">
+              <span>👥 成员 · {{ currentMembers.length }}</span>
+              <button class="drawer-section-action" @click="drawerShowAllMembers = !drawerShowAllMembers">
+                {{ drawerShowAllMembers ? '收起' : '查看全部' }}
+              </button>
             </div>
-            <div v-if="currentPermissions.isAdmin && currentRoom?.type !== 'private'" class="drawer-nav-item" @click="showRoomDrawer = false; openRoomSettings('info')">
-              <span class="nav-item-icon">🔧</span>
-              <span class="nav-item-label">聊天室设置</span>
-              <span class="nav-arrow">&gt;</span>
+            <div class="drawer-member-list">
+              <div v-for="member in (drawerShowAllMembers ? currentMembers : currentMembers.slice(0, 5))" :key="member.id" class="drawer-member-item" @click="showRoomDrawer = false; openMemberAction(member, $event)">
+                <img :src="getAvatarUrl(member.avatar, member.nickname || member.username)" class="drawer-member-avatar" />
+                <div class="drawer-member-name">{{ member.nickname || member.username }}</div>
+                <span v-if="member.is_bot" class="role-badge bot">🤖</span>
+                <span v-else-if="member.role === 'owner'" class="role-badge owner">群主</span>
+                <span v-else-if="member.role === 'admin'" class="role-badge admin">管理员</span>
+              </div>
             </div>
           </div>
 
           <div class="drawer-divider"></div>
 
-          <div class="drawer-actions">
-            <div v-if="isSuperAdmin && currentRoom?.type !== 'private'" class="drawer-nav-item danger" @click="showRoomDrawer = false; showDissolveConfirm = true">
-              <span class="nav-item-icon">🗑</span>
-              <span class="nav-item-label">删除聊天室</span>
+          <div class="drawer-section">
+            <div class="drawer-nav-item" v-if="currentPermissions.isAdmin && currentRoom?.type !== 'private'" @click="showRoomDrawer = false; openRoomSettings('info')">
+              <span class="nav-icon">⚙️</span>
+              <span class="nav-label">聊天室设置</span>
+              <span class="nav-arrow">&gt;</span>
             </div>
-            <div v-if="currentPermissions.isOwner && currentRoom?.type !== 'private'" class="drawer-nav-item danger" @click="showRoomDrawer = false; showDissolveConfirm = true">
-              <span class="nav-item-icon">⚡</span>
-              <span class="nav-item-label">解散聊天室</span>
+          </div>
+
+          <div class="drawer-spacer"></div>
+
+          <div class="drawer-section">
+            <div class="drawer-nav-item danger" @click="showRoomDrawer = false; showDissolveConfirm = true" v-if="currentPermissions.isOwner && currentRoom?.type !== 'private'">
+              <span class="nav-icon">🗑</span>
+              <span class="nav-label">解散聊天室</span>
+            </div>
+            <div class="drawer-nav-item danger" @click="showRoomDrawer = false; showDissolveConfirm = true" v-if="isSuperAdmin && currentRoom?.type !== 'private'">
+              <span class="nav-icon">🗑</span>
+              <span class="nav-label">删除聊天室</span>
             </div>
           </div>
         </div>
@@ -1270,6 +1287,7 @@ const roomDetailAvatarUrl = computed(() => {
 })
 
 const showRoomDrawer = ref(false)
+const drawerShowAllMembers = ref(false)
 
 // 侧边栏 Tab
 const sidebarTab = ref('rooms')
@@ -2333,7 +2351,7 @@ function toggleMessageActions(messageId, event) {
       position: 'fixed',
       left: rect.left + 'px',
       top: (rect.bottom + 4) + 'px',
-      zIndex: '100'
+      zIndex: '2100'
     }
   }
 }
@@ -4054,7 +4072,7 @@ onUnmounted(() => {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  z-index: 100;
+  z-index: 1100;
 }
 
 .mention-panel-header {
@@ -5103,13 +5121,13 @@ onUnmounted(() => {
 .drawer-body {
   flex: 1;
   overflow-y: auto;
-  padding: 16px 0;
+  padding: 0;
 }
 
-.drawer-room-info {
+.drawer-room-top {
   display: flex;
   gap: 14px;
-  padding: 0 20px 16px;
+  padding: 16px 20px;
   align-items: center;
 }
 
@@ -5121,7 +5139,7 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 
-.drawer-room-detail {
+.drawer-room-info {
   flex: 1;
   min-width: 0;
 }
@@ -5144,22 +5162,40 @@ onUnmounted(() => {
   margin-top: 4px;
 }
 
-.drawer-announcement {
-  padding: 0 20px 12px;
+.drawer-section {
+  padding: 12px 20px;
 }
 
 .drawer-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 13px;
   font-weight: 600;
   color: var(--text-secondary);
   margin-bottom: 8px;
 }
 
+.drawer-section-action {
+  padding: 2px 8px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-tertiary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.drawer-section-action:hover {
+  background: var(--hover);
+  color: var(--text-primary);
+}
+
 .drawer-announcement-body {
   background: var(--hover);
   border-radius: 8px;
   padding: 12px;
-  position: relative;
 }
 
 .drawer-announcement-body p {
@@ -5171,37 +5207,69 @@ onUnmounted(() => {
   word-break: break-word;
 }
 
-.drawer-edit-btn {
-  margin-top: 8px;
-  padding: 4px 12px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: var(--bg-primary);
-  color: var(--text-secondary);
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.drawer-edit-btn:hover {
-  background: var(--hover);
-  color: var(--text-primary);
+.drawer-announcement-empty {
+  font-size: 13px;
+  padding: 8px 0;
 }
 
 .drawer-divider {
   height: 1px;
   background: var(--hover);
-  margin: 8px 20px;
+  margin: 0 20px;
+}
+
+.drawer-member-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.drawer-member-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.drawer-member-item:hover {
+  background: var(--hover);
+}
+
+.drawer-member-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.drawer-member-name {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text-primary);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawer-spacer {
+  flex: 1;
 }
 
 .drawer-nav-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 20px;
+  padding: 12px 0;
   cursor: pointer;
   transition: background 0.15s;
   font-size: 14px;
+  border-radius: 8px;
+  color: var(--text-primary);
 }
 
 .drawer-nav-item:hover {
@@ -5216,26 +5284,40 @@ onUnmounted(() => {
   background: var(--danger-bg);
 }
 
-.nav-item-icon {
+.nav-icon {
   font-size: 18px;
   width: 24px;
   text-align: center;
   flex-shrink: 0;
 }
 
-.nav-item-label {
+.nav-label {
   flex: 1;
   color: inherit;
-}
-
-.nav-item-count {
-  font-size: 12px;
-  color: var(--text-tertiary);
 }
 
 .nav-arrow {
   color: var(--text-tertiary);
   font-size: 14px;
+}
+
+.drawer-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.drawer-close:hover {
+  background: var(--hover);
+  color: var(--text-primary);
 }
 
 .header-right {
@@ -5257,8 +5339,6 @@ onUnmounted(() => {
   display: flex;
   gap: 12px;
   max-width: 70%;
-  content-visibility: auto;
-  contain-intrinsic-size: 80px;
 }
 
 .message-own {
@@ -5500,7 +5580,7 @@ onUnmounted(() => {
   border-radius: 10px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.12);
   overflow: hidden;
-  z-index: 100;
+  z-index: 2100;
 }
 
 .message-actions-menu button {
