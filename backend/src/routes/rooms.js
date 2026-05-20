@@ -378,6 +378,19 @@ router.post('/', [
     // 记录系统日志
     await logAction(owner_id, 'create_room', { roomId: result.insertId, name });
     
+    // 广播聊天室创建事件给所有在线用户
+    const { getIo } = require('../server');
+    const io = getIo();
+    if (io && type === 'public') {
+      io.emit('room_created', {
+        roomId: result.insertId,
+        name,
+        description,
+        type,
+        owner_id
+      });
+    }
+    
     res.status(201).json({
       success: true,
       data: {
