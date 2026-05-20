@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -2178,7 +2178,9 @@ const joinRoom = async (roomId) => {
     authStore.joinRoom(roomId)
     markRoomRead(roomId)
     
-    nextTick(() => scrollToBottom(true))
+    nextTick(() => {
+      nextTick(() => scrollToBottom(true))
+    })
   } catch (error) {
     console.error('加入聊天室失败:', error)
   }
@@ -2290,7 +2292,7 @@ const announcementFormContent = ref('')
 
 async function loadAnnouncements(roomId) {
   try {
-    const res = await api.get(`/api/rooms/${roomId}/announcements`)
+    const res = await api.get(`/rooms/${roomId}/announcements`)
     roomAnnouncements.value = res.data.data.announcements || []
   } catch {}
 }
@@ -2506,7 +2508,7 @@ function editAnnouncement(ann) {
 async function deleteAnnouncement(ann) {
   if (!confirm('确定删除此公告？')) return
   try {
-    await api.delete(`/api/rooms/${currentRoomId.value}/announcements/${ann.id}`, { data: { userId: authStore.userId } })
+    await api.delete(`/rooms/${currentRoomId.value}/announcements/${ann.id}`, { data: { userId: authStore.userId } })
     await loadAnnouncements(currentRoomId.value)
     showToastMessage('公告已删除')
   } catch (e) {
@@ -2519,10 +2521,10 @@ async function submitAnnouncement() {
   if (!content) return
   try {
     if (editingAnnouncement.value) {
-      await api.put(`/api/rooms/${currentRoomId.value}/announcements/${editingAnnouncement.value.id}`, { content, userId: authStore.userId })
+      await api.put(`/rooms/${currentRoomId.value}/announcements/${editingAnnouncement.value.id}`, { content, userId: authStore.userId })
       showToastMessage('公告已更新')
     } else {
-      await api.post(`/api/rooms/${currentRoomId.value}/announcements`, { content, userId: authStore.userId })
+      await api.post(`/rooms/${currentRoomId.value}/announcements`, { content, userId: authStore.userId })
       showToastMessage('公告已发布')
     }
     await loadAnnouncements(currentRoomId.value)
@@ -6106,7 +6108,7 @@ onUnmounted(() => {
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
   padding: 16px;
-  z-index: 1100;
+  z-index: 3100;
 }
 
 .member-action-header {
