@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -59,20 +59,111 @@
 
       <div class="sidebar-content">
         <div v-show="sidebarTab === 'rooms'" class="room-list">
-          <RoomList
-            :rooms="rooms"
-            :currentRoomId="currentRoomId"
-            :previewMembers="previewMembers"
-            :previewRoomId="previewRoomId"
-            :previewPosition="previewPosition"
-            :roomUnreads="roomUnreads"
-            :roomMentions="roomMentions"
-            @create="showCreateModal = true"
-            @select="handleRoomClick"
-            @preview="handlePreview"
-            @touchStart="handleTouchStart"
-            @touchEnd="handleTouchEnd"
-          />
+          <div class="room-list-header">
+            <span class="room-list-title">聊天列表</span>
+            <button class="btn btn-primary btn-sm" @click="showCreateModal = true">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M7 2V12M2 7H12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+              新建群聊
+            </button>
+          </div>
+
+          <div class="room-category">
+            <div class="category-header" @click="showGroupChats = !showGroupChats">
+              <span class="category-arrow" :class="{ expanded: showGroupChats }">▸</span>
+              <span class="category-label">群聊</span>
+              <span class="category-count">{{ groupRooms.length }}</span>
+            </div>
+            <div v-show="showGroupChats">
+              <div
+                v-for="room in groupRooms"
+                :key="room.id"
+                class="room-item"
+                :class="{ active: currentRoomId === room.id }"
+                @click="handleRoomClick(room.id)"
+                @mouseenter="showMemberPreview(room.id, $event)"
+                @mouseleave="hideMemberPreview"
+                @touchstart="handleTouchStart(room.id, $event)"
+                @touchend="handleTouchEnd"
+              >
+                <div class="room-icon">
+                  <img v-if="getRoomListAvatar(room)" :src="getRoomListAvatar(room)" class="room-list-avatar" />
+                  <div v-else class="default-avatar" :style="{ background: nameColor(room.display_name || room.name) }">
+                    <span>{{ (room.display_name || room.name)[0] }}</span>
+                  </div>
+                  <span v-if="getRoomUnread(room.id)" class="unread-badge">{{ formatUnread(getRoomUnread(room.id)) }}</span>
+                  <span v-if="getRoomMention(room.id)" class="mention-badge">@</span>
+                </div>
+                <div class="room-info">
+                  <div class="room-name">{{ room.display_name || room.name }}</div>
+                   <div class="room-desc" v-if="room.description">{{ room.description }}</div>
+                 </div>
+               </div>
+             </div>
+          </div>
+
+          <div class="room-category">
+            <div class="category-header" @click="showPrivateChats = !showPrivateChats">
+              <span class="category-arrow" :class="{ expanded: showPrivateChats }">▸</span>
+              <span class="category-label">私聊</span>
+              <span class="category-count">{{ privateRooms.length }}</span>
+            </div>
+            <div v-show="showPrivateChats">
+              <div
+                v-for="room in privateRooms"
+                :key="room.id"
+                class="room-item"
+                :class="{ active: currentRoomId === room.id }"
+                @click="joinRoom(room.id)"
+              >
+                <div class="room-icon">
+                  <img v-if="getRoomListAvatar(room)" :src="getRoomListAvatar(room)" class="room-list-avatar" />
+                  <div v-else class="default-avatar" :style="{ background: nameColor(room.display_name || room.name) }">
+                    <span>{{ (room.display_name || room.name)[0] }}</span>
+                  </div>
+                  <span v-if="getRoomUnread(room.id)" class="unread-badge">{{ formatUnread(getRoomUnread(room.id)) }}</span>
+                </div>
+                <div class="room-info">
+                  <div class="room-name">{{ room.display_name || room.name }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div 
+            v-if="previewRoomId && previewMembers.length > 0" 
+            class="member-preview"
+            :style="previewPosition"
+          >
+            <div class="preview-header">
+              <span>{{ rooms.find(r => r.id === previewRoomId)?.name || '成员列表' }}</span>
+              <span class="member-count">{{ previewMembers.length }}人</span>
+            </div>
+            <div class="preview-list">
+              <div
+                v-for="member in previewMembers.slice(0, 6)"
+                :key="member.id"
+                class="preview-member"
+              >
+                <img :src="getAvatarUrl(member.avatar, member.nickname || member.username)" class="preview-avatar" />
+                <div class="preview-info">
+                  <div class="preview-name">{{ member.nickname || member.username }}</div>
+                  <template v-if="!member.is_bot">
+                    <div class="preview-status" :class="member.status">
+                      <span class="status-dot" :class="member.status"></span>
+                      {{ member.status === 'online' ? '在线' : member.status === 'away' ? '离开' : '离线' }}
+                    </div>
+                  </template>
+                  <div v-else class="preview-status bot-status">🤖 机器人</div>
+                </div>
+              </div>
+              <div v-if="previewMembers.length > 6" class="preview-more">
+                还有 {{ previewMembers.length - 6 }} 位成员...
+              </div>
+            </div>
+          </div>
+          <div ref="scrollAnchor"></div>
         </div>
 
         <div v-show="sidebarTab === 'friends'" class="friend-list">
@@ -359,21 +450,57 @@
             </svg>
           </button>
         </header>
-        <MessageList
-            ref="messageListRef"
-            :messages="messages"
-            :currentUserId="authStore.user?.id"
-            :showMessageActions="showMessageActions"
-            :messageActionsPos="messageActionsPos"
-            @memberAction="openMessageMemberAction"
-            @scrollToMessage="scrollToMessage"
-            @previewImage="previewMessageImage"
-            @downloadFile="downloadFile"
-            @toggleActions="toggleMessageActions"
-            @reply="replyMessage"
-            @recall="recallMessage"
-            @addToStickers="addToStickers"
-          />
+        <div class="message-list" ref="messageListRef">
+          <div
+            v-for="message in messages"
+            :key="message.id"
+            class="message"
+            :class="{ 'message-own': message.sender_id === authStore.user?.id, 'message-deleted': message.is_deleted }"
+            :data-message-id="message.id"
+          >
+            <img :src="getAvatarUrl(message.avatar, message.nickname || message.username)" class="message-avatar" @click="openMessageMemberAction(message, $event)" style="cursor:pointer" />
+            <div class="message-content">
+              <div class="message-header">
+                <span class="message-sender">{{ message.nickname || message.username }}</span>
+                <span v-if="message.is_bot" class="bot-badge">🤖</span>
+                <span v-if="message.is_at_all" class="at-all-badge">@all</span>
+                <span class="message-time">{{ formatTime(message.created_at) }}</span>
+              </div>
+              <template v-if="message.is_deleted">
+                <div class="message-recalled">消息已撤回</div>
+              </template>
+              <template v-else>
+                <div v-if="message.reply_to" class="message-reply" @click="scrollToMessage(message.reply_to.id)">
+                  <div class="reply-sender">{{ message.reply_to.sender }}</div>
+                  <div class="reply-content">{{ message.reply_to.content }}</div>
+                </div>
+                <img v-if="message.type === 'image'" :src="getMessageImageUrl(message)" class="message-image" @click="previewMessageImage(message)" />
+                <div v-else-if="message.type === 'file'" class="message-file" @click="downloadFile(message)">
+                  <span class="file-card-icon">{{ getFileIcon(message.file_name || message.content) }}</span>
+                  <div class="file-card-info">
+                    <div class="file-card-name">{{ message.file_name || message.content }}</div>
+                    <div class="file-card-size" v-if="message.file_size">{{ formatFileSize(message.file_size) }}</div>
+                  </div>
+                  <svg class="file-card-dl" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2V11M4 7L8 11L12 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 13H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
+                <div v-else class="message-text">{{ message.content }}</div>
+              </template>
+              <div v-if="!message.is_deleted" class="message-actions" @click.stop="toggleMessageActions(message.id, $event)">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="4" cy="8" r="1.5" fill="currentColor"/>
+                  <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+                  <circle cx="12" cy="8" r="1.5" fill="currentColor"/>
+                </svg>
+              </div>
+              <div v-if="showMessageActions === message.id" class="message-actions-menu" :style="messageActionsPos">
+                <button @click.stop="replyMessage(message)">回复</button>
+                <button v-if="message.sender_id === authStore.user?.id" @click.stop="recallMessage(message)">撤回</button>
+                <button v-if="message.type === 'image'" @click.stop="addToStickers(message)">添加到表情包</button>
+              </div>
+            </div>
+          </div>
+          <div ref="scrollAnchor"></div>
+        </div>
 
         <footer class="chat-input-footer">
           <div v-if="hasActiveMute" class="muted-notice">
@@ -1039,10 +1166,6 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { roomAPI, userAPI, notificationAPI, friendAPI, postAPI, messageAPI, api } from '@/api'
 import { emojiCategories } from '@/utils/emojis'
-import RoomList from '@/components/RoomList.vue'
-import MessageList from '@/components/MessageList.vue'
-import ChatInput from '@/components/ChatInput.vue'
-import RoomDrawer from '@/components/RoomDrawer.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -1669,22 +1792,6 @@ const rejectFriendRequest = async (notification) => {
 // 未读状态
 const roomReadStatus = ref({})
 
-const roomUnreads = computed(() => {
-  const map = {}
-  for (const [roomId, status] of Object.entries(roomReadStatus.value)) {
-    map[roomId] = Number(status.unread_count) || 0
-  }
-  return map
-})
-
-const roomMentions = computed(() => {
-  const map = {}
-  for (const [roomId, status] of Object.entries(roomReadStatus.value)) {
-    map[roomId] = (status.is_mentioned === true || status.is_mentioned === 1 || status.is_mentioned === '1') ? 1 : 0
-  }
-  return map
-})
-
 const getRoomUnread = (roomId) => {
   return Number(roomReadStatus.value[roomId]?.unread_count) || 0
 }
@@ -2108,14 +2215,6 @@ const loadMembers = async (roomId) => {
     currentMembers.value = response.data.members
   } catch (error) {
     console.error('加载成员列表失败:', error)
-  }
-}
-
-const handlePreview = (roomId, event) => {
-  if (roomId) {
-    showMemberPreview(roomId, event)
-  } else {
-    hideMemberPreview()
   }
 }
 
