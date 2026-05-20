@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -4092,6 +4092,34 @@ onUnmounted(() => {
   background: #2a4a2a;
 }
 
+[data-theme="dark"] .btn-admin {
+  background: #374151;
+  color: #93c5fd;
+}
+
+[data-theme="dark"] .btn-admin:hover {
+  background: #4b5563;
+}
+
+[data-theme="dark"] .btn-remove-admin {
+  background: #374151;
+  color: #d1d5db;
+}
+
+[data-theme="dark"] .btn-remove-admin:hover {
+  background: #4b5563;
+}
+
+[data-theme="dark"] .role-badge.admin {
+  background: #374151;
+  color: #93c5fd;
+}
+
+[data-theme="dark"] .role-badge.bot {
+  background: #374151;
+  color: #c4b5fd;
+}
+
 [data-theme="dark"] .pd-badge.private {
   background: #3a2a0a;
   color: #fbbf24;
@@ -5360,8 +5388,8 @@ onUnmounted(() => {
 }
 
 .role-badge.admin {
-  background: var(--accent-light);
-  color: #3730a3;
+  background: var(--hover);
+  color: var(--text-secondary);
 }
 
 .role-badge.member {
@@ -5370,8 +5398,8 @@ onUnmounted(() => {
 }
 
 .role-badge.bot {
-  background: var(--accent-bg);
-  color: #6d28d9;
+  background: var(--hover);
+  color: var(--text-primary);
 }
 
 .member-status {
@@ -5524,12 +5552,12 @@ onUnmounted(() => {
 }
 
 .btn-admin {
-  background: var(--accent-light);
-  color: #3730a3;
+  background: var(--hover);
+  color: var(--text-primary);
 }
 
 .btn-admin:hover {
-  background: #c7d2fe;
+  background: var(--border);
 }
 
 .btn-remove-admin {
