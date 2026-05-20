@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -84,7 +84,7 @@
                 @click="handleRoomClick(room.id)"
                 @mouseenter="showMemberPreview(room.id)"
                 @mouseleave="hideMemberPreview"
-                @touchstart="handleTouchStart(room.id)"
+                @touchstart="handleTouchStart(room.id, $event)"
                 @touchend="handleTouchEnd"
               >
                 <div class="room-icon">
@@ -2026,9 +2026,7 @@ const joinRoom = async (roomId) => {
     authStore.joinRoom(roomId)
     markRoomRead(roomId)
     
-    setTimeout(() => {
-      scrollToBottom(true)
-    }, 200)
+    nextTick(() => scrollToBottom(true))
   } catch (error) {
     console.error('加入聊天室失败:', error)
   }
@@ -2065,11 +2063,22 @@ const loadMembers = async (roomId) => {
 const showMemberPreview = async (roomId, event) => {
   previewRoomId.value = roomId
   
-  previewPosition.value = {
-    position: 'fixed',
-    left: '320px',
-    top: '80px',
-    zIndex: '1000'
+  if (event && event.currentTarget) {
+    const rect = event.currentTarget.getBoundingClientRect()
+    previewPosition.value = {
+      position: 'fixed',
+      left: rect.left + 'px',
+      top: (rect.bottom + 4) + 'px',
+      width: rect.width + 'px',
+      zIndex: '1000'
+    }
+  } else {
+    previewPosition.value = {
+      position: 'fixed',
+      left: '320px',
+      top: '80px',
+      zIndex: '1000'
+    }
   }
   
   try {
@@ -2088,11 +2097,11 @@ const hideMemberPreview = () => {
   previewMembers.value = []
 }
 
-function handleTouchStart(roomId) {
+function handleTouchStart(roomId, event) {
   longPressTriggered.value = false
   longPressTimer.value = setTimeout(() => {
     longPressTriggered.value = true
-    showMemberPreview(roomId)
+    showMemberPreview(roomId, event)
   }, 500)
 }
 
@@ -4133,6 +4142,22 @@ onUnmounted(() => {
 
 [data-theme="dark"] .pd-comment-del:hover {
   color: var(--danger);
+}
+
+[data-theme="dark"] .member-action-btn {
+  color: #d1d5db;
+}
+
+[data-theme="dark"] .member-action-btn:hover {
+  background: #374151;
+}
+
+[data-theme="dark"] .member-action-btn.action-mute {
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .member-action-btn.action-unmute {
+  color: #34d399;
 }
 
 /* ==================== 移动端响应式 ==================== */
