@@ -1241,4 +1241,47 @@ async function logAction(userId, action, details) {
   }
 }
 
+/**
+ * GET /api/rooms/:id/announcement
+ * 获取聊天室公告
+ */
+router.get('/:id/announcement', async (req, res) => {
+  try {
+    const rooms = await query(
+      'SELECT announcement FROM chat_rooms WHERE id = ?',
+      [req.params.id]
+    );
+    if (rooms.length === 0) {
+      return res.status(404).json({ success: false, error: { message: '聊天室不存在' } });
+    }
+    res.json({ success: true, data: { announcement: rooms[0].announcement || '' } });
+  } catch (error) {
+    console.error('获取公告失败:', error);
+    res.status(500).json({ success: false, error: { message: '获取公告失败' } });
+  }
+});
+
+/**
+ * PUT /api/rooms/:id/announcement
+ * 设置/更新聊天室公告（仅管理员）
+ */
+router.put('/:id/announcement', checkAdmin, async (req, res) => {
+  try {
+    const { announcement, userId } = req.body;
+    await query(
+      'UPDATE chat_rooms SET announcement = ? WHERE id = ?',
+      [announcement || '', req.params.id]
+    );
+    emitPermissionChange(req.params.id, 'announcement_updated', {
+      roomId: parseInt(req.params.id),
+      announcement: announcement || '',
+      operatorId: userId
+    });
+    res.json({ success: true, message: '公告已更新' });
+  } catch (error) {
+    console.error('更新公告失败:', error);
+    res.status(500).json({ success: false, error: { message: '更新公告失败' } });
+  }
+});
+
 module.exports = router;

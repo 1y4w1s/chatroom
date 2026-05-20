@@ -246,7 +246,7 @@ io.on('connection', (socket) => {
   });
   
   socket.on('send_message', async (data) => {
-    const { roomId, content, type, userId, username } = data;
+    const { roomId, content, type, userId, username, file_name, file_size } = data;
     
     console.log(`收到消息发送请求：用户 ${username || userId} -> 房间 ${roomId}, 内容: ${content}`);
     console.log('完整数据:', data);
@@ -262,11 +262,22 @@ io.on('connection', (socket) => {
         roomId,
         userId: parseInt(userId) || 1,
         content,
-        type: type || 'text'
+        type: type || 'text',
+        fileName: file_name,
+        fileSize: file_size
       });
       
       console.log('消息创建成功:', message);
       io.to(roomId).emit('new_message', message);
+      
+      // @全体成员：广播通知给所有在线成员
+      if (message.is_at_all) {
+        io.to(roomId).emit('at_all_notification', {
+          roomId,
+          userId: message.user_id,
+          username: message.nickname || message.username
+        });
+      }
       
       // @提及：通知所有客户端刷新未读状态（被@用户可能不在当前房间）
       if (message.is_mention) {

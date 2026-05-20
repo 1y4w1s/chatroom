@@ -256,6 +256,11 @@ body {
   color: white;
 }
 
+.toast.info {
+  background: var(--accent-bg, #1a1a1a);
+  color: white;
+}
+
 @keyframes slideUp {
   from {
     opacity: 0;

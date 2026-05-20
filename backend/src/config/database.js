@@ -193,6 +193,16 @@ async function initDatabase() {
         console.log(`✅ 添加 ${roomTable}.avatar 字段`);
       }
       
+      // 检查并添加 announcement 字段
+      const hasAnnouncement = await connection.query(`
+        SELECT COUNT(*) as count FROM information_schema.COLUMNS 
+        WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = ? AND COLUMN_NAME = 'announcement'
+      `, [roomTable]);
+      if (hasAnnouncement[0].count === 0) {
+        await connection.query(`ALTER TABLE ?? ADD COLUMN announcement TEXT DEFAULT NULL`, [roomTable]);
+        console.log(`✅ 添加 ${roomTable}.announcement 字段`);
+      }
+      
       // 检查并添加 type 字段
       const hasType = await connection.query(`
         SELECT COUNT(*) as count FROM information_schema.COLUMNS 

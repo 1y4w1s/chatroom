@@ -182,9 +182,9 @@ export const useAuthStore = defineStore('auth', {
     },
 
     // 发送消息
-    sendMessage(roomId, content, type = 'text') {
+    sendMessage(roomId, content, type = 'text', extra = {}) {
       if (this.socket) {
-        this.socket.emit('send_message', { roomId, content, type, userId: this.user.id, username: this.user.username })
+        this.socket.emit('send_message', { roomId, content, type, userId: this.user.id, username: this.user.username, ...extra })
       } else {
         console.error('WebSocket 未连接，无法发送消息')
       }

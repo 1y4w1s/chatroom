@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -441,6 +441,10 @@
             <h3>{{ currentRoom?.name }}</h3>
             <p>{{ currentRoom?.description }}</p>
           </div>
+          <div v-if="roomAnnouncement" class="announcement-banner" @click="showRoomDetail = true">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1C4.5 1 2 2.5 2 5.5C2 8 3.5 9.5 5 10L7 13L9 10C10.5 9.5 12 8 12 5.5C12 2.5 9.5 1 7 1Z" stroke="currentColor" stroke-width="1.2"/><circle cx="7" cy="5.5" r="1" fill="currentColor"/></svg>
+            <span>{{ roomAnnouncement }}</span>
+          </div>
           <div class="header-right">
             <button 
               v-if="currentPermissions.isAdmin && currentRoom?.type !== 'private'" 
@@ -478,6 +482,7 @@
               <div class="message-header">
                 <span class="message-sender">{{ message.nickname || message.username }}</span>
                 <span v-if="message.is_bot" class="bot-badge">🤖</span>
+                <span v-if="message.is_at_all" class="at-all-badge">@all</span>
                 <span class="message-time">{{ formatTime(message.created_at) }}</span>
               </div>
               <template v-if="message.is_deleted">
@@ -489,6 +494,14 @@
                   <div class="reply-content">{{ message.reply_to.content }}</div>
                 </div>
                 <img v-if="message.type === 'image'" :src="getMessageImageUrl(message)" class="message-image" @click="previewMessageImage(message)" />
+                <div v-else-if="message.type === 'file'" class="message-file" @click="downloadFile(message)">
+                  <span class="file-card-icon">{{ getFileIcon(message.file_name || message.content) }}</span>
+                  <div class="file-card-info">
+                    <div class="file-card-name">{{ message.file_name || message.content }}</div>
+                    <div class="file-card-size" v-if="message.file_size">{{ formatFileSize(message.file_size) }}</div>
+                  </div>
+                  <svg class="file-card-dl" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2V11M4 7L8 11L12 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 13H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                </div>
                 <div v-else class="message-text">{{ message.content }}</div>
               </template>
               <div v-if="!message.is_deleted" class="message-actions" @click.stop="toggleMessageActions(message.id, $event)">
@@ -556,12 +569,26 @@
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2.5" y="3.5" width="15" height="13" rx="2" stroke="currentColor" stroke-width="1.3"/><circle cx="7" cy="8" r="1.5" fill="currentColor"/><path d="M2.5 13L7 9L11 13L14.5 10L17.5 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
                 <input type="file" accept="image/*" multiple @change="handleChatImageSelect" hidden />
               </label>
-              <button class="cc-send-btn" @click="sendMessage" :disabled="!newMessage.trim() && chatImages.length === 0">发送</button>
+              <label class="cc-icon-btn" title="文件">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4C4 3 4.5 2 6 2H12L17 7V16C17 17 16 18 15 18H6C5 18 4 17 4 16V4Z" stroke="currentColor" stroke-width="1.3"/><path d="M12 2V6H17" stroke="currentColor" stroke-width="1.3"/></svg>
+                <input type="file" accept=".pdf,.doc,.docx,.zip,.rar,.txt,.xls,.xlsx,.ppt,.pptx" @change="handleChatFileSelect" hidden />
+              </label>
+              <button class="cc-send-btn" @click="sendMessage" :disabled="!newMessage.trim() && chatImages.length === 0 && chatFiles.length === 0">发送</button>
             </div>
             <div v-if="chatImages.length" class="cc-previews">
               <div v-for="(img, i) in chatImages" :key="i" class="cc-preview-item">
                 <img :src="img.preview" />
                 <button class="cc-preview-del" @click="removeChatImage(i)">×</button>
+              </div>
+            </div>
+            <div v-if="chatFiles.length" class="cc-previews">
+              <div v-for="(f, i) in chatFiles" :key="i" class="cc-file-preview">
+                <span class="cc-file-icon">{{ getFileIcon(f.file.name) }}</span>
+                <div class="cc-file-info">
+                  <div class="cc-file-name">{{ f.file.name }}</div>
+                  <div class="cc-file-size">{{ formatFileSize(f.file.size) }}</div>
+                </div>
+                <button class="cc-preview-del" @click="removeChatFile(i)">×</button>
               </div>
             </div>
             <div v-if="showChatEmoji" ref="chatEmojiRef" class="cc-emoji-panel">
@@ -670,6 +697,10 @@
             <div class="form-group">
               <label>聊天室简介</label>
               <textarea v-model="roomEditDesc" class="input" rows="3" maxlength="500"></textarea>
+            </div>
+            <div class="form-group" v-if="currentPermissions.isAdmin">
+              <label>聊天室公告</label>
+              <textarea v-model="roomEditAnnouncement" class="input" rows="2" maxlength="500" placeholder="设置公告内容..."></textarea>
             </div>
             <button class="btn btn-primary" @click="saveRoomSettings" :disabled="roomSaving">保存修改</button>
             <div v-if="roomSettingsMsg" class="msg" :class="roomSettingsMsgType">{{ roomSettingsMsg }}</div>
@@ -1233,6 +1264,7 @@ const showRoomSettings = ref(false)
 const roomSettingsTab = ref('info')
 const roomEditName = ref('')
 const roomEditDesc = ref('')
+const roomEditAnnouncement = ref('')
 const roomSaving = ref(false)
 const roomSettingsMsg = ref('')
 const roomSettingsMsgType = ref('')
@@ -1849,6 +1881,30 @@ function sendSticker(url) {
 }
 const currentEmojiCat = ref(0)
 const chatImages = ref([])
+const chatFiles = ref([])
+
+function handleChatFileSelect(e) {
+  for (const file of e.target.files) {
+    chatFiles.value.push({ file })
+  }
+  e.target.value = ''
+}
+
+function removeChatFile(i) {
+  chatFiles.value.splice(i, 1)
+}
+
+function formatFileSize(bytes) {
+  if (bytes < 1024) return bytes + 'B'
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + 'KB'
+  return (bytes / 1024 / 1024).toFixed(1) + 'MB'
+}
+
+function getFileIcon(name) {
+  const ext = name.split('.').pop().toLowerCase()
+  const icons = { pdf: '📄', doc: '📝', docx: '📝', xls: '📊', xlsx: '📊', ppt: '📽', pptx: '📽', zip: '📦', rar: '📦', txt: '📃' }
+  return icons[ext] || '📎'
+}
 
 function compressImage(file) {
   return new Promise((resolve) => {
@@ -2068,6 +2124,7 @@ const joinRoom = async (roomId) => {
     
     await loadMembers(roomId)
     await loadPermissions(roomId)
+    loadAnnouncement(roomId)
     authStore.joinRoom(roomId)
     markRoomRead(roomId)
     
@@ -2174,6 +2231,15 @@ watch(showMobileDrawer, (val) => {
 })
 
 const replyTarget = ref(null)
+const roomAnnouncement = ref('')
+
+async function loadAnnouncement(roomId) {
+  try {
+    const API = (await import('@/utils/api')).default
+    const res = await API.get(`/api/rooms/${roomId}/announcement`)
+    roomAnnouncement.value = res.data.data.announcement || ''
+  } catch {}
+}
 
 function replyMessage(message) {
   const display = message.type === 'image' ? '[图片]' : message.content
@@ -2241,8 +2307,24 @@ const sendMessage = async () => {
     }
   }
 
+  for (const f of chatFiles.value) {
+    const formData = new FormData()
+    formData.append('file', f.file)
+    try {
+      const res = await messageAPI.upload(authStore.userId, formData)
+      if (res && res.data && res.data.url) {
+        authStore.sendMessage(roomId, res.data.url, 'file', { file_name: res.data.filename, file_size: res.data.size })
+      } else {
+        console.error('文件上传返回异常:', res)
+      }
+    } catch (e) {
+      console.error('文件上传失败:', e)
+    }
+  }
+
   newMessage.value = ''
   chatImages.value = []
+  chatFiles.value = []
 }
 
 let typingTimeout = null
@@ -2307,6 +2389,16 @@ async function addToStickers(message) {
   }
 }
 
+function downloadFile(message) {
+  const url = getMessageImageUrl(message)
+  if (!url) return
+  const a = document.createElement('a')
+  a.href = url
+  a.download = message.file_name || message.content || 'file'
+  a.target = '_blank'
+  a.click()
+}
+
 const createRoom = async () => {
   try {
     const response = await roomAPI.create({ ...newRoom.value, owner_id: authStore.userId })
@@ -2335,6 +2427,17 @@ const saveRoomSettings = async () => {
       rooms.value = rooms.value.map(r =>
         r.id === currentRoomId.value ? { ...r, name: roomEditName.value.trim(), description: roomEditDesc.value.trim() } : r
       )
+      
+      // 保存公告
+      if (currentPermissions.isAdmin && roomEditAnnouncement.value !== roomAnnouncement.value) {
+        const API = (await import('@/utils/api')).default
+        await API.put(`/api/rooms/${currentRoomId.value}/announcement`, {
+          announcement: roomEditAnnouncement.value,
+          userId: authStore.userId
+        })
+        roomAnnouncement.value = roomEditAnnouncement.value
+      }
+      
       roomSettingsMsg.value = '保存成功'
       roomSettingsMsgType.value = 'success'
     }
@@ -2396,6 +2499,7 @@ const openRoomSettings = () => {
   if (currentRoom.value) {
     roomEditName.value = currentRoom.value.name || ''
     roomEditDesc.value = currentRoom.value.description || ''
+    roomEditAnnouncement.value = roomAnnouncement.value || ''
     roomSettingsTab.value = 'info'
     roomSettingsMsg.value = ''
     showRoomSettings.value = true
@@ -2752,6 +2856,18 @@ const setupSocketListeners = () => {
         stored.status = data.status
         localStorage.setItem('user', JSON.stringify(stored))
       }
+    }
+  })
+
+  socket.on('at_all_notification', (data) => {
+    if (data.roomId === currentRoomId.value) {
+      showToastMessage(`${data.username} 发出了 @全体成员`, 'info')
+    }
+  })
+
+  socket.on('announcement_updated', (data) => {
+    if (data.roomId === currentRoomId.value) {
+      roomAnnouncement.value = data.announcement
     }
   })
 
@@ -4098,7 +4214,107 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.cc-file-preview {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-primary);
+  min-width: 0;
+}
+
+.cc-file-icon {
+  font-size: 24px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.cc-file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.cc-file-name {
+  font-size: 13px;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cc-file-size {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 1px;
+}
+
+.message-file {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--hover);
+  border: 1px solid var(--border);
   border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s;
+  min-width: 200px;
+}
+
+.message-file:hover {
+  background: var(--border);
+}
+
+.file-card-icon {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.file-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.file-card-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-card-size {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+.file-card-dl {
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+}
+
+.message-own .message-file {
+  background: var(--bubble-own);
+  border-color: transparent;
+}
+
+.message-own .message-file .file-card-name {
+  color: white;
+}
+
+.message-own .message-file .file-card-size {
+  color: rgba(255,255,255,0.6);
+}
+
+.message-own .message-file .file-card-dl {
+  color: rgba(255,255,255,0.6);
 }
 
 .cc-preview-del {
@@ -4845,6 +5061,27 @@ onUnmounted(() => {
   margin-top: 2px;
 }
 
+.announcement-banner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: var(--accent-light);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--text-primary);
+  cursor: pointer;
+  flex: 1;
+  max-width: 400px;
+  margin: 0 12px;
+}
+
+.announcement-banner span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .header-right {
   display: flex;
   gap: 8px;
@@ -4864,6 +5101,8 @@ onUnmounted(() => {
   display: flex;
   gap: 12px;
   max-width: 70%;
+  content-visibility: auto;
+  contain-intrinsic-size: 80px;
 }
 
 .message-own {
@@ -4916,6 +5155,18 @@ onUnmounted(() => {
 .bot-badge {
   font-size: 14px;
   line-height: 1;
+  flex-shrink: 0;
+}
+
+.at-all-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--danger);
+  color: white;
+  padding: 1px 5px;
+  border-radius: 4px;
+  line-height: 1.4;
   flex-shrink: 0;
 }
 

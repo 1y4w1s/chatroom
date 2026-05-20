@@ -45,7 +45,15 @@ class MessageService {
     const placeholders = mentionedNames.map(() => '?').join(',');
     let mentionedUsers = [];
     let isMention = false;
-    if (mentionedNames.length > 0) {
+    let isAtAll = false;
+    
+    // 检测 @all 全体消息
+    if (mentionedNames.some(name => name.toLowerCase() === 'all')) {
+      isAtAll = true;
+      isMention = true;
+    }
+    
+    if (mentionedNames.length > 0 && !isAtAll) {
       mentionedUsers = await query(
         `SELECT u.id FROM users u
          JOIN room_members rm ON u.id = rm.user_id AND rm.room_id = ?
@@ -55,7 +63,7 @@ class MessageService {
       isMention = mentionedUsers.length > 0;
     }
     
-    // 插入消息（先保存，成功后处理 @标记）
+    // 插入消息
     const result = await query(
       `INSERT INTO messages (room_id, user_id, content, type, file_url, file_name, file_size, is_mention) 
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -64,14 +72,27 @@ class MessageService {
     
     const newMessageId = result.insertId;
     
-    // 消息保存成功后，@提及用户不需要额外操作，API 查询时自动从 messages 表计算
     if (isMention && mentionedUsers.length > 0) {
-      // 确保被 @用户有 room_read_status 记录（用 0 表示未读）
       for (const mu of mentionedUsers) {
         await query(
           `INSERT IGNORE INTO room_read_status (user_id, room_id, last_read_message_id)
            VALUES (?, ?, 0)`,
           [mu.id, roomId]
+        );
+      }
+    }
+    
+    // @all 时为所有成员设置未读标记
+    if (isAtAll) {
+      const allMembers = await query(
+        'SELECT user_id FROM room_members WHERE room_id = ?',
+        [roomId]
+      );
+      for (const m of allMembers) {
+        await query(
+          `INSERT IGNORE INTO room_read_status (user_id, room_id, last_read_message_id)
+           VALUES (?, ?, 0)`,
+          [m.user_id, roomId]
         );
       }
     }
@@ -106,9 +127,10 @@ class MessageService {
       }
     }
     
-    // 向后兼容：添加 sender_id 字段（等于 user_id）
+    // 向后兼容：添加 sender_id 字段
     if (message[0]) {
       message[0].sender_id = message[0].user_id;
+      message[0].is_at_all = isAtAll;
     }
     
     return message[0];
