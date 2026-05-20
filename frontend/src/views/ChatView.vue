@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -486,7 +486,7 @@
                 <img v-if="message.type === 'image'" :src="getMessageImageUrl(message)" class="message-image" @click="previewMessageImage(message)" />
                 <div v-else class="message-text">{{ message.content }}</div>
               </template>
-              <div v-if="message.sender_id === authStore.user?.id && !message.is_deleted" class="message-actions" @click.stop="toggleMessageActions(message.id, $event)">
+              <div v-if="!message.is_deleted && (message.sender_id === authStore.user?.id || message.type === 'image')" class="message-actions" @click.stop="toggleMessageActions(message.id, $event)">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <circle cx="4" cy="8" r="1.5" fill="currentColor"/>
                   <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
@@ -494,7 +494,8 @@
                 </svg>
               </div>
               <div v-if="showMessageActions === message.id" class="message-actions-menu" :style="messageActionsPos">
-                <button @click.stop="recallMessage(message)">撤回</button>
+                <button v-if="message.sender_id === authStore.user?.id" @click.stop="recallMessage(message)">撤回</button>
+                <button v-if="message.type === 'image'" @click.stop="addToStickers(message)">添加到表情包</button>
               </div>
             </div>
           </div>
@@ -551,11 +552,27 @@
               </div>
             </div>
             <div v-if="showChatEmoji" ref="chatEmojiRef" class="cc-emoji-panel">
-              <div v-for="category in emojiCategories" :key="category.name" class="cc-emoji-group">
-                <div class="cc-emoji-label">{{ category.name }}</div>
-                <div class="cc-emoji-grid">
-                  <button v-for="emoji in category.emojis" :key="emoji" class="cc-emoji-cell" @click="insertChatEmoji(emoji)">{{ emoji }}</button>
+              <div class="emoji-panel-tabs">
+                <button class="emoji-panel-tab" :class="{ active: emojiTab === 'emoji' }" @click="emojiTab = 'emoji'" title="表情">😊</button>
+                <button class="emoji-panel-tab" :class="{ active: emojiTab === 'stickers' }" @click="emojiTab = 'stickers'" :title="'收藏表情 (' + myStickers.length + ')'">
+                  <svg width="16" height="16" viewBox="0 0 16 16" :fill="emojiTab === 'stickers' ? 'var(--danger)' : 'none'" stroke="currentColor" stroke-width="1.3">
+                    <path d="M8 2.5L9.5 6L13 6.5L10.5 9L11 12.5L8 11L5 12.5L5.5 9L3 6.5L6.5 6L8 2.5Z"/>
+                  </svg>
+                </button>
+              </div>
+              <div v-if="emojiTab === 'emoji'">
+                <div v-for="category in emojiCategories" :key="category.name" class="cc-emoji-group">
+                  <div class="cc-emoji-label">{{ category.name }}</div>
+                  <div class="cc-emoji-grid">
+                    <button v-for="emoji in category.emojis" :key="emoji" class="cc-emoji-cell" @click="insertChatEmoji(emoji)">{{ emoji }}</button>
+                  </div>
                 </div>
+              </div>
+              <div v-if="emojiTab === 'stickers'" class="sticker-grid">
+                <div v-if="myStickers.length === 0" class="sticker-empty">还没有收藏的表情包<br>在图片消息上点击 ⋯ 添加</div>
+                <button v-for="(sticker, i) in myStickers" :key="i" class="sticker-cell" @click="sendSticker(sticker)">
+                  <img :src="sticker" class="sticker-img" />
+                </button>
               </div>
             </div>
           </div>
@@ -1802,6 +1819,19 @@ function openMessageMemberAction(message, event) {
 
 // 聊天输入表情和图片
 const showChatEmoji = ref(false)
+const emojiTab = ref('emoji')
+const myStickers = computed(() => {
+  try {
+    return JSON.parse(localStorage.getItem('my_stickers') || '[]')
+  } catch { return [] }
+})
+
+function sendSticker(url) {
+  if (currentRoomId.value) {
+    authStore.sendMessage(currentRoomId.value, url, 'image')
+    showChatEmoji.value = false
+  }
+}
 const currentEmojiCat = ref(0)
 const chatImages = ref([])
 
@@ -2199,6 +2229,22 @@ async function recallMessage(message) {
     showMessageActions.value = null
   } catch (e) {
     console.error('撤回失败:', e)
+  }
+}
+
+async function addToStickers(message) {
+  const url = getMessageImageUrl(message)
+  if (!url) return
+  try {
+    const stickers = JSON.parse(localStorage.getItem('my_stickers') || '[]')
+    if (!stickers.includes(url)) {
+      stickers.unshift(url)
+      localStorage.setItem('my_stickers', JSON.stringify(stickers))
+    }
+    showMessageActions.value = null
+    showToastMessage('已添加到表情包')
+  } catch (e) {
+    console.error('添加表情失败:', e)
   }
 }
 
@@ -4061,6 +4107,80 @@ onUnmounted(() => {
 }
 
 .cc-emoji-cell:hover { background: var(--hover); }
+
+.emoji-panel-tabs {
+  display: flex;
+  gap: 4px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+
+.emoji-panel-tab {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  color: var(--text-tertiary);
+}
+
+.emoji-panel-tab:hover {
+  background: var(--hover);
+}
+
+.emoji-panel-tab.active {
+  background: var(--hover);
+  color: var(--text-primary);
+}
+
+.sticker-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.sticker-cell {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-primary);
+  cursor: pointer;
+  padding: 4px;
+  transition: border-color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sticker-cell:hover {
+  border-color: var(--accent);
+}
+
+.sticker-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.sticker-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--text-tertiary);
+  font-size: 13px;
+  padding: 24px 8px;
+  line-height: 1.6;
+}
 
 @media (max-width: 640px) {
   .cc-card { padding: 12px; }
