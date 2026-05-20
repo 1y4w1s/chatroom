@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -163,7 +163,6 @@
               </div>
             </div>
           </div>
-          <div ref="scrollAnchor"></div>
         </div>
 
         <div v-show="sidebarTab === 'friends'" class="friend-list">
@@ -499,7 +498,6 @@
               </div>
             </div>
           </div>
-          <div ref="scrollAnchor"></div>
         </div>
 
         <footer class="chat-input-footer">
@@ -908,7 +906,7 @@
 
           <div class="drawer-spacer"></div>
 
-          <div class="drawer-section" v-if="currentPermissions.isOwner && currentRoom?.type !== 'private'">
+          <div class="drawer-section" v-if="(currentPermissions.isOwner || isSuperAdmin) && currentRoom?.type !== 'private'">
             <div class="drawer-divider"></div>
             <div class="drawer-nav-item danger" @click="showRoomDrawer = false; showDissolveConfirm = true">
               <span class="nav-icon">🗑</span>
@@ -1269,7 +1267,6 @@ const messages = ref([])
 const newMessage = ref('')
 const showCreateModal = ref(false)
 const messageListRef = ref(null)
-const scrollAnchor = ref(null)
 const showMessageActions = ref(null)
 const messageActionsPos = ref({})
 
@@ -1341,7 +1338,6 @@ const roomDetailAvatarUrl = computed(() => {
 })
 
 const showRoomDrawer = ref(false)
-const drawerShowAllMembers = ref(false)
 
 // 侧边栏 Tab
 const sidebarTab = ref('rooms')
@@ -2180,11 +2176,6 @@ const joinRoom = async (roomId) => {
     loadAnnouncements(roomId)
     authStore.joinRoom(roomId)
     markRoomRead(roomId)
-    
-    nextTick(() => {
-      scrollToBottom(true)
-    })
-    setTimeout(() => scrollToBottom(), 300)
   } catch (error) {
     console.error('加入聊天室失败:', error)
   }
@@ -2875,19 +2866,13 @@ const confirmDissolve = async () => {
 
 const isAtBottom = () => {
   if (!messageListRef.value) return true
-  const { scrollTop, scrollHeight, clientHeight } = messageListRef.value
-  return scrollHeight - scrollTop - clientHeight < 100
+  return messageListRef.value.scrollTop < 100
 }
 
 const scrollToBottom = (force = false) => {
   if (!messageListRef.value) return
   if (force || isAtBottom()) {
-    const anchor = scrollAnchor.value
-    if (anchor) {
-      anchor.scrollIntoView({ block: 'nearest' })
-    } else {
-      messageListRef.value.scrollTop = messageListRef.value.scrollHeight
-    }
+    messageListRef.value.scrollTop = 0
   }
 }
 
@@ -2946,8 +2931,8 @@ const setupSocketListeners = () => {
         ? `${API_BASE_URL}${message.avatar}`
         : ''
       const messageWithAvatar = parseReplyContent({ ...message, avatar })
-      messages.value.push(messageWithAvatar)
-      nextTick(() => scrollToBottom(message.sender_id === authStore.user?.id))
+      messages.value.unshift(messageWithAvatar)
+      if (isAtBottom()) nextTick(() => scrollToBottom(true))
     }
     const map = { ...roomReadStatus.value }
     if (!map[message.room_id]) {
@@ -5624,18 +5609,13 @@ onUnmounted(() => {
   color: var(--text-primary);
 }
 
-.header-right {
-  display: flex;
-  gap: 8px;
-}
-
 .message-list {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
   padding: 24px;
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 16px;
 }
 
