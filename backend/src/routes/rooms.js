@@ -1242,45 +1242,110 @@ async function logAction(userId, action, details) {
 }
 
 /**
- * GET /api/rooms/:id/announcement
- * 获取聊天室公告
+ * GET /api/rooms/:id/announcements
+ * 获取聊天室公告列表（时间倒序）
  */
-router.get('/:id/announcement', async (req, res) => {
+router.get('/:id/announcements', async (req, res) => {
   try {
-    const rooms = await query(
-      'SELECT announcement FROM chat_rooms WHERE id = ?',
+    const list = await query(
+      `SELECT a.*, u.username, u.nickname, u.avatar
+       FROM announcements a
+       JOIN users u ON a.user_id = u.id
+       WHERE a.room_id = ?
+       ORDER BY a.created_at DESC`,
       [req.params.id]
     );
-    if (rooms.length === 0) {
-      return res.status(404).json({ success: false, error: { message: '聊天室不存在' } });
-    }
-    res.json({ success: true, data: { announcement: rooms[0].announcement || '' } });
+    res.json({ success: true, data: { announcements: list } });
   } catch (error) {
-    console.error('获取公告失败:', error);
-    res.status(500).json({ success: false, error: { message: '获取公告失败' } });
+    console.error('获取公告列表失败:', error);
+    res.status(500).json({ success: false, error: { message: '获取公告列表失败' } });
   }
 });
 
 /**
- * PUT /api/rooms/:id/announcement
- * 设置/更新聊天室公告（仅管理员）
+ * POST /api/rooms/:id/announcements
+ * 创建公告（仅管理员）
  */
-router.put('/:id/announcement', checkAdmin, async (req, res) => {
+router.post('/:id/announcements', checkAdmin, async (req, res) => {
   try {
-    const { announcement, userId } = req.body;
-    await query(
-      'UPDATE chat_rooms SET announcement = ? WHERE id = ?',
-      [announcement || '', req.params.id]
+    const { content, userId } = req.body;
+    if (!content || !content.trim()) {
+      return res.status(400).json({ success: false, error: { message: '公告内容不能为空' } });
+    }
+    const result = await query(
+      'INSERT INTO announcements (room_id, user_id, content) VALUES (?, ?, ?)',
+      [req.params.id, userId, content.trim()]
     );
-    emitPermissionChange(req.params.id, 'announcement_updated', {
-      roomId: parseInt(req.params.id),
-      announcement: announcement || '',
-      operatorId: userId
-    });
-    res.json({ success: true, message: '公告已更新' });
+    const newAnnouncement = await query(
+      `SELECT a.*, u.username, u.nickname, u.avatar
+       FROM announcements a JOIN users u ON a.user_id = u.id
+       WHERE a.id = ?`,
+      [result.insertId]
+    );
+    emitPermissionChange(req.params.id, 'announcement_created', newAnnouncement[0]);
+    res.status(201).json({ success: true, data: { announcement: newAnnouncement[0] } });
   } catch (error) {
-    console.error('更新公告失败:', error);
-    res.status(500).json({ success: false, error: { message: '更新公告失败' } });
+    console.error('创建公告失败:', error);
+    res.status(500).json({ success: false, error: { message: '创建公告失败' } });
+  }
+});
+
+/**
+ * PUT /api/rooms/:id/announcements/:announcementId
+ * 编辑公告（仅公告发布者或管理员）
+ */
+router.put('/:id/announcements/:announcementId', async (req, res) => {
+  try {
+    const { content, userId } = req.body;
+    const ann = await query('SELECT user_id FROM announcements WHERE id = ?', [req.params.announcementId]);
+    if (ann.length === 0) return res.status(404).json({ success: false, error: { message: '公告不存在' } });
+    
+    const member = await query('SELECT role FROM room_members WHERE room_id = ? AND user_id = ?', [req.params.id, userId]);
+    const isOwnerOrAdmin = member.length > 0 && (member[0].role === 'owner' || member[0].role === 'admin');
+    const isAuthor = ann[0].user_id === parseInt(userId);
+    
+    if (!isAuthor && !isOwnerOrAdmin) {
+      return res.status(403).json({ success: false, error: { message: '权限不足' } });
+    }
+    
+    await query('UPDATE announcements SET content = ?, updated_at = NOW() WHERE id = ?', [content, req.params.announcementId]);
+    const updated = await query(
+      `SELECT a.*, u.username, u.nickname, u.avatar
+       FROM announcements a JOIN users u ON a.user_id = u.id WHERE a.id = ?`,
+      [req.params.announcementId]
+    );
+    emitPermissionChange(req.params.id, 'announcement_updated', updated[0]);
+    res.json({ success: true, data: { announcement: updated[0] } });
+  } catch (error) {
+    console.error('编辑公告失败:', error);
+    res.status(500).json({ success: false, error: { message: '编辑公告失败' } });
+  }
+});
+
+/**
+ * DELETE /api/rooms/:id/announcements/:announcementId
+ * 删除公告（仅公告发布者或管理员）
+ */
+router.delete('/:id/announcements/:announcementId', async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const ann = await query('SELECT user_id FROM announcements WHERE id = ?', [req.params.announcementId]);
+    if (ann.length === 0) return res.status(404).json({ success: false, error: { message: '公告不存在' } });
+    
+    const member = await query('SELECT role FROM room_members WHERE room_id = ? AND user_id = ?', [req.params.id, userId]);
+    const isOwnerOrAdmin = member.length > 0 && (member[0].role === 'owner' || member[0].role === 'admin');
+    const isAuthor = ann[0].user_id === parseInt(userId);
+    
+    if (!isAuthor && !isOwnerOrAdmin) {
+      return res.status(403).json({ success: false, error: { message: '权限不足' } });
+    }
+    
+    await query('DELETE FROM announcements WHERE id = ?', [req.params.announcementId]);
+    emitPermissionChange(req.params.id, 'announcement_deleted', { announcementId: parseInt(req.params.announcementId) });
+    res.json({ success: true, message: '公告已删除' });
+  } catch (error) {
+    console.error('删除公告失败:', error);
+    res.status(500).json({ success: false, error: { message: '删除公告失败' } });
   }
 });
 

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -678,10 +678,6 @@
               <label>聊天室简介</label>
               <textarea v-model="roomEditDesc" class="input" rows="3" maxlength="500"></textarea>
             </div>
-            <div class="form-group" v-if="currentPermissions.isAdmin">
-              <label>聊天室公告</label>
-              <textarea v-model="roomEditAnnouncement" class="input" rows="2" maxlength="500" placeholder="设置公告内容..."></textarea>
-            </div>
             <button class="btn btn-primary" @click="saveRoomSettings" :disabled="roomSaving">保存修改</button>
             <div v-if="roomSettingsMsg" class="msg" :class="roomSettingsMsgType">{{ roomSettingsMsg }}</div>
           </div>
@@ -842,7 +838,7 @@
           </button>
         </div>
         <div class="drawer-body">
-          <div class="drawer-room-top">
+          <div class="drawer-room-top" @click="openRoomSettings('info')" style="cursor:pointer">
             <img :src="roomDetailAvatarUrl" class="drawer-room-avatar" />
             <div class="drawer-room-info">
               <div class="drawer-room-name">{{ currentRoom?.name }}</div>
@@ -851,13 +847,22 @@
             </div>
           </div>
 
+          <div class="drawer-divider"></div>
+
           <div class="drawer-section">
             <div class="drawer-section-title">
               <span>📢 公告</span>
-              <button v-if="currentPermissions.isAdmin" class="drawer-section-action" @click="showRoomDrawer = false; openRoomSettings('info')">编辑</button>
+              <div class="drawer-section-actions">
+                <button class="drawer-section-action" @click="showAnnouncementList = true">全部公告</button>
+                <button v-if="currentPermissions.isAdmin" class="drawer-section-action primary" @click="showAnnouncementEditor = true">发布</button>
+              </div>
             </div>
             <div class="drawer-announcement-body" v-if="roomAnnouncement">
-              <p>{{ roomAnnouncement }}</p>
+              <p>{{ roomAnnouncement.content }}</p>
+              <div class="drawer-announcement-meta">
+                <span>{{ roomAnnouncement.nickname || roomAnnouncement.username }}</span>
+                <span>{{ formatTime(roomAnnouncement.created_at) }}</span>
+              </div>
             </div>
             <div class="drawer-announcement-empty" v-else>
               <span class="text-tertiary">暂无公告</span>
@@ -869,42 +874,89 @@
           <div class="drawer-section">
             <div class="drawer-section-title">
               <span>👥 成员 · {{ currentMembers.length }}</span>
-              <button class="drawer-section-action" @click="drawerShowAllMembers = !drawerShowAllMembers">
-                {{ drawerShowAllMembers ? '收起' : '查看全部' }}
-              </button>
-            </div>
-            <div class="drawer-member-list">
-              <div v-for="member in (drawerShowAllMembers ? currentMembers : currentMembers.slice(0, 5))" :key="member.id" class="drawer-member-item" @click="showRoomDrawer = false; openMemberAction(member, $event)">
-                <img :src="getAvatarUrl(member.avatar, member.nickname || member.username)" class="drawer-member-avatar" />
-                <div class="drawer-member-name">{{ member.nickname || member.username }}</div>
-                <span v-if="member.is_bot" class="role-badge bot">🤖</span>
-                <span v-else-if="member.role === 'owner'" class="role-badge owner">群主</span>
-                <span v-else-if="member.role === 'admin'" class="role-badge admin">管理员</span>
+              <div v-if="currentPermissions.isOwner" class="bot-toggle-inline">
+                <span class="bot-label">🤖</span>
+                <label class="toggle-switch tiny">
+                  <input type="checkbox" :checked="!!currentRoom?.enable_bot" @change="toggleBot" />
+                  <span class="toggle-slider"></span>
+                </label>
               </div>
             </div>
-          </div>
-
-          <div class="drawer-divider"></div>
-
-          <div class="drawer-section">
-            <div class="drawer-nav-item" v-if="currentPermissions.isAdmin && currentRoom?.type !== 'private'" @click="showRoomDrawer = false; openRoomSettings('info')">
-              <span class="nav-icon">⚙️</span>
-              <span class="nav-label">聊天室设置</span>
-              <span class="nav-arrow">&gt;</span>
+            <div class="drawer-member-list">
+              <div v-for="member in currentMembers" :key="member.id" class="drawer-member-item">
+                <img :src="getAvatarUrl(member.avatar, member.nickname || member.username)" class="drawer-member-avatar" />
+                <div class="drawer-member-info">
+                  <div class="drawer-member-top">
+                    <span class="drawer-member-name">{{ member.nickname || member.username }}</span>
+                    <span v-if="member.is_bot" class="role-badge bot">🤖</span>
+                    <span v-else-if="member.role === 'owner'" class="role-badge owner">群主</span>
+                    <span v-else-if="member.role === 'admin'" class="role-badge admin">管理员</span>
+                  </div>
+                  <span v-if="member.status" class="drawer-member-status" :class="member.status">{{ member.status === 'online' ? '在线' : member.status === 'away' ? '离开' : '离线' }}</span>
+                </div>
+                <div class="drawer-member-ops" v-if="canOperateMember(member)">
+                  <button v-if="canSetAdmin(member)" class="member-op-btn" @click.stop="grantAdmin(member.id)">设管理</button>
+                  <button v-if="canMute(member)" class="member-op-btn" @click.stop="openMuteModal(member)">{{ isEffectivelyMuted(member) ? '解除' : '禁言' }}</button>
+                  <button v-if="canKick(member)" class="member-op-btn danger" @click.stop="kickMember(member)">移除</button>
+                </div>
+                <button v-if="!member.is_bot" class="drawer-member-more" @click.stop="openMemberAction(member, $event)">⋯</button>
+              </div>
             </div>
           </div>
 
           <div class="drawer-spacer"></div>
 
-          <div class="drawer-section">
-            <div class="drawer-nav-item danger" @click="showRoomDrawer = false; showDissolveConfirm = true" v-if="currentPermissions.isOwner && currentRoom?.type !== 'private'">
+          <div class="drawer-section" v-if="currentPermissions.isOwner && currentRoom?.type !== 'private'">
+            <div class="drawer-divider"></div>
+            <div class="drawer-nav-item danger" @click="showRoomDrawer = false; showDissolveConfirm = true">
               <span class="nav-icon">🗑</span>
               <span class="nav-label">解散聊天室</span>
             </div>
-            <div class="drawer-nav-item danger" @click="showRoomDrawer = false; showDissolveConfirm = true" v-if="isSuperAdmin && currentRoom?.type !== 'private'">
-              <span class="nav-icon">🗑</span>
-              <span class="nav-label">删除聊天室</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 公告历史列表弹窗 -->
+    <div v-if="showAnnouncementList" class="modal-overlay" @click="showAnnouncementList = false">
+      <div class="modal" @click.stop>
+        <div class="modal-header">
+          <h3>全部公告</h3>
+          <button class="close-btn" @click="showAnnouncementList = false">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <div class="modal-body" style="max-height:60vh;overflow-y:auto">
+          <div v-if="roomAnnouncements.length === 0" class="text-tertiary" style="text-align:center;padding:32px">暂无公告</div>
+          <div v-for="ann in roomAnnouncements" :key="ann.id" class="announcement-history-item">
+            <div class="announcement-history-header">
+              <span class="announcement-history-author">{{ ann.nickname || ann.username }}</span>
+              <span class="announcement-history-time">{{ formatTime(ann.created_at) }}</span>
             </div>
+            <div class="announcement-history-content">{{ ann.content }}</div>
+            <div class="announcement-history-ops" v-if="canEditAnnouncement(ann)">
+              <button class="btn btn-sm" @click="editAnnouncement(ann)">编辑</button>
+              <button class="btn btn-sm btn-danger" @click="deleteAnnouncement(ann)">删除</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 公告编辑弹窗 -->
+    <div v-if="showAnnouncementEditor" class="modal-overlay" @click="showAnnouncementEditor = false">
+      <div class="modal" @click.stop>
+        <div class="modal-header">
+          <h3>{{ editingAnnouncement ? '编辑公告' : '发布公告' }}</h3>
+          <button class="close-btn" @click="showAnnouncementEditor = false">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <textarea v-model="announcementFormContent" class="input" rows="5" maxlength="2000" placeholder="输入公告内容..."></textarea>
+          <div style="margin-top:12px;display:flex;gap:8px;justify-content:flex-end">
+            <button class="btn btn-secondary" @click="showAnnouncementEditor = false">取消</button>
+            <button class="btn btn-primary" @click="submitAnnouncement" :disabled="!announcementFormContent.trim()">{{ editingAnnouncement ? '保存' : '发布' }}</button>
           </div>
         </div>
       </div>
@@ -1262,7 +1314,6 @@ const showRoomSettings = ref(false)
 const roomSettingsTab = ref('info')
 const roomEditName = ref('')
 const roomEditDesc = ref('')
-const roomEditAnnouncement = ref('')
 const roomSaving = ref(false)
 const roomSettingsMsg = ref('')
 const roomSettingsMsgType = ref('')
@@ -2123,7 +2174,7 @@ const joinRoom = async (roomId) => {
     
     await loadMembers(roomId)
     await loadPermissions(roomId)
-    loadAnnouncement(roomId)
+    loadAnnouncements(roomId)
     authStore.joinRoom(roomId)
     markRoomRead(roomId)
     
@@ -2230,12 +2281,17 @@ watch(showMobileDrawer, (val) => {
 })
 
 const replyTarget = ref(null)
-const roomAnnouncement = ref('')
+const roomAnnouncements = ref([])
+const roomAnnouncement = computed(() => roomAnnouncements.value[0] || null)
+const showAnnouncementList = ref(false)
+const showAnnouncementEditor = ref(false)
+const editingAnnouncement = ref(null)
+const announcementFormContent = ref('')
 
-async function loadAnnouncement(roomId) {
+async function loadAnnouncements(roomId) {
   try {
-    const res = await api.get(`/api/rooms/${roomId}/announcement`)
-    roomAnnouncement.value = res.data.data.announcement || ''
+    const res = await api.get(`/api/rooms/${roomId}/announcements`)
+    roomAnnouncements.value = res.data.data.announcements || []
   } catch {}
 }
 
@@ -2398,6 +2454,86 @@ function downloadFile(message) {
   a.click()
 }
 
+function canOperateMember(member) {
+  if (member.is_bot || member.id === authStore.user?.id) return false
+  if (currentPermissions.isOwner) return true
+  if (currentPermissions.isAdmin && member.role === 'member') return true
+  return false
+}
+
+function canSetAdmin(member) {
+  return currentPermissions.isOwner && member.role === 'member' && !member.is_bot
+}
+
+function canMute(member) {
+  if (member.is_bot) return false
+  if (currentPermissions.isOwner && member.role !== 'owner') return true
+  if (currentPermissions.isAdmin && member.role === 'member') return true
+  return false
+}
+
+function canKick(member) {
+  if (member.is_bot) return false
+  if (currentPermissions.isOwner && member.role !== 'owner') return true
+  if (currentPermissions.isAdmin && member.role === 'member') return true
+  return false
+}
+
+function canEditAnnouncement(ann) {
+  if (!authStore.user) return false
+  if (currentPermissions.isOwner || currentPermissions.isAdmin) return true
+  return ann.user_id === authStore.user.id
+}
+
+async function kickMember(member) {
+  if (!confirm(`确定将 ${member.nickname || member.username} 移出聊天室？`)) return
+  try {
+    await roomAPI.removeMember(currentRoomId.value, member.id, authStore.userId)
+    await loadMembers(currentRoomId.value)
+    showToastMessage('已移除')
+  } catch (e) {
+    showToastMessage(e.message || '操作失败', 'error')
+  }
+}
+
+function editAnnouncement(ann) {
+  editingAnnouncement.value = ann
+  announcementFormContent.value = ann.content
+  showAnnouncementList.value = false
+  showAnnouncementEditor.value = true
+}
+
+async function deleteAnnouncement(ann) {
+  if (!confirm('确定删除此公告？')) return
+  try {
+    await api.delete(`/api/rooms/${currentRoomId.value}/announcements/${ann.id}`, { data: { userId: authStore.userId } })
+    await loadAnnouncements(currentRoomId.value)
+    showToastMessage('公告已删除')
+  } catch (e) {
+    showToastMessage(e.message || '删除失败', 'error')
+  }
+}
+
+async function submitAnnouncement() {
+  const content = announcementFormContent.value.trim()
+  if (!content) return
+  try {
+    if (editingAnnouncement.value) {
+      await api.put(`/api/rooms/${currentRoomId.value}/announcements/${editingAnnouncement.value.id}`, { content, userId: authStore.userId })
+      showToastMessage('公告已更新')
+    } else {
+      await api.post(`/api/rooms/${currentRoomId.value}/announcements`, { content, userId: authStore.userId })
+      showToastMessage('公告已发布')
+    }
+    await loadAnnouncements(currentRoomId.value)
+    showAnnouncementEditor.value = false
+    editingAnnouncement.value = null
+    announcementFormContent.value = ''
+  } catch (e) {
+    showToastMessage(e.message || '操作失败', 'error')
+  }
+}
+
 const createRoom = async () => {
   try {
     const response = await roomAPI.create({ ...newRoom.value, owner_id: authStore.userId })
@@ -2426,16 +2562,6 @@ const saveRoomSettings = async () => {
       rooms.value = rooms.value.map(r =>
         r.id === currentRoomId.value ? { ...r, name: roomEditName.value.trim(), description: roomEditDesc.value.trim() } : r
       )
-      
-      // 保存公告
-      if (currentPermissions.isAdmin && roomEditAnnouncement.value !== roomAnnouncement.value) {
-        await api.put(`/api/rooms/${currentRoomId.value}/announcement`, {
-          announcement: roomEditAnnouncement.value,
-          userId: authStore.userId
-        })
-        roomAnnouncement.value = roomEditAnnouncement.value
-      }
-      
       roomSettingsMsg.value = '保存成功'
       roomSettingsMsgType.value = 'success'
     }
@@ -2497,7 +2623,6 @@ const openRoomSettings = (tab = 'info') => {
   if (currentRoom.value) {
     roomEditName.value = currentRoom.value.name || ''
     roomEditDesc.value = currentRoom.value.description || ''
-    roomEditAnnouncement.value = roomAnnouncement.value || ''
     roomSettingsTab.value = tab
     roomSettingsMsg.value = ''
     showRoomSettings.value = true
@@ -2867,6 +2992,14 @@ const setupSocketListeners = () => {
     if (data.roomId === currentRoomId.value) {
       roomAnnouncement.value = data.announcement
     }
+  })
+
+  socket.on('announcement_created', () => {
+    if (currentRoomId.value) loadAnnouncements(currentRoomId.value)
+  })
+
+  socket.on('announcement_deleted', () => {
+    if (currentRoomId.value) loadAnnouncements(currentRoomId.value)
   })
 
   socket.on('user_avatar_updated', (data) => {
@@ -5192,6 +5325,19 @@ onUnmounted(() => {
   color: var(--text-primary);
 }
 
+.drawer-section-action.primary {
+  color: var(--accent);
+}
+
+.drawer-section-action.primary:hover {
+  background: var(--accent-light);
+}
+
+.drawer-section-actions {
+  display: flex;
+  gap: 2px;
+}
+
 .drawer-announcement-body {
   background: var(--hover);
   border-radius: 8px;
@@ -5202,9 +5348,16 @@ onUnmounted(() => {
   font-size: 13px;
   color: var(--text-primary);
   line-height: 1.5;
-  margin: 0;
+  margin: 0 0 8px;
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+.drawer-announcement-meta {
+  display: flex;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-tertiary);
 }
 
 .drawer-announcement-empty {
@@ -5230,12 +5383,6 @@ onUnmounted(() => {
   gap: 10px;
   padding: 6px 0;
   border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.15s;
-}
-
-.drawer-member-item:hover {
-  background: var(--hover);
 }
 
 .drawer-member-avatar {
@@ -5246,14 +5393,156 @@ onUnmounted(() => {
   flex-shrink: 0;
 }
 
-.drawer-member-name {
+.drawer-member-info {
   flex: 1;
+  min-width: 0;
+}
+
+.drawer-member-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.drawer-member-name {
   font-size: 13px;
   color: var(--text-primary);
-  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.drawer-member-status {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.drawer-member-status.online {
+  color: var(--success);
+}
+
+.drawer-member-ops {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.member-op-btn {
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.member-op-btn:hover {
+  background: var(--hover);
+  color: var(--text-primary);
+  border-color: var(--text-tertiary);
+}
+
+.member-op-btn.danger {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.member-op-btn.danger:hover {
+  background: var(--danger-bg);
+}
+
+.drawer-member-more {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.15s;
+  flex-shrink: 0;
+  opacity: 0;
+}
+
+.drawer-member-item:hover .drawer-member-more {
+  opacity: 1;
+}
+
+.drawer-member-more:hover {
+  background: var(--hover);
+  color: var(--text-primary);
+}
+
+.bot-toggle-inline {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.bot-label {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.toggle-switch.tiny input + .toggle-slider {
+  width: 28px;
+  height: 16px;
+}
+
+.toggle-switch.tiny input + .toggle-slider:before {
+  width: 12px;
+  height: 12px;
+}
+
+.toggle-switch.tiny input:checked + .toggle-slider:before {
+  transform: translateX(12px);
+}
+
+.announcement-history-item {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hover);
+}
+
+.announcement-history-item:last-child {
+  border-bottom: none;
+}
+
+.announcement-history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.announcement-history-author {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.announcement-history-time {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.announcement-history-content {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.announcement-history-ops {
+  margin-top: 8px;
+  display: flex;
+  gap: 6px;
 }
 
 .drawer-spacer {
