@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -449,7 +449,7 @@
             </svg>
           </button>
         </header>
-        <div class="message-list" ref="messageListRef">
+        <div :ref="onMessageListMounted" class="message-list">
           <div
             v-for="message in messages"
             :key="message.id"
@@ -498,7 +498,6 @@
               </div>
             </div>
           </div>
-          <div ref="scrollAnchor"></div>
         </div>
 
         <footer class="chat-input-footer">
@@ -1268,7 +1267,15 @@ const messages = ref([])
 const newMessage = ref('')
 const showCreateModal = ref(false)
 const messageListRef = ref(null)
-const scrollAnchor = ref(null)
+const needScrollOnEnter = ref(false)
+
+function onMessageListMounted(el) {
+  if (el) messageListRef.value = el
+  if (el && needScrollOnEnter.value) {
+    needScrollOnEnter.value = false
+    el.scrollTop = el.scrollHeight
+  }
+}
 const showMessageActions = ref(null)
 const messageActionsPos = ref({})
 
@@ -2179,13 +2186,7 @@ const joinRoom = async (roomId) => {
     loadAnnouncements(roomId)
     authStore.joinRoom(roomId)
     markRoomRead(roomId)
-    nextTick(() => {
-      const anchor = scrollAnchor.value
-      if (anchor) anchor.scrollIntoView({ block: 'end' })
-      setTimeout(() => {
-        if (anchor) anchor.scrollIntoView({ block: 'end' })
-      }, 100)
-    })
+    needScrollOnEnter.value = true
   } catch (error) {
     console.error('加入聊天室失败:', error)
   }
@@ -2352,7 +2353,7 @@ const sendMessage = async () => {
 
   if (text) {
     authStore.sendMessage(roomId, text)
-    nextTick(() => scrollToBottom(true))
+    if (messageListRef.value) nextTick(() => { messageListRef.value.scrollTop = messageListRef.value.scrollHeight })
   }
 
   for (const img of chatImages.value) {
@@ -2874,24 +2875,6 @@ const confirmDissolve = async () => {
   }
 }
 
-const isAtBottom = () => {
-  if (!messageListRef.value) return true
-  const { scrollTop, scrollHeight, clientHeight } = messageListRef.value
-  return scrollHeight - scrollTop - clientHeight < 100
-}
-
-const scrollToBottom = (force = false) => {
-  if (!messageListRef.value) return
-  if (force || isAtBottom()) {
-    const anchor = scrollAnchor.value
-    if (anchor) {
-      anchor.scrollIntoView({ block: 'end' })
-    } else {
-      messageListRef.value.scrollTop = messageListRef.value.scrollHeight
-    }
-  }
-}
-
 const formatMuteDuration = (mutedUntil) => {
   if (!mutedUntil) {
     console.log('禁言时间为空:', mutedUntil)
@@ -2948,7 +2931,12 @@ const setupSocketListeners = () => {
         : ''
       const messageWithAvatar = parseReplyContent({ ...message, avatar })
       messages.value.push(messageWithAvatar)
-      nextTick(() => scrollToBottom(message.sender_id === authStore.user?.id))
+      if (messageListRef.value) {
+        const { scrollTop, scrollHeight, clientHeight } = messageListRef.value
+        if (message.sender_id === authStore.user?.id || scrollHeight - scrollTop - clientHeight < 100) {
+          nextTick(() => { messageListRef.value.scrollTop = messageListRef.value.scrollHeight })
+        }
+      }
     }
     const map = { ...roomReadStatus.value }
     if (!map[message.room_id]) {
