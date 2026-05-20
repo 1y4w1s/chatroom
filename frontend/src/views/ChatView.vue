@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -551,26 +551,12 @@
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2.5" y="3.5" width="15" height="13" rx="2" stroke="currentColor" stroke-width="1.3"/><circle cx="7" cy="8" r="1.5" fill="currentColor"/><path d="M2.5 13L7 9L11 13L14.5 10L17.5 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
                 <input type="file" accept="image/*" multiple @change="handleChatImageSelect" hidden />
               </label>
-              <label class="cc-icon-btn" title="文件">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4C4 3 4.5 2 6 2H12L17 7V16C17 17 16 18 15 18H6C5 18 4 17 4 16V4Z" stroke="currentColor" stroke-width="1.3"/><path d="M12 2V6H17" stroke="currentColor" stroke-width="1.3"/></svg>
-                <input type="file" accept=".pdf,.doc,.docx,.zip,.rar,.txt,.xls,.xlsx,.ppt,.pptx" @change="handleChatFileSelect" hidden />
-              </label>
-              <button class="cc-send-btn" @click="sendMessage" :disabled="!newMessage.trim() && chatImages.length === 0 && chatFiles.length === 0">发送</button>
+              <button class="cc-send-btn" @click="sendMessage" :disabled="!newMessage.trim() && chatImages.length === 0">发送</button>
             </div>
             <div v-if="chatImages.length" class="cc-previews">
               <div v-for="(img, i) in chatImages" :key="i" class="cc-preview-item">
                 <img :src="img.preview" />
                 <button class="cc-preview-del" @click="removeChatImage(i)">×</button>
-              </div>
-            </div>
-            <div v-if="chatFiles.length" class="cc-previews">
-              <div v-for="(f, i) in chatFiles" :key="i" class="cc-file-preview">
-                <span class="cc-file-icon">{{ getFileIcon(f.file.name) }}</span>
-                <div class="cc-file-info">
-                  <div class="cc-file-name">{{ f.file.name }}</div>
-                  <div class="cc-file-size">{{ formatFileSize(f.file.size) }}</div>
-                </div>
-                <button class="cc-preview-del" @click="removeChatFile(i)">×</button>
               </div>
             </div>
             <div v-if="showChatEmoji" ref="chatEmojiRef" class="cc-emoji-panel">
@@ -1934,18 +1920,6 @@ function sendSticker(url) {
 }
 const currentEmojiCat = ref(0)
 const chatImages = ref([])
-const chatFiles = ref([])
-
-function handleChatFileSelect(e) {
-  for (const file of e.target.files) {
-    chatFiles.value.push({ file })
-  }
-  e.target.value = ''
-}
-
-function removeChatFile(i) {
-  chatFiles.value.splice(i, 1)
-}
 
 function formatFileSize(bytes) {
   if (bytes < 1024) return bytes + 'B'
@@ -2370,24 +2344,8 @@ const sendMessage = async () => {
     }
   }
 
-  for (const f of chatFiles.value) {
-    const formData = new FormData()
-    formData.append('file', f.file)
-    try {
-      const res = await messageAPI.upload(authStore.userId, formData)
-      if (res && res.data && res.data.url) {
-        authStore.sendMessage(roomId, res.data.url, 'file', { file_name: res.data.filename, file_size: res.data.size })
-      } else {
-        console.error('文件上传返回异常:', res)
-      }
-    } catch (e) {
-      console.error('文件上传失败:', e)
-    }
-  }
-
   newMessage.value = ''
   chatImages.value = []
-  chatFiles.value = []
 }
 
 let typingTimeout = null
