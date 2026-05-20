@@ -35,9 +35,9 @@ onMounted(() => {
   --text-placeholder: #9ca3af;
   --border: #e5e7eb;
   --border-light: #d1d5db;
-  --accent: #6366f1;
-  --accent-light: #e0e7ff;
-  --accent-bg: #ede9fe;
+  --accent: #1a1a1a;
+  --accent-light: #333333;
+  --accent-bg: #1a1a1a;
   --danger: #dc2626;
   --danger-bg: #fef2f2;
   --danger-border: #fecaca;
@@ -69,9 +69,9 @@ onMounted(() => {
   --text-placeholder: #6b7280;
   --border: #374151;
   --border-light: #4b5563;
-  --accent: #818cf8;
-  --accent-light: #3730a3;
-  --accent-bg: #2e1065;
+  --accent: #9ca3af;
+  --accent-light: #374151;
+  --accent-bg: #4b5563;
   --danger: #f87171;
   --danger-bg: #3a1a1a;
   --danger-border: #7f1d1d;

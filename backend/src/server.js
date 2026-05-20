@@ -151,8 +151,8 @@ app.use((req, res) => {
 
 io = socketIo(server, {
   cors: corsOptions,
-  pingTimeout: 60000,
-  pingInterval: 25000,
+  pingTimeout: 15000,
+  pingInterval: 10000,
   maxHttpBufferSize: 1e6 // 1MB
 });
 
@@ -162,15 +162,14 @@ const userConnections = new Map();
 const userLastActive = new Map();
 
 // ==================== 心跳检测机制 ====================
-// 每30秒检查一次用户连接状态，将断线用户设置为离线
+// 每15秒检查一次用户连接状态，将断线用户设置为离线
 setInterval(async () => {
   try {
     const now = Date.now();
-    const staleTimeout = 70000; // 70秒无活动视为断线（略大于socket.io的pingTimeout 60000ms）
+    const staleTimeout = 25000; // 25秒无活动视为断线
     
     for (const [userId, connections] of userConnections.entries()) {
       if (connections.size === 0) {
-        // 无连接记录但仍在map中，清理并设置离线
         userConnections.delete(userId);
         userLastActive.delete(userId);
         try {
@@ -211,10 +210,11 @@ io.on('connection', (socket) => {
     socket.to(roomId).emit('user_left', { userId, username, roomId });
   });
   
-  // 客户端心跳ping，更新活跃时间
-  socket.on('ping', () => {
+  // 客户端心跳heartbeat，更新活跃时间
+  socket.on('heartbeat', () => {
     if (socket.userId) {
       userLastActive.set(socket.userId, Date.now());
+      socket.emit('heartbeat_ack');
     }
   });
 

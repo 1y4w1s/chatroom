@@ -131,12 +131,12 @@ export const useAuthStore = defineStore('auth', {
         console.error('WebSocket 错误:', error)
       })
 
-      // 定期发送心跳，保持连接活跃
+      // 双重心跳：每10秒发送heartbeat，接收服务器ack
       this._heartbeatTimer = setInterval(() => {
         if (this.socket && this.socket.connected) {
-          this.socket.emit('ping')
+          this.socket.emit('heartbeat')
         }
-      }, 25000)
+      }, 10000)
 
       // 重新连接时自动同步在线状态
       this.socket.on('reconnect', () => {
