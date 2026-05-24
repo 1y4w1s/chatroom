@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -3231,7 +3231,7 @@ onUnmounted(() => {
 }
 
 .sidebar-header h2 {
-  font-size: 16px;
+  font-size: var(--text-lg, 16px);
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -3244,7 +3244,7 @@ onUnmounted(() => {
 
 .theme-toggle {
   color: var(--text-tertiary);
-  transition: color 0.15s;
+  transition: color var(--transition-fast, 150ms);
 }
 
 .theme-toggle:hover {
@@ -3267,13 +3267,19 @@ onUnmounted(() => {
   padding: 10px 4px;
   border: none;
   background: transparent;
-  font-size: 13px;
+  font-size: var(--text-sm, 13px);
   color: var(--text-tertiary);
   cursor: pointer;
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
-  transition: all 0.15s;
+  transition: all var(--transition-fast, 150ms);
   white-space: nowrap;
+  border-radius: var(--radius-sm, 6px) var(--radius-sm, 6px) 0 0;
+}
+
+.sidebar-tab:hover {
+  color: var(--text-primary);
+  background: var(--accent-glow, rgba(0,0,0,0.04));
 }
 
 .sidebar-tab:hover {
@@ -4175,15 +4181,15 @@ onUnmounted(() => {
 }
 
 .sticker-grid {
-  padding: 8px;
+  padding: var(--space-2, 8px);
 }
 
 .sticker-header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-  padding-bottom: 8px;
+  gap: var(--space-2, 8px);
+  margin-bottom: var(--space-2, 8px);
+  padding-bottom: var(--space-2, 8px);
   border-bottom: 1px solid var(--border);
 }
 
@@ -4191,11 +4197,12 @@ onUnmounted(() => {
 .sticker-delete-btn,
 .sticker-cancel-btn {
   padding: 4px 12px;
-  border-radius: 6px;
+  border-radius: var(--radius-sm, 6px);
   border: none;
-  font-size: 12px;
+  font-size: var(--text-xs, 11px);
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all var(--transition-fast, 150ms);
 }
 
 .sticker-edit-btn {
@@ -4208,9 +4215,10 @@ onUnmounted(() => {
 }
 
 .sticker-selected-count {
-  font-size: 12px;
+  font-size: var(--text-xs, 11px);
   color: var(--text-secondary);
   flex: 1;
+  font-weight: 500;
 }
 
 .sticker-delete-btn {
@@ -4237,7 +4245,7 @@ onUnmounted(() => {
 }
 
 .sticker-upload-area {
-  margin-bottom: 8px;
+  margin-bottom: var(--space-2, 8px);
 }
 
 .sticker-upload-btn {
@@ -4248,16 +4256,17 @@ onUnmounted(() => {
   padding: 8px 16px;
   background: var(--bg-secondary);
   border: 2px dashed var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius, 8px);
   color: var(--text-secondary);
-  font-size: 13px;
+  font-size: var(--text-sm, 13px);
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all var(--transition, 200ms);
 }
 
 .sticker-upload-btn:hover {
   border-color: var(--accent);
   color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .sticker-upload-btn input {
@@ -4267,7 +4276,7 @@ onUnmounted(() => {
 .sticker-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+  gap: var(--space-2, 8px);
   max-height: 180px;
   overflow-y: auto;
 }
@@ -4278,18 +4287,19 @@ onUnmounted(() => {
 
 .sticker-item-wrapper.selected .sticker-cell {
   border-color: var(--accent);
-  background: rgba(22, 93, 255, 0.1);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 2px var(--accent-soft);
 }
 
 .sticker-cell {
   width: 100%;
   aspect-ratio: 1;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius, 8px);
   background: var(--bg-primary);
   cursor: pointer;
   padding: 4px;
-  transition: border-color 0.15s;
+  transition: all var(--transition-fast, 150ms);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4297,6 +4307,7 @@ onUnmounted(() => {
 
 .sticker-cell:hover {
   border-color: var(--accent);
+  box-shadow: var(--shadow-sm);
 }
 
 .sticker-img {
@@ -4320,12 +4331,14 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all var(--transition-fast);
 }
 
 .sticker-check.checked {
   background: var(--accent);
   border-color: var(--accent);
   color: white;
+  transform: scale(1.1);
 }
 
 .sticker-check.unchecked {
@@ -4334,33 +4347,12 @@ onUnmounted(() => {
   color: var(--text-tertiary);
 }
 
-.sticker-delete-single {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--danger);
-  color: white;
-  border: none;
-  font-size: 12px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
-}
-
-.sticker-delete-single:hover {
-  opacity: 0.9;
-}
 
 .sticker-empty {
   text-align: center;
   color: var(--text-tertiary);
-  font-size: 13px;
-  padding: 24px 8px;
+  font-size: var(--text-sm, 13px);
+  padding: var(--space-6, 24px) var(--space-2, 8px);
   line-height: 1.6;
 }
 
@@ -4662,32 +4654,51 @@ onUnmounted(() => {
   align-items: center;
   gap: 12px;
   padding: 12px;
-  border-radius: 10px;
+  border-radius: var(--radius, 8px);
   cursor: pointer;
-  transition: background 0.15s;
+  transition: all var(--transition-fast, 150ms);
   margin-bottom: 4px;
+  position: relative;
 }
 
 .room-item:hover {
-  background: var(--bg-body);
+  background: var(--accent-glow, oklch(0 0 0 / 0.04));
 }
 
 .room-item.active {
   background: var(--bubble-own);
+  box-shadow: var(--bubble-own-shadow, 0 2px 8px rgba(0,0,0,0.1));
+}
+
+.room-item.active .room-icon {
+  background: transparent;
+}
+
+.room-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 24px;
+  background: var(--bubble-own);
+  border-radius: 0 3px 3px 0;
 }
 
 .room-item.active .room-name {
-  color: white;
+  color: var(--bubble-own-text, white);
+  font-weight: 600;
 }
 
 .room-item.active .room-members {
-  color: rgba(255,255,255,0.7);
+  color: oklch(1 0 0 / 0.6);
 }
 
 .room-icon {
   width: 36px;
   height: 36px;
-  border-radius: 8px;
+  border-radius: var(--radius, 8px);
   background: var(--bg-body);
   display: flex;
   align-items: center;
@@ -4695,6 +4706,11 @@ onUnmounted(() => {
   flex-shrink: 0;
   overflow: visible;
   position: relative;
+  transition: transform var(--transition-fast, 150ms), background var(--transition-fast, 150ms);
+}
+
+.room-item:hover .room-icon {
+  transform: scale(1.05);
 }
 
 .room-list-avatar {
@@ -5481,33 +5497,40 @@ onUnmounted(() => {
   display: inline-block;
   background: var(--bubble-other);
   padding: 12px 16px;
-  border-radius: 12px;
-  border: 1px solid var(--bubble-other);
-  font-size: 14px;
-  color: var(--text-primary);
+  border-radius: var(--radius-md, 12px);
+  font-size: var(--text-base, 14px);
+  color: var(--bubble-other-text, var(--text-primary));
   line-height: 1.5;
   word-break: break-word;
   max-width: 100%;
+  box-shadow: var(--bubble-other-shadow, 0 1px 2px rgba(0,0,0,0.04));
+  transition: box-shadow var(--transition-fast, 150ms);
 }
 
 .message-image {
   display: block;
   max-width: 280px;
   max-height: 300px;
-  border-radius: 12px;
+  border-radius: var(--radius-md, 12px);
   cursor: pointer;
   object-fit: cover;
-  border: 1px solid var(--bubble-other);
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.04));
+  transition: transform var(--transition-fast, 150ms), box-shadow var(--transition-fast, 150ms);
+}
+
+.message-image:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0,0,0,0.08));
 }
 
 .message-own .message-image {
-  border-color: transparent;
+  border: none;
 }
 
 .message-own .message-text {
   background: var(--bubble-own);
-  color: white;
-  border-color: var(--bubble-other);
+  color: var(--bubble-own-text, white);
+  box-shadow: var(--bubble-own-shadow, 0 2px 8px rgba(0,0,0,0.12));
 }
 
 .message-deleted {
