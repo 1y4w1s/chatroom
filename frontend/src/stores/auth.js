@@ -5,13 +5,15 @@ import { io } from 'socket.io-client'
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: JSON.parse(localStorage.getItem('user') || 'null'),
+    token: localStorage.getItem('token') || null,  // 新增：存储 JWT Token
     socket: null
   }),
 
   getters: {
-    isAuthenticated: (state) => !!state.user,
+    isAuthenticated: (state) => !!state.user && !!state.token,
     currentUser: (state) => state.user,
-    userId: (state) => state.user?.id || null
+    userId: (state) => state.user?.id || null,
+    isLoggedIn: (state) => !!state.token  // 兼容旧代码
   },
 
   actions: {
@@ -37,9 +39,16 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    // 设置认证信息 - 处理头像URL
+    // 设置认证信息 - 处理头像URL 和 Token
     setAuth(data) {
       const API_BASE_URL = import.meta.env.VITE_API_URL || ''
+      
+      // 保存 Token（如果有）
+      if (data.token) {
+        this.token = data.token
+        localStorage.setItem('token', data.token)
+      }
+      
       const user = data.user
       // 处理头像URL，将相对路径转换为完整URL
       if (user.avatar && user.avatar.startsWith('/')) {
@@ -53,9 +62,7 @@ export const useAuthStore = defineStore('auth', {
     // 登出
     async logout() {
       try {
-        if (this.user) {
-          await authAPI.logout(this.user.id)
-        }
+        await authAPI.logout()
       } catch (error) {
         console.error('登出失败:', error)
       } finally {
@@ -66,18 +73,20 @@ export const useAuthStore = defineStore('auth', {
     // 清除认证信息
     clearAuth() {
       this.user = null
+      this.token = null
       localStorage.removeItem('user')
+      localStorage.removeItem('token')
       this.disconnectSocket()
     },
 
-    // 验证用户
+    // 验证用户（使用 Token）
     async verifyUser() {
-      if (!this.user?.id) return false
+      if (!this.token) return false
       
       try {
-        const response = await authAPI.verify(this.user.id)
+        const response = await userAPI.getMe()
         const API_BASE_URL = import.meta.env.VITE_API_URL || ''
-        const user = response.data.user
+        const user = response.data?.user || response.user
         // 处理头像URL，将相对路径转换为完整URL
         if (user.avatar && user.avatar.startsWith('/')) {
           user.avatar = `${API_BASE_URL}${user.avatar}`

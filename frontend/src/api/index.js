@@ -13,12 +13,41 @@ const api = axios.create({
   }
 })
 
+// 从 localStorage 获取 Token
+const getToken = () => localStorage.getItem('token')
+
+// 请求拦截器：自动添加 Token
+api.interceptors.request.use(
+  config => {
+    const token = getToken()
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  error => {
+    return Promise.reject(error)
+  }
+)
+
 // 响应拦截器
 api.interceptors.response.use(
   response => {
     return response.data
   },
   error => {
+    // 处理 401 未授权错误
+    if (error.response?.status === 401) {
+      // Token 过期或无效，清除本地存储并跳转登录
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+      // 只有不在登录/注册页面时才跳转
+      if (!window.location.pathname.includes('/login') && 
+          !window.location.pathname.includes('/register')) {
+        window.location.href = '/login'
+      }
+    }
+    
     if (error.response) {
       let message = error.response.data?.error?.message || '请求失败'
       // 处理验证错误
@@ -38,138 +67,125 @@ api.interceptors.response.use(
 export const authAPI = {
   login: (data) => api.post('/auth/login', data),
   register: (data) => api.post('/auth/register', data),
-  logout: (userId) => api.post('/auth/logout', { userId }),
-  verify: (userId) => api.get('/auth/verify', { params: { userId } }),
+  logout: () => api.post('/auth/logout'),  // Token 认证，无需传 userId
   verifyReset: (data) => api.post('/auth/verify-reset', data),
   resetPassword: (data) => api.post('/auth/reset-password', data)
 }
 
 export const userAPI = {
-  getMe: (userId) => api.get('/users/me', { params: { userId } }),
-  updateMe: (userId, data) => api.put('/users/me', { userId, ...data }),
-  uploadAvatar: (userId, formData) => {
-    formData.append('userId', userId)
-    return api.post('/users/avatar', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    })
-  },
-  changePassword: (userId, oldPassword, newPassword) =>
-    api.put('/users/password', { userId, oldPassword, newPassword }),
-  changeStatus: (userId, status) =>
-    api.put('/users/status', { userId, status }),
-  getUser: (userId, id) => api.get(`/users/${id}`, { params: { userId } }),
-  search: (userId, q) => api.get('/users/search', { params: { userId, q } })
+  getMe: () => api.get('/users/me'),  // Token 认证
+  updateMe: (data) => api.put('/users/me', data),  // Token 认证
+  uploadAvatar: (formData) => api.post('/users/avatar', formData, {  // Token 认证
+    headers: { 'Content-Type': 'multipart/form-data' }
+  }),
+  changePassword: (oldPassword, newPassword) =>
+    api.put('/users/password', { oldPassword, newPassword }),
+  changeStatus: (status) => api.put('/users/status', { status }),
+  getUser: (id) => api.get(`/users/${id}`),
+  search: (q) => api.get('/users/search', { params: { q } })
 }
 
 export const roomAPI = {
-  getList: (params) => api.get('/rooms', { params }),
+  getList: (params) => api.get('/rooms', { params }),  // optionalAuth
   getDetail: (id) => api.get(`/rooms/${id}`),
   create: (data) => api.post('/rooms', data),
-  join: (id, userId) => api.post(`/rooms/${id}/join`, { userId }),
-  leave: (id, userId) => api.post(`/rooms/${id}/leave`, { userId }),
+  join: (id) => api.post(`/rooms/${id}/join`),  // Token 认证
+  leave: (id) => api.post(`/rooms/${id}/leave`),  // Token 认证
   getMessages: (id, params) => api.get(`/rooms/${id}/messages`, { params }),
   
   // 成员预览
   getMembers: (id) => api.get(`/rooms/${id}/members`),
   
   // 权限管理
-  changeRole: (roomId, userId, role, operatorId, reason) => 
-    api.put(`/rooms/${roomId}/members/${userId}/role`, { role, operatorId, reason }),
+  changeRole: (roomId, userId, role, reason) => 
+    api.put(`/rooms/${roomId}/members/${userId}/role`, { role, reason }),
   
   // 禁言管理
-  muteMember: (roomId, userId, isMuted, duration, operatorId, reason) =>
-    api.put(`/rooms/${roomId}/members/${userId}/mute`, { isMuted, duration, operatorId, reason }),
+  muteMember: (roomId, userId, isMuted, duration, reason) =>
+    api.put(`/rooms/${roomId}/members/${userId}/mute`, { isMuted, duration, reason }),
   
   // 解散聊天室
-  dissolveRoom: (roomId, operatorId, reason) =>
-    api.delete(`/rooms/${roomId}`, { data: { operatorId, reason } }),
+  dissolveRoom: (roomId, reason) =>
+    api.delete(`/rooms/${roomId}`, { data: { reason } }),
   
   // 超级管理员强制删除
-  forceDeleteRoom: (roomId, operatorId, reason = '') =>
-    api.delete(`/rooms/${roomId}/force`, { data: { operatorId, reason } }),
+  forceDeleteRoom: (roomId, reason = '') =>
+    api.delete(`/rooms/${roomId}/force`, { data: { reason } }),
   
   // 获取用户权限
   getPermissions: (roomId, userId) => api.get(`/rooms/${roomId}/members/${userId}/permissions`),
   
   // 更新聊天室信息
-  updateRoom: (roomId, userId, data) => api.put(`/rooms/${roomId}`, { userId, ...data }),
+  updateRoom: (roomId, data) => api.put(`/rooms/${roomId}`, data),
   
   // 上传聊天室头像
-  uploadRoomAvatar: (roomId, userId, formData) => {
-    formData.append('userId', userId)
-    return api.post(`/rooms/${roomId}/avatar`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    })
-  },
+  uploadRoomAvatar: (roomId, formData) => api.post(`/rooms/${roomId}/avatar`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  }),
   
   // 标记已读
-  markRead: (roomId, userId) => api.post(`/rooms/${roomId}/read`, { userId }),
+  markRead: (roomId) => api.post(`/rooms/${roomId}/read`),
   
   // 获取未读状态
-  getReadStatus: (userId) => api.get('/rooms/read-status', { params: { userId } }),
+  getReadStatus: () => api.get('/rooms/read-status'),
   
   // 查找或创建私聊房间
-  findOrCreatePrivateRoom: (userId, friendId) => api.post('/rooms/private', { userId, friendId }),
+  findOrCreatePrivateRoom: (friendId) => api.post('/rooms/private', { friendId }),
   
   // 切换机器人状态
-  toggleBot: (roomId, userId, enable) => api.put(`/rooms/${roomId}/bot`, { userId, enable })
+  toggleBot: (roomId, enable) => api.put(`/rooms/${roomId}/bot`, { enable })
 }
 
 export const messageAPI = {
-  upload: (userId, formData) => {
-    formData.append('userId', userId)
-    return api.post('/messages/upload', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    })
-  },
-  edit: (userId, id, data) => api.put(`/messages/${id}`, { userId, ...data }),
-  delete: (userId, id) => api.delete(`/messages/${id}`, { data: { userId } }),
-  recall: (userId, id) => api.post(`/messages/${id}/recall`, { userId }),
-  markRead: (userId, id) => api.post(`/messages/${id}/read`, { userId })
+  upload: (formData) => api.post('/messages/upload', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  }),
+  edit: (id, data) => api.put(`/messages/${id}`, data),
+  delete: (id) => api.delete(`/messages/${id}`),
+  recall: (id) => api.post(`/messages/${id}/recall`),
+  markRead: (id) => api.post(`/messages/${id}/read`)
 }
 
 export const friendAPI = {
-  getList: (userId) => api.get('/friends', { params: { userId } }),
-  sendRequest: (userId, data) => api.post('/friends/request', { userId, ...data }),
-  getRequests: (userId) => api.get('/friends/requests', { params: { userId } }),
-  respondRequest: (userId, id, action) => api.post(`/friends/requests/${id}/respond`, { userId, action }),
-  delete: (userId, id) => api.delete(`/friends/${id}`, { data: { userId } })
+  getList: () => api.get('/friends'),
+  sendRequest: (data) => api.post('/friends/request', data),
+  getRequests: () => api.get('/friends/requests'),
+  respondRequest: (id, action) => api.post(`/friends/requests/${id}/respond`, { action }),
+  delete: (id) => api.delete(`/friends/${id}`)
 }
 
 export const notificationAPI = {
-  getList: (userId) => api.get('/notifications', { params: { userId } }),
-  markRead: (userId, id) => api.post(`/notifications/${id}/read`, { userId }),
-  markAllRead: (userId) => api.post('/notifications/read-all', { userId })
+  getList: () => api.get('/notifications'),
+  markRead: (id) => api.post(`/notifications/${id}/read`),
+  markAllRead: () => api.post('/notifications/read-all')
 }
 
 export { api }
 
 export const postAPI = {
-  getList: (userId, params) => api.get('/posts', { params: { userId, ...params } }),
-  getDetail: (userId, id) => api.get(`/posts/${id}`, { params: { userId } }),
-  create: (userId, formData) => api.post('/posts', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-    params: { userId }
+  getList: (params) => api.get('/posts', { params }),
+  getDetail: (id) => api.get(`/posts/${id}`),
+  create: (formData) => api.post('/posts', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
   }),
-  update: (userId, id, data) => api.put(`/posts/${id}`, { userId, ...data }),
-  like: (userId, id) => api.post(`/posts/${id}/like`, { userId }),
-  unlike: (userId, id) => api.post(`/posts/${id}/unlike`, { userId }),
-  delete: (userId, id) => api.delete(`/posts/${id}`, { data: { userId } }),
-  setVisibility: (userId, id, isPublic) => api.patch(`/posts/${id}/visibility`, { userId, is_public: isPublic }),
-  setCommentsToggle: (userId, id, allow) => api.patch(`/posts/${id}/comments-toggle`, { userId, allow_comments: allow }),
-  getComments: (userId, id) => api.get(`/posts/${id}/comments`, { params: { userId } }),
-  addComment: (userId, id, content, parentId) => {
-    const data = { userId, content }
+  update: (id, data) => api.put(`/posts/${id}`, data),
+  like: (id) => api.post(`/posts/${id}/like`),
+  unlike: (id) => api.post(`/posts/${id}/unlike`),
+  delete: (id) => api.delete(`/posts/${id}`),
+  setVisibility: (id, isPublic) => api.patch(`/posts/${id}/visibility`, { is_public: isPublic }),
+  setCommentsToggle: (id, allow) => api.patch(`/posts/${id}/comments-toggle`, { allow_comments: allow }),
+  getComments: (id) => api.get(`/posts/${id}/comments`),
+  addComment: (id, content, parentId) => {
+    const data = { content }
     if (parentId) data.parent_id = parentId
     return api.post(`/posts/${id}/comments`, data)
   },
-  addCommentWithImage: (userId, id, formData) => api.post(`/posts/${id}/comments`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
-    params: { userId }
+  addCommentWithImage: (id, formData) => api.post(`/posts/${id}/comments`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
   }),
-  likeComment: (userId, id) => api.post(`/posts/comments/${id}/like`, { userId }),
-  unlikeComment: (userId, id) => api.post(`/posts/comments/${id}/unlike`, { userId }),
-  deleteComment: (userId, id) => api.delete(`/posts/comments/${id}`, { data: { userId } })
+  likeComment: (id) => api.post(`/posts/comments/${id}/like`),
+  unlikeComment: (id) => api.post(`/posts/comments/${id}/unlike`),
+  deleteComment: (id) => api.delete(`/posts/comments/${id}`)
 }
 
 export default api

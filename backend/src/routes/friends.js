@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 const { query } = require('../config/database');
 const { body, validationResult } = require('express-validator');
+const { authenticate } = require('../middleware/auth');
 
 // 发送 WebSocket 通知事件
 function emitNotificationEvent(io, userId) {
@@ -13,26 +14,13 @@ function emitNotificationEvent(io, userId) {
   }
 }
 
-// 简单认证中间件 - 从请求参数获取 userId
-const authMiddleware = async (req, res, next) => {
-  const userId = req.query.userId || req.body.userId;
-  if (!userId) {
-    return res.status(400).json({
-      success: false,
-      error: { message: '缺少用户 ID' }
-    });
-  }
-  req.user = { id: parseInt(userId) };
-  next();
-};
-
 // ==================== 路由 ====================
 
 /**
  * GET /api/friends
  * 获取好友列表
  */
-router.get('/', authMiddleware, async (req, res) => {
+router.get('/', authenticate, async (req, res) => {
   try {
     const friends = await query(
       `SELECT u.id, u.username, u.nickname, u.avatar, u.status, f.created_at as friend_since
@@ -60,7 +48,7 @@ router.get('/', authMiddleware, async (req, res) => {
  * POST /api/friends/request
  * 发送好友申请
  */
-router.post('/request', authMiddleware, [
+router.post('/request', authenticate, [
   body('friendId').isInt().withMessage('无效的用户 ID'),
   body('message').optional().isLength({ max: 200 }).withMessage('申请信息最多 200 字符')
 ], async (req, res) => {
@@ -131,7 +119,7 @@ router.post('/request', authMiddleware, [
  * GET /api/friends/requests
  * 获取好友申请列表
  */
-router.get('/requests', authMiddleware, async (req, res) => {
+router.get('/requests', authenticate, async (req, res) => {
   try {
     const requests = await query(
       `SELECT fr.*, u.username, u.nickname, u.avatar
@@ -159,7 +147,7 @@ router.get('/requests', authMiddleware, async (req, res) => {
  * POST /api/friends/requests/:id/respond
  * 响应好友申请
  */
-router.post('/requests/:id/respond', authMiddleware, [
+router.post('/requests/:id/respond', authenticate, [
   body('action').isIn(['accept', 'reject']).withMessage('操作必须是 accept 或 reject')
 ], async (req, res) => {
   const errors = validationResult(req);
@@ -239,7 +227,7 @@ router.post('/requests/:id/respond', authMiddleware, [
  * DELETE /api/friends/:id
  * 删除好友
  */
-router.delete('/:id', authMiddleware, async (req, res) => {
+router.delete('/:id', authenticate, async (req, res) => {
   try {
     const friendId = req.params.id;
     const userId = req.user.id;

@@ -5,6 +5,7 @@ const { body, param, query, validationResult } = require('express-validator');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const { authenticate } = require('../middleware/auth');
 
 // ==================== 输入验证规则 ====================
 
@@ -43,45 +44,6 @@ const validatePagination = [
   query('page').optional().isInt({ min: 1 }).withMessage('页码至少为1').toInt(),
   query('limit').optional().isInt({ min: 1, max: 100 }).withMessage('每页数量1-100').toInt()
 ];
-
-// ==================== 增强版身份验证中间件 ====================
-
-const authMiddleware = async (req, res, next) => {
-  const userId = req.query.userId || req.body.userId;
-  
-  // 验证 userId 是否存在
-  if (!userId) {
-    return res.status(400).json({ success: false, error: { message: '缺少用户 ID' } });
-  }
-  
-  // 验证 userId 是否为有效整数
-  const parsedUserId = parseInt(userId, 10);
-  if (isNaN(parsedUserId) || parsedUserId <= 0) {
-    return res.status(400).json({ success: false, error: { message: '无效的用户 ID' } });
-  }
-  
-  // 可选：验证用户是否真实存在
-  try {
-    const [users] = await pool.execute(
-      'SELECT id, is_banned FROM users WHERE id = ?',
-      [parsedUserId]
-    );
-    
-    if (users.length === 0) {
-      return res.status(401).json({ success: false, error: { message: '用户不存在' } });
-    }
-    
-    if (users[0].is_banned) {
-      return res.status(403).json({ success: false, error: { message: '账号已被禁用' } });
-    }
-    
-    req.user = { id: parsedUserId };
-    next();
-  } catch (error) {
-    console.error('身份验证失败:', error);
-    return res.status(500).json({ success: false, error: { message: '身份验证失败' } });
-  }
-};
 
 // ==================== 文件上传配置 ====================
 
@@ -142,7 +104,7 @@ async function getColumnName(table, col, defaultValue) {
  * GET /api/posts
  * 获取贴子列表
  */
-router.get('/', validatePagination, authMiddleware, async (req, res) => {
+router.get('/', validatePagination, authenticate, async (req, res) => {
   try {
     // 验证分页参数
     const errors = validationResult(req);
@@ -209,7 +171,7 @@ router.get('/', validatePagination, authMiddleware, async (req, res) => {
  * GET /api/posts/:id
  * 获取贴子详情
  */
-router.get('/:id', validatePostId, authMiddleware, async (req, res) => {
+router.get('/:id', validatePostId, authenticate, async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -261,7 +223,7 @@ router.get('/:id', validatePostId, authMiddleware, async (req, res) => {
  * POST /api/posts
  * 创建贴子
  */
-router.post('/', validatePostContent, authMiddleware, upload.array('images', 9), async (req, res) => {
+router.post('/', validatePostContent, authenticate, upload.array('images', 9), async (req, res) => {
   try {
     const { title, content } = req.body;
     const userId = req.user.id;
@@ -318,7 +280,7 @@ router.post('/', validatePostContent, authMiddleware, upload.array('images', 9),
  * PUT /api/posts/:id
  * 更新贴子
  */
-router.put('/:id', [...validatePostId, ...validatePostContent], authMiddleware, async (req, res) => {
+router.put('/:id', [...validatePostId, ...validatePostContent], authenticate, async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -374,7 +336,7 @@ router.put('/:id', [...validatePostId, ...validatePostContent], authMiddleware, 
 router.patch('/:id/visibility', [
   ...validatePostId,
   body('is_public').isBoolean().withMessage('is_public 必须是布尔值')
-], authMiddleware, async (req, res) => {
+], authenticate, async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -420,7 +382,7 @@ router.patch('/:id/visibility', [
 router.patch('/:id/comments-toggle', [
   ...validatePostId,
   body('allow_comments').isBoolean().withMessage('allow_comments 必须是布尔值')
-], authMiddleware, async (req, res) => {
+], authenticate, async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -463,7 +425,7 @@ router.patch('/:id/comments-toggle', [
  * POST /api/posts/:id/like
  * 点赞
  */
-router.post('/:id/like', validatePostId, authMiddleware, async (req, res) => {
+router.post('/:id/like', validatePostId, authenticate, async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -508,7 +470,7 @@ router.post('/:id/like', validatePostId, authMiddleware, async (req, res) => {
  * POST /api/posts/:id/unlike
  * 取消点赞
  */
-router.post('/:id/unlike', validatePostId, authMiddleware, async (req, res) => {
+router.post('/:id/unlike', validatePostId, authenticate, async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -546,7 +508,7 @@ router.post('/:id/unlike', validatePostId, authMiddleware, async (req, res) => {
  * DELETE /api/posts/:id
  * 删除贴子
  */
-router.delete('/:id', validatePostId, authMiddleware, async (req, res) => {
+router.delete('/:id', validatePostId, authenticate, async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -600,7 +562,7 @@ async function ensureCommentColumns() {
  * GET /api/posts/:id/comments
  * 获取评论列表
  */
-router.get('/:id/comments', validatePostId, authMiddleware, async (req, res) => {
+router.get('/:id/comments', validatePostId, authenticate, async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -644,7 +606,7 @@ router.get('/:id/comments', validatePostId, authMiddleware, async (req, res) => 
  * POST /api/posts/:id/comments
  * 添加评论
  */
-router.post('/:id/comments', validatePostId, authMiddleware, upload.single('image'), async (req, res) => {
+router.post('/:id/comments', validatePostId, authenticate, upload.single('image'), async (req, res) => {
   try {
     const postId = parseInt(req.params.id, 10);
     const userId = req.user.id;
@@ -711,7 +673,7 @@ router.post('/:id/comments', validatePostId, authMiddleware, upload.single('imag
  * POST /api/posts/comments/:id/like
  * 评论点赞
  */
-router.post('/comments/:id/like', validateCommentId, authMiddleware, async (req, res) => {
+router.post('/comments/:id/like', validateCommentId, authenticate, async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -753,7 +715,7 @@ router.post('/comments/:id/like', validateCommentId, authMiddleware, async (req,
  * POST /api/posts/comments/:id/unlike
  * 取消评论点赞
  */
-router.post('/comments/:id/unlike', validateCommentId, authMiddleware, async (req, res) => {
+router.post('/comments/:id/unlike', validateCommentId, authenticate, async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -789,7 +751,7 @@ router.post('/comments/:id/unlike', validateCommentId, authMiddleware, async (re
  * DELETE /api/posts/comments/:id
  * 删除评论
  */
-router.delete('/comments/:id', validateCommentId, authMiddleware, async (req, res) => {
+router.delete('/comments/:id', validateCommentId, authenticate, async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

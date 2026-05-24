@@ -9,6 +9,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
+const { authenticate } = require('../middleware/auth');
 
 // 文件上传配置
 const storage = multer.diskStorage({
@@ -45,24 +46,16 @@ const upload = multer({
 
 /**
  * GET /api/users/me
- * 获取当前用户信息
+ * 获取当前用户信息（从 Token 获取）
  */
-router.get('/me', async (req, res) => {
+router.get('/me', authenticate, async (req, res) => {
   try {
-    const { userId } = req.query;
-    
-    if (!userId) {
-      return res.status(400).json({
-        success: false,
-        error: { message: '缺少用户 ID' }
-      });
-    }
-    
+    // 直接从 req.user 获取用户信息（已由中间件验证）
     const users = await query(
       `SELECT id, username, email, nickname, avatar, signature, status, created_at, last_login_at
        FROM users
        WHERE id = ?`,
-      [userId]
+      [req.user.id]
     );
     
     if (users.length === 0) {
@@ -87,12 +80,11 @@ router.get('/me', async (req, res) => {
 
 /**
  * PUT /api/users/me
- * 更新用户信息
+ * 更新用户信息（从 Token 获取用户 ID）
  */
-router.put('/me', [
+router.put('/me', authenticate, [
   body('nickname').optional().isLength({ min: 1, max: 50 }).withMessage('昵称 1-50 个字符'),
-  body('signature').optional().isLength({ max: 200 }).withMessage('签名最多 200 字符'),
-  body('userId').notEmpty().withMessage('缺少用户 ID')
+  body('signature').optional().isLength({ max: 200 }).withMessage('签名最多 200 字符')
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -103,7 +95,8 @@ router.put('/me', [
   }
   
   try {
-    const { nickname, signature, userId } = req.body;
+    const { nickname, signature } = req.body;
+    const userId = req.user.id;
     
     await query(
       `UPDATE users SET nickname = ?, signature = ? WHERE id = ?`,
@@ -125,14 +118,13 @@ router.put('/me', [
 
 /**
  * POST /api/users/avatar
- * 上传头像
+ * 上传头像（从 Token 获取用户 ID）
  */
-router.post('/avatar', upload.single('avatar'), async (req, res) => {
+router.post('/avatar', authenticate, upload.single('avatar'), async (req, res) => {
   try {
     console.log('=== 头像上传请求 ===');
-    console.log('请求体:', req.body);
+    console.log('用户:', req.user.id);
     console.log('文件:', req.file);
-    console.log('文件字段:', req.files);
     
     if (!req.file) {
       console.error('上传失败：没有文件');
@@ -142,14 +134,7 @@ router.post('/avatar', upload.single('avatar'), async (req, res) => {
       });
     }
     
-    const { userId } = req.body;
-    if (!userId) {
-      console.error('上传失败：缺少用户ID');
-      return res.status(400).json({
-        success: false,
-        error: { message: '缺少用户 ID' }
-      });
-    }
+    const userId = req.user.id;
     
     // 检查文件是否实际保存成功
     const fullFilePath = path.join(__dirname, '../../uploads/avatars', req.file.filename);

@@ -8,6 +8,7 @@ const { body, validationResult } = require('express-validator');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const { authenticate, optionalAuth } = require('../middleware/auth');
 
 const roomAvatarDir = path.join(__dirname, '../../uploads/avatars');
 if (!fs.existsSync(roomAvatarDir)) {
@@ -29,12 +30,14 @@ const SUPER_ADMIN_USERNAME = '1y4w1s';
 
 /**
  * 检查用户是否为聊天室管理员
+ * 优先使用 req.user.id（Token 认证），回退到 body 中的 userId/operatorId
  */
 const checkAdmin = async (req, res, next) => {
   const roomId = req.params.id;
-  const { userId, operatorId } = req.body;
+  // 优先从 Token 获取用户 ID
+  const userId = req.user?.id || req.body.userId || req.body.operatorId;
   
-  if (!userId && !operatorId) {
+  if (!userId) {
     return res.status(400).json({
       success: false,
       error: { message: '缺少用户 ID' }
@@ -44,7 +47,7 @@ const checkAdmin = async (req, res, next) => {
   try {
     const member = await query(
       'SELECT role FROM room_members WHERE room_id = ? AND user_id = ?',
-      [roomId, operatorId || userId]
+      [roomId, userId]
     );
     
     if (member.length === 0) {
@@ -74,9 +77,11 @@ const checkAdmin = async (req, res, next) => {
 
 /**
  * 检查用户是否为超级管理员
+ * 优先使用 req.user.id（Token 认证）
  */
 const checkSuperAdmin = async (req, res, next) => {
-  const userId = req.body.userId || req.body.operatorId;
+  // 优先从 Token 获取用户 ID
+  const userId = req.user?.id || req.body.userId || req.body.operatorId;
   
   if (!userId) {
     return res.status(400).json({
@@ -121,10 +126,12 @@ const checkSuperAdmin = async (req, res, next) => {
  * GET /api/rooms
  * 获取聊天室列表（私有房间仅对成员可见）
  */
-router.get('/', async (req, res) => {
+router.get('/', optionalAuth, async (req, res) => {
   try {
-    const { type, page = 1, limit = 20, userId } = req.query;
+    const { type, page = 1, limit = 20 } = req.query;
     const offset = (page - 1) * limit;
+    // 优先使用 Token 中的用户 ID，否则回退到 query 参数
+    const userId = req.user?.id || req.query.userId;
     
     let sql = `
       SELECT r.*, u.username as owner_name,

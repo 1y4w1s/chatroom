@@ -7,6 +7,7 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const { body, validationResult } = require('express-validator');
 const { query } = require('../config/database');
+const { generateToken } = require('../middleware/auth');
 
 // ==================== 验证规则 ====================
 
@@ -171,6 +172,9 @@ router.post('/login', loginValidation, async (req, res) => {
       });
     }
     
+    // 生成 JWT Token
+    const token = generateToken(user);
+    
     // 更新登录时间和状态
     await query(
       `UPDATE users 
@@ -182,6 +186,7 @@ router.post('/login', loginValidation, async (req, res) => {
     res.json({
       success: true,
       data: {
+        token,
         user: {
           id: user.id,
           username: user.username,
