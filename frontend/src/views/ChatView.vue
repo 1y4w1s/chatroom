@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -1854,7 +1854,7 @@ function batchDeleteLocalStickers() {
 async function fetchServerStickers() {
   if (!authStore.user?.id) return
   try {
-    const res = await fetch(`${API_BASE}/emojis?user_id=${authStore.user.id}`)
+    const res = await fetch(`${API_BASE_URL}/emojis?user_id=${authStore.user.id}`)
     const data = await res.json()
     if (data.success) {
       serverStickers.value = data.data
@@ -1872,7 +1872,7 @@ async function uploadServerSticker(file) {
   formData.append('user_id', authStore.user.id)
 
   try {
-    const res = await fetch(`${API_BASE}/emojis`, {
+    const res = await fetch(`${API_BASE_URL}/emojis`, {
       method: 'POST',
       body: formData
     })
@@ -1892,7 +1892,7 @@ async function uploadServerSticker(file) {
 // 删除表情包
 async function deleteServerSticker(emojiId) {
   try {
-    const res = await fetch(`${API_BASE}/emojis/${emojiId}?user_id=${authStore.user.id}`, {
+    const res = await fetch(`${API_BASE_URL}/emojis/${emojiId}?user_id=${authStore.user.id}`, {
       method: 'DELETE'
     })
     const data = await res.json()
@@ -1914,7 +1914,7 @@ async function batchDeleteStickers() {
   if (selectedStickers.value.length === 0) return
 
   try {
-    const res = await fetch(`${API_BASE}/emojis/batch-delete`, {
+    const res = await fetch(`${API_BASE_URL}/emojis/batch-delete`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -1945,7 +1945,7 @@ async function handleBatchDelete() {
   // 先删除服务器表情包
   if (serverCount > 0) {
     try {
-      const res = await fetch(`${API_BASE}/emojis/batch-delete`, {
+      const res = await fetch(`${API_BASE_URL}/emojis/batch-delete`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -2216,7 +2216,7 @@ const joinRoom = async (roomId) => {
     currentRoom.value = { ...(rooms.value.find(r => r.id === roomId)), enable_bot: rooms.value.find(r => r.id === roomId)?.enable_bot || 0 }
     
     const response = await roomAPI.getMessages(roomId)
-    const API_BASE_URL = import.meta.env.VITE_API_URL || ''
+    const API_BASE_URL_URL = import.meta.env.VITE_API_URL || ''
     messages.value = response.data.messages
       .map(msg => {
         let avatar = ''
@@ -2976,12 +2976,12 @@ const setupSocketListeners = () => {
   
   if (!socket) return
   
-  const API_BASE_URL = import.meta.env.VITE_API_URL || ''
+  const API_BASE_URL_URL = import.meta.env.VITE_API_URL || ''
   
   socket.on('new_message', (message) => {
     if (message.room_id === currentRoomId.value) {
       const avatar = message.avatar && message.avatar.trim()
-        ? `${API_BASE_URL}${message.avatar}`
+        ? `${API_BASE_URL_URL}${message.avatar}`
         : ''
       const messageWithAvatar = parseReplyContent({ ...message, avatar })
       messages.value.push(messageWithAvatar)
@@ -3056,10 +3056,10 @@ const setupSocketListeners = () => {
   })
 
   socket.on('user_avatar_updated', (data) => {
-    const API_BASE_URL = import.meta.env.VITE_API_URL || ''
+    const API_BASE_URL_URL = import.meta.env.VITE_API_URL || ''
     messages.value = messages.value.map(msg => {
       if (msg.user_id === data.userId) {
-        return { ...msg, avatar: `${API_BASE_URL}${data.avatar}` }
+        return { ...msg, avatar: `${API_BASE_URL_URL}${data.avatar}` }
       }
       return msg
     })
