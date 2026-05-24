@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -470,10 +470,35 @@
                 </div>
               </div>
               <div v-if="emojiTab === 'stickers'" class="sticker-grid">
-                <div v-if="myStickers.length === 0" class="sticker-empty">还没有收藏的表情包<br>在图片消息上点击 ⋯ 添加</div>
-                <button v-for="(sticker, i) in myStickers" :key="i" class="sticker-cell" @click="sendSticker(sticker)">
-                  <img :src="sticker" class="sticker-img" />
-                </button>
+                <div class="sticker-header">
+                  <button v-if="!stickerEditMode" class="sticker-edit-btn" @click="stickerEditMode = true">编辑</button>
+                  <template v-if="stickerEditMode">
+                    <span class="sticker-selected-count">{{ selectedStickers.length }} 已选择</span>
+                    <button class="sticker-delete-btn" @click="batchDeleteStickers" :disabled="selectedStickers.length === 0">删除</button>
+                    <button class="sticker-cancel-btn" @click="stickerEditMode = false; selectedStickers = []">取消</button>
+                  </template>
+                </div>
+                <div class="sticker-upload-area" v-if="!stickerEditMode">
+                  <label class="sticker-upload-btn">
+                    <input type="file" accept="image/*" @change="(e) => { const file = e.target.files[0]; if(file) uploadServerSticker(file); e.target.value = '' }" />
+                    <span>+ 上传表情包</span>
+                  </label>
+                </div>
+                <div v-if="serverStickers.length === 0 && myStickers.length === 0" class="sticker-empty">还没有收藏的表情包<br>点击上方按钮上传或从图片消息添加</div>
+                <div class="sticker-list">
+                  <div v-for="sticker in serverStickers" :key="sticker.id" class="sticker-item-wrapper" :class="{ selected: selectedStickers.includes(sticker.id) }">
+                    <button class="sticker-cell" @click="stickerEditMode ? toggleStickerSelect(sticker.id) : sendSticker(sticker.file_path)">
+                      <img :src="sticker.file_path" class="sticker-img" />
+                      <span v-if="stickerEditMode" class="sticker-check" :class="{ checked: selectedStickers.includes(sticker.id) }">✓</span>
+                    </button>
+                    <button v-if="stickerEditMode" class="sticker-delete-single" @click="deleteServerSticker(sticker.id)">×</button>
+                  </div>
+                  <div v-for="(sticker, i) in myStickers" :key="'local-' + i" class="sticker-item-wrapper">
+                    <button class="sticker-cell" @click="sendSticker(sticker)">
+                      <img :src="sticker" class="sticker-img" />
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1759,6 +1784,108 @@ const myStickers = computed(() => {
   } catch { return [] }
 })
 
+// 服务器表情包
+const serverStickers = ref([])
+const stickerEditMode = ref(false)
+const selectedStickers = ref([])
+
+// 获取服务器表情包
+async function fetchServerStickers() {
+  if (!authStore.user?.id) return
+  try {
+    const res = await fetch(`${API_BASE}/emojis?user_id=${authStore.user.id}`)
+    const data = await res.json()
+    if (data.success) {
+      serverStickers.value = data.data
+    }
+  } catch (e) {
+    console.error('获取表情包失败:', e)
+  }
+}
+
+// 上传表情包
+async function uploadServerSticker(file) {
+  if (!authStore.user?.id) return
+  const formData = new FormData()
+  formData.append('file', file)
+  formData.append('user_id', authStore.user.id)
+
+  try {
+    const res = await fetch(`${API_BASE}/emojis`, {
+      method: 'POST',
+      body: formData
+    })
+    const data = await res.json()
+    if (data.success) {
+      serverStickers.value.unshift(data.data)
+      showToastMessage('上传成功')
+    } else {
+      showToastMessage(data.error?.message || '上传失败')
+    }
+  } catch (e) {
+    console.error('上传表情包失败:', e)
+    showToastMessage('上传失败')
+  }
+}
+
+// 删除表情包
+async function deleteServerSticker(emojiId) {
+  try {
+    const res = await fetch(`${API_BASE}/emojis/${emojiId}?user_id=${authStore.user.id}`, {
+      method: 'DELETE'
+    })
+    const data = await res.json()
+    if (data.success) {
+      serverStickers.value = serverStickers.value.filter(e => e.id !== emojiId)
+      selectedStickers.value = selectedStickers.value.filter(id => id !== emojiId)
+      showToastMessage('删除成功')
+    } else {
+      showToastMessage(data.error?.message || '删除失败')
+    }
+  } catch (e) {
+    console.error('删除表情包失败:', e)
+    showToastMessage('删除失败')
+  }
+}
+
+// 批量删除表情包
+async function batchDeleteStickers() {
+  if (selectedStickers.value.length === 0) return
+
+  try {
+    const res = await fetch(`${API_BASE}/emojis/batch-delete`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id: authStore.user.id,
+        emoji_ids: selectedStickers.value
+      })
+    })
+    const data = await res.json()
+    if (data.success) {
+      serverStickers.value = serverStickers.value.filter(e => !selectedStickers.value.includes(e.id))
+      selectedStickers.value = []
+      stickerEditMode.value = false
+      showToastMessage(`已删除 ${data.deleted_count} 个表情包`)
+    } else {
+      showToastMessage(data.error?.message || '删除失败')
+    }
+  } catch (e) {
+    console.error('批量删除表情包失败:', e)
+    showToastMessage('删除失败')
+  }
+}
+
+// 切换表情包选中状态
+function toggleStickerSelect(emojiId) {
+  const index = selectedStickers.value.indexOf(emojiId)
+  if (index > -1) {
+    selectedStickers.value.splice(index, 1)
+  } else {
+    selectedStickers.value.push(emojiId)
+  }
+}
+
 function sendSticker(url) {
   if (currentRoomId.value) {
     authStore.sendMessage(currentRoomId.value, url, 'image')
@@ -2934,6 +3061,7 @@ onMounted(() => {
   loadRooms()
   loadNotifications()
   loadPosts()
+  fetchServerStickers()
   setupSocketListeners()
   // 每30秒刷新好友状态
   friendStatusTimer = setInterval(() => {
@@ -3938,11 +4066,110 @@ onUnmounted(() => {
 }
 
 .sticker-grid {
+  padding: 8px;
+}
+
+.sticker-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sticker-edit-btn,
+.sticker-delete-btn,
+.sticker-cancel-btn {
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.sticker-edit-btn {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.sticker-edit-btn:hover {
+  background: var(--border);
+}
+
+.sticker-selected-count {
+  font-size: 12px;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.sticker-delete-btn {
+  background: var(--danger);
+  color: white;
+}
+
+.sticker-delete-btn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.sticker-delete-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sticker-cancel-btn {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.sticker-cancel-btn:hover {
+  background: var(--border);
+}
+
+.sticker-upload-area {
+  margin-bottom: 8px;
+}
+
+.sticker-upload-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 16px;
+  background: var(--bg-secondary);
+  border: 2px dashed var(--border);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.sticker-upload-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.sticker-upload-btn input {
+  display: none;
+}
+
+.sticker-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 6px;
   max-height: 180px;
   overflow-y: auto;
+}
+
+.sticker-item-wrapper {
+  position: relative;
+}
+
+.sticker-item-wrapper.selected .sticker-cell {
+  border-color: var(--accent);
+  background: rgba(22, 93, 255, 0.1);
 }
 
 .sticker-cell {
@@ -3970,8 +4197,51 @@ onUnmounted(() => {
   border-radius: 4px;
 }
 
+.sticker-check {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--border);
+  color: transparent;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sticker-check.checked {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+}
+
+.sticker-delete-single {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--danger);
+  color: white;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.sticker-delete-single:hover {
+  opacity: 0.9;
+}
+
 .sticker-empty {
-  grid-column: 1 / -1;
   text-align: center;
   color: var(--text-tertiary);
   font-size: 13px;
