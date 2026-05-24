@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -31,27 +31,27 @@
       <div class="sidebar-tabs">
         <button class="sidebar-tab" :class="{ active: sidebarTab === 'rooms' }" @click="sidebarTab = 'rooms'; showMobileDrawer = false">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M3 4C3 3.4 3.4 3 4 3H14C14.6 3 15 3.4 15 4V12C15 12.6 14.6 13 14 13H10L8 15V13H4C3.4 13 3 12.6 3 12V4Z" :stroke="sidebarTab === 'rooms' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'rooms' ? 'currentColor' : 'none'"/>
-            <circle cx="7.5" cy="8" r="1.5" :fill="sidebarTab === 'rooms' ? 'white' : 'var(--text-tertiary)'"/>
-            <circle cx="10.5" cy="8" r="1.5" :fill="sidebarTab === 'rooms' ? 'white' : 'var(--text-tertiary)'"/>
+            <path d="M3 4C3 3.4 3.4 3 4 3H14C14.6 3 15 3.4 15 4V12C15 12.6 14.6 13 14 13H10L8 15V13H4C3.4 13 3 12.6 3 12V4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'rooms' ? 'currentColor' : 'none'"/>
+            <circle cx="7.5" cy="8" r="1.5" :fill="sidebarTab === 'rooms' ? 'white' : 'currentColor'"/>
+            <circle cx="10.5" cy="8" r="1.5" :fill="sidebarTab === 'rooms' ? 'white' : 'currentColor'"/>
           </svg>
           <span>聊天室</span>
         </button>
         <button class="sidebar-tab" :class="{ active: sidebarTab === 'friends' }" @click="sidebarTab = 'friends'; showMobileDrawer = false; loadFriends()">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M5.5 4C5.5 2.6 6.6 1.5 8 1.5C9.4 1.5 10.5 2.6 10.5 4C10.5 5.4 9.4 6.5 8 6.5C6.6 6.5 5.5 5.4 5.5 4Z" :stroke="sidebarTab === 'friends' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'"/>
-            <path d="M2.5 15C2.5 12.5 4.5 10.5 7 10.5H9C11.5 10.5 13.5 12.5 13.5 15" :stroke="sidebarTab === 'friends' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'"/>
-            <path d="M12 4.5C13.4 4.5 14.5 5.6 14.5 7C14.5 7.8 14.2 8.5 13.7 9" :stroke="sidebarTab === 'friends' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-            <path d="M16.5 10.5C16.5 11.4 16.2 12.2 15.7 12.9C15.5 13.2 15.2 13.4 14.9 13.6" :stroke="sidebarTab === 'friends' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M5.5 4C5.5 2.6 6.6 1.5 8 1.5C9.4 1.5 10.5 2.6 10.5 4C10.5 5.4 9.4 6.5 8 6.5C6.6 6.5 5.5 5.4 5.5 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'"/>
+            <path d="M2.5 15C2.5 12.5 4.5 10.5 7 10.5H9C11.5 10.5 13.5 12.5 13.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'"/>
+            <path d="M12 4.5C13.4 4.5 14.5 5.6 14.5 7C14.5 7.8 14.2 8.5 13.7 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M16.5 10.5C16.5 11.4 16.2 12.2 15.7 12.9C15.5 13.2 15.2 13.4 14.9 13.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
           </svg>
           <span>好友</span>
         </button>
         <button class="sidebar-tab" :class="{ active: sidebarTab === 'posts' }" @click="sidebarTab = 'posts'; showMobileDrawer = false">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <rect x="1.5" y="1.5" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
-            <rect x="10" y="1.5" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
-            <rect x="1.5" y="10" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
-            <rect x="10" y="10" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
+            <rect x="1.5" y="1.5" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
+            <rect x="10" y="1.5" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
+            <rect x="1.5" y="10" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
+            <rect x="10" y="10" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
           </svg>
           <span>贴子</span>
         </button>
@@ -228,7 +228,7 @@
               <div class="post-actions">
                 <button class="post-action-btn" :class="{ liked: post.is_liked }" @click.stop="toggleLike(post)">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="post.is_liked ? 'currentColor' : 'none'" :stroke="post.is_liked ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.2"/>
+                    <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="post.is_liked ? 'currentColor' : 'none'" :stroke="post.is_liked ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.3"/>
                   </svg>
                   <span>{{ post.likes_count || '' }}</span>
                 </button>
@@ -435,13 +435,13 @@
                 </div>
               </div>
               <button v-if="showChatEmoji" class="cc-icon-btn active" @click="showChatEmoji = false">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               </button>
               <button v-else class="cc-icon-btn" @click="showChatEmoji = true" title="表情">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               </button>
               <label class="cc-icon-btn" title="图片">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2.5" y="3.5" width="15" height="13" rx="2" stroke="currentColor" stroke-width="1.3"/><circle cx="7" cy="8" r="1.5" fill="currentColor"/><path d="M2.5 13L7 9L11 13L14.5 10L17.5 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2.5" y="3.5" width="15" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="7" cy="8" r="1.5" fill="currentColor"/><path d="M2.5 13L7 9L11 13L14.5 10L17.5 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
                 <input type="file" accept="image/*" multiple @change="handleChatImageSelect" hidden />
               </label>
               <button class="cc-send-btn" @click="sendMessage" :disabled="!newMessage.trim() && chatImages.length === 0">发送</button>
@@ -456,7 +456,7 @@
               <div class="emoji-panel-tabs">
                 <button class="emoji-panel-tab" :class="{ active: emojiTab === 'emoji' }" @click="emojiTab = 'emoji'" title="表情">😊</button>
                 <button class="emoji-panel-tab" :class="{ active: emojiTab === 'stickers' }" @click="emojiTab = 'stickers'" :title="'收藏表情 (' + myStickers.length + ')'">
-                  <svg width="16" height="16" viewBox="0 0 16 16" :fill="emojiTab === 'stickers' ? 'var(--danger)' : 'none'" stroke="currentColor" stroke-width="1.3">
+                  <svg width="16" height="16" viewBox="0 0 16 16" :fill="emojiTab === 'stickers' ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.3">
                     <path d="M8 2.5L9.5 6L13 6.5L10.5 9L11 12.5L8 11L5 12.5L5.5 9L3 6.5L6.5 6L8 2.5Z"/>
                   </svg>
                 </button>
