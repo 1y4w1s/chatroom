@@ -509,7 +509,7 @@
           <h3>聊天室设置 - {{ currentRoom?.name }}</h3>
           <button class="close-btn" @click="showRoomSettings = false">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </button>
         </div>
@@ -527,7 +527,7 @@
                   <img :src="roomAvatarUrl" class="room-settings-avatar" />
                   <div class="room-avatar-overlay">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M8 2V14M2 8H14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                      <path d="M8 2V14M2 8H14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
                   </div>
                 </div>
@@ -632,7 +632,7 @@
           <h3>设置禁言</h3>
           <button class="close-btn" @click="showMuteModal = false">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </button>
         </div>
@@ -707,7 +707,7 @@
         <div class="drawer-header">
           <h3>聊天室信息</h3>
           <button class="drawer-close" @click="showRoomDrawer = false">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </button>
         </div>
         <div class="drawer-body">
@@ -813,7 +813,7 @@
         <div class="modal-header">
           <h3>全部公告</h3>
           <button class="close-btn" @click="showAnnouncementList = false">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </button>
         </div>
         <div class="modal-body" style="max-height:60vh;overflow-y:auto">
@@ -839,7 +839,7 @@
         <div class="modal-header">
           <h3>{{ editingAnnouncement ? '编辑公告' : '发布公告' }}</h3>
           <button class="close-btn" @click="showAnnouncementEditor = false">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </button>
         </div>
         <div class="modal-body">
@@ -859,7 +859,7 @@
           <h3>发贴</h3>
           <button class="close-btn" @click="showCreatePost = false">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </button>
         </div>
@@ -907,7 +907,7 @@
           <h3>编辑贴子</h3>
           <button class="close-btn" @click="showEditPost = false">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </button>
         </div>
@@ -933,7 +933,7 @@
             <button v-if="notificationUnread > 0" class="btn btn-text btn-xs" @click="markAllNotificationsRead">全部已读</button>
             <button class="close-btn" @click="showNotificationPanel = false">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
             </button>
           </div>
@@ -1018,7 +1018,7 @@
           </h3>
           <button class="close-btn" @click="showDissolveConfirm = false">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </button>
         </div>
