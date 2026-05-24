@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -473,9 +473,9 @@
                 <div class="sticker-header">
                   <button v-if="!stickerEditMode" class="sticker-edit-btn" @click="stickerEditMode = true">编辑</button>
                   <template v-if="stickerEditMode">
-                    <span class="sticker-selected-count">{{ selectedStickers.length }} 已选择</span>
-                    <button class="sticker-delete-btn" @click="batchDeleteStickers" :disabled="selectedStickers.length === 0">删除</button>
-                    <button class="sticker-cancel-btn" @click="stickerEditMode = false; selectedStickers = []">取消</button>
+                    <span class="sticker-selected-count">{{ selectedStickers.length + selectedLocalStickers.length }} 已选择</span>
+                    <button class="sticker-delete-btn" @click="handleBatchDelete" :disabled="selectedStickers.length + selectedLocalStickers.length === 0">删除</button>
+                    <button class="sticker-cancel-btn" @click="stickerEditMode = false; selectedStickers = []; selectedLocalStickers = []">取消</button>
                   </template>
                 </div>
                 <div class="sticker-upload-area" v-if="!stickerEditMode">
@@ -493,11 +493,12 @@
                     </button>
                     <button v-if="stickerEditMode" class="sticker-delete-single" @click.stop="deleteServerSticker(sticker.id)">×</button>
                   </div>
-                  <div v-for="(sticker, i) in myStickers" :key="'local-' + i" class="sticker-item-wrapper">
-                    <button class="sticker-cell" @click.stop="stickerEditMode ? null : sendSticker(sticker)">
+                  <div v-for="(sticker, i) in myStickers" :key="'local-' + i" class="sticker-item-wrapper" :class="{ selected: selectedLocalStickers.includes(i) }">
+                    <button class="sticker-cell" @click.stop="stickerEditMode ? toggleLocalStickerSelect(i) : sendSticker(sticker)">
                       <img :src="sticker" class="sticker-img" />
-                      <span v-if="stickerEditMode" class="sticker-check unchecked">✕</span>
+                      <span v-if="stickerEditMode" class="sticker-check" :class="{ checked: selectedLocalStickers.includes(i) }">✓</span>
                     </button>
+                    <button v-if="stickerEditMode" class="sticker-delete-single" @click.stop="deleteLocalSticker(i)">×</button>
                   </div>
                 </div>
               </div>
@@ -1778,17 +1779,76 @@ function openMessageMemberAction(message, event) {
 const showChatEmoji = ref(false)
 const emojiTab = ref('emoji')
 const stickerVersion = ref(0)
+
+// 清理并获取本地表情包
+function getMyStickers() {
+  try {
+    const data = localStorage.getItem('my_stickers')
+    if (!data) return []
+    const parsed = JSON.parse(data)
+    // 确保是数组
+    if (!Array.isArray(parsed)) {
+      localStorage.setItem('my_stickers', '[]')
+      return []
+    }
+    // 过滤掉无效数据
+    return parsed.filter(s => typeof s === 'string' && s.length > 0)
+  } catch (e) {
+    // 数据损坏，清空并重置
+    console.warn('本地表情包数据损坏，已清理:', e)
+    localStorage.setItem('my_stickers', '[]')
+    return []
+  }
+}
+
 const myStickers = computed(() => {
   void stickerVersion.value
-  try {
-    return JSON.parse(localStorage.getItem('my_stickers') || '[]')
-  } catch { return [] }
+  return getMyStickers()
 })
 
 // 服务器表情包
 const serverStickers = ref([])
 const stickerEditMode = ref(false)
 const selectedStickers = ref([])
+const selectedLocalStickers = ref([])
+
+// 删除本地表情包
+function deleteLocalSticker(index) {
+  const stickers = getMyStickers()
+  if (index >= 0 && index < stickers.length) {
+    stickers.splice(index, 1)
+    localStorage.setItem('my_stickers', JSON.stringify(stickers))
+    stickerVersion.value++
+    selectedLocalStickers.value = selectedLocalStickers.value.filter(i => i !== index)
+  }
+}
+
+// 切换本地表情包选中
+function toggleLocalStickerSelect(index) {
+  const idx = selectedLocalStickers.value.indexOf(index)
+  if (idx > -1) {
+    selectedLocalStickers.value.splice(idx, 1)
+  } else {
+    selectedLocalStickers.value.push(index)
+  }
+}
+
+// 批量删除本地表情包
+function batchDeleteLocalStickers() {
+  if (selectedLocalStickers.value.length === 0) return
+  const stickers = getMyStickers()
+  // 从大到小排序，确保删除索引正确
+  const sortedIndexes = [...selectedLocalStickers.value].sort((a, b) => b - a)
+  for (const idx of sortedIndexes) {
+    if (idx >= 0 && idx < stickers.length) {
+      stickers.splice(idx, 1)
+    }
+  }
+  localStorage.setItem('my_stickers', JSON.stringify(stickers))
+  stickerVersion.value++
+  selectedLocalStickers.value = []
+  showToastMessage('已删除')
+}
 
 // 获取服务器表情包
 async function fetchServerStickers() {
@@ -1875,6 +1935,42 @@ async function batchDeleteStickers() {
     console.error('批量删除表情包失败:', e)
     showToastMessage('删除失败')
   }
+}
+
+// 统一批量删除（服务器+本地）
+async function handleBatchDelete() {
+  const serverCount = selectedStickers.value.length
+  const localCount = selectedLocalStickers.value.length
+
+  // 先删除服务器表情包
+  if (serverCount > 0) {
+    try {
+      const res = await fetch(`${API_BASE}/emojis/batch-delete`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: authStore.user.id,
+          emoji_ids: selectedStickers.value
+        })
+      })
+      const data = await res.json()
+      if (data.success) {
+        serverStickers.value = serverStickers.value.filter(e => !selectedStickers.value.includes(e.id))
+      }
+    } catch (e) {
+      console.error('批量删除服务器表情包失败:', e)
+    }
+  }
+
+  // 删除本地表情包
+  if (localCount > 0) {
+    batchDeleteLocalStickers()
+  }
+
+  selectedStickers.value = []
+  selectedLocalStickers.value = []
+  stickerEditMode.value = false
+  showToastMessage(`已删除 ${serverCount + localCount} 个表情包`)
 }
 
 // 切换表情包选中状态
