@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -314,128 +314,21 @@
           帖子详情
         </button>
       </div>
-      <div v-if="activeMainTab === 'post' && selectedPost" class="post-detail">
-        <div class="post-detail-header">
-          <h3>贴子详情</h3>
-          <div class="post-detail-actions" v-if="selectedPost.user_id === authStore.userId">
-            <button class="btn-icon" @click="showPostManageMenu = !showPostManageMenu">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="4.5" r="1.2" fill="currentColor"/><circle cx="9" cy="9" r="1.2" fill="currentColor"/><circle cx="9" cy="13.5" r="1.2" fill="currentColor"/></svg>
-            </button>
-            <div v-if="showPostManageMenu" class="post-manage-menu">
-              <button @click="openEditPost">编辑</button>
-              <button @click="togglePostVisibility">{{ selectedPost.is_public ? '设为私密' : '设为公开' }}</button>
-              <button @click="togglePostComments">{{ selectedPost.allow_comments ? '关闭评论' : '开启评论' }}</button>
-              <button class="danger" @click="deletePostFromDetail">删除</button>
-            </div>
-          </div>
-        </div>
-        <div class="post-detail-body">
-          <div class="post-detail-author">
-            <img :src="getAvatarUrl(selectedPost.avatar, selectedPost.nickname || selectedPost.username)" class="pd-avatar" />
-            <div>
-              <div class="pd-name">{{ selectedPost.nickname || selectedPost.username }}</div>
-              <div class="pd-time">{{ formatTime(selectedPost.created_at) }}
-                <span v-if="!selectedPost.is_public" class="pd-badge private">私密</span>
-                <span v-if="selectedPost.allow_comments === false" class="pd-badge no-comment">禁评</span>
-              </div>
-            </div>
-          </div>
-          <div v-if="selectedPost.title" class="pd-title">{{ selectedPost.title }}</div>
-          <div class="pd-content">{{ selectedPost.content }}</div>
-          <div v-if="selectedPost.tags && selectedPost.tags.length" class="pd-tags">
-            <span v-for="tag in selectedPost.tags" :key="tag" class="pd-tag">#{{ tag }}</span>
-          </div>
-          <div v-if="selectedPost.images && selectedPost.images.length" class="pd-images">
-            <img v-for="(img, i) in selectedPost.images" :key="i" :src="getPostImageUrl(img)" class="pd-image" @click="previewPostImage(img)" />
-          </div>
-          <div class="pd-actions">
-            <button class="pd-action-btn" :class="{ liked: selectedPost.is_liked }" @click="toggleLike(selectedPost)">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="selectedPost.is_liked ? 'currentColor' : 'none'" :stroke="selectedPost.is_liked ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.2"/></svg>
-              <span>{{ selectedPost.likes_count || '' }}</span>
-            </button>
-          </div>
-          <div class="pd-comments-section">
-            <div class="pd-comments-title">评论（{{ selectedPost.comments_count || 0 }}）</div>
-            <div v-if="topLevelComments.length === 0" class="pd-no-comments">暂无评论</div>
-            <div v-for="comment in topLevelComments" :key="comment.id" class="pd-comment-wrapper">
-              <div class="pd-comment">
-                <img :src="getAvatarUrl(comment.avatar, comment.nickname || comment.username)" class="pd-comment-avatar" />
-                <div class="pd-comment-body">
-                  <div class="pd-comment-header">
-                    <span class="pd-comment-name">{{ comment.nickname || comment.username }}</span>
-                    <span class="pd-comment-time">{{ formatTime(comment.created_at) }}</span>
-                  </div>
-                  <div class="pd-comment-text">{{ comment.content }}</div>
-                  <img v-if="comment.image" :src="getPostImageUrl(comment.image)" class="pd-comment-image" @click="previewPostImage(comment.image)" />
-                  <div class="pd-comment-actions">
-                    <button class="pd-comment-like" :class="{ liked: comment.is_liked }" @click="toggleCommentLike(comment)">
-                      <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="comment.is_liked ? 'currentColor' : 'none'" :stroke="comment.is_liked ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.2"/></svg>
-                      <span>{{ comment.likes_count || '' }}</span>
-                    </button>
-                    <button class="pd-comment-reply-btn" @click="startReply(comment)">回复</button>
-                    <button v-if="comment.user_id === authStore.userId || selectedPost.user_id === authStore.userId" class="pd-comment-del" @click="deleteComment(comment.id)">删除</button>
-                  </div>
-                </div>
-              </div>
-              <div v-if="commentReplies(comment.id).length" class="pd-replies">
-                <div v-for="reply in commentReplies(comment.id)" :key="reply.id" class="pd-comment pd-reply">
-                  <img :src="getAvatarUrl(reply.avatar, reply.nickname || reply.username)" class="pd-comment-avatar" />
-                  <div class="pd-comment-body">
-                    <div class="pd-comment-header">
-                      <span class="pd-comment-name">{{ reply.nickname || reply.username }}</span>
-                      <span class="pd-comment-time">{{ formatTime(reply.created_at) }}</span>
-                    </div>
-                    <div class="pd-comment-text">{{ reply.content }}</div>
-                    <img v-if="reply.image" :src="getPostImageUrl(reply.image)" class="pd-comment-image" @click="previewPostImage(reply.image)" />
-                    <div class="pd-comment-actions">
-                      <button class="pd-comment-like" :class="{ liked: reply.is_liked }" @click="toggleCommentLike(reply)">
-                        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="reply.is_liked ? 'currentColor' : 'none'" :stroke="reply.is_liked ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.2"/></svg>
-                        <span>{{ reply.likes_count || '' }}</span>
-                      </button>
-                      <button v-if="reply.user_id === authStore.userId || selectedPost.user_id === authStore.userId" class="pd-comment-del" @click="deleteComment(reply.id)">删除</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div v-if="selectedPost.allow_comments !== false" class="cc-card">
-              <div v-if="replyTo" class="cc-reply-hint">
-                回复 @{{ replyTo.nickname || replyTo.username }}
-                <button class="cc-reply-cancel" @click="cancelReply">取消</button>
-              </div>
-              <div class="cc-input-row">
-                <input v-model="commentInput" class="cc-input" :placeholder="replyTo ? '输入回复...' : '写评论...'" @keyup.enter="submitComment" ref="commentInputRef" />
-                <button v-if="showCommentEmojiPicker" class="cc-icon-btn active" @click="showCommentEmojiPicker = false">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-                </button>
-                <button v-else class="cc-icon-btn" @click="showCommentEmojiPicker = true" title="表情">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-                </button>
-                <label class="cc-icon-btn" title="图片">
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2.5" y="3.5" width="15" height="13" rx="2" stroke="currentColor" stroke-width="1.3"/><circle cx="7" cy="8" r="1.5" fill="currentColor"/><path d="M2.5 13L7 9L11 13L14.5 10L17.5 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-                  <input type="file" accept="image/*" multiple @change="handleCommentImageSelect" hidden />
-                </label>
-                <button class="cc-send-btn" @click="submitComment" :disabled="!commentInput.trim() && commentImages.length === 0">发布</button>
-              </div>
-              <div v-if="commentImages.length" class="cc-previews">
-                <div v-for="(img, i) in commentImages" :key="i" class="cc-preview-item">
-                  <img :src="img.preview" />
-                  <button class="cc-preview-del" @click="removeCommentImage(i)">×</button>
-                </div>
-              </div>
-              <div v-if="showCommentEmojiPicker" ref="commentEmojiPickerRef" class="cc-emoji-panel">
-                <div v-for="category in emojiCategories" :key="category.name" class="cc-emoji-group">
-                  <div class="cc-emoji-label">{{ category.name }}</div>
-                  <div class="cc-emoji-grid">
-                    <button v-for="emoji in category.emojis" :key="emoji" class="cc-emoji-cell" @click="insertCommentEmoji(emoji)">{{ emoji }}</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div v-else class="pd-comments-closed">评论已关闭</div>
-          </div>
-        </div>
-      </div>
+      <PostDetail
+        v-if="activeMainTab === 'post' && selectedPost"
+        :post="selectedPost"
+        :comments="postComments"
+        :currentUserId="authStore.userId"
+        @edit="openEditPost"
+        @toggleVisibility="togglePostVisibility"
+        @toggleComments="togglePostComments"
+        @delete="deletePostFromDetail"
+        @previewImage="previewPostImage"
+        @toggleLike="toggleLike"
+        @toggleCommentLike="toggleCommentLike"
+        @deleteComment="deleteComment"
+        @submitComment="handleSubmitComment"
+      />
       <div v-if="activeMainTab === 'chat' && currentRoomId" class="chat-wrapper">
         <header class="chat-header">
           <div class="header-left" @click="currentRoom?.type !== 'private' && (showRoomDrawer = true)" :style="{ cursor: currentRoom?.type !== 'private' ? 'pointer' : 'default' }">
@@ -1152,6 +1045,7 @@ import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { roomAPI, userAPI, notificationAPI, friendAPI, postAPI, messageAPI, api } from '@/api'
 import { emojiCategories } from '@/utils/emojis'
+import PostDetail from '@/components/PostDetail.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -1523,47 +1417,9 @@ const selectedPost = ref(null)
 const switchToChat = () => { activeMainTab.value = 'chat' }
 const switchToPost = () => { activeMainTab.value = 'post' }
 const postComments = ref([])
-const commentInput = ref('')
 const showEditPost = ref(false)
 const editTitle = ref('')
 const editContent = ref('')
-const showPostManageMenu = ref(false)
-const replyTo = ref(null)
-const showCommentEmojiPicker = ref(false)
-const commentImages = ref([])
-const commentInputRef = ref(null)
-
-const topLevelComments = computed(() => postComments.value.filter(c => !c.parent_id))
-
-const commentReplies = (parentId) => postComments.value.filter(c => c.parent_id === parentId)
-
-const startReply = (comment) => {
-  replyTo.value = comment
-  commentInput.value = ''
-  setTimeout(() => commentInputRef.value?.focus(), 50)
-}
-
-const cancelReply = () => {
-  replyTo.value = null
-  commentInput.value = ''
-}
-
-const handleCommentImageSelect = (e) => {
-  const files = e.target.files
-  for (const file of files) {
-    commentImages.value.push({ file, preview: URL.createObjectURL(file) })
-  }
-  e.target.value = ''
-}
-
-const removeCommentImage = (i) => {
-  URL.revokeObjectURL(commentImages.value[i].preview)
-  commentImages.value.splice(i, 1)
-}
-
-const insertCommentEmoji = (emoji) => {
-  commentInput.value += emoji
-}
 
 const normalizeIsLiked = (obj) => { if (obj) obj.is_liked = obj.is_liked === 1 || obj.is_liked === true || obj.is_liked === '1' }
 
@@ -1590,8 +1446,6 @@ const openPostDetail = async (post) => {
 const closePostDetail = () => {
   selectedPost.value = null
   postComments.value = []
-  replyTo.value = null
-  commentImages.value = []
 }
 
 const loadComments = async (postId) => {
@@ -1602,26 +1456,23 @@ const loadComments = async (postId) => {
   }
 }
 
-const submitComment = async () => {
-  if ((!commentInput.value.trim() && commentImages.value.length === 0) || !selectedPost.value) return
+const handleSubmitComment = async ({ content, images, parentId }) => {
+  if ((!content && (!images || images.length === 0)) || !selectedPost.value) return
   try {
     let response
-    if (commentImages.value.length) {
+    if (images && images.length) {
       const formData = new FormData()
-      if (commentInput.value.trim()) formData.append('content', commentInput.value.trim())
-      formData.append('image', commentImages.value[0].file)
-      if (replyTo.value) formData.append('parent_id', replyTo.value.id)
+      if (content) formData.append('content', content)
+      formData.append('image', images[0])
+      if (parentId) formData.append('parent_id', parentId)
       response = await postAPI.addCommentWithImage(authStore.userId, selectedPost.value.id, formData)
     } else {
-      response = await postAPI.addComment(authStore.userId, selectedPost.value.id, commentInput.value.trim(), replyTo.value?.id)
+      response = await postAPI.addComment(authStore.userId, selectedPost.value.id, content, parentId)
     }
     normalizeIsLiked(response.data.comment)
     response.data.comment.likes_count = Number(response.data.comment.likes_count) || 0
     postComments.value.push(response.data.comment)
     selectedPost.value.comments_count = (selectedPost.value.comments_count || 0) + 1
-    commentInput.value = ''
-    commentImages.value = []
-    replyTo.value = null
     const p = posts.value.find(p => p.id === selectedPost.value.id)
     if (p) p.comments_count = selectedPost.value.comments_count
   } catch (e) {
@@ -1661,7 +1512,6 @@ const openEditPost = () => {
   editTitle.value = selectedPost.value.title || ''
   editContent.value = selectedPost.value.content || ''
   showEditPost.value = true
-  showPostManageMenu.value = false
 }
 
 const submitEditPost = async () => {
@@ -1683,7 +1533,6 @@ const togglePostVisibility = async () => {
     const isPublic = !selectedPost.value.is_public
     await postAPI.setVisibility(authStore.userId, selectedPost.value.id, isPublic)
     selectedPost.value.is_public = isPublic
-    showPostManageMenu.value = false
     const p = posts.value.find(p => p.id === selectedPost.value.id)
     if (p) p.is_public = isPublic
   } catch (e) {
@@ -1696,7 +1545,6 @@ const togglePostComments = async () => {
     const allow = !selectedPost.value.allow_comments
     await postAPI.setCommentsToggle(authStore.userId, selectedPost.value.id, allow)
     selectedPost.value.allow_comments = allow
-    showPostManageMenu.value = false
   } catch (e) {
   }
 }
@@ -1706,7 +1554,6 @@ const deletePostFromDetail = async () => {
   try {
     await postAPI.delete(authStore.userId, selectedPost.value.id)
     posts.value = posts.value.filter(p => p.id !== selectedPost.value.id)
-    showPostManageMenu.value = false
     closePostDetail()
   } catch (e) {
   }
@@ -3666,440 +3513,6 @@ onUnmounted(() => {
   height: 2.5px;
   background: var(--accent);
   border-radius: 2px 2px 0 0;
-}
-
-/* ==================== 贴子详情 ==================== */
-.post-detail {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.post-detail-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--hover);
-  position: relative;
-}
-
-.post-detail-back {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--text-secondary);
-  padding: 4px;
-  display: flex;
-}
-
-.post-detail-back:hover {
-  color: var(--text-primary);
-}
-
-.post-detail-header h3 {
-  font-size: 15px;
-  font-weight: 600;
-  flex: 1;
-}
-
-.post-detail-actions {
-  position: relative;
-}
-
-.post-manage-menu {
-  position: absolute;
-  right: 0;
-  top: 100%;
-  background: var(--bg-primary);
-  border: 1px solid var(--hover);
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-  min-width: 130px;
-  z-index: 50;
-  padding: 4px;
-}
-
-.post-manage-menu button {
-  display: block;
-  width: 100%;
-  text-align: left;
-  padding: 8px 12px;
-  border: none;
-  background: none;
-  font-size: 13px;
-  color: var(--text-secondary);
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.post-manage-menu button:hover {
-  background: var(--hover);
-}
-
-.post-manage-menu button.danger {
-  color: var(--danger);
-}
-
-.post-manage-menu button.danger:hover {
-  background: var(--danger-bg);
-}
-
-.post-detail-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16px;
-}
-
-.post-detail-author {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.pd-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.pd-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.pd-time {
-  font-size: 12px;
-  color: var(--text-tertiary);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.pd-badge {
-  font-size: 10px;
-  padding: 1px 6px;
-  border-radius: 4px;
-  font-weight: 500;
-}
-
-.pd-badge.private {
-  background: #fef3c7;
-  color: #d97706;
-}
-
-.pd-badge.no-comment {
-  background: var(--hover);
-  color: var(--text-secondary);
-}
-
-.pd-title {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-  line-height: 1.4;
-}
-
-.pd-content {
-  font-size: 15px;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 12px;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-.pd-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 12px;
-}
-
-.pd-tag {
-  font-size: 13px;
-  color: var(--accent);
-}
-
-.pd-images {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 6px;
-  margin-bottom: 12px;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.pd-image {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  cursor: pointer;
-  border-radius: 6px;
-}
-
-.pd-actions {
-  display: flex;
-  gap: 12px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--hover);
-  margin-bottom: 16px;
-}
-
-.pd-action-btn {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  background: none;
-  border: none;
-  font-size: 14px;
-  color: var(--text-secondary);
-  cursor: pointer;
-  padding: 4px 10px;
-  border-radius: 6px;
-  transition: all 0.15s;
-}
-
-.pd-action-btn:hover { background: var(--danger-bg); color: var(--danger); }
-.pd-action-btn.liked { color: var(--danger); }
-
-.pd-comments-section {
-  margin-top: 4px;
-}
-
-.pd-comments-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 12px;
-}
-
-.pd-no-comments, .pd-comments-closed {
-  text-align: center;
-  padding: 20px;
-  color: var(--text-tertiary);
-  font-size: 13px;
-}
-
-.pd-comment {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 12px;
-}
-
-.pd-comment-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.pd-comment-body {
-  flex: 1;
-  min-width: 0;
-}
-
-.pd-comment-header {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 2px;
-}
-
-.pd-comment-name {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.pd-comment-time {
-  font-size: 11px;
-  color: var(--text-tertiary);
-}
-
-.pd-comment-text {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-
-.pd-comment-actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.pd-comment-like {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  background: none;
-  border: none;
-  font-size: 11px;
-  color: var(--text-tertiary);
-  cursor: pointer;
-  padding: 1px 4px;
-  border-radius: 4px;
-}
-
-.pd-comment-like:hover { color: var(--danger); }
-.pd-comment-like.liked { color: var(--danger); }
-
-.pd-comment-del {
-  font-size: 11px;
-  color: var(--text-tertiary);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 1px 4px;
-}
-
-.pd-comment-del:hover {
-  color: var(--danger);
-}
-
-.pd-comment-input-area {
-  display: flex;
-  gap: 8px;
-  padding-top: 12px;
-  border-top: 1px solid var(--hover);
-  margin-top: 4px;
-}
-
-.pd-comment-input-area .input {
-  flex: 1;
-}
-
-/* ==================== 评论列表 ==================== */
-.pd-comment-wrapper {
-  margin-bottom: 6px;
-}
-
-.pd-comment {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-
-.pd-comment-avatar {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.pd-comment-body { flex: 1; min-width: 0; }
-
-.pd-comment-header {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 2px;
-}
-
-.pd-comment-name {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.pd-comment-time {
-  font-size: 11px;
-  color: var(--text-tertiary);
-}
-
-.pd-comment-text {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-.pd-comment-image {
-  max-width: 200px;
-  max-height: 200px;
-  border-radius: 8px;
-  margin-top: 6px;
-  cursor: pointer;
-  object-fit: cover;
-}
-
-.pd-comment-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 4px;
-}
-
-.pd-comment-like {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  background: none;
-  border: none;
-  font-size: 11px;
-  color: var(--text-tertiary);
-  cursor: pointer;
-  padding: 2px 6px;
-  border-radius: 4px;
-  transition: color 0.1s;
-}
-
-.pd-comment-like:hover { color: var(--danger); }
-.pd-comment-like.liked { color: var(--danger); }
-
-.pd-comment-reply-btn {
-  font-size: 11px;
-  color: var(--accent);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-.pd-comment-reply-btn:hover { background: rgba(99,102,241,0.06); }
-
-.pd-comment-del {
-  font-size: 11px;
-  color: var(--text-tertiary);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-.pd-comment-del:hover { color: var(--danger); background: var(--danger-bg); }
-
-.pd-replies {
-  margin-left: 38px;
-  border-left: 2px solid var(--hover);
-  padding-left: 12px;
-  margin-top: 2px;
-  margin-bottom: 10px;
-}
-
-.pd-no-comments {
-  text-align: center;
-  padding: 24px;
-  color: var(--text-tertiary);
-  font-size: 13px;
-}
-
-.pd-comments-closed {
-  text-align: center;
-  padding: 20px;
-  color: var(--text-tertiary);
-  font-size: 13px;
 }
 
 /* ==================== 卡片式评论区输入 ==================== */
