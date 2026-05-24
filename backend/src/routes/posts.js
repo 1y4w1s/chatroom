@@ -130,10 +130,21 @@ async function hasCol(table, col) {
 async function getColumnName(table, col, defaultValue) {
   const validColumns = ['title', 'is_public', 'allow_comments'];
   if (!validColumns.includes(col)) {
+    // 直接返回字符串字面量，避免参数绑定问题
+    if (typeof defaultValue === 'string') {
+      return `'' as ${col}`;
+    }
     return `${defaultValue} as ${col}`;
   }
   const exists = await hasCol(table, col);
-  return exists ? col : `${pool.escape(defaultValue)} as ${col}`;
+  if (exists) {
+    return col;
+  }
+  // 列不存在，返回默认值作为字面量
+  if (typeof defaultValue === 'string') {
+    return `'' as ${col}`;
+  }
+  return `${defaultValue} as ${col}`;
 }
 
 // ==================== 贴子 API ====================
@@ -167,38 +178,59 @@ router.get('/', validatePagination, authMiddleware, async (req, res) => {
       hasLikes = true;
     } catch (e) {}
 
-    // 构建安全查询
-    let likedSubquery = 'FALSE';
+    // 完全不使用参数绑定，直接拼接所有值
     if (hasLikes) {
-      likedSubquery = `IFNULL((SELECT 1 FROM post_likes pl WHERE pl.post_id = p.id AND pl.user_id = ?), FALSE)`;
-    }
+      const [posts] = await pool.execute(`
+        SELECT p.id, p.user_id, p.title, p.content, p.images, p.tags, 
+               p.likes_count, p.comments_count, 
+               p.created_at, u.username, u.nickname, u.avatar, 
+               CASE WHEN pl.post_id IS NOT NULL THEN TRUE ELSE FALSE END as is_liked 
+        FROM posts p 
+        JOIN users u ON p.user_id = u.id 
+        LEFT JOIN post_likes pl ON p.id = pl.post_id AND pl.user_id = ${userId}
+        ORDER BY p.created_at DESC 
+        LIMIT ${limit} OFFSET ${offset}
+      `);
+      const [[{ count: total }]] = await pool.execute('SELECT COUNT(*) as count FROM posts');
 
-    const sql = `
-      SELECT p.id, p.user_id, ${titleCol}, p.content, p.images, p.tags, 
-             p.likes_count, p.comments_count, ${isPublicCol}, ${allowCommentsCol}, 
-             p.created_at, u.username, u.nickname, u.avatar, 
-             ${likedSubquery} as is_liked 
-      FROM posts p 
-      JOIN users u ON p.user_id = u.id 
-      ORDER BY p.created_at DESC 
-      LIMIT ? OFFSET ?
-    `;
-
-    const [posts] = await pool.execute(sql, hasLikes ? [userId, limit, offset] : [limit, offset]);
-    const [[{ count: total }]] = await pool.execute('SELECT COUNT(*) as count FROM posts');
-
-    res.json({ 
-      success: true, 
-      data: { 
-        posts, 
-        pagination: { 
-          page, 
-          limit, 
-          total, 
-          hasMore: offset + posts.length < total 
+      res.json({ 
+        success: true, 
+        data: { 
+          posts, 
+          pagination: { 
+            page, 
+            limit, 
+            total, 
+            hasMore: offset + posts.length < total 
+          } 
         } 
-      } 
-    });
+      });
+    } else {
+      const [posts] = await pool.execute(`
+        SELECT p.id, p.user_id, p.title, p.content, p.images, p.tags, 
+               p.likes_count, p.comments_count, 
+               p.created_at, u.username, u.nickname, u.avatar, 
+               FALSE as is_liked 
+        FROM posts p 
+        JOIN users u ON p.user_id = u.id 
+        ORDER BY p.created_at DESC 
+        LIMIT ${limit} OFFSET ${offset}
+      `);
+      const [[{ count: total }]] = await pool.execute('SELECT COUNT(*) as count FROM posts');
+
+      res.json({ 
+        success: true, 
+        data: { 
+          posts, 
+          pagination: { 
+            page, 
+            limit, 
+            total, 
+            hasMore: offset + posts.length < total 
+          } 
+        } 
+      });
+    }
   } catch (error) { 
     console.error('获取贴子列表失败:', error);
     res.status(500).json({ success: false, error: { message: '服务器错误' } }); 
