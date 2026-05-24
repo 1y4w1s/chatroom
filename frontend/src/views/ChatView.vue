@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -344,54 +344,28 @@
           </button>
         </header>
         <div class="message-list" ref="messageListRef">
-          <div
+          <ChatMessage
             v-for="message in messages"
             :key="message.id"
-            class="message"
-            :class="{ 'message-own': message.sender_id === authStore.user?.id, 'message-deleted': message.is_deleted }"
-            :data-message-id="message.id"
-          >
-            <img :src="getAvatarUrl(message.avatar, message.nickname || message.username)" class="message-avatar" @click="openMessageMemberAction(message, $event)" style="cursor:pointer" />
-            <div class="message-content">
-              <div class="message-header">
-                <span class="message-sender">{{ message.nickname || message.username }}</span>
-                <span v-if="message.is_bot" class="bot-badge">🤖</span>
-                <span v-if="message.is_at_all" class="at-all-badge">@all</span>
-                <span class="message-time">{{ formatTime(message.created_at) }}</span>
-              </div>
-              <template v-if="message.is_deleted">
-                <div class="message-recalled">消息已撤回</div>
-              </template>
-              <template v-else>
-                <div v-if="message.reply_to" class="message-reply" @click="scrollToMessage(message.reply_to.id)">
-                  <div class="reply-sender">{{ message.reply_to.sender }}</div>
-                  <div class="reply-content">{{ message.reply_to.content }}</div>
-                </div>
-                <img v-if="message.type === 'image'" :src="getMessageImageUrl(message)" class="message-image" @click="previewMessageImage(message)" />
-                <div v-else-if="message.type === 'file'" class="message-file" @click="downloadFile(message)">
-                  <span class="file-card-icon">{{ getFileIcon(message.file_name || message.content) }}</span>
-                  <div class="file-card-info">
-                    <div class="file-card-name">{{ message.file_name || message.content }}</div>
-                    <div class="file-card-size" v-if="message.file_size">{{ formatFileSize(message.file_size) }}</div>
-                  </div>
-                  <svg class="file-card-dl" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2V11M4 7L8 11L12 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 13H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                </div>
-                <div v-else class="message-text">{{ message.content }}</div>
-              </template>
-              <div v-if="!message.is_deleted" class="message-actions" @click.stop="toggleMessageActions(message.id, $event)">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <circle cx="4" cy="8" r="1.5" fill="currentColor"/>
-                  <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
-                  <circle cx="12" cy="8" r="1.5" fill="currentColor"/>
-                </svg>
-              </div>
-              <div v-if="showMessageActions === message.id" class="message-actions-menu" :style="messageActionsPos">
-                <button @click.stop="replyMessage(message)">回复</button>
-                <button v-if="message.sender_id === authStore.user?.id" @click.stop="recallMessage(message)">撤回</button>
-                <button v-if="message.type === 'image'" @click.stop="addToStickers(message)">添加到表情包</button>
-              </div>
-            </div>
-          </div>
+            :message="message"
+            :is-own="message.sender_id === authStore.user?.id"
+            :show-actions="showMessageActions === message.id"
+            :actions-pos="messageActionsPos"
+            :can-recall="message.sender_id === authStore.user?.id"
+            :get-avatar-url="getAvatarUrl"
+            :get-message-image-url="getMessageImageUrl"
+            :format-time="formatTime"
+            :format-file-size="formatFileSize"
+            :get-file-icon="getFileIcon"
+            @open-member-action="openMessageMemberAction"
+            @preview-image="previewMessageImage"
+            @download-file="downloadFile"
+            @toggle-actions="toggleMessageActions"
+            @reply="replyMessage"
+            @recall="recallMessage"
+            @add-to-stickers="addToStickers"
+            @scroll-to-message="scrollToMessage"
+          />
           <div ref="scrollAnchor"></div>
         </div>
 
@@ -469,37 +443,22 @@
                   </div>
                 </div>
               </div>
-              <div v-if="emojiTab === 'stickers'" class="sticker-grid">
-                <div class="sticker-header">
-                  <button v-if="!stickerEditMode" class="sticker-edit-btn" @click="stickerEditMode = true">编辑</button>
-                  <template v-if="stickerEditMode">
-                    <span class="sticker-selected-count">{{ selectedStickers.length + selectedLocalStickers.length }} 已选择</span>
-                    <button class="sticker-delete-btn" @click="handleBatchDelete" :disabled="selectedStickers.length + selectedLocalStickers.length === 0">删除</button>
-                    <button class="sticker-cancel-btn" @click="stickerEditMode = false; selectedStickers = []; selectedLocalStickers = []">取消</button>
-                  </template>
-                </div>
-                <div class="sticker-upload-area" v-if="!stickerEditMode">
-                  <label class="sticker-upload-btn">
-                    <input type="file" accept="image/*" @change="(e) => { const file = e.target.files[0]; if(file) uploadServerSticker(file); e.target.value = '' }" />
-                    <span>+ 上传表情包</span>
-                  </label>
-                </div>
-                <div v-if="serverStickers.length === 0 && myStickers.length === 0" class="sticker-empty">还没有收藏的表情包<br>点击上方按钮上传或从图片消息添加</div>
-                <div class="sticker-list">
-                  <div v-for="sticker in serverStickers" :key="sticker.id" class="sticker-item-wrapper" :class="{ selected: selectedStickers.includes(sticker.id) }">
-                    <button class="sticker-cell" @click.stop="handleStickerClick(sticker)">
-                      <img :src="sticker.file_path" class="sticker-img" />
-                      <span v-if="stickerEditMode" class="sticker-check" :class="{ checked: selectedStickers.includes(sticker.id) }">✓</span>
-                    </button>
-                  </div>
-                  <div v-for="(sticker, i) in myStickers" :key="'local-' + i" class="sticker-item-wrapper" :class="{ selected: selectedLocalStickers.includes(i) }">
-                    <button class="sticker-cell" @click.stop="stickerEditMode ? toggleLocalStickerSelect(i) : sendSticker(sticker)">
-                      <img :src="sticker" class="sticker-img" />
-                      <span v-if="stickerEditMode" class="sticker-check" :class="{ checked: selectedLocalStickers.includes(i) }">✓</span>
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <EmojiPanel
+                v-if="emojiTab === 'stickers'"
+                :edit-mode="stickerEditMode"
+                :server-stickers="serverStickers"
+                :local-stickers="myStickers"
+                :server-selected="selectedStickers"
+                :local-selected="selectedLocalStickers"
+                :selected-count="selectedStickers.length + selectedLocalStickers.length"
+                @update:edit-mode="stickerEditMode = $event"
+                @upload="uploadServerSticker"
+                @send="sendSticker"
+                @select-server="handleStickerClick"
+                @select-local="toggleLocalStickerSelect"
+                @batch-delete="handleBatchDelete"
+                @cancel="stickerEditMode = false; selectedStickers = []; selectedLocalStickers = []"
+              />
             </div>
           </div>
         </footer>
@@ -1071,6 +1030,8 @@ import { useAuthStore } from '@/stores/auth'
 import { roomAPI, userAPI, notificationAPI, friendAPI, postAPI, messageAPI, api } from '@/api'
 import { emojiCategories } from '@/utils/emojis'
 import PostDetail from '@/components/PostDetail.vue'
+import ChatMessage from '@/components/ChatMessage.vue'
+import EmojiPanel from '@/components/EmojiPanel.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -4356,12 +4317,29 @@ onUnmounted(() => {
   line-height: 1.6;
 }
 
+/* ==================== 移动端响应式 (640px) ==================== */
 @media (max-width: 640px) {
   .cc-card { padding: 12px; }
   .cc-input { height: 38px; font-size: 13px; }
   .cc-icon-btn { width: 32px; height: 32px; }
   .cc-send-btn { height: 34px; padding: 0 14px; font-size: 13px; }
   .cc-emoji-cell { width: 30px; height: 30px; font-size: 17px; }
+
+  .message { max-width: 85% !important; }
+  .message-image { max-width: 200px !important; max-height: 220px !important; }
+  .message-text { font-size: 13px !important; padding: 10px 12px !important; }
+  .message-avatar { width: 30px !important; height: 30px !important; }
+
+  .chat-main .chat-header { padding: 10px 12px !important; }
+  .chat-main .chat-header h3 { font-size: 14px !important; }
+
+  .sidebar-header { padding: 14px 16px !important; }
+
+  .cc-emoji-panel { max-height: 200px !important; }
+  .sticker-list { max-height: 120px !important; }
+
+  .modal { padding: 16px !important; border-radius: 12px !important; }
+  .modal-body { padding: 16px !important; }
 }
 
 /* ==================== 深色模式覆写 ==================== */
