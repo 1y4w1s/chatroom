@@ -1,10 +1,10 @@
-﻿<template>
+<template>
   <div class="register-container">
     <div class="register-card card">
       <div class="register-header">
         <div class="logo">
           <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-            <rect width="48" height="48" rx="12" fill="#1a1a1a"/>
+            <rect width="48" height="48" rx="12" fill="var(--color-gray-900)"/>
             <path d="M14 24L20 30L34 16" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
@@ -15,66 +15,55 @@
       <form @submit.prevent="handleRegister">
         <div class="form-group">
           <label>用户名</label>
-          <input
+          <UiInput
             v-model="form.username"
             type="text"
-            class="input"
             placeholder="3-20 个字符，只能包含字母、数字和下划线"
-            required
-            pattern="[a-zA-Z0-9_]{3,20}"
           />
         </div>
 
         <div class="form-group">
           <label>邮箱</label>
-          <input
+          <UiInput
             v-model="form.email"
             type="email"
-            class="input"
             placeholder="请输入邮箱地址"
-            required
           />
         </div>
 
         <div class="form-group">
           <label>昵称</label>
-          <input
+          <UiInput
             v-model="form.nickname"
             type="text"
-            class="input"
             placeholder="请输入昵称（可选）"
           />
         </div>
 
         <div class="form-group">
           <label>密码</label>
-          <input
+          <UiInput
             v-model="form.password"
             type="password"
-            class="input"
             placeholder="6-32 个字符，必须包含大小写字母和数字"
-            required
-            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,32}$"
           />
         </div>
 
         <div class="form-group">
           <label>确认密码</label>
-          <input
+          <UiInput
             v-model="form.confirmPassword"
             type="password"
-            class="input"
             placeholder="请再次输入密码"
-            required
           />
         </div>
 
         <div v-if="error" class="error-message">{{ error }}</div>
         <div v-if="success" class="success-message">{{ success }}</div>
 
-        <button type="submit" class="btn btn-primary btn-block" :disabled="loading">
+        <UiButton type="submit" variant="primary" block :loading="loading" class="btn-block">
           {{ loading ? '注册中...' : '注册' }}
-        </button>
+        </UiButton>
       </form>
 
       <div class="register-footer">
@@ -88,6 +77,8 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import UiInput from '@/components/ui/Input.vue'
+import UiButton from '@/components/ui/Button.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -150,7 +141,7 @@ const handleRegister = async () => {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #fafafa;
+  background: var(--bg-body, #fafafa);
   padding: 20px;
 }
 
@@ -172,16 +163,16 @@ const handleRegister = async () => {
 
 .register-title {
   text-align: center;
-  color: #1a1a1a;
+  color: var(--text-primary, #1a1a1a);
   margin-bottom: 8px;
-  font-size: 24px;
+  font-size: var(--text-3xl, 24px);
   font-weight: 600;
 }
 
 .register-subtitle {
   text-align: center;
-  color: #6b7280;
-  font-size: 14px;
+  color: var(--text-secondary, #6b7280);
+  font-size: var(--text-base, 14px);
 }
 
 .form-group {
@@ -190,65 +181,45 @@ const handleRegister = async () => {
 
 .form-group label {
   display: block;
-  font-size: 13px;
+  font-size: var(--text-sm, 13px);
   font-weight: 500;
-  color: #374151;
+  color: var(--text-secondary, #374151);
   margin-bottom: 8px;
 }
 
-.input {
-  width: 100%;
-  padding: 14px 16px;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  font-size: 14px;
-  transition: all 0.2s;
-  background: #fafafa;
-}
-
-.input:focus {
-  outline: none;
-  border-color: #1a1a1a;
-  background: white;
-  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.05);
-}
-
 .btn-block {
-  width: 100%;
-  padding: 14px 20px;
-  font-size: 15px;
   margin-top: 8px;
 }
 
 .error-message {
-  color: #dc2626;
-  font-size: 13px;
+  color: var(--danger, #dc2626);
+  font-size: var(--text-sm, 13px);
   margin-bottom: 16px;
   padding: 12px;
-  background: #fef2f2;
-  border-radius: 8px;
-  border: 1px solid #fecaca;
+  background: var(--danger-bg, #fef2f2);
+  border-radius: var(--radius, 8px);
+  border: 1px solid var(--danger-border, #fecaca);
 }
 
 .success-message {
-  color: #16a34a;
-  font-size: 13px;
+  color: var(--success, #16a34a);
+  font-size: var(--text-sm, 13px);
   margin-bottom: 16px;
   padding: 12px;
-  background: #f0fdf4;
-  border-radius: 8px;
+  background: var(--success-bg, #f0fdf4);
+  border-radius: var(--radius, 8px);
   border: 1px solid #bbf7d0;
 }
 
 .register-footer {
   text-align: center;
   margin-top: 24px;
-  font-size: 14px;
-  color: #6b7280;
+  font-size: var(--text-base, 14px);
+  color: var(--text-secondary, #6b7280);
 }
 
 .register-footer a {
-  color: #1a1a1a;
+  color: var(--accent, #1a1a1a);
   font-weight: 500;
   text-decoration: none;
 }

@@ -1,12 +1,14 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+<template>
   <div class="profile-container">
     <div class="profile-header">
-      <button class="btn btn-secondary" @click="goBack">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+      <UiButton variant="ghost" @click="goBack">
+        <template #icon>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </template>
         返回聊天
-      </button>
+      </UiButton>
       <h2>个人中心</h2>
     </div>
 
@@ -14,7 +16,7 @@
       <div class="profile-card">
         <div class="avatar-section">
           <div class="avatar-wrapper" @click="triggerFileInput">
-            <img :src="avatarUrl" class="profile-avatar" />
+            <UiAvatar :src="avatarUrl" :name="authStore.user?.nickname || authStore.user?.username" size="xl" />
             <div class="avatar-overlay">
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <path d="M10 4V16M4 10H16" stroke="white" stroke-width="2" stroke-linecap="round"/>
@@ -38,8 +40,8 @@
           <div class="form-group">
             <label>昵称</label>
             <div class="input-row">
-              <input v-model="form.nickname" type="text" class="input" maxlength="50" placeholder="请输入昵称" />
-              <button class="btn btn-primary" @click="saveNickname" :disabled="saving">保存</button>
+              <UiInput v-model="form.nickname" type="text" maxlength="50" placeholder="请输入昵称" />
+              <UiButton variant="primary" @click="saveNickname" :disabled="saving" size="md">保存</UiButton>
             </div>
           </div>
         </div>
@@ -47,11 +49,11 @@
         <div class="form-section">
           <h3>在线状态</h3>
           <div class="status-options">
-            <button 
-              v-for="opt in statusOptions" 
-              :key="opt.value" 
-              class="status-btn" 
-              :class="{ active: form.status === opt.value }" 
+            <button
+              v-for="opt in statusOptions"
+              :key="opt.value"
+              class="status-btn"
+              :class="{ active: form.status === opt.value }"
               @click="changeStatus(opt.value)"
             >
               <span class="status-icon" v-html="opt.icon"></span>
@@ -64,19 +66,21 @@
           <h3>修改密码</h3>
           <div class="form-group">
             <label>原密码</label>
-            <input v-model="passwordForm.oldPassword" type="password" class="input" placeholder="请输入原密码" />
+            <UiInput v-model="passwordForm.oldPassword" type="password" placeholder="请输入原密码" />
           </div>
           <div class="form-group">
             <label>新密码</label>
-            <input v-model="passwordForm.newPassword" type="password" class="input" placeholder="6-32位，包含大小写字母和数字" />
+            <UiInput v-model="passwordForm.newPassword" type="password" placeholder="6-32位，包含大小写字母和数字" />
           </div>
           <div class="form-group">
             <label>确认新密码</label>
-            <input v-model="passwordForm.confirmPassword" type="password" class="input" placeholder="请再次输入新密码" />
+            <UiInput v-model="passwordForm.confirmPassword" type="password" placeholder="请再次输入新密码" />
           </div>
           <div v-if="passwordError" class="msg error">{{ passwordError }}</div>
           <div v-if="passwordSuccess" class="msg success">{{ passwordSuccess }}</div>
-          <button class="btn btn-primary" @click="savePassword" :disabled="passwordSaving">修改密码</button>
+          <UiButton variant="primary" @click="savePassword" :disabled="passwordSaving" :loading="passwordSaving">
+            修改密码
+          </UiButton>
         </div>
       </div>
     </div>
@@ -88,6 +92,9 @@ import { ref, reactive, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { userAPI } from '@/api'
+import UiAvatar from '@/components/ui/Avatar.vue'
+import UiInput from '@/components/ui/Input.vue'
+import UiButton from '@/components/ui/Button.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -104,20 +111,20 @@ const form = reactive({
 })
 
 const statusOptions = [
-  { 
-    value: 'online', 
-    label: '在线', 
-    icon: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" fill="#22c55e"/></svg>' 
+  {
+    value: 'online',
+    label: '在线',
+    icon: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" fill="var(--status-online)"/></svg>'
   },
-  { 
-    value: 'away', 
-    label: '离开', 
-    icon: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" fill="#eab308"/></svg>' 
+  {
+    value: 'away',
+    label: '离开',
+    icon: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" fill="var(--status-away)"/></svg>'
   },
-  { 
-    value: 'invisible', 
-    label: '隐身', 
-    icon: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" fill="var(--text-tertiary)"/><path d="M4 4L12 12" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>' 
+  {
+    value: 'invisible',
+    label: '隐身',
+    icon: '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" fill="var(--text-tertiary)"/><path d="M4 4L12 12" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>'
   }
 ]
 
@@ -132,8 +139,8 @@ const passwordSaving = ref(false)
 
 const avatarUrl = computed(() => {
   const user = authStore.user
-  if (!user) return '/default-avatar.png'
-  return user.avatar || '/default-avatar.png'
+  if (!user) return ''
+  return user.avatar || ''
 })
 
 const goBack = () => {
@@ -264,7 +271,7 @@ onMounted(() => {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--bg-secondary);
+  background: var(--bg-body);
 }
 
 .profile-header {
@@ -277,7 +284,7 @@ onMounted(() => {
 }
 
 .profile-header h2 {
-  font-size: 18px;
+  font-size: var(--text-xl, 18px);
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -293,9 +300,9 @@ onMounted(() => {
 
 .profile-card {
   background: var(--bg-primary);
-  border-radius: 16px;
+  border-radius: var(--radius-lg, 16px);
   padding: 28px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  box-shadow: var(--shadow);
   border: 1px solid var(--hover);
 }
 
@@ -316,26 +323,18 @@ onMounted(() => {
   flex-shrink: 0;
 }
 
-.profile-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-}
-
 .avatar-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: var(--overlay, rgba(0,0,0,0.5));
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: var(--text-xs, 11px);
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: opacity var(--transition, 200ms);
   border-radius: 50%;
   gap: 4px;
 }
@@ -349,14 +348,14 @@ onMounted(() => {
 }
 
 .display-name {
-  font-size: 20px;
+  font-size: var(--text-xl, 18px);
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 4px;
 }
 
 .display-username {
-  font-size: 14px;
+  font-size: var(--text-base, 14px);
   color: var(--text-tertiary);
 }
 
@@ -369,7 +368,7 @@ onMounted(() => {
 }
 
 .form-section h3 {
-  font-size: 16px;
+  font-size: var(--text-lg, 16px);
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 16px;
@@ -387,36 +386,21 @@ onMounted(() => {
 
 .form-group label {
   display: block;
-  font-size: 13px;
+  font-size: var(--text-sm, 13px);
   font-weight: 500;
-  color: #374151;
+  color: var(--text-secondary);
   margin-bottom: 8px;
 }
 
 .input-row {
   display: flex;
   gap: 12px;
+  align-items: center;
 }
 
-.input-row .input {
+.input-row :deep(.ui-input__container) {
   flex: 1;
-}
-
-.input {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  font-size: 14px;
-  transition: all 0.2s;
-  background: var(--bg-secondary);
-}
-
-.input:focus {
-  outline: none;
-  border-color: var(--text-primary);
-  background: var(--bg-primary);
-  box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.05);
+  min-width: 0;
 }
 
 .status-options {
@@ -431,23 +415,23 @@ onMounted(() => {
   gap: 8px;
   padding: 12px 18px;
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: var(--radius, 8px);
   background: var(--bg-primary);
   cursor: pointer;
-  font-size: 14px;
-  color: #374151;
-  transition: all 0.2s;
+  font-size: var(--text-base, 14px);
+  color: var(--text-primary);
+  transition: all var(--transition-fast, 150ms);
 }
 
 .status-btn:hover {
   border-color: var(--text-primary);
-  background: var(--bg-secondary);
+  background: var(--hover);
 }
 
 .status-btn.active {
   border-color: var(--text-primary);
-  background: #1a1a1a;
-  color: white;
+  background: var(--accent-bg);
+  color: var(--text-on-accent, white);
 }
 
 .status-icon {
@@ -459,17 +443,17 @@ onMounted(() => {
 .upload-progress {
   text-align: center;
   color: var(--text-secondary);
-  font-size: 14px;
+  font-size: var(--text-base, 14px);
   margin-bottom: 16px;
   padding: 12px;
   background: var(--hover-light);
-  border-radius: 8px;
+  border-radius: var(--radius, 8px);
 }
 
 .msg {
   padding: 12px 14px;
-  border-radius: 8px;
-  font-size: 13px;
+  border-radius: var(--radius, 8px);
+  font-size: var(--text-sm, 13px);
   margin-bottom: 16px;
 }
 
@@ -480,8 +464,8 @@ onMounted(() => {
 }
 
 .msg.success {
-  background: #f0fdf4;
-  color: #16a34a;
+  background: var(--success-bg);
+  color: var(--success);
   border: 1px solid #bbf7d0;
 }
 </style>
