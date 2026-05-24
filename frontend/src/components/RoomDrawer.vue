@@ -21,7 +21,12 @@
 
         <div class="drawer-section">
           <div class="drawer-section-title">
-            <span>📢 公告</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
+              <path d="M3 6L10 2V14L3 10H2C1.4 10 1 9.6 1 9V7C1 6.4 1.4 6 2 6H3Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+              <path d="M11 5.5C12 6.5 12 9.5 11 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              <path d="M13 4C15 6 15 10 13 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+            <span style="margin-left:6px">公告</span>
             <div class="drawer-section-actions">
               <button class="drawer-section-action" @click="$emit('showAnnouncements')">全部公告</button>
               <button v-if="permissions.isAdmin" class="drawer-section-action primary" @click="$emit('showAnnouncementEditor')">发布</button>
@@ -43,9 +48,18 @@
 
         <div class="drawer-section">
           <div class="drawer-section-title">
-            <span>👥 成员 · {{ members.length }}</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
+              <path d="M5.5 4C5.5 2.6 6.6 1.5 8 1.5C9.4 1.5 10.5 2.6 10.5 4C10.5 5.4 9.4 6.5 8 6.5C6.6 6.5 5.5 5.4 5.5 4Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M2.5 14C2.5 11.5 4.5 9.5 7 9.5H9C11.5 9.5 13.5 11.5 13.5 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span style="margin-left:6px">成员 · {{ members.length }}</span>
             <div v-if="permissions.isOwner" class="bot-toggle-inline">
-              <span class="bot-label">🤖</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
+                <rect x="3" y="5" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.3"/>
+                <circle cx="6" cy="8.5" r="0.8" fill="currentColor"/>
+                <circle cx="10" cy="8.5" r="0.8" fill="currentColor"/>
+                <rect x="7" y="2" width="2" height="3" stroke="currentColor" stroke-width="1.3"/>
+              </svg>
               <label class="toggle-switch tiny">
                 <input type="checkbox" :checked="!!room?.enable_bot" @change="$emit('toggleBot')" />
                 <span class="toggle-slider"></span>
@@ -79,8 +93,11 @@
         <div class="drawer-section" v-if="(permissions.isOwner || isSuperAdmin) && room?.type !== 'private'">
           <div class="drawer-divider"></div>
           <div class="drawer-nav-item danger" @click="$emit('close'); $emit('showDissolveConfirm')">
-            <span class="nav-icon">🗑</span>
-            <span class="nav-label">解散聊天室</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M2 4H14M5 4V2.5C5 2.2 5.2 2 5.5 2H10.5C10.8 2 11 2.2 11 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6.5 7V11M9.5 7V11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+            <span class="nav-label" style="margin-left:8px">解散聊天室</span>
           </div>
         </div>
       </div>

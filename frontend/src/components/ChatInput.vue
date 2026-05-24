@@ -2,9 +2,9 @@
   <footer class="chat-input-footer">
     <div v-if="hasActiveMute" class="muted-notice">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <circle cx="8" cy="8" r="7" stroke="var(--danger)" stroke-width="1.5"/>
-        <path d="M8 4V9" stroke="var(--danger)" stroke-width="1.5" stroke-linecap="round"/>
-        <circle cx="8" cy="11.5" r="1" fill="var(--danger)"/>
+        <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M8 4V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="8" cy="11.5" r="1" fill="currentColor"/>
       </svg>
       您已被禁言，无法发送消息
     </div>

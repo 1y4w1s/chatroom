@@ -41,9 +41,9 @@
       <footer class="chat-input-footer">
         <div v-if="hasActiveMute" class="muted-notice">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <circle cx="8" cy="8" r="7" stroke="var(--danger)" stroke-width="1.5"/>
-            <path d="M8 4V9" stroke="var(--danger)" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="8" cy="11.5" r="1" fill="var(--danger)"/>
+            <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M8 4V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="8" cy="11.5" r="1" fill="currentColor"/>
           </svg>
           您已被禁言，无法发送消息
         </div>
@@ -99,7 +99,7 @@
             <div class="emoji-panel-tabs">
               <button class="emoji-panel-tab" :class="{ active: emojiTab === 'emoji' }" @click="emojiTab = 'emoji'" title="表情">😊</button>
               <button class="emoji-panel-tab" :class="{ active: emojiTab === 'stickers' }" @click="emojiTab = 'stickers'" :title="'收藏表情 (' + myStickers.length + ')'">
-                <svg width="16" height="16" viewBox="0 0 16 16" :fill="emojiTab === 'stickers' ? 'var(--danger)' : 'none'" stroke="currentColor" stroke-width="1.3">
+                <svg width="16" height="16" viewBox="0 0 16 16" :fill="emojiTab === 'stickers' ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.3">
                   <path d="M8 2.5L9.5 6L13 6.5L10.5 9L11 12.5L8 11L5 12.5L5.5 9L3 6.5L6.5 6L8 2.5Z"/>
                 </svg>
               </button>
@@ -125,12 +125,12 @@
 
     <div v-if="!currentRoomId && !hasPostDetail" class="no-room">
       <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-        <rect x="8" y="12" width="48" height="40" rx="4" stroke="var(--border)" stroke-width="2"/>
-        <path d="M8 24H56" stroke="var(--border)" stroke-width="2"/>
-        <circle cx="16" cy="18" r="2" fill="var(--border)"/>
-        <circle cx="24" cy="18" r="2" fill="var(--border)"/>
-        <circle cx="32" cy="18" r="2" fill="var(--border)"/>
-      </svg>
+          <rect x="8" y="12" width="48" height="40" rx="4" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 24H56" stroke="currentColor" stroke-width="2"/>
+          <circle cx="16" cy="18" r="2" fill="currentColor"/>
+          <circle cx="24" cy="18" r="2" fill="currentColor"/>
+          <circle cx="32" cy="18" r="2" fill="currentColor"/>
+        </svg>
       <p>请选择一个聊天室</p>
     </div>
   </main>

@@ -40,7 +40,7 @@
       <div class="pd-actions">
         <button class="pd-action-btn" :class="{ liked: post.is_liked }" @click="$emit('toggleLike', post)">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="post.is_liked ? 'currentColor' : 'none'" :stroke="post.is_liked ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.2"/>
+            <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="post.is_liked ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.3"/>
           </svg>
           <span>{{ post.likes_count || '' }}</span>
         </button>
@@ -61,7 +61,7 @@
               <div class="pd-comment-actions">
                 <button class="pd-comment-like" :class="{ liked: comment.is_liked }" @click="$emit('toggleCommentLike', comment)">
                   <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
-                    <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="comment.is_liked ? 'currentColor' : 'none'" :stroke="comment.is_liked ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.2"/>
+                    <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="comment.is_liked ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.3"/>
                   </svg>
                   <span>{{ comment.likes_count || '' }}</span>
                 </button>
@@ -83,7 +83,7 @@
                 <div class="pd-comment-actions">
                   <button class="pd-comment-like" :class="{ liked: reply.is_liked }" @click="$emit('toggleCommentLike', reply)">
                     <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
-                      <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="reply.is_liked ? 'currentColor' : 'none'" :stroke="reply.is_liked ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.2"/>
+                      <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="reply.is_liked ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.3"/>
                     </svg>
                     <span>{{ reply.likes_count || '' }}</span>
                   </button>

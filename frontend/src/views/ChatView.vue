@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -63,7 +63,7 @@
             <span class="room-list-title">聊天列表</span>
             <button class="btn btn-primary btn-sm" @click="showCreateModal = true">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M7 2V12M2 7H12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M7 2V12M2 7H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
               新建群聊
             </button>
@@ -200,7 +200,7 @@
             <span class="room-list-title">贴子广场</span>
             <button class="btn btn-primary btn-sm" @click="showCreatePost = true">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
               发贴
             </button>
@@ -228,7 +228,7 @@
               <div class="post-actions">
                 <button class="post-action-btn" :class="{ liked: post.is_liked }" @click.stop="toggleLike(post)">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="post.is_liked ? 'currentColor' : 'none'" :stroke="post.is_liked ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.3"/>
+                    <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="post.is_liked ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.3"/>
                   </svg>
                   <span>{{ post.likes_count || '' }}</span>
                 </button>
@@ -259,7 +259,7 @@
     <header class="mobile-header">
       <button class="mobile-menu-btn" @click="showMobileDrawer = true">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
       </button>
       <h3 class="mobile-title">{{ currentRoom?.name || '聊天' }}</h3>
@@ -272,7 +272,7 @@
           <h3>更换头像</h3>
           <button class="close-btn" @click="showAvatarUpload = false">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </button>
         </div>
@@ -372,9 +372,9 @@
         <footer class="chat-input-footer">
           <div v-if="hasActiveMute" class="muted-notice">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="7" stroke="var(--danger)" stroke-width="1.5"/>
-              <path d="M8 4V9" stroke="var(--danger)" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="8" cy="11.5" r="1" fill="var(--danger)"/>
+              <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M8 4V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="8" cy="11.5" r="1" fill="currentColor"/>
             </svg>
             您已被禁言，无法发送消息
           </div>
@@ -466,11 +466,11 @@
 
       <div v-if="!selectedPost && !currentRoomId" class="no-room">
         <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-          <rect x="8" y="12" width="48" height="40" rx="4" stroke="var(--border)" stroke-width="2"/>
-          <path d="M8 24H56" stroke="var(--border)" stroke-width="2"/>
-          <circle cx="16" cy="18" r="2" fill="var(--border)"/>
-          <circle cx="24" cy="18" r="2" fill="var(--border)"/>
-          <circle cx="32" cy="18" r="2" fill="var(--border)"/>
+          <rect x="8" y="12" width="48" height="40" rx="4" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 24H56" stroke="currentColor" stroke-width="2"/>
+          <circle cx="16" cy="18" r="2" fill="currentColor"/>
+          <circle cx="24" cy="18" r="2" fill="currentColor"/>
+          <circle cx="32" cy="18" r="2" fill="currentColor"/>
         </svg>
         <p>请选择一个聊天室</p>
       </div>
@@ -551,7 +551,15 @@
             <div class="member-list-header">
               <span class="member-list-title">成员管理</span>
               <div v-if="currentPermissions.isOwner" class="member-list-bot-switch">
-                <span class="bot-toggle-label">🤖 机器人</span>
+                <span class="bot-toggle-label">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="vertical-align:middle;margin-right:4px">
+                    <rect x="3" y="5" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.3"/>
+                    <circle cx="6" cy="8.5" r="0.8" fill="currentColor"/>
+                    <circle cx="10" cy="8.5" r="0.8" fill="currentColor"/>
+                    <rect x="7" y="2" width="2" height="3" stroke="currentColor" stroke-width="1.3"/>
+                  </svg>
+                  机器人
+                </span>
                 <label class="toggle-switch inline">
                   <input type="checkbox" :checked="!!currentRoom?.enable_bot" @change="toggleBot" />
                   <span class="toggle-slider"></span>
@@ -716,7 +724,12 @@
 
           <div class="drawer-section">
             <div class="drawer-section-title">
-              <span>📢 公告</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
+                <path d="M3 6L10 2V14L3 10H2C1.4 10 1 9.6 1 9V7C1 6.4 1.4 6 2 6H3Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+                <path d="M11 5.5C12 6.5 12 9.5 11 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                <path d="M13 4C15 6 15 10 13 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+              <span style="margin-left:6px">公告</span>
               <div class="drawer-section-actions">
                 <button class="drawer-section-action" @click="showAnnouncementList = true">全部公告</button>
                 <button v-if="currentPermissions.isAdmin" class="drawer-section-action primary" @click="showAnnouncementEditor = true">发布</button>
@@ -738,9 +751,18 @@
 
           <div class="drawer-section">
             <div class="drawer-section-title">
-              <span>👥 成员 · {{ currentMembers.length }}</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
+                <path d="M5.5 4C5.5 2.6 6.6 1.5 8 1.5C9.4 1.5 10.5 2.6 10.5 4C10.5 5.4 9.4 6.5 8 6.5C6.6 6.5 5.5 5.4 5.5 4Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2.5 14C2.5 11.5 4.5 9.5 7 9.5H9C11.5 9.5 13.5 11.5 13.5 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span style="margin-left:6px">成员 · {{ currentMembers.length }}</span>
               <div v-if="currentPermissions.isOwner" class="bot-toggle-inline">
-                <span class="bot-label">🤖</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
+                  <rect x="3" y="5" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.3"/>
+                  <circle cx="6" cy="8.5" r="0.8" fill="currentColor"/>
+                  <circle cx="10" cy="8.5" r="0.8" fill="currentColor"/>
+                  <rect x="7" y="2" width="2" height="3" stroke="currentColor" stroke-width="1.3"/>
+                </svg>
                 <label class="toggle-switch tiny">
                   <input type="checkbox" :checked="!!currentRoom?.enable_bot" @change="toggleBot" />
                   <span class="toggle-slider"></span>
@@ -774,8 +796,11 @@
           <div class="drawer-section" v-if="(currentPermissions.isOwner || isSuperAdmin) && currentRoom?.type !== 'private'">
             <div class="drawer-divider"></div>
             <div class="drawer-nav-item danger" @click="showRoomDrawer = false; showDissolveConfirm = true">
-              <span class="nav-icon">🗑</span>
-              <span class="nav-label">解散聊天室</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M2 4H14M5 4V2.5C5 2.2 5.2 2 5.5 2H10.5C10.8 2 11 2.2 11 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.5 7V11M9.5 7V11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+              <span class="nav-label" style="margin-left:8px">解散聊天室</span>
             </div>
           </div>
         </div>
@@ -852,9 +877,9 @@
           <div class="post-toolbar">
             <label class="btn-icon">
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <rect x="2" y="3" width="14" height="12" rx="2" stroke="var(--text-secondary)" stroke-width="1.3"/>
-                <circle cx="6" cy="7" r="1.5" fill="var(--text-secondary)"/>
-                <path d="M2 12L6 8L10 12L13 9L16 12" stroke="var(--text-secondary)" stroke-width="1.3" stroke-linecap="round"/>
+                <rect x="2" y="3" width="14" height="12" rx="2" stroke="currentColor" stroke-width="1.3"/>
+                <circle cx="6" cy="7" r="1.5" fill="currentColor"/>
+                <path d="M2 12L6 8L10 12L13 9L16 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
               </svg>
               <input type="file" accept="image/*" multiple @change="handlePostImageSelect" hidden />
             </label>
