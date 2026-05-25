@@ -30,27 +30,27 @@
     <div class="sidebar-tabs">
       <button class="sidebar-tab" :class="{ active: activeTab === 'rooms' }" @click="$emit('tabChange', 'rooms')">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <path d="M3 4C3 3.4 3.4 3 4 3H14C14.6 3 15 3.4 15 4V12C15 12.6 14.6 13 14 13H10L8 15V13H4C3.4 13 3 12.6 3 12V4Z" :stroke="activeTab === 'rooms' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="activeTab === 'rooms' ? 'currentColor' : 'none'"/>
-          <circle cx="7.5" cy="8" r="1.5" :fill="activeTab === 'rooms' ? 'white' : 'var(--text-tertiary)'"/>
-          <circle cx="10.5" cy="8" r="1.5" :fill="activeTab === 'rooms' ? 'white' : 'var(--text-tertiary)'"/>
+            <path d="M3 4C3 3.4 3.4 3 4 3H14C14.6 3 15 3.4 15 4V12C15 12.6 14.6 13 14 13H10L8 15V13H4C3.4 13 3 12.6 3 12V4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="activeTab === 'rooms' ? 'currentColor' : 'none'"/>
+            <circle cx="7.5" cy="8" r="1.5" :fill="activeTab === 'rooms' ? 'white' : 'currentColor'"/>
+            <circle cx="10.5" cy="8" r="1.5" :fill="activeTab === 'rooms' ? 'white' : 'currentColor'"/>
         </svg>
         <span>聊天室</span>
       </button>
       <button class="sidebar-tab" :class="{ active: activeTab === 'friends' }" @click="$emit('tabChange', 'friends')">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <path d="M5.5 4C5.5 2.6 6.6 1.5 8 1.5C9.4 1.5 10.5 2.6 10.5 4C10.5 5.4 9.4 6.5 8 6.5C6.6 6.5 5.5 5.4 5.5 4Z" :stroke="activeTab === 'friends' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="activeTab === 'friends' ? 'currentColor' : 'none'"/>
-          <path d="M2.5 15C2.5 12.5 4.5 10.5 7 10.5H9C11.5 10.5 13.5 12.5 13.5 15" :stroke="activeTab === 'friends' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="activeTab === 'friends' ? 'currentColor' : 'none'"/>
-          <path d="M12 4.5C13.4 4.5 14.5 5.6 14.5 7C14.5 7.8 14.2 8.5 13.7 9" :stroke="activeTab === 'friends' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-          <path d="M16.5 10.5C16.5 11.4 16.2 12.2 15.7 12.9C15.5 13.2 15.2 13.4 14.9 13.6" :stroke="activeTab === 'friends' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M5.5 4C5.5 2.6 6.6 1.5 8 1.5C9.4 1.5 10.5 2.6 10.5 4C10.5 5.4 9.4 6.5 8 6.5C6.6 6.5 5.5 5.4 5.5 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="activeTab === 'friends' ? 'currentColor' : 'none'"/>
+            <path d="M2.5 15C2.5 12.5 4.5 10.5 7 10.5H9C11.5 10.5 13.5 12.5 13.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="activeTab === 'friends' ? 'currentColor' : 'none'"/>
+            <path d="M12 4.5C13.4 4.5 14.5 5.6 14.5 7C14.5 7.8 14.2 8.5 13.7 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M16.5 10.5C16.5 11.4 16.2 12.2 15.7 12.9C15.5 13.2 15.2 13.4 14.9 13.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
         </svg>
         <span>好友</span>
       </button>
       <button class="sidebar-tab" :class="{ active: activeTab === 'posts' }" @click="$emit('tabChange', 'posts')">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <rect x="1.5" y="1.5" width="6.5" height="6.5" rx="1.5" :stroke="activeTab === 'posts' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" :fill="activeTab === 'posts' ? 'currentColor' : 'none'"/>
-          <rect x="10" y="1.5" width="6.5" height="6.5" rx="1.5" :stroke="activeTab === 'posts' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" :fill="activeTab === 'posts' ? 'currentColor' : 'none'"/>
-          <rect x="1.5" y="10" width="6.5" height="6.5" rx="1.5" :stroke="activeTab === 'posts' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" :fill="activeTab === 'posts' ? 'currentColor' : 'none'"/>
-          <rect x="10" y="10" width="6.5" height="6.5" rx="1.5" :stroke="activeTab === 'posts' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" :fill="activeTab === 'posts' ? 'currentColor' : 'none'"/>
+          <rect x="1.5" y="1.5" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.5" :fill="activeTab === 'posts' ? 'currentColor' : 'none'"/>
+          <rect x="10" y="1.5" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.5" :fill="activeTab === 'posts' ? 'currentColor' : 'none'"/>
+          <rect x="1.5" y="10" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.5" :fill="activeTab === 'posts' ? 'currentColor' : 'none'"/>
+          <rect x="10" y="10" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.5" :fill="activeTab === 'posts' ? 'currentColor' : 'none'"/>
         </svg>
         <span>贴子</span>
       </button>
@@ -137,7 +137,7 @@
             <div class="post-actions">
               <button class="post-action-btn" :class="{ liked: post.is_liked }" @click.stop="$emit('toggleLike', post)">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="post.is_liked ? 'currentColor' : 'none'" :stroke="post.is_liked ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.2"/>
+                  <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="post.is_liked ? 'currentColor' : 'none'" :stroke="post.is_liked ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.3"/>
                 </svg>
                 <span>{{ post.likes_count || '' }}</span>
               </button>

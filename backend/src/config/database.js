@@ -486,7 +486,22 @@ async function initDatabase() {
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
     `);
     console.log('✅ room_read_status 表已创建');
-    
+
+    // 创建用户表情包表
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS custom_emojis (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        file_name VARCHAR(255) NOT NULL,
+        file_path VARCHAR(255) NOT NULL,
+        file_size BIGINT DEFAULT NULL,
+        mime_type VARCHAR(100) DEFAULT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+    `);
+    console.log('✅ custom_emojis 表已创建');
+
     // 给 messages 表添加 is_mention 字段
     try {
       const hasIsMention = await connection.query(`

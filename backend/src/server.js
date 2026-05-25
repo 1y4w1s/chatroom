@@ -121,6 +121,7 @@ app.use('/api/messages', require('./routes/messages'));
 app.use('/api/friends', require('./routes/friends'));
 app.use('/api/notifications', require('./routes/notifications'));
 app.use('/api/posts', require('./routes/posts'));
+app.use('/api/emojis', require('./routes/emojis'));
 
 // 错误处理中间件
 app.use((err, req, res, next) => {

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -31,27 +31,27 @@
       <div class="sidebar-tabs">
         <button class="sidebar-tab" :class="{ active: sidebarTab === 'rooms' }" @click="sidebarTab = 'rooms'; showMobileDrawer = false">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M3 4C3 3.4 3.4 3 4 3H14C14.6 3 15 3.4 15 4V12C15 12.6 14.6 13 14 13H10L8 15V13H4C3.4 13 3 12.6 3 12V4Z" :stroke="sidebarTab === 'rooms' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'rooms' ? 'currentColor' : 'none'"/>
-            <circle cx="7.5" cy="8" r="1.5" :fill="sidebarTab === 'rooms' ? 'white' : 'var(--text-tertiary)'"/>
-            <circle cx="10.5" cy="8" r="1.5" :fill="sidebarTab === 'rooms' ? 'white' : 'var(--text-tertiary)'"/>
+            <path d="M3 4C3 3.4 3.4 3 4 3H14C14.6 3 15 3.4 15 4V12C15 12.6 14.6 13 14 13H10L8 15V13H4C3.4 13 3 12.6 3 12V4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'rooms' ? 'currentColor' : 'none'"/>
+            <circle cx="7.5" cy="8" r="1.5" :fill="sidebarTab === 'rooms' ? 'white' : 'currentColor'"/>
+            <circle cx="10.5" cy="8" r="1.5" :fill="sidebarTab === 'rooms' ? 'white' : 'currentColor'"/>
           </svg>
           <span>聊天室</span>
         </button>
         <button class="sidebar-tab" :class="{ active: sidebarTab === 'friends' }" @click="sidebarTab = 'friends'; showMobileDrawer = false; loadFriends()">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M5.5 4C5.5 2.6 6.6 1.5 8 1.5C9.4 1.5 10.5 2.6 10.5 4C10.5 5.4 9.4 6.5 8 6.5C6.6 6.5 5.5 5.4 5.5 4Z" :stroke="sidebarTab === 'friends' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'"/>
-            <path d="M2.5 15C2.5 12.5 4.5 10.5 7 10.5H9C11.5 10.5 13.5 12.5 13.5 15" :stroke="sidebarTab === 'friends' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'"/>
-            <path d="M12 4.5C13.4 4.5 14.5 5.6 14.5 7C14.5 7.8 14.2 8.5 13.7 9" :stroke="sidebarTab === 'friends' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-            <path d="M16.5 10.5C16.5 11.4 16.2 12.2 15.7 12.9C15.5 13.2 15.2 13.4 14.9 13.6" :stroke="sidebarTab === 'friends' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M5.5 4C5.5 2.6 6.6 1.5 8 1.5C9.4 1.5 10.5 2.6 10.5 4C10.5 5.4 9.4 6.5 8 6.5C6.6 6.5 5.5 5.4 5.5 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'"/>
+            <path d="M2.5 15C2.5 12.5 4.5 10.5 7 10.5H9C11.5 10.5 13.5 12.5 13.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" :fill="sidebarTab === 'friends' ? 'currentColor' : 'none'"/>
+            <path d="M12 4.5C13.4 4.5 14.5 5.6 14.5 7C14.5 7.8 14.2 8.5 13.7 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+            <path d="M16.5 10.5C16.5 11.4 16.2 12.2 15.7 12.9C15.5 13.2 15.2 13.4 14.9 13.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
           </svg>
           <span>好友</span>
         </button>
         <button class="sidebar-tab" :class="{ active: sidebarTab === 'posts' }" @click="sidebarTab = 'posts'; showMobileDrawer = false">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <rect x="1.5" y="1.5" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
-            <rect x="10" y="1.5" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
-            <rect x="1.5" y="10" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
-            <rect x="10" y="10" width="6.5" height="6.5" rx="1.5" :stroke="sidebarTab === 'posts' ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
+            <rect x="1.5" y="1.5" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
+            <rect x="10" y="1.5" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
+            <rect x="1.5" y="10" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
+            <rect x="10" y="10" width="6.5" height="6.5" rx="1.5" stroke="currentColor" stroke-width="1.5" :fill="sidebarTab === 'posts' ? 'currentColor' : 'none'"/>
           </svg>
           <span>贴子</span>
         </button>
@@ -63,7 +63,7 @@
             <span class="room-list-title">聊天列表</span>
             <button class="btn btn-primary btn-sm" @click="showCreateModal = true">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path d="M7 2V12M2 7H12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M7 2V12M2 7H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
               新建群聊
             </button>
@@ -200,7 +200,7 @@
             <span class="room-list-title">贴子广场</span>
             <button class="btn btn-primary btn-sm" @click="showCreatePost = true">
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
               发贴
             </button>
@@ -228,7 +228,7 @@
               <div class="post-actions">
                 <button class="post-action-btn" :class="{ liked: post.is_liked }" @click.stop="toggleLike(post)">
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="post.is_liked ? 'currentColor' : 'none'" :stroke="post.is_liked ? 'currentColor' : 'var(--text-tertiary)'" stroke-width="1.2"/>
+                    <path d="M8 14C8 14 2 9.5 2 5.5C2 3.5 3.5 2 5.5 2C6.9 2 8 3 8 3C8 3 9.1 2 10.5 2C12.5 2 14 3.5 14 5.5C14 9.5 8 14 8 14Z" :fill="post.is_liked ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.3"/>
                   </svg>
                   <span>{{ post.likes_count || '' }}</span>
                 </button>
@@ -259,7 +259,7 @@
     <header class="mobile-header">
       <button class="mobile-menu-btn" @click="showMobileDrawer = true">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
       </button>
       <h3 class="mobile-title">{{ currentRoom?.name || '聊天' }}</h3>
@@ -272,7 +272,7 @@
           <h3>更换头像</h3>
           <button class="close-btn" @click="showAvatarUpload = false">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </button>
         </div>
@@ -344,63 +344,37 @@
           </button>
         </header>
         <div class="message-list" ref="messageListRef">
-          <div
+          <ChatMessage
             v-for="message in messages"
             :key="message.id"
-            class="message"
-            :class="{ 'message-own': message.sender_id === authStore.user?.id, 'message-deleted': message.is_deleted }"
-            :data-message-id="message.id"
-          >
-            <img :src="getAvatarUrl(message.avatar, message.nickname || message.username)" class="message-avatar" @click="openMessageMemberAction(message, $event)" style="cursor:pointer" />
-            <div class="message-content">
-              <div class="message-header">
-                <span class="message-sender">{{ message.nickname || message.username }}</span>
-                <span v-if="message.is_bot" class="bot-badge">🤖</span>
-                <span v-if="message.is_at_all" class="at-all-badge">@all</span>
-                <span class="message-time">{{ formatTime(message.created_at) }}</span>
-              </div>
-              <template v-if="message.is_deleted">
-                <div class="message-recalled">消息已撤回</div>
-              </template>
-              <template v-else>
-                <div v-if="message.reply_to" class="message-reply" @click="scrollToMessage(message.reply_to.id)">
-                  <div class="reply-sender">{{ message.reply_to.sender }}</div>
-                  <div class="reply-content">{{ message.reply_to.content }}</div>
-                </div>
-                <img v-if="message.type === 'image'" :src="getMessageImageUrl(message)" class="message-image" @click="previewMessageImage(message)" />
-                <div v-else-if="message.type === 'file'" class="message-file" @click="downloadFile(message)">
-                  <span class="file-card-icon">{{ getFileIcon(message.file_name || message.content) }}</span>
-                  <div class="file-card-info">
-                    <div class="file-card-name">{{ message.file_name || message.content }}</div>
-                    <div class="file-card-size" v-if="message.file_size">{{ formatFileSize(message.file_size) }}</div>
-                  </div>
-                  <svg class="file-card-dl" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2V11M4 7L8 11L12 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 13H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                </div>
-                <div v-else class="message-text">{{ message.content }}</div>
-              </template>
-              <div v-if="!message.is_deleted" class="message-actions" @click.stop="toggleMessageActions(message.id, $event)">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <circle cx="4" cy="8" r="1.5" fill="currentColor"/>
-                  <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
-                  <circle cx="12" cy="8" r="1.5" fill="currentColor"/>
-                </svg>
-              </div>
-              <div v-if="showMessageActions === message.id" class="message-actions-menu" :style="messageActionsPos">
-                <button @click.stop="replyMessage(message)">回复</button>
-                <button v-if="message.sender_id === authStore.user?.id" @click.stop="recallMessage(message)">撤回</button>
-                <button v-if="message.type === 'image'" @click.stop="addToStickers(message)">添加到表情包</button>
-              </div>
-            </div>
-          </div>
+            :message="message"
+            :is-own="message.sender_id === authStore.user?.id"
+            :show-actions="showMessageActions === message.id"
+            :actions-pos="messageActionsPos"
+            :can-recall="message.sender_id === authStore.user?.id"
+            :get-avatar-url="getAvatarUrl"
+            :get-message-image-url="getMessageImageUrl"
+            :format-time="formatTime"
+            :format-file-size="formatFileSize"
+            :get-file-icon="getFileIcon"
+            @open-member-action="openMessageMemberAction"
+            @preview-image="previewMessageImage"
+            @download-file="downloadFile"
+            @toggle-actions="toggleMessageActions"
+            @reply="replyMessage"
+            @recall="recallMessage"
+            @add-to-stickers="addToStickers"
+            @scroll-to-message="scrollToMessage"
+          />
           <div ref="scrollAnchor"></div>
         </div>
 
         <footer class="chat-input-footer">
           <div v-if="hasActiveMute" class="muted-notice">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="7" stroke="var(--danger)" stroke-width="1.5"/>
-              <path d="M8 4V9" stroke="var(--danger)" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="8" cy="11.5" r="1" fill="var(--danger)"/>
+              <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M8 4V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="8" cy="11.5" r="1" fill="currentColor"/>
             </svg>
             您已被禁言，无法发送消息
           </div>
@@ -435,13 +409,13 @@
                 </div>
               </div>
               <button v-if="showChatEmoji" class="cc-icon-btn active" @click="showChatEmoji = false">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               </button>
               <button v-else class="cc-icon-btn" @click="showChatEmoji = true" title="表情">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/><circle cx="6.5" cy="7.5" r="1" fill="currentColor"/><circle cx="13.5" cy="7.5" r="1" fill="currentColor"/><path d="M6 12C6 12 7.5 14.5 10 14.5C12.5 14.5 14 12 14 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               </button>
               <label class="cc-icon-btn" title="图片">
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2.5" y="3.5" width="15" height="13" rx="2" stroke="currentColor" stroke-width="1.3"/><circle cx="7" cy="8" r="1.5" fill="currentColor"/><path d="M2.5 13L7 9L11 13L14.5 10L17.5 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2.5" y="3.5" width="15" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="7" cy="8" r="1.5" fill="currentColor"/><path d="M2.5 13L7 9L11 13L14.5 10L17.5 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
                 <input type="file" accept="image/*" multiple @change="handleChatImageSelect" hidden />
               </label>
               <button class="cc-send-btn" @click="sendMessage" :disabled="!newMessage.trim() && chatImages.length === 0">发送</button>
@@ -456,7 +430,7 @@
               <div class="emoji-panel-tabs">
                 <button class="emoji-panel-tab" :class="{ active: emojiTab === 'emoji' }" @click="emojiTab = 'emoji'" title="表情">😊</button>
                 <button class="emoji-panel-tab" :class="{ active: emojiTab === 'stickers' }" @click="emojiTab = 'stickers'" :title="'收藏表情 (' + myStickers.length + ')'">
-                  <svg width="16" height="16" viewBox="0 0 16 16" :fill="emojiTab === 'stickers' ? 'var(--danger)' : 'none'" stroke="currentColor" stroke-width="1.3">
+                  <svg width="16" height="16" viewBox="0 0 16 16" :fill="emojiTab === 'stickers' ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="1.3">
                     <path d="M8 2.5L9.5 6L13 6.5L10.5 9L11 12.5L8 11L5 12.5L5.5 9L3 6.5L6.5 6L8 2.5Z"/>
                   </svg>
                 </button>
@@ -469,12 +443,22 @@
                   </div>
                 </div>
               </div>
-              <div v-if="emojiTab === 'stickers'" class="sticker-grid">
-                <div v-if="myStickers.length === 0" class="sticker-empty">还没有收藏的表情包<br>在图片消息上点击 ⋯ 添加</div>
-                <button v-for="(sticker, i) in myStickers" :key="i" class="sticker-cell" @click="sendSticker(sticker)">
-                  <img :src="sticker" class="sticker-img" />
-                </button>
-              </div>
+              <EmojiPanel
+                v-if="emojiTab === 'stickers'"
+                :edit-mode="stickerEditMode"
+                :server-stickers="serverStickers"
+                :local-stickers="myStickers"
+                :server-selected="selectedStickers"
+                :local-selected="selectedLocalStickers"
+                :selected-count="selectedStickers.length + selectedLocalStickers.length"
+                @update:edit-mode="stickerEditMode = $event"
+                @upload="uploadServerSticker"
+                @send="sendSticker"
+                @select-server="handleStickerClick"
+                @select-local="toggleLocalStickerSelect"
+                @batch-delete="handleBatchDelete"
+                @cancel="stickerEditMode = false; selectedStickers = []; selectedLocalStickers = []"
+              />
             </div>
           </div>
         </footer>
@@ -482,11 +466,11 @@
 
       <div v-if="!selectedPost && !currentRoomId" class="no-room">
         <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
-          <rect x="8" y="12" width="48" height="40" rx="4" stroke="var(--border)" stroke-width="2"/>
-          <path d="M8 24H56" stroke="var(--border)" stroke-width="2"/>
-          <circle cx="16" cy="18" r="2" fill="var(--border)"/>
-          <circle cx="24" cy="18" r="2" fill="var(--border)"/>
-          <circle cx="32" cy="18" r="2" fill="var(--border)"/>
+          <rect x="8" y="12" width="48" height="40" rx="4" stroke="currentColor" stroke-width="2"/>
+          <path d="M8 24H56" stroke="currentColor" stroke-width="2"/>
+          <circle cx="16" cy="18" r="2" fill="currentColor"/>
+          <circle cx="24" cy="18" r="2" fill="currentColor"/>
+          <circle cx="32" cy="18" r="2" fill="currentColor"/>
         </svg>
         <p>请选择一个聊天室</p>
       </div>
@@ -525,7 +509,7 @@
           <h3>聊天室设置 - {{ currentRoom?.name }}</h3>
           <button class="close-btn" @click="showRoomSettings = false">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </button>
         </div>
@@ -543,7 +527,7 @@
                   <img :src="roomAvatarUrl" class="room-settings-avatar" />
                   <div class="room-avatar-overlay">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M8 2V14M2 8H14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                      <path d="M8 2V14M2 8H14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
                     </svg>
                   </div>
                 </div>
@@ -567,7 +551,15 @@
             <div class="member-list-header">
               <span class="member-list-title">成员管理</span>
               <div v-if="currentPermissions.isOwner" class="member-list-bot-switch">
-                <span class="bot-toggle-label">🤖 机器人</span>
+                <span class="bot-toggle-label">
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="vertical-align:middle;margin-right:4px">
+                    <rect x="3" y="5" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.3"/>
+                    <circle cx="6" cy="8.5" r="0.8" fill="currentColor"/>
+                    <circle cx="10" cy="8.5" r="0.8" fill="currentColor"/>
+                    <rect x="7" y="2" width="2" height="3" stroke="currentColor" stroke-width="1.3"/>
+                  </svg>
+                  机器人
+                </span>
                 <label class="toggle-switch inline">
                   <input type="checkbox" :checked="!!currentRoom?.enable_bot" @change="toggleBot" />
                   <span class="toggle-slider"></span>
@@ -640,7 +632,7 @@
           <h3>设置禁言</h3>
           <button class="close-btn" @click="showMuteModal = false">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </button>
         </div>
@@ -715,7 +707,7 @@
         <div class="drawer-header">
           <h3>聊天室信息</h3>
           <button class="drawer-close" @click="showRoomDrawer = false">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </button>
         </div>
         <div class="drawer-body">
@@ -732,7 +724,12 @@
 
           <div class="drawer-section">
             <div class="drawer-section-title">
-              <span>📢 公告</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
+                <path d="M3 6L10 2V14L3 10H2C1.4 10 1 9.6 1 9V7C1 6.4 1.4 6 2 6H3Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+                <path d="M11 5.5C12 6.5 12 9.5 11 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                <path d="M13 4C15 6 15 10 13 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+              <span style="margin-left:6px">公告</span>
               <div class="drawer-section-actions">
                 <button class="drawer-section-action" @click="showAnnouncementList = true">全部公告</button>
                 <button v-if="currentPermissions.isAdmin" class="drawer-section-action primary" @click="showAnnouncementEditor = true">发布</button>
@@ -754,9 +751,18 @@
 
           <div class="drawer-section">
             <div class="drawer-section-title">
-              <span>👥 成员 · {{ currentMembers.length }}</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
+                <path d="M5.5 4C5.5 2.6 6.6 1.5 8 1.5C9.4 1.5 10.5 2.6 10.5 4C10.5 5.4 9.4 6.5 8 6.5C6.6 6.5 5.5 5.4 5.5 4Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2.5 14C2.5 11.5 4.5 9.5 7 9.5H9C11.5 9.5 13.5 11.5 13.5 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span style="margin-left:6px">成员 · {{ currentMembers.length }}</span>
               <div v-if="currentPermissions.isOwner" class="bot-toggle-inline">
-                <span class="bot-label">🤖</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
+                  <rect x="3" y="5" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.3"/>
+                  <circle cx="6" cy="8.5" r="0.8" fill="currentColor"/>
+                  <circle cx="10" cy="8.5" r="0.8" fill="currentColor"/>
+                  <rect x="7" y="2" width="2" height="3" stroke="currentColor" stroke-width="1.3"/>
+                </svg>
                 <label class="toggle-switch tiny">
                   <input type="checkbox" :checked="!!currentRoom?.enable_bot" @change="toggleBot" />
                   <span class="toggle-slider"></span>
@@ -790,8 +796,11 @@
           <div class="drawer-section" v-if="(currentPermissions.isOwner || isSuperAdmin) && currentRoom?.type !== 'private'">
             <div class="drawer-divider"></div>
             <div class="drawer-nav-item danger" @click="showRoomDrawer = false; showDissolveConfirm = true">
-              <span class="nav-icon">🗑</span>
-              <span class="nav-label">解散聊天室</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M2 4H14M5 4V2.5C5 2.2 5.2 2 5.5 2H10.5C10.8 2 11 2.2 11 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.5 7V11M9.5 7V11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+              <span class="nav-label" style="margin-left:8px">解散聊天室</span>
             </div>
           </div>
         </div>
@@ -804,7 +813,7 @@
         <div class="modal-header">
           <h3>全部公告</h3>
           <button class="close-btn" @click="showAnnouncementList = false">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </button>
         </div>
         <div class="modal-body" style="max-height:60vh;overflow-y:auto">
@@ -830,7 +839,7 @@
         <div class="modal-header">
           <h3>{{ editingAnnouncement ? '编辑公告' : '发布公告' }}</h3>
           <button class="close-btn" @click="showAnnouncementEditor = false">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </button>
         </div>
         <div class="modal-body">
@@ -850,7 +859,7 @@
           <h3>发贴</h3>
           <button class="close-btn" @click="showCreatePost = false">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </button>
         </div>
@@ -868,9 +877,9 @@
           <div class="post-toolbar">
             <label class="btn-icon">
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <rect x="2" y="3" width="14" height="12" rx="2" stroke="var(--text-secondary)" stroke-width="1.3"/>
-                <circle cx="6" cy="7" r="1.5" fill="var(--text-secondary)"/>
-                <path d="M2 12L6 8L10 12L13 9L16 12" stroke="var(--text-secondary)" stroke-width="1.3" stroke-linecap="round"/>
+                <rect x="2" y="3" width="14" height="12" rx="2" stroke="currentColor" stroke-width="1.3"/>
+                <circle cx="6" cy="7" r="1.5" fill="currentColor"/>
+                <path d="M2 12L6 8L10 12L13 9L16 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
               </svg>
               <input type="file" accept="image/*" multiple @change="handlePostImageSelect" hidden />
             </label>
@@ -898,7 +907,7 @@
           <h3>编辑贴子</h3>
           <button class="close-btn" @click="showEditPost = false">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </button>
         </div>
@@ -924,7 +933,7 @@
             <button v-if="notificationUnread > 0" class="btn btn-text btn-xs" @click="markAllNotificationsRead">全部已读</button>
             <button class="close-btn" @click="showNotificationPanel = false">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
             </button>
           </div>
@@ -1009,7 +1018,7 @@
           </h3>
           <button class="close-btn" @click="showDissolveConfirm = false">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </button>
         </div>
@@ -1046,9 +1055,16 @@ import { useAuthStore } from '@/stores/auth'
 import { roomAPI, userAPI, notificationAPI, friendAPI, postAPI, messageAPI, api } from '@/api'
 import { emojiCategories } from '@/utils/emojis'
 import PostDetail from '@/components/PostDetail.vue'
+import ChatMessage from '@/components/ChatMessage.vue'
+import EmojiPanel from '@/components/EmojiPanel.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
+
+// API 基础地址
+const API_BASE_URL = import.meta.env.VITE_API_URL 
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : '/api'
 
 const SUPER_ADMIN_USERNAME = '1y4w1s'
 
@@ -1752,12 +1768,218 @@ function openMessageMemberAction(message, event) {
 const showChatEmoji = ref(false)
 const emojiTab = ref('emoji')
 const stickerVersion = ref(0)
+
+// 清理并获取本地表情包
+function getMyStickers() {
+  try {
+    const data = localStorage.getItem('my_stickers')
+    if (!data) return []
+    const parsed = JSON.parse(data)
+    // 确保是数组
+    if (!Array.isArray(parsed)) {
+      localStorage.setItem('my_stickers', '[]')
+      return []
+    }
+    // 过滤掉无效数据
+    return parsed.filter(s => typeof s === 'string' && s.length > 0)
+  } catch (e) {
+    // 数据损坏，清空并重置
+    console.warn('本地表情包数据损坏，已清理:', e)
+    localStorage.setItem('my_stickers', '[]')
+    return []
+  }
+}
+
 const myStickers = computed(() => {
   void stickerVersion.value
-  try {
-    return JSON.parse(localStorage.getItem('my_stickers') || '[]')
-  } catch { return [] }
+  return getMyStickers()
 })
+
+// 服务器表情包
+const serverStickers = ref([])
+const stickerEditMode = ref(false)
+const selectedStickers = ref([])
+const selectedLocalStickers = ref([])
+
+// 删除本地表情包
+function deleteLocalSticker(index) {
+  const stickers = getMyStickers()
+  if (index >= 0 && index < stickers.length) {
+    stickers.splice(index, 1)
+    localStorage.setItem('my_stickers', JSON.stringify(stickers))
+    stickerVersion.value++
+    selectedLocalStickers.value = selectedLocalStickers.value.filter(i => i !== index)
+  }
+}
+
+// 切换本地表情包选中
+function toggleLocalStickerSelect(index) {
+  const idx = selectedLocalStickers.value.indexOf(index)
+  if (idx > -1) {
+    selectedLocalStickers.value.splice(idx, 1)
+  } else {
+    selectedLocalStickers.value.push(index)
+  }
+}
+
+// 批量删除本地表情包
+function batchDeleteLocalStickers() {
+  if (selectedLocalStickers.value.length === 0) return
+  const stickers = getMyStickers()
+  // 从大到小排序，确保删除索引正确
+  const sortedIndexes = [...selectedLocalStickers.value].sort((a, b) => b - a)
+  for (const idx of sortedIndexes) {
+    if (idx >= 0 && idx < stickers.length) {
+      stickers.splice(idx, 1)
+    }
+  }
+  localStorage.setItem('my_stickers', JSON.stringify(stickers))
+  stickerVersion.value++
+  selectedLocalStickers.value = []
+  showToastMessage('已删除')
+}
+
+// 获取服务器表情包
+async function fetchServerStickers() {
+  if (!authStore.user?.id) return
+  try {
+    const res = await fetch(`${API_BASE_URL}/emojis?user_id=${authStore.user.id}`)
+    const data = await res.json()
+    if (data.success) {
+      serverStickers.value = data.data
+    }
+  } catch (e) {
+    console.error('获取表情包失败:', e)
+  }
+}
+
+// 上传表情包
+async function uploadServerSticker(file) {
+  if (!authStore.user?.id) return
+  const formData = new FormData()
+  formData.append('file', file)
+  formData.append('user_id', authStore.user.id)
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/emojis`, {
+      method: 'POST',
+      body: formData
+    })
+    const data = await res.json()
+    if (data.success) {
+      serverStickers.value.unshift(data.data)
+      showToastMessage('上传成功')
+    } else {
+      showToastMessage(data.error?.message || '上传失败')
+    }
+  } catch (e) {
+    console.error('上传表情包失败:', e)
+    showToastMessage('上传失败')
+  }
+}
+
+// 删除表情包
+async function deleteServerSticker(emojiId) {
+  try {
+    const res = await fetch(`${API_BASE_URL}/emojis/${emojiId}?user_id=${authStore.user.id}`, {
+      method: 'DELETE'
+    })
+    const data = await res.json()
+    if (data.success) {
+      serverStickers.value = serverStickers.value.filter(e => e.id !== emojiId)
+      selectedStickers.value = selectedStickers.value.filter(id => id !== emojiId)
+      showToastMessage('删除成功')
+    } else {
+      showToastMessage(data.error?.message || '删除失败')
+    }
+  } catch (e) {
+    console.error('删除表情包失败:', e)
+    showToastMessage('删除失败')
+  }
+}
+
+// 批量删除表情包
+async function batchDeleteStickers() {
+  if (selectedStickers.value.length === 0) return
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/emojis/batch-delete`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id: authStore.user.id,
+        emoji_ids: selectedStickers.value
+      })
+    })
+    const data = await res.json()
+    if (data.success) {
+      serverStickers.value = serverStickers.value.filter(e => !selectedStickers.value.includes(e.id))
+      selectedStickers.value = []
+      stickerEditMode.value = false
+      showToastMessage(`已删除 ${data.deleted_count} 个表情包`)
+    } else {
+      showToastMessage(data.error?.message || '删除失败')
+    }
+  } catch (e) {
+    console.error('批量删除表情包失败:', e)
+    showToastMessage('删除失败')
+  }
+}
+
+// 统一批量删除（服务器+本地）
+async function handleBatchDelete() {
+  const serverCount = selectedStickers.value.length
+  const localCount = selectedLocalStickers.value.length
+
+  // 先删除服务器表情包
+  if (serverCount > 0) {
+    try {
+      const res = await fetch(`${API_BASE_URL}/emojis/batch-delete`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: authStore.user.id,
+          emoji_ids: selectedStickers.value
+        })
+      })
+      const data = await res.json()
+      if (data.success) {
+        serverStickers.value = serverStickers.value.filter(e => !selectedStickers.value.includes(e.id))
+      }
+    } catch (e) {
+      console.error('批量删除服务器表情包失败:', e)
+    }
+  }
+
+  // 删除本地表情包
+  if (localCount > 0) {
+    batchDeleteLocalStickers()
+  }
+
+  selectedStickers.value = []
+  selectedLocalStickers.value = []
+  stickerEditMode.value = false
+  showToastMessage(`已删除 ${serverCount + localCount} 个表情包`)
+}
+
+// 切换表情包选中状态
+function toggleStickerSelect(emojiId) {
+  const index = selectedStickers.value.indexOf(emojiId)
+  if (index > -1) {
+    selectedStickers.value.splice(index, 1)
+  } else {
+    selectedStickers.value.push(emojiId)
+  }
+}
+
+// 处理表情包点击
+function handleStickerClick(sticker) {
+  if (stickerEditMode.value) {
+    toggleStickerSelect(sticker.id)
+  } else {
+    sendSticker(sticker.file_path)
+  }
+}
 
 function sendSticker(url) {
   if (currentRoomId.value) {
@@ -1983,7 +2205,7 @@ const joinRoom = async (roomId) => {
     currentRoom.value = { ...(rooms.value.find(r => r.id === roomId)), enable_bot: rooms.value.find(r => r.id === roomId)?.enable_bot || 0 }
     
     const response = await roomAPI.getMessages(roomId)
-    const API_BASE_URL = import.meta.env.VITE_API_URL || ''
+    const API_BASE_URL_URL = import.meta.env.VITE_API_URL || ''
     messages.value = response.data.messages
       .map(msg => {
         let avatar = ''
@@ -2743,12 +2965,12 @@ const setupSocketListeners = () => {
   
   if (!socket) return
   
-  const API_BASE_URL = import.meta.env.VITE_API_URL || ''
+  const API_BASE_URL_URL = import.meta.env.VITE_API_URL || ''
   
   socket.on('new_message', (message) => {
     if (message.room_id === currentRoomId.value) {
       const avatar = message.avatar && message.avatar.trim()
-        ? `${API_BASE_URL}${message.avatar}`
+        ? `${API_BASE_URL_URL}${message.avatar}`
         : ''
       const messageWithAvatar = parseReplyContent({ ...message, avatar })
       messages.value.push(messageWithAvatar)
@@ -2823,10 +3045,10 @@ const setupSocketListeners = () => {
   })
 
   socket.on('user_avatar_updated', (data) => {
-    const API_BASE_URL = import.meta.env.VITE_API_URL || ''
+    const API_BASE_URL_URL = import.meta.env.VITE_API_URL || ''
     messages.value = messages.value.map(msg => {
       if (msg.user_id === data.userId) {
-        return { ...msg, avatar: `${API_BASE_URL}${data.avatar}` }
+        return { ...msg, avatar: `${API_BASE_URL_URL}${data.avatar}` }
       }
       return msg
     })
@@ -2934,6 +3156,7 @@ onMounted(() => {
   loadRooms()
   loadNotifications()
   loadPosts()
+  fetchServerStickers()
   setupSocketListeners()
   // 每30秒刷新好友状态
   friendStatusTimer = setInterval(() => {
@@ -2994,7 +3217,7 @@ onUnmounted(() => {
 }
 
 .sidebar-header h2 {
-  font-size: 16px;
+  font-size: var(--text-lg, 16px);
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -3007,7 +3230,7 @@ onUnmounted(() => {
 
 .theme-toggle {
   color: var(--text-tertiary);
-  transition: color 0.15s;
+  transition: color var(--transition-fast, 150ms);
 }
 
 .theme-toggle:hover {
@@ -3030,13 +3253,19 @@ onUnmounted(() => {
   padding: 10px 4px;
   border: none;
   background: transparent;
-  font-size: 13px;
+  font-size: var(--text-sm, 13px);
   color: var(--text-tertiary);
   cursor: pointer;
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
-  transition: all 0.15s;
+  transition: all var(--transition-fast, 150ms);
   white-space: nowrap;
+  border-radius: var(--radius-sm, 6px) var(--radius-sm, 6px) 0 0;
+}
+
+.sidebar-tab:hover {
+  color: var(--text-primary);
+  background: var(--accent-glow, rgba(0,0,0,0.04));
 }
 
 .sidebar-tab:hover {
@@ -3938,22 +4167,125 @@ onUnmounted(() => {
 }
 
 .sticker-grid {
+  padding: var(--space-2, 8px);
+}
+
+.sticker-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2, 8px);
+  margin-bottom: var(--space-2, 8px);
+  padding-bottom: var(--space-2, 8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.sticker-edit-btn,
+.sticker-delete-btn,
+.sticker-cancel-btn {
+  padding: 4px 12px;
+  border-radius: var(--radius-sm, 6px);
+  border: none;
+  font-size: var(--text-xs, 11px);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast, 150ms);
+}
+
+.sticker-edit-btn {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.sticker-edit-btn:hover {
+  background: var(--border);
+}
+
+.sticker-selected-count {
+  font-size: var(--text-xs, 11px);
+  color: var(--text-secondary);
+  flex: 1;
+  font-weight: 500;
+}
+
+.sticker-delete-btn {
+  background: var(--danger);
+  color: white;
+}
+
+.sticker-delete-btn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.sticker-delete-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sticker-cancel-btn {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+}
+
+.sticker-cancel-btn:hover {
+  background: var(--border);
+}
+
+.sticker-upload-area {
+  margin-bottom: var(--space-2, 8px);
+}
+
+.sticker-upload-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 8px 16px;
+  background: var(--bg-secondary);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius, 8px);
+  color: var(--text-secondary);
+  font-size: var(--text-sm, 13px);
+  cursor: pointer;
+  transition: all var(--transition, 200ms);
+}
+
+.sticker-upload-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.sticker-upload-btn input {
+  display: none;
+}
+
+.sticker-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+  gap: var(--space-2, 8px);
   max-height: 180px;
   overflow-y: auto;
+}
+
+.sticker-item-wrapper {
+  position: relative;
+}
+
+.sticker-item-wrapper.selected .sticker-cell {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 2px var(--accent-soft);
 }
 
 .sticker-cell {
   width: 100%;
   aspect-ratio: 1;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius, 8px);
   background: var(--bg-primary);
   cursor: pointer;
   padding: 4px;
-  transition: border-color 0.15s;
+  transition: all var(--transition-fast, 150ms);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3961,6 +4293,7 @@ onUnmounted(() => {
 
 .sticker-cell:hover {
   border-color: var(--accent);
+  box-shadow: var(--shadow-sm);
 }
 
 .sticker-img {
@@ -3970,21 +4303,68 @@ onUnmounted(() => {
   border-radius: 4px;
 }
 
+.sticker-check {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid var(--border);
+  color: transparent;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.sticker-check.checked {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: white;
+  transform: scale(1.1);
+}
+
+.sticker-check.unchecked {
+  background: var(--bg-secondary);
+  border-color: var(--border);
+  color: var(--text-tertiary);
+}
+
+
 .sticker-empty {
-  grid-column: 1 / -1;
   text-align: center;
   color: var(--text-tertiary);
-  font-size: 13px;
-  padding: 24px 8px;
+  font-size: var(--text-sm, 13px);
+  padding: var(--space-6, 24px) var(--space-2, 8px);
   line-height: 1.6;
 }
 
+/* ==================== 移动端响应式 (640px) ==================== */
 @media (max-width: 640px) {
   .cc-card { padding: 12px; }
   .cc-input { height: 38px; font-size: 13px; }
   .cc-icon-btn { width: 32px; height: 32px; }
   .cc-send-btn { height: 34px; padding: 0 14px; font-size: 13px; }
   .cc-emoji-cell { width: 30px; height: 30px; font-size: 17px; }
+
+  .message { max-width: 85% !important; }
+  .message-image { max-width: 200px !important; max-height: 220px !important; }
+  .message-text { font-size: 13px !important; padding: 10px 12px !important; }
+  .message-avatar { width: 30px !important; height: 30px !important; }
+
+  .chat-main .chat-header { padding: 10px 12px !important; }
+  .chat-main .chat-header h3 { font-size: 14px !important; }
+
+  .sidebar-header { padding: 14px 16px !important; }
+
+  .cc-emoji-panel { max-height: 200px !important; }
+  .sticker-list { max-height: 120px !important; }
+
+  .modal { padding: 16px !important; border-radius: 12px !important; }
+  .modal-body { padding: 16px !important; }
 }
 
 /* ==================== 深色模式覆写 ==================== */
@@ -4277,32 +4657,51 @@ onUnmounted(() => {
   align-items: center;
   gap: 12px;
   padding: 12px;
-  border-radius: 10px;
+  border-radius: var(--radius, 8px);
   cursor: pointer;
-  transition: background 0.15s;
+  transition: all var(--transition-fast, 150ms);
   margin-bottom: 4px;
+  position: relative;
 }
 
 .room-item:hover {
-  background: var(--bg-body);
+  background: var(--accent-glow, oklch(0 0 0 / 0.04));
 }
 
 .room-item.active {
   background: var(--bubble-own);
+  box-shadow: var(--bubble-own-shadow, 0 2px 8px rgba(0,0,0,0.1));
+}
+
+.room-item.active .room-icon {
+  background: transparent;
+}
+
+.room-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 24px;
+  background: var(--bubble-own);
+  border-radius: 0 3px 3px 0;
 }
 
 .room-item.active .room-name {
-  color: white;
+  color: var(--bubble-own-text, white);
+  font-weight: 600;
 }
 
 .room-item.active .room-members {
-  color: rgba(255,255,255,0.7);
+  color: oklch(1 0 0 / 0.6);
 }
 
 .room-icon {
   width: 36px;
   height: 36px;
-  border-radius: 8px;
+  border-radius: var(--radius, 8px);
   background: var(--bg-body);
   display: flex;
   align-items: center;
@@ -4310,6 +4709,11 @@ onUnmounted(() => {
   flex-shrink: 0;
   overflow: visible;
   position: relative;
+  transition: transform var(--transition-fast, 150ms), background var(--transition-fast, 150ms);
+}
+
+.room-item:hover .room-icon {
+  transform: scale(1.05);
 }
 
 .room-list-avatar {
@@ -5096,33 +5500,40 @@ onUnmounted(() => {
   display: inline-block;
   background: var(--bubble-other);
   padding: 12px 16px;
-  border-radius: 12px;
-  border: 1px solid var(--bubble-other);
-  font-size: 14px;
-  color: var(--text-primary);
+  border-radius: var(--radius-md, 12px);
+  font-size: var(--text-base, 14px);
+  color: var(--bubble-other-text, var(--text-primary));
   line-height: 1.5;
   word-break: break-word;
   max-width: 100%;
+  box-shadow: var(--bubble-other-shadow, 0 1px 2px rgba(0,0,0,0.04));
+  transition: box-shadow var(--transition-fast, 150ms);
 }
 
 .message-image {
   display: block;
   max-width: 280px;
   max-height: 300px;
-  border-radius: 12px;
+  border-radius: var(--radius-md, 12px);
   cursor: pointer;
   object-fit: cover;
-  border: 1px solid var(--bubble-other);
+  box-shadow: var(--shadow-sm, 0 1px 2px rgba(0,0,0,0.04));
+  transition: transform var(--transition-fast, 150ms), box-shadow var(--transition-fast, 150ms);
+}
+
+.message-image:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-md, 0 4px 12px rgba(0,0,0,0.08));
 }
 
 .message-own .message-image {
-  border-color: transparent;
+  border: none;
 }
 
 .message-own .message-text {
   background: var(--bubble-own);
-  color: white;
-  border-color: var(--bubble-other);
+  color: var(--bubble-own-text, white);
+  box-shadow: var(--bubble-own-shadow, 0 2px 8px rgba(0,0,0,0.12));
 }
 
 .message-deleted {
