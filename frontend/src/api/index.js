@@ -89,7 +89,7 @@ export const roomAPI = {
   getList: (params) => api.get('/rooms', { params }),  // optionalAuth
   getDetail: (id) => api.get(`/rooms/${id}`),
   create: (data) => api.post('/rooms', data),
-  join: (id) => api.post(`/rooms/${id}/join`),  // Token 认证
+  join: (id, userId) => api.post(`/rooms/${id}/join`, { userId }),
   leave: (id) => api.post(`/rooms/${id}/leave`),  // Token 认证
   getMessages: (id, params) => api.get(`/rooms/${id}/messages`, { params }),
   
@@ -124,7 +124,7 @@ export const roomAPI = {
   }),
   
   // 标记已读
-  markRead: (roomId) => api.post(`/rooms/${roomId}/read`),
+  markRead: (roomId, userId) => api.post(`/rooms/${roomId}/read`, { userId }),
   
   // 获取未读状态
   getReadStatus: (userId) => api.get('/rooms/read-status', { params: { userId } }),
