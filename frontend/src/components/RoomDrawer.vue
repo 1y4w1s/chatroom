@@ -221,6 +221,14 @@ const isEffectivelyMuted = (member) => {
 </script>
 
 <style scoped>
+.drawer-room-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
 .drawer-room-avatar--default {
   display: flex;
   align-items: center;
@@ -232,5 +240,64 @@ const isEffectivelyMuted = (member) => {
   height: 48px;
   border-radius: 12px;
   flex-shrink: 0;
+}
+
+.drawer-room-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.drawer-room-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.drawer-room-meta {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+.drawer-room-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.drawer-member-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.drawer-member-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.drawer-member-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.drawer-member-name {
+  font-size: 13px;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawer-member-status {
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.drawer-member-status.online {
+  color: var(--success);
 }
 </style>
