@@ -110,6 +110,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import { getAvatarUrl as getUtilsAvatarUrl } from '@/composables/useChatUtils'
 
 const props = defineProps({
   visible: {
@@ -170,14 +171,7 @@ const roomDetailAvatarUrl = computed(() => {
 })
 
 const getAvatarUrl = (avatar, name) => {
-  if (!avatar) {
-    return null
-  }
-  if (avatar.startsWith('http')) return avatar
-  if (avatar.startsWith('/uploads/')) {
-    return `${import.meta.env.VITE_API_URL || ''}${avatar}`
-  }
-  return `${import.meta.env.VITE_API_URL || ''}/uploads/avatars/${avatar}`
+  return getUtilsAvatarUrl(avatar, name)
 }
 
 const formatTime = (dateStr) => {
@@ -225,3 +219,18 @@ const isEffectivelyMuted = (member) => {
   return member.muted_until && new Date(member.muted_until) > new Date()
 }
 </script>
+
+<style scoped>
+.drawer-room-avatar--default {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+</style>
