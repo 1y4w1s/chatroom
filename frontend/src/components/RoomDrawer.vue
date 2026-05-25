@@ -221,6 +221,77 @@ const isEffectivelyMuted = (member) => {
 </script>
 
 <style scoped>
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 2000;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.drawer-panel {
+  width: 320px;
+  max-width: 85vw;
+  height: 100%;
+  background: var(--bg-primary);
+  box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  animation: drawerSlideIn 0.2s ease;
+}
+
+@keyframes drawerSlideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.drawer-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+}
+
+.drawer-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.drawer-close:hover {
+  background: var(--hover);
+  color: var(--text-primary);
+}
+
+.drawer-room-top {
+  display: flex;
+  gap: 14px;
+  padding: 16px 20px;
+  align-items: center;
+}
+
 .drawer-room-avatar {
   width: 48px;
   height: 48px;
@@ -265,6 +336,96 @@ const isEffectivelyMuted = (member) => {
   margin-top: 4px;
 }
 
+.drawer-divider {
+  height: 1px;
+  background: var(--hover);
+  margin: 0 20px;
+}
+
+.drawer-section {
+  padding: 12px 20px;
+}
+
+.drawer-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.drawer-section-action {
+  padding: 2px 8px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-tertiary);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.drawer-section-action:hover {
+  background: var(--hover);
+  color: var(--text-primary);
+}
+
+.drawer-section-action.primary {
+  color: var(--accent);
+}
+
+.drawer-section-action.primary:hover {
+  background: var(--accent-light);
+}
+
+.drawer-section-actions {
+  display: flex;
+  gap: 2px;
+}
+
+.drawer-announcement-body {
+  background: var(--hover);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.drawer-announcement-body p {
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.5;
+  margin: 0 0 8px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.drawer-announcement-meta {
+  display: flex;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-tertiary);
+}
+
+.drawer-announcement-empty {
+  font-size: 13px;
+  padding: 8px 0;
+}
+
+.drawer-member-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.drawer-member-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  border-radius: 6px;
+}
+
 .drawer-member-avatar {
   width: 28px;
   height: 28px;
@@ -299,5 +460,200 @@ const isEffectivelyMuted = (member) => {
 
 .drawer-member-status.online {
   color: var(--success);
+}
+
+.drawer-member-ops {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.member-op-btn {
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  color: var(--text-secondary);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.member-op-btn:hover {
+  background: var(--hover);
+  color: var(--text-primary);
+  border-color: var(--text-tertiary);
+}
+
+.member-op-btn.danger {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.member-op-btn.danger:hover {
+  background: var(--danger-bg);
+}
+
+.drawer-member-more {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.15s;
+  flex-shrink: 0;
+  opacity: 0;
+}
+
+.drawer-member-item:hover .drawer-member-more {
+  opacity: 1;
+}
+
+.drawer-member-more:hover {
+  background: var(--hover);
+  color: var(--text-primary);
+}
+
+.bot-toggle-inline {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.toggle-switch.tiny input + .toggle-slider {
+  width: 28px;
+  height: 16px;
+}
+
+.toggle-switch.tiny input + .toggle-slider:before {
+  width: 12px;
+  height: 12px;
+}
+
+.toggle-switch.tiny input:checked + .toggle-slider:before {
+  transform: translateX(12px);
+}
+
+.drawer-spacer {
+  flex: 1;
+}
+
+.drawer-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 14px;
+  border-radius: 8px;
+  color: var(--text-primary);
+}
+
+.drawer-nav-item:hover {
+  background: var(--hover);
+}
+
+.drawer-nav-item.danger {
+  color: var(--danger);
+}
+
+.drawer-nav-item.danger:hover {
+  background: var(--danger-bg);
+}
+
+.nav-label {
+  flex: 1;
+  color: inherit;
+}
+
+.role-badge {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.role-badge.owner {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.role-badge.admin {
+  background: var(--hover);
+  color: var(--text-secondary);
+}
+
+.role-badge.bot {
+  background: var(--hover);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .role-badge.owner {
+  background: #3a2a0a;
+  color: #fbbf24;
+}
+
+[data-theme="dark"] .role-badge.admin {
+  background: #374151;
+  color: #93c5fd;
+}
+
+[data-theme="dark"] .role-badge.bot {
+  background: #374151;
+  color: #c4b5fd;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--border-light);
+  border-radius: 24px;
+  transition: all 0.2s;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background: var(--bg-primary);
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background: var(--accent);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(20px);
 }
 </style>
