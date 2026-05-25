@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -702,110 +702,24 @@
       </div>
     </div>
 
-    <div v-if="showRoomDrawer" class="drawer-overlay" @click="showRoomDrawer = false">
-      <div class="drawer-panel" @click.stop>
-        <div class="drawer-header">
-          <h3>聊天室信息</h3>
-          <button class="drawer-close" @click="showRoomDrawer = false">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-          </button>
-        </div>
-        <div class="drawer-body">
-          <div class="drawer-room-top" @click="openRoomSettings('info')" style="cursor:pointer">
-            <img :src="roomDetailAvatarUrl" class="drawer-room-avatar" />
-            <div class="drawer-room-info">
-              <div class="drawer-room-name">{{ currentRoom?.name }}</div>
-              <div class="drawer-room-meta">{{ currentRoom?.owner_name }} · {{ currentMembers.length }} 人</div>
-              <div class="drawer-room-desc" v-if="currentRoom?.description">{{ currentRoom?.description }}</div>
-            </div>
-          </div>
-
-          <div class="drawer-divider"></div>
-
-          <div class="drawer-section">
-            <div class="drawer-section-title">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
-                <path d="M3 6L10 2V14L3 10H2C1.4 10 1 9.6 1 9V7C1 6.4 1.4 6 2 6H3Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
-                <path d="M11 5.5C12 6.5 12 9.5 11 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-                <path d="M13 4C15 6 15 10 13 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-              </svg>
-              <span style="margin-left:6px">公告</span>
-              <div class="drawer-section-actions">
-                <button class="drawer-section-action" @click="showAnnouncementList = true">全部公告</button>
-                <button v-if="currentPermissions.isAdmin" class="drawer-section-action primary" @click="showAnnouncementEditor = true">发布</button>
-              </div>
-            </div>
-            <div class="drawer-announcement-body" v-if="roomAnnouncement">
-              <p>{{ roomAnnouncement.content }}</p>
-              <div class="drawer-announcement-meta">
-                <span>{{ roomAnnouncement.nickname || roomAnnouncement.username }}</span>
-                <span>{{ formatTime(roomAnnouncement.created_at) }}</span>
-              </div>
-            </div>
-            <div class="drawer-announcement-empty" v-else>
-              <span class="text-tertiary">暂无公告</span>
-            </div>
-          </div>
-
-          <div class="drawer-divider"></div>
-
-          <div class="drawer-section">
-            <div class="drawer-section-title">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
-                <path d="M5.5 4C5.5 2.6 6.6 1.5 8 1.5C9.4 1.5 10.5 2.6 10.5 4C10.5 5.4 9.4 6.5 8 6.5C6.6 6.5 5.5 5.4 5.5 4Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M2.5 14C2.5 11.5 4.5 9.5 7 9.5H9C11.5 9.5 13.5 11.5 13.5 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <span style="margin-left:6px">成员 · {{ currentMembers.length }}</span>
-              <div v-if="currentPermissions.isOwner" class="bot-toggle-inline">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
-                  <rect x="3" y="5" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.3"/>
-                  <circle cx="6" cy="8.5" r="0.8" fill="currentColor"/>
-                  <circle cx="10" cy="8.5" r="0.8" fill="currentColor"/>
-                  <rect x="7" y="2" width="2" height="3" stroke="currentColor" stroke-width="1.3"/>
-                </svg>
-                <label class="toggle-switch tiny">
-                  <input type="checkbox" :checked="!!currentRoom?.enable_bot" @change="toggleBot" />
-                  <span class="toggle-slider"></span>
-                </label>
-              </div>
-            </div>
-            <div class="drawer-member-list">
-              <div v-for="member in currentMembers" :key="member.id" class="drawer-member-item">
-                <img :src="getAvatarUrl(member.avatar, member.nickname || member.username)" class="drawer-member-avatar" />
-                <div class="drawer-member-info">
-                  <div class="drawer-member-top">
-                    <span class="drawer-member-name">{{ member.nickname || member.username }}</span>
-                    <span v-if="member.is_bot" class="role-badge bot">🤖</span>
-                    <span v-else-if="member.role === 'owner'" class="role-badge owner">群主</span>
-                    <span v-else-if="member.role === 'admin'" class="role-badge admin">管理员</span>
-                  </div>
-                  <span v-if="member.status" class="drawer-member-status" :class="member.status">{{ member.status === 'online' ? '在线' : member.status === 'away' ? '离开' : '离线' }}</span>
-                </div>
-                <div class="drawer-member-ops" v-if="canOperateMember(member)">
-                  <button v-if="canSetAdmin(member)" class="member-op-btn" @click.stop="grantAdmin(member.id)">设管理</button>
-                  <button v-if="canMute(member)" class="member-op-btn" @click.stop="openMuteModal(member)">{{ isEffectivelyMuted(member) ? '解除' : '禁言' }}</button>
-                  <button v-if="canKick(member)" class="member-op-btn danger" @click.stop="kickMember(member)">移除</button>
-                </div>
-                <button v-if="!member.is_bot" class="drawer-member-more" @click.stop="openMemberAction(member, $event)">⋯</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="drawer-spacer"></div>
-
-          <div class="drawer-section" v-if="(currentPermissions.isOwner || isSuperAdmin) && currentRoom?.type !== 'private'">
-            <div class="drawer-divider"></div>
-            <div class="drawer-nav-item danger" @click="showRoomDrawer = false; showDissolveConfirm = true">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M2 4H14M5 4V2.5C5 2.2 5.2 2 5.5 2H10.5C10.8 2 11 2.2 11 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M6.5 7V11M9.5 7V11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-              </svg>
-              <span class="nav-label" style="margin-left:8px">解散聊天室</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <RoomDrawer
+      :visible="showRoomDrawer"
+      :room="currentRoom"
+      :members="currentMembers"
+      :announcement="roomAnnouncement"
+      :permissions="currentPermissions"
+      :isSuperAdmin="isSuperAdmin"
+      @close="showRoomDrawer = false"
+      @openSettings="openRoomSettings"
+      @showAnnouncements="showAnnouncementList = true"
+      @showAnnouncementEditor="showAnnouncementEditor = true"
+      @toggleBot="toggleBot"
+      @grantAdmin="grantAdmin"
+      @openMuteModal="openMuteModal"
+      @kickMember="kickMember"
+      @openMemberAction="openMemberAction"
+      @showDissolveConfirm="showDissolveConfirm = true; showRoomDrawer = false"
+    />
 
     <!-- 公告历史列表弹窗 -->
     <div v-if="showAnnouncementList" class="modal-overlay" @click="showAnnouncementList = false">
@@ -1057,6 +971,7 @@ import { emojiCategories } from '@/utils/emojis'
 import PostDetail from '@/components/PostDetail.vue'
 import ChatMessage from '@/components/ChatMessage.vue'
 import EmojiPanel from '@/components/EmojiPanel.vue'
+import RoomDrawer from '@/components/RoomDrawer.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
