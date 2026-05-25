@@ -9,7 +9,10 @@
       </div>
       <div class="drawer-body">
         <div class="drawer-room-top" @click="$emit('openSettings', 'info')" style="cursor:pointer">
-          <img :src="roomDetailAvatarUrl" class="drawer-room-avatar" />
+          <img v-if="room?.avatar" :src="roomDetailAvatarUrl" class="drawer-room-avatar" />
+          <div v-else class="drawer-room-avatar drawer-room-avatar--default" :style="{ background: nameColor(room?.name) }">
+            <span>{{ (room?.name || '?')[0] }}</span>
+          </div>
           <div class="drawer-room-info">
             <div class="drawer-room-name">{{ room?.name }}</div>
             <div class="drawer-room-meta">{{ room?.owner_name }} · {{ members.length }} 人</div>
@@ -106,6 +109,8 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+
 const props = defineProps({
   visible: {
     type: Boolean,
@@ -139,7 +144,20 @@ defineEmits([
   'showDissolveConfirm'
 ])
 
-const roomDetailAvatarUrl = () => {
+const nameColor = (name) => {
+  if (!name) return '#ccc'
+  const colors = [
+    '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
+    '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9'
+  ]
+  let hash = 0
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash)
+  }
+  return colors[Math.abs(hash) % colors.length]
+}
+
+const roomDetailAvatarUrl = computed(() => {
   if (!props.room?.avatar) {
     return null
   }
@@ -149,7 +167,7 @@ const roomDetailAvatarUrl = () => {
     return `${import.meta.env.VITE_API_URL || ''}${avatar}`
   }
   return `${import.meta.env.VITE_API_URL || ''}/uploads/avatars/${avatar}`
-}
+})
 
 const getAvatarUrl = (avatar, name) => {
   if (!avatar) {
