@@ -127,7 +127,7 @@ export const roomAPI = {
   markRead: (roomId) => api.post(`/rooms/${roomId}/read`),
   
   // 获取未读状态
-  getReadStatus: () => api.get('/rooms/read-status'),
+  getReadStatus: (userId) => api.get('/rooms/read-status', { params: { userId } }),
   
   // 查找或创建私聊房间
   findOrCreatePrivateRoom: (friendId) => api.post('/rooms/private', { friendId }),
@@ -155,9 +155,9 @@ export const friendAPI = {
 }
 
 export const notificationAPI = {
-  getList: () => api.get('/notifications'),
-  markRead: (id) => api.post(`/notifications/${id}/read`),
-  markAllRead: () => api.post('/notifications/read-all')
+  getList: (userId) => api.get('/notifications', { params: { userId } }),
+  markRead: (userId, id) => api.post(`/notifications/${id}/read`, { userId }),
+  markAllRead: (userId) => api.post('/notifications/read-all', { userId })
 }
 
 export { api }
