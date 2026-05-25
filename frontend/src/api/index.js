@@ -163,7 +163,7 @@ export const notificationAPI = {
 export { api }
 
 export const postAPI = {
-  getList: (params) => api.get('/posts', { params }),
+  getList: (userId, params = {}) => api.get('/posts', { params: { ...params, userId } }),
   getDetail: (id) => api.get(`/posts/${id}`),
   create: (formData) => api.post('/posts', formData, {
     headers: { 'Content-Type': 'multipart/form-data' }
