@@ -82,7 +82,7 @@
                 <span v-if="member.status" class="drawer-member-status" :class="member.status">{{ member.status === 'online' ? '在线' : member.status === 'away' ? '离开' : '离线' }}</span>
               </div>
               <div class="drawer-member-ops" v-if="canOperateMember(member)">
-                <button v-if="canSetAdmin(member)" class="member-op-btn" @click.stop="$emit('grantAdmin', member.id)">设管理</button>
+                <button v-if="canSetAdmin(member)" class="member-op-btn" @click.stop="member.role === 'admin' ? $emit('revokeAdmin', member.id) : $emit('grantAdmin', member.id)">{{ member.role === 'admin' ? '撤销管理' : '设管理' }}</button>
                 <button v-if="canMute(member)" class="member-op-btn" @click.stop="$emit('openMuteModal', member)">{{ isEffectivelyMuted(member) ? '解除' : '禁言' }}</button>
                 <button v-if="canKick(member)" class="member-op-btn danger" @click.stop="$emit('kickMember', member)">移除</button>
               </div>
@@ -141,7 +141,7 @@ const props = defineProps({
 
 defineEmits([
   'close', 'openSettings', 'showAnnouncements', 'showAnnouncementEditor',
-  'toggleBot', 'grantAdmin', 'openMuteModal', 'kickMember', 'openMemberAction',
+  'toggleBot', 'grantAdmin', 'revokeAdmin', 'openMuteModal', 'kickMember', 'openMemberAction',
   'showDissolveConfirm'
 ])
 
@@ -202,7 +202,7 @@ const canOperateMember = (member) => {
 
 const canSetAdmin = (member) => {
   if (!props.permissions.isOwner) return false
-  return member.role === 'member'
+  return member.role === 'member' || member.role === 'admin'
 }
 
 const canMute = (member) => {
@@ -502,6 +502,10 @@ const isEffectivelyMuted = (member) => {
   transition: all 0.15s;
   white-space: nowrap;
   font-family: inherit;
+  line-height: 1;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .member-op-btn:hover {
@@ -605,6 +609,9 @@ const isEffectivelyMuted = (member) => {
   border-radius: 4px;
   font-weight: 500;
   line-height: 1.4;
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
 }
 
 .role-badge.owner {

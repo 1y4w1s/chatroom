@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="room-category">
+    <div class="room-category" v-if="privateRooms.length > 0">
       <div class="category-header" @click="showPrivateChats = !showPrivateChats">
         <span class="category-arrow" :class="{ expanded: showPrivateChats }">▸</span>
         <span class="category-label">私聊</span>
@@ -146,8 +146,8 @@ defineEmits(['create', 'select', 'preview', 'touchStart', 'touchEnd'])
 const showGroupChats = ref(true)
 const showPrivateChats = ref(true)
 
-const groupRooms = computed(() => props.rooms.filter(r => r.type !== 'private'))
-const privateRooms = computed(() => props.rooms.filter(r => r.type === 'private'))
+const groupRooms = computed(() => props.rooms)
+const privateRooms = computed(() => [])
 
 const nameColor = (name) => {
   if (!name) return '#ccc'
