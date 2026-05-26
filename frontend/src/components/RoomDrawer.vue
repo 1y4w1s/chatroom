@@ -64,7 +64,7 @@
                 <rect x="7" y="2" width="2" height="3" stroke="currentColor" stroke-width="1.3"/>
               </svg>
               <label class="toggle-switch tiny">
-                <input type="checkbox" :checked="!!room?.enable_bot" @change="$emit('toggleBot')" />
+                <input type="checkbox" :checked="!!room?.enable_bot" @change="$emit('toggleBot', ($event.target).checked)" />
                 <span class="toggle-slider"></span>
               </label>
             </div>
@@ -235,7 +235,7 @@ const isEffectivelyMuted = (member) => {
   max-width: 85vw;
   height: 100%;
   background: var(--bg-primary);
-  box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+  box-shadow: -4px 0 25px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
   animation: drawerSlideIn 0.2s ease;
@@ -252,12 +252,14 @@ const isEffectivelyMuted = (member) => {
   justify-content: space-between;
   padding: 16px 20px;
   border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
 }
 
 .drawer-header h3 {
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-primary);
+  letter-spacing: -0.2px;
 }
 
 .drawer-body {
@@ -269,7 +271,7 @@ const isEffectivelyMuted = (member) => {
 .drawer-close {
   width: 32px;
   height: 32px;
-  border-radius: 6px;
+  border-radius: 8px;
   border: none;
   background: transparent;
   color: var(--text-tertiary);
@@ -290,12 +292,19 @@ const isEffectivelyMuted = (member) => {
   gap: 14px;
   padding: 16px 20px;
   align-items: center;
+  transition: background 0.15s;
+  border-radius: 4px;
+  margin: 4px;
+}
+
+.drawer-room-top:hover {
+  background: var(--hover-light);
 }
 
 .drawer-room-avatar {
   width: 48px;
   height: 48px;
-  border-radius: 12px;
+  border-radius: 14px;
   object-fit: cover;
   flex-shrink: 0;
 }
@@ -309,8 +318,9 @@ const isEffectivelyMuted = (member) => {
   color: #fff;
   width: 48px;
   height: 48px;
-  border-radius: 12px;
+  border-radius: 14px;
   flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .drawer-room-info {
@@ -334,11 +344,15 @@ const isEffectivelyMuted = (member) => {
   font-size: 13px;
   color: var(--text-secondary);
   margin-top: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .drawer-divider {
   height: 1px;
-  background: var(--hover);
+  background: var(--border);
   margin: 0 20px;
 }
 
@@ -349,22 +363,29 @@ const isEffectivelyMuted = (member) => {
 .drawer-section-title {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   font-size: 13px;
   font-weight: 600;
   color: var(--text-secondary);
   margin-bottom: 8px;
+  gap: 6px;
+}
+
+.drawer-section-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 2px;
 }
 
 .drawer-section-action {
   padding: 2px 8px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   background: transparent;
   color: var(--text-tertiary);
   font-size: 12px;
   cursor: pointer;
   transition: all 0.15s;
+  font-family: inherit;
 }
 
 .drawer-section-action:hover {
@@ -377,24 +398,19 @@ const isEffectivelyMuted = (member) => {
 }
 
 .drawer-section-action.primary:hover {
-  background: var(--accent-light);
-}
-
-.drawer-section-actions {
-  display: flex;
-  gap: 2px;
+  background: var(--accent-soft);
 }
 
 .drawer-announcement-body {
   background: var(--hover);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 12px;
 }
 
 .drawer-announcement-body p {
   font-size: 13px;
   color: var(--text-primary);
-  line-height: 1.5;
+  line-height: 1.6;
   margin: 0 0 8px;
   white-space: pre-wrap;
   word-break: break-word;
@@ -410,20 +426,26 @@ const isEffectivelyMuted = (member) => {
 .drawer-announcement-empty {
   font-size: 13px;
   padding: 8px 0;
+  color: var(--text-tertiary);
 }
 
 .drawer-member-list {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
 }
 
 .drawer-member-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 6px 0;
-  border-radius: 6px;
+  padding: 6px 4px;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+
+.drawer-member-item:hover {
+  background: var(--hover-light);
 }
 
 .drawer-member-avatar {
@@ -442,7 +464,7 @@ const isEffectivelyMuted = (member) => {
 .drawer-member-top {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .drawer-member-name {
@@ -451,6 +473,7 @@ const isEffectivelyMuted = (member) => {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-weight: 500;
 }
 
 .drawer-member-status {
@@ -464,20 +487,21 @@ const isEffectivelyMuted = (member) => {
 
 .drawer-member-ops {
   display: flex;
-  gap: 4px;
+  gap: 3px;
   flex-shrink: 0;
 }
 
 .member-op-btn {
-  padding: 2px 8px;
+  padding: 2px 7px;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 5px;
   background: var(--bg-primary);
   color: var(--text-secondary);
   font-size: 11px;
   cursor: pointer;
   transition: all 0.15s;
   white-space: nowrap;
+  font-family: inherit;
 }
 
 .member-op-btn:hover {
@@ -488,7 +512,7 @@ const isEffectivelyMuted = (member) => {
 
 .member-op-btn.danger {
   color: var(--danger);
-  border-color: var(--danger);
+  border-color: var(--danger-border, var(--danger));
 }
 
 .member-op-btn.danger:hover {
@@ -499,7 +523,7 @@ const isEffectivelyMuted = (member) => {
   width: 24px;
   height: 24px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   background: transparent;
   color: var(--text-tertiary);
   cursor: pointer;
@@ -548,13 +572,14 @@ const isEffectivelyMuted = (member) => {
 .drawer-nav-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 0;
+  gap: 10px;
+  padding: 10px 12px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: all 0.15s;
   font-size: 14px;
-  border-radius: 8px;
+  border-radius: 10px;
   color: var(--text-primary);
+  margin: 8px 0;
 }
 
 .drawer-nav-item:hover {
@@ -579,6 +604,7 @@ const isEffectivelyMuted = (member) => {
   padding: 2px 6px;
   border-radius: 4px;
   font-weight: 500;
+  line-height: 1.4;
 }
 
 .role-badge.owner {
@@ -647,6 +673,7 @@ const isEffectivelyMuted = (member) => {
   background: var(--bg-primary);
   border-radius: 50%;
   transition: all 0.2s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
 .toggle-switch input:checked + .toggle-slider {

@@ -78,9 +78,9 @@ export const userAPI = {
   uploadAvatar: (formData) => api.post('/users/avatar', formData, {  // Token 认证
     headers: { 'Content-Type': 'multipart/form-data' }
   }),
-  changePassword: (oldPassword, newPassword) =>
-    api.put('/users/password', { oldPassword, newPassword }),
-  changeStatus: (status) => api.put('/users/status', { status }),
+  changePassword: (userId, oldPassword, newPassword) =>
+    api.put('/users/password', { userId, oldPassword, newPassword }),
+  changeStatus: (userId, status) => api.put('/users/status', { userId, status }),
   getUser: (id) => api.get(`/users/${id}`),
   search: (q) => api.get('/users/search', { params: { q } })
 }
@@ -97,26 +97,26 @@ export const roomAPI = {
   getMembers: (id) => api.get(`/rooms/${id}/members`),
   
   // 权限管理
-  changeRole: (roomId, userId, role, reason) => 
-    api.put(`/rooms/${roomId}/members/${userId}/role`, { role, reason }),
+  changeRole: (roomId, userId, role, operatorId, reason) => 
+    api.put(`/rooms/${roomId}/members/${userId}/role`, { role, operatorId, reason }),
   
   // 禁言管理
-  muteMember: (roomId, userId, isMuted, duration, reason) =>
-    api.put(`/rooms/${roomId}/members/${userId}/mute`, { isMuted, duration, reason }),
+  muteMember: (roomId, userId, isMuted, duration, operatorId, reason) =>
+    api.put(`/rooms/${roomId}/members/${userId}/mute`, { isMuted, duration, operatorId, reason }),
   
   // 解散聊天室
-  dissolveRoom: (roomId, reason) =>
-    api.delete(`/rooms/${roomId}`, { data: { reason } }),
+  dissolveRoom: (roomId, operatorId, reason = '') =>
+    api.delete(`/rooms/${roomId}`, { data: { operatorId, reason } }),
   
   // 超级管理员强制删除
-  forceDeleteRoom: (roomId, reason = '') =>
-    api.delete(`/rooms/${roomId}/force`, { data: { reason } }),
+  forceDeleteRoom: (roomId, operatorId, reason = '') =>
+    api.delete(`/rooms/${roomId}/force`, { data: { operatorId, reason } }),
   
   // 获取用户权限
   getPermissions: (roomId, userId) => api.get(`/rooms/${roomId}/members/${userId}/permissions`),
   
   // 更新聊天室信息
-  updateRoom: (roomId, data) => api.put(`/rooms/${roomId}`, data),
+  updateRoom: (roomId, userId, data) => api.put(`/rooms/${roomId}`, { ...data, userId }),
   
   // 上传聊天室头像
   uploadRoomAvatar: (roomId, formData) => api.post(`/rooms/${roomId}/avatar`, formData, {
@@ -133,7 +133,7 @@ export const roomAPI = {
   findOrCreatePrivateRoom: (friendId) => api.post('/rooms/private', { friendId }),
   
   // 切换机器人状态
-  toggleBot: (roomId, enable) => api.put(`/rooms/${roomId}/bot`, { enable })
+  toggleBot: (roomId, userId, enable) => api.put(`/rooms/${roomId}/bot`, { userId, enable })
 }
 
 export const messageAPI = {

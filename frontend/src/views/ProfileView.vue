@@ -172,7 +172,7 @@ const handleFileChange = async (event) => {
   try {
     const formData = new FormData()
     formData.append('avatar', file)
-    const response = await userAPI.uploadAvatar(authStore.userId, formData)
+    const response = await userAPI.uploadAvatar(formData)
 
     if (response.success) {
       const avatarPath = response.data.avatar
@@ -197,7 +197,7 @@ const saveNickname = async () => {
   uploadError.value = ''
   uploadSuccess.value = ''
   try {
-    const response = await userAPI.updateMe(authStore.userId, { nickname: form.nickname.trim() })
+    const response = await userAPI.updateMe({ nickname: form.nickname.trim() })
     if (response.success) {
       authStore.updateProfile({ nickname: form.nickname.trim() })
       uploadSuccess.value = '昵称已更新'

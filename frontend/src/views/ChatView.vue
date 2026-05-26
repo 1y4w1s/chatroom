@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -1187,7 +1187,7 @@ const loadFriends = async () => {
 
 const openChatWithFriend = async (friend) => {
   try {
-    const response = await roomAPI.findOrCreatePrivateRoom(authStore.userId, friend.id)
+    const response = await roomAPI.findOrCreatePrivateRoom(friend.id)
     if (response.success) {
       currentFriendRoomId.value = friend.id
       await joinRoom(response.data.room_id)
@@ -1263,7 +1263,7 @@ const submitPost = async () => {
     for (const img of postImages.value) {
       formData.append('images', img.file)
     }
-    await postAPI.create(authStore.userId, formData)
+    await postAPI.create(formData)
     showCreatePost.value = false
     postTitle.value = ''
     postContent.value = ''
@@ -1278,7 +1278,7 @@ const submitPost = async () => {
 const toggleLike = async (post) => {
   try {
     if (post.is_liked) {
-      const response = await postAPI.unlike(authStore.userId, post.id)
+      const response = await postAPI.unlike(post.id)
       post.likes_count = response.data.likes_count
       post.is_liked = false
       if (selectedPost.value && selectedPost.value.id === post.id) {
@@ -1286,7 +1286,7 @@ const toggleLike = async (post) => {
         selectedPost.value.is_liked = false
       }
     } else {
-      const response = await postAPI.like(authStore.userId, post.id)
+      const response = await postAPI.like(post.id)
       post.likes_count = response.data.likes_count
       post.is_liked = true
       if (selectedPost.value && selectedPost.value.id === post.id) {
@@ -1300,7 +1300,7 @@ const toggleLike = async (post) => {
 
 const deletePost = async (id) => {
   try {
-    await postAPI.delete(authStore.userId, id)
+    await postAPI.delete(id)
     posts.value = posts.value.filter(p => p.id !== id)
   } catch (e) {
   }
@@ -1366,7 +1366,7 @@ const openPostDetail = async (post) => {
   showMobileDrawer.value = false
   activeMainTab.value = 'post'
   try {
-    const response = await postAPI.getDetail(authStore.userId, post.id)
+    const response = await postAPI.getDetail(post.id)
     selectedPost.value = normalizePost(response.data.post)
   } catch (e) {
     selectedPost.value = normalizePost(post)
@@ -1381,7 +1381,7 @@ const closePostDetail = () => {
 
 const loadComments = async (postId) => {
   try {
-    const response = await postAPI.getComments(authStore.userId, postId)
+    const response = await postAPI.getComments(postId)
     postComments.value = (response.data.comments || []).map(c => { normalizeIsLiked(c); c.likes_count = Number(c.likes_count) || 0; return c })
   } catch (e) {
   }
@@ -1396,9 +1396,9 @@ const handleSubmitComment = async ({ content, images, parentId }) => {
       if (content) formData.append('content', content)
       formData.append('image', images[0])
       if (parentId) formData.append('parent_id', parentId)
-      response = await postAPI.addCommentWithImage(authStore.userId, selectedPost.value.id, formData)
+      response = await postAPI.addCommentWithImage(selectedPost.value.id, formData)
     } else {
-      response = await postAPI.addComment(authStore.userId, selectedPost.value.id, content, parentId)
+      response = await postAPI.addComment(selectedPost.value.id, content, parentId)
     }
     normalizeIsLiked(response.data.comment)
     response.data.comment.likes_count = Number(response.data.comment.likes_count) || 0
@@ -1413,11 +1413,11 @@ const handleSubmitComment = async ({ content, images, parentId }) => {
 const toggleCommentLike = async (comment) => {
   try {
     if (comment.is_liked) {
-      const response = await postAPI.unlikeComment(authStore.userId, comment.id)
+      const response = await postAPI.unlikeComment(comment.id)
       comment.likes_count = response.data.likes_count
       comment.is_liked = false
     } else {
-      const response = await postAPI.likeComment(authStore.userId, comment.id)
+      const response = await postAPI.likeComment(comment.id)
       comment.likes_count = response.data.likes_count
       comment.is_liked = true
     }
@@ -1427,7 +1427,7 @@ const toggleCommentLike = async (comment) => {
 
 const deleteComment = async (commentId) => {
   try {
-    await postAPI.deleteComment(authStore.userId, commentId)
+    await postAPI.deleteComment(commentId)
     postComments.value = postComments.value.filter(c => c.id !== commentId)
     if (selectedPost.value) {
       selectedPost.value.comments_count = Math.max(0, (selectedPost.value.comments_count || 0) - 1)
@@ -1448,7 +1448,7 @@ const openEditPost = () => {
 const submitEditPost = async () => {
   if (!editContent.value.trim() || !selectedPost.value) return
   try {
-    await postAPI.update(authStore.userId, selectedPost.value.id, { title: editTitle.value.trim(), content: editContent.value.trim() })
+    await postAPI.update(selectedPost.value.id, { title: editTitle.value.trim(), content: editContent.value.trim() })
     selectedPost.value.title = editTitle.value.trim()
     selectedPost.value.content = editContent.value.trim()
     showEditPost.value = false
@@ -1462,7 +1462,7 @@ const togglePostVisibility = async () => {
   if (!selectedPost.value) return
   try {
     const isPublic = !selectedPost.value.is_public
-    await postAPI.setVisibility(authStore.userId, selectedPost.value.id, isPublic)
+    await postAPI.setVisibility(selectedPost.value.id, isPublic)
     selectedPost.value.is_public = isPublic
     const p = posts.value.find(p => p.id === selectedPost.value.id)
     if (p) p.is_public = isPublic
@@ -1474,7 +1474,7 @@ const togglePostComments = async () => {
   if (!selectedPost.value) return
   try {
     const allow = !selectedPost.value.allow_comments
-    await postAPI.setCommentsToggle(authStore.userId, selectedPost.value.id, allow)
+    await postAPI.setCommentsToggle(selectedPost.value.id, allow)
     selectedPost.value.allow_comments = allow
   } catch (e) {
   }
@@ -1483,7 +1483,7 @@ const togglePostComments = async () => {
 const deletePostFromDetail = async () => {
   if (!selectedPost.value) return
   try {
-    await postAPI.delete(authStore.userId, selectedPost.value.id)
+    await postAPI.delete(selectedPost.value.id)
     posts.value = posts.value.filter(p => p.id !== selectedPost.value.id)
     closePostDetail()
   } catch (e) {
@@ -1527,7 +1527,7 @@ const acceptFriendRequest = async (notification) => {
     const requests = await friendAPI.getRequests(authStore.userId)
     const pending = requests.data.requests.find(r => r.sender_id === notification.from_user_id)
     if (pending) {
-      await friendAPI.respondRequest(authStore.userId, pending.id, 'accept')
+      await friendAPI.respondRequest(pending.id, 'accept')
     }
     await notificationAPI.markRead(authStore.userId, notification.id)
     notifications.value = notifications.value.map(n =>
@@ -1543,7 +1543,7 @@ const rejectFriendRequest = async (notification) => {
     const requests = await friendAPI.getRequests(authStore.userId)
     const pending = requests.data.requests.find(r => r.sender_id === notification.from_user_id)
     if (pending) {
-      await friendAPI.respondRequest(authStore.userId, pending.id, 'reject')
+      await friendAPI.respondRequest(pending.id, 'reject')
     }
     await notificationAPI.markRead(authStore.userId, notification.id)
     notifications.value = notifications.value.map(n =>
@@ -1629,7 +1629,7 @@ function mentionMember() {
 function addFriend() {
   showMemberAction.value = false
   if (memberActionTarget.value && authStore.userId) {
-    friendAPI.sendRequest(authStore.userId, { friendId: memberActionTarget.value.id })
+    friendAPI.sendRequest({ friendId: memberActionTarget.value.id })
       .then(() => {
         showToastMessage('好友申请已发送')
         loadRooms()
@@ -2317,7 +2317,7 @@ const sendMessage = async () => {
     const compressed = await compressImage(img.file)
     formData.append('file', compressed)
     try {
-      const res = await messageAPI.upload(authStore.userId, formData)
+      const res = await messageAPI.upload(formData)
       if (res && res.data && res.data.url) {
         authStore.sendMessage(roomId, res.data.url, 'image')
       } else {
@@ -2364,7 +2364,7 @@ function toggleMessageActions(messageId, event) {
 
 async function recallMessage(message) {
   try {
-    await messageAPI.recall(authStore.userId, message.id)
+    await messageAPI.recall(message.id)
     authStore.socket.emit('recall_message', {
       roomId: currentRoomId.value,
       messageId: message.id,
@@ -2535,7 +2535,8 @@ const handleRoomAvatarChange = async (event) => {
     const compressed = await compressImage(file)
     const formData = new FormData()
     formData.append('avatar', compressed)
-    const response = await roomAPI.uploadRoomAvatar(currentRoomId.value, authStore.userId, formData)
+    formData.append('userId', authStore.userId)
+    const response = await roomAPI.uploadRoomAvatar(currentRoomId.value, formData)
     if (response.success) {
       const avatarPath = response.data.avatar
       const fullUrl = avatarPath.startsWith('/') ? `${window.location.origin}${avatarPath}` : avatarPath
@@ -2552,9 +2553,13 @@ const handleRoomAvatarChange = async (event) => {
   }
 }
 
-const toggleBot = async (event) => {
+const toggleBot = async (enableOrEvent) => {
   try {
-    const enable = event ? event.target.checked : !currentRoom.value?.enable_bot
+    if (!authStore.userId) {
+      showToastMessage('用户未登录，请重新登录', 'error')
+      return
+    }
+    const enable = typeof enableOrEvent === 'boolean' ? enableOrEvent : (enableOrEvent ? enableOrEvent.target.checked : !currentRoom.value?.enable_bot)
     const response = await roomAPI.toggleBot(currentRoomId.value, authStore.userId, enable)
     if (response.success) {
       currentRoom.value = { ...currentRoom.value, enable_bot: enable ? 1 : 0 }
@@ -2625,7 +2630,7 @@ const uploadAvatar = async () => {
     const formData = new FormData()
     formData.append('avatar', compressed)
     
-    const response = await userAPI.uploadAvatar(authStore.userId, formData)
+    const response = await userAPI.uploadAvatar(formData)
     
     if (response.success) {
       const avatarPath = response.data.avatar
@@ -3121,10 +3126,11 @@ onUnmounted(() => {
   border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .sidebar-header {
-  padding: 20px;
+  padding: 18px 20px 14px;
   border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
@@ -3132,15 +3138,16 @@ onUnmounted(() => {
 }
 
 .sidebar-header h2 {
-  font-size: var(--text-lg, 16px);
-  font-weight: 600;
+  font-size: 17px;
+  font-weight: 700;
   color: var(--text-primary);
+  letter-spacing: -0.3px;
 }
 
 .sidebar-header-actions {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
 }
 
 .theme-toggle {
@@ -3156,7 +3163,8 @@ onUnmounted(() => {
   display: flex;
   border-bottom: 1px solid var(--border);
   padding: 0 12px;
-  gap: 2px;
+  gap: 0;
+  background: var(--bg-secondary);
 }
 
 .sidebar-tab {
@@ -3164,32 +3172,31 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 10px 4px;
+  gap: 5px;
+  padding: 9px 4px 8px;
   border: none;
   background: transparent;
-  font-size: var(--text-sm, 13px);
+  font-size: 12px;
+  font-weight: 500;
   color: var(--text-tertiary);
   cursor: pointer;
   border-bottom: 2px solid transparent;
   margin-bottom: -1px;
   transition: all var(--transition-fast, 150ms);
   white-space: nowrap;
-  border-radius: var(--radius-sm, 6px) var(--radius-sm, 6px) 0 0;
-}
-
-.sidebar-tab:hover {
-  color: var(--text-primary);
-  background: var(--accent-glow, rgba(0,0,0,0.04));
+  border-radius: 6px 6px 0 0;
+  position: relative;
 }
 
 .sidebar-tab:hover {
   color: var(--text-secondary);
+  background: var(--hover);
 }
 
 .sidebar-tab.active {
-  color: var(--text-primary);
-  border-bottom-color: var(--text-primary);
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  background: transparent;
 }
 
 .sidebar-content {
@@ -3202,13 +3209,15 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px 8px;
+  padding: 14px 16px 8px;
 }
 
 .room-list-title {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-tertiary);
-  font-weight: 500;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .empty-list-hint {
@@ -3223,7 +3232,7 @@ onUnmounted(() => {
   height: 32px;
   border: none;
   background: transparent;
-  border-radius: 6px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3235,7 +3244,7 @@ onUnmounted(() => {
 
 .btn-icon:hover {
   background: var(--hover);
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .btn-icon.has-notification {
@@ -3250,14 +3259,15 @@ onUnmounted(() => {
   color: white;
   font-size: 9px;
   font-weight: 700;
-  min-width: 14px;
-  height: 14px;
-  padding: 0 3px;
-  border-radius: 7px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   line-height: 1;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
 .btn-text {
@@ -3272,7 +3282,7 @@ onUnmounted(() => {
 
 .btn-text:hover {
   background: var(--hover);
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .btn-xs {
@@ -3294,13 +3304,14 @@ onUnmounted(() => {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 12px;
+  border-radius: 10px;
   transition: background 0.15s;
 }
 
 .notification-item.unread {
-  background: #f0f7ff;
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
 }
 
 .notification-item:hover {
@@ -3308,7 +3319,7 @@ onUnmounted(() => {
 }
 
 .notification-item.unread:hover {
-  background: #e8f2ff;
+  background: var(--accent-soft);
 }
 
 .notification-avatar {
@@ -3373,9 +3384,15 @@ onUnmounted(() => {
 .post-card {
   background: var(--bg-primary);
   border: 1px solid var(--hover);
-  border-radius: 10px;
-  padding: 14px;
+  border-radius: 12px;
+  padding: 16px;
   margin-bottom: 10px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-fast);
+}
+
+.post-card:hover {
+  box-shadow: var(--shadow);
 }
 
 .post-header {
@@ -3411,16 +3428,22 @@ onUnmounted(() => {
 }
 
 .post-delete-btn {
-  background: none;
+  width: 24px;
+  height: 24px;
   border: none;
-  color: var(--border-light);
-  font-size: 18px;
+  background: transparent;
+  border-radius: 6px;
+  color: var(--text-tertiary);
+  font-size: 16px;
   cursor: pointer;
-  padding: 0 4px;
-  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
 }
 
 .post-delete-btn:hover {
+  background: var(--danger-bg);
   color: var(--danger);
 }
 
@@ -3661,11 +3684,12 @@ onUnmounted(() => {
 
 /* ==================== 卡片式评论区输入 ==================== */
 .cc-card {
-  background: var(--bg-tertiary);
+  background: var(--bg-primary);
   border-radius: 14px;
-  padding: 14px 16px 16px;
-  margin: 12px 0 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  padding: 12px 14px 14px;
+  margin: 10px 16px 12px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
 }
 
 .cc-reply-hint {
@@ -3843,23 +3867,29 @@ onUnmounted(() => {
 
 .cc-send-btn {
   height: 38px;
-  padding: 0 18px;
+  padding: 0 20px;
   border: none;
   border-radius: 10px;
-  background: var(--bubble-own);
+  background: var(--accent);
   color: white;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   flex-shrink: 0;
-  transition: background 0.15s;
+  transition: all 0.15s;
+  box-shadow: 0 1px 3px var(--accent-glow);
 }
 
-.cc-send-btn:hover { background: #333; }
+.cc-send-btn:hover { background: var(--accent-light); box-shadow: 0 2px 8px var(--accent-glow); }
+
+.cc-send-btn:active { transform: scale(0.97); }
 
 .cc-send-btn:disabled {
   background: var(--border-light);
+  color: var(--text-tertiary);
   cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
 }
 
 .cc-previews {
@@ -4522,11 +4552,12 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 4px 4px;
+  padding: 8px 12px 4px;
   cursor: pointer;
   user-select: none;
   font-size: 12px;
   color: var(--text-tertiary);
+  transition: color 0.15s;
 }
 
 .category-header:hover {
@@ -4534,9 +4565,10 @@ onUnmounted(() => {
 }
 
 .category-arrow {
-  font-size: 10px;
-  transition: transform 0.15s;
+  font-size: 8px;
+  transition: transform 0.2s;
   line-height: 1;
+  opacity: 0.6;
 }
 
 .category-arrow.expanded {
@@ -4544,13 +4576,19 @@ onUnmounted(() => {
 }
 
 .category-label {
-  font-weight: 500;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-size: 11px;
 }
 
 .category-count {
-  font-size: 11px;
-  color: var(--border-light);
+  font-size: 10px;
+  color: var(--text-tertiary);
   margin-left: auto;
+  background: var(--hover);
+  padding: 1px 7px;
+  border-radius: 8px;
 }
 
 .friend-list {
@@ -4570,53 +4608,48 @@ onUnmounted(() => {
 .room-item {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px;
+  gap: 10px;
+  padding: 10px 12px;
   border-radius: var(--radius, 8px);
   cursor: pointer;
   transition: all var(--transition-fast, 150ms);
-  margin-bottom: 4px;
+  margin: 2px 8px;
   position: relative;
 }
 
 .room-item:hover {
-  background: var(--accent-glow, oklch(0 0 0 / 0.04));
+  background: var(--hover-light);
+}
+
+.room-item:active {
+  background: var(--hover);
 }
 
 .room-item.active {
-  background: var(--bubble-own);
-  box-shadow: var(--bubble-own-shadow, 0 2px 8px rgba(0,0,0,0.1));
-}
-
-.room-item.active .room-icon {
-  background: transparent;
+  background: var(--accent-soft);
 }
 
 .room-item.active::before {
   content: '';
   position: absolute;
-  left: 0;
+  left: -8px;
   top: 50%;
   transform: translateY(-50%);
   width: 3px;
-  height: 24px;
-  background: var(--bubble-own);
+  height: 20px;
+  background: var(--accent);
   border-radius: 0 3px 3px 0;
 }
 
 .room-item.active .room-name {
-  color: var(--bubble-own-text, white);
+  color: var(--accent);
   font-weight: 600;
 }
 
-.room-item.active .room-members {
-  color: oklch(1 0 0 / 0.6);
-}
-
 .room-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius, 8px);
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
   background: var(--bg-body);
   display: flex;
   align-items: center;
@@ -4624,7 +4657,7 @@ onUnmounted(() => {
   flex-shrink: 0;
   overflow: visible;
   position: relative;
-  transition: transform var(--transition-fast, 150ms), background var(--transition-fast, 150ms);
+  transition: transform var(--transition-fast, 150ms);
 }
 
 .room-item:hover .room-icon {
@@ -4639,9 +4672,9 @@ onUnmounted(() => {
 }
 
 .default-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4650,8 +4683,8 @@ onUnmounted(() => {
 
 .default-avatar span {
   color: white;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 700;
   line-height: 1;
 }
 
@@ -4741,10 +4774,12 @@ onUnmounted(() => {
 
 .member-preview {
   background: var(--bg-primary);
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  border-radius: 14px;
+  box-shadow: var(--shadow-lg);
   padding: 16px;
   min-width: 240px;
+  border: 1px solid var(--border);
+  animation: scaleIn 0.15s ease;
 }
 
 .preview-header {
@@ -4752,15 +4787,20 @@ onUnmounted(() => {
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--bubble-other);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .member-count {
   color: var(--text-tertiary);
   font-weight: 400;
+  font-size: 12px;
+  background: var(--hover);
+  padding: 2px 8px;
+  border-radius: 8px;
 }
 
 .preview-list {
@@ -4772,11 +4812,12 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 0;
+  padding: 6px 4px;
+  border-radius: 6px;
 }
 
-.preview-member:not(:last-child) {
-  border-bottom: 1px solid var(--bg-body);
+.preview-member:hover {
+  background: var(--hover-light);
 }
 
 .preview-avatar {
@@ -4784,6 +4825,7 @@ onUnmounted(() => {
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .preview-info {
@@ -4798,11 +4840,12 @@ onUnmounted(() => {
 }
 
 .preview-status {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-secondary);
   display: flex;
   align-items: center;
   gap: 4px;
+  margin-top: 1px;
 }
 
 .preview-role {
@@ -4817,15 +4860,15 @@ onUnmounted(() => {
   font-size: 12px;
   color: var(--text-tertiary);
   text-align: center;
-  padding: 8px 0;
+  padding: 10px 0 2px;
 }
 
 .sidebar-footer {
-  padding: 16px;
+  padding: 14px 16px;
   border-top: 1px solid var(--border);
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .user-info {
@@ -4835,11 +4878,19 @@ onUnmounted(() => {
   gap: 10px;
   cursor: pointer;
   min-width: 0;
+  padding: 6px 8px;
+  margin: -6px -8px;
+  border-radius: 10px;
+  transition: background 0.15s;
+}
+
+.user-info:hover {
+  background: var(--hover-light);
 }
 
 .avatar {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
@@ -4872,6 +4923,7 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  background: var(--bg-body);
 }
 
 .chat-wrapper {
@@ -4879,33 +4931,36 @@ onUnmounted(() => {
   min-height: 0;
   display: flex;
   flex-direction: column;
+  background: var(--bg-chat);
 }
 
 .chat-header {
-  padding: 16px 24px;
+  padding: 14px 20px;
   background: var(--bg-primary);
   border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .header-left h3 {
   font-size: 16px;
   font-weight: 600;
   color: var(--text-primary);
+  letter-spacing: -0.2px;
 }
 
 .header-left p {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--text-tertiary);
   margin-top: 2px;
 }
 
 .header-more-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
   border: none;
   background: transparent;
   color: var(--text-tertiary);
@@ -5328,16 +5383,16 @@ onUnmounted(() => {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
-  padding: 24px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .message {
   display: flex;
-  gap: 12px;
-  max-width: 70%;
+  gap: 10px;
+  max-width: 72%;
 }
 
 .message-own {
@@ -5346,11 +5401,12 @@ onUnmounted(() => {
 }
 
 .message-avatar {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
+  align-self: flex-end;
 }
 
 .message-content {
@@ -5611,10 +5667,11 @@ onUnmounted(() => {
   padding: 0;
   background: transparent;
   border: none;
+  flex-shrink: 0;
 }
 
 .chat-input-footer .muted-notice {
-  padding: 10px 24px;
+  padding: 10px 20px;
   background: var(--danger-bg);
   color: var(--danger);
   font-size: 13px;
@@ -5817,27 +5874,28 @@ onUnmounted(() => {
   /* ==================== 成员操作卡片 ==================== */
 .member-action-card {
   position: fixed;
-  width: 240px;
+  width: 220px;
   background: var(--bg-primary);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-  padding: 16px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-lg);
+  padding: 12px;
   z-index: 3100;
+  animation: scaleIn 0.12s ease;
 }
 
 .member-action-header {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
-  padding-bottom: 12px;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--hover);
 }
 
 .action-member-avatar {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   object-fit: cover;
 }
@@ -5854,33 +5912,35 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 4px;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .member-action-buttons {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 
 .member-action-btn {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
+  gap: 8px;
+  padding: 9px 10px;
   border: none;
   background: transparent;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--text-secondary);
   cursor: pointer;
-  transition: background 0.15s;
+  transition: all 0.15s;
   width: 100%;
   text-align: left;
+  font-family: inherit;
 }
 
 .member-action-btn:hover {
   background: var(--hover);
+  color: var(--text-primary);
 }
 
 .form-section h4 {
@@ -5916,14 +5976,17 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   color: var(--text-tertiary);
+  gap: 8px;
 }
 
 .no-room svg {
-  margin-bottom: 16px;
+  opacity: 0.4;
+  margin-bottom: 8px;
 }
 
 .no-room p {
   font-size: 15px;
+  font-weight: 500;
 }
 
 .modal .form-group {
