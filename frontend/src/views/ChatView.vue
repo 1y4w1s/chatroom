@@ -2274,6 +2274,8 @@ const openPrivateChat = async (friendId) => {
       currentPrivateChat.value.avatar = friendInfo.avatar
       currentPrivateChat.value.status = friendInfo.status
     }
+    // 刷新侧边栏私聊列表
+    await loadPrivateChats()
     nextTick(() => scrollToBottom(true))
   } catch (e) {
     console.error('打开私聊失败:', e)
@@ -6575,12 +6577,18 @@ onUnmounted(() => {
 }
 
 .action-btn {
-  padding: 6px 12px;
+  padding: 3px 12px;
   border-radius: 6px;
   font-size: 12px;
   cursor: pointer;
   transition: all 0.15s;
   border: 1px solid transparent;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  white-space: nowrap;
+  font-family: inherit;
 }
 
 .btn-admin {
