@@ -98,6 +98,39 @@ CREATE TABLE IF NOT EXISTS message_read_status (
     INDEX idx_user (user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- 朋友之间消息（私聊）表
+CREATE TABLE IF NOT EXISTS private_chats (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_a_id INT NOT NULL,
+    user_b_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_pair (user_a_id, user_b_id),
+    FOREIGN KEY (user_a_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_b_id) REFERENCES users(id) ON DELETE CASCADE,
+    INDEX idx_user_a (user_a_id),
+    INDEX idx_user_b (user_b_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 朋友之间消息（私聊）内容表
+CREATE TABLE IF NOT EXISTS private_messages (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    chat_id INT NOT NULL,
+    sender_id INT NOT NULL,
+    content TEXT NOT NULL,
+    type ENUM('text', 'image', 'file') DEFAULT 'text',
+    file_url VARCHAR(500) DEFAULT NULL,
+    file_name VARCHAR(255) DEFAULT NULL,
+    file_size INT DEFAULT NULL,
+    is_read BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (chat_id) REFERENCES private_chats(id) ON DELETE CASCADE,
+    FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE,
+    INDEX idx_chat (chat_id),
+    INDEX idx_sender (sender_id),
+    INDEX idx_created (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- 好友关系表
 CREATE TABLE IF NOT EXISTS friendships (
     id INT PRIMARY KEY AUTO_INCREMENT,

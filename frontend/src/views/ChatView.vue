@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -103,6 +103,39 @@
              </div>
           </div>
 
+          <div class="room-category">
+            <div class="category-header" @click="showPrivateChats = !showPrivateChats">
+              <span class="category-arrow" :class="{ expanded: showPrivateChats }">▸</span>
+              <span class="category-label">私聊</span>
+              <span class="category-count">{{ privateChats.length }}</span>
+            </div>
+            <div v-show="showPrivateChats">
+              <div
+                v-for="chat in privateChats"
+                :key="chat.id"
+                class="room-item"
+                :class="{ active: currentPrivateChatId === chat.id }"
+                @click="openPrivateChat(chat.friend_id)"
+              >
+                <div class="room-icon">
+                  <img v-if="chat.avatar" :src="getAvatarUrl(chat.avatar, chat.nickname || chat.username)" class="room-list-avatar" />
+                  <div v-else class="default-avatar" :style="{ background: nameColor(chat.nickname || chat.username) }">
+                    <span>{{ (chat.nickname || chat.username || '?')[0] }}</span>
+                  </div>
+                  <span v-if="getPrivateChatUnread(chat.id)" class="unread-badge">{{ formatUnread(getPrivateChatUnread(chat.id)) }}</span>
+                </div>
+                <div class="room-info">
+                  <div class="room-name">{{ chat.nickname || chat.username }}</div>
+                  <div v-if="chat.last_message" class="room-desc">{{ chat.last_message }}</div>
+                  <div v-else class="room-desc friend-status" :class="chat.friend_status">
+                    <span class="status-dot" :class="chat.friend_status"></span>
+                    {{ chat.friend_status === 'online' ? '在线' : chat.friend_status === 'away' ? '离开' : '离线' }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div 
             v-if="previewRoomId && previewMembers.length > 0" 
             class="member-preview"
@@ -148,6 +181,8 @@
             v-for="friend in friends"
             :key="friend.id"
             class="room-item"
+            style="cursor:pointer"
+            @click="openPrivateChat(friend.id)"
           >
             <div class="room-icon">
               <img v-if="friend.avatar" :src="getAvatarUrl(friend.avatar, friend.nickname || friend.username)" class="room-list-avatar" />
@@ -232,7 +267,7 @@
           <path d="M3 6H21M3 12H21M3 18H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
       </button>
-      <h3 class="mobile-title">{{ currentRoom?.name || '聊天' }}</h3>
+      <h3 class="mobile-title">{{ currentPrivateChat ? getPrivateChatPartner(currentPrivateChat).nickname || '私聊' : currentRoom?.name || '聊天' }}</h3>
       <div class="mobile-header-right"></div>
     </header>
 
@@ -434,7 +469,73 @@
         </footer>
       </div>
 
-      <div v-if="!selectedPost && !currentRoomId" class="no-room">
+      <div v-if="activeMainTab === 'chat' && currentPrivateChatId" class="chat-wrapper">
+        <header class="chat-header">
+          <div class="header-left" style="cursor:pointer">
+            <h3>{{ getPrivateChatPartner(currentPrivateChat).nickname || '私聊' }}</h3>
+            <p v-if="getPrivateChatPartner(currentPrivateChat).status">
+              <span class="status-dot" :class="getPrivateChatPartner(currentPrivateChat).status"></span>
+              {{ getPrivateChatPartner(currentPrivateChat).status === 'online' ? '在线' : getPrivateChatPartner(currentPrivateChat).status === 'away' ? '离开' : '离线' }}
+            </p>
+          </div>
+          <button class="header-more-btn" @click="currentPrivateChatId = null; currentPrivateChat = null; privateMessages = []" title="关闭私聊">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </header>
+        <div class="message-list" ref="messageListRef">
+          <ChatMessage
+            v-for="message in privateMessages"
+            :key="message.id"
+            :message="message"
+            :is-own="message.sender_id === authStore.user?.id"
+            :show-actions="showMessageActions === message.id"
+            :actions-pos="messageActionsPos"
+            :can-recall="message.sender_id === authStore.user?.id"
+            :get-avatar-url="getAvatarUrl"
+            :get-message-image-url="getMessageImageUrl"
+            :format-time="formatTime"
+            :format-file-size="formatFileSize"
+            :get-file-icon="getFileIcon"
+            @preview-image="previewMessageImage"
+            @download-file="downloadFile"
+            @toggle-actions="toggleMessageActions"
+            @recall="recallMessage"
+            @scroll-to-message="scrollToMessage"
+          />
+          <div ref="scrollAnchor"></div>
+        </div>
+
+        <footer class="chat-input-footer">
+          <div class="input-row">
+            <button class="cc-emoji-btn" @click="toggleEmojiPanel" title="表情">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
+                <circle cx="7" cy="8" r="1.2" fill="currentColor"/>
+                <circle cx="13" cy="8" r="1.2" fill="currentColor"/>
+                <path d="M6 12.5C7.2 13.8 8.5 14.5 10 14.5C11.5 14.5 12.8 13.8 14 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+            <div class="cc-input-wrap">
+              <input
+                v-model="newMessage"
+                @keydown.enter.prevent="sendPrivateMessage"
+                placeholder="输入消息..."
+                class="cc-input"
+                autocomplete="off"
+              />
+            </div>
+            <button class="cc-send-btn" @click="sendPrivateMessage" :disabled="!newMessage.trim()">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M2 16L16 9L2 2L2 7L12 9L2 11L2 16Z" fill="currentColor"/>
+              </svg>
+            </button>
+          </div>
+        </footer>
+      </div>
+
+      <div v-if="!selectedPost && !currentRoomId && !currentPrivateChatId" class="no-room">
         <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
           <rect x="8" y="12" width="48" height="40" rx="4" stroke="currentColor" stroke-width="2"/>
           <path d="M8 24H56" stroke="currentColor" stroke-width="2"/>
@@ -872,7 +973,15 @@
           <button class="member-action-btn" @click="addFriend" v-if="memberActionTarget?.id !== authStore.userId">
             添加好友
           </button>
-          <template v-if="currentPermissions.isAdmin && memberActionTarget?.id !== authStore.userId">
+          <template v-if="currentPermissions.isOwner && memberActionTarget?.id !== authStore.userId && !memberActionTarget?.is_bot">
+            <button class="member-action-btn action-admin" @click="showMemberAction = false; grantAdmin(memberActionTarget.id)" v-if="memberActionTarget?.role === 'member'">
+              设管理
+            </button>
+            <button class="member-action-btn action-unadmin" @click="showMemberAction = false; revokeAdmin(memberActionTarget.id)" v-if="memberActionTarget?.role === 'admin'">
+              撤销管理
+            </button>
+          </template>
+          <template v-if="(currentPermissions.isOwner || currentPermissions.isAdmin) && memberActionTarget?.id !== authStore.userId && !memberActionTarget?.is_bot">
             <button class="member-action-btn action-mute" @click="muteFromCard" v-if="!isEffectivelyMuted(memberActionTarget)">
               禁言
             </button>
@@ -1025,6 +1134,11 @@ const userStatus = computed(() => {
 const rooms = ref([])
 const currentRoomId = ref(null)
 const currentRoom = ref(null)
+const currentPrivateChatId = ref(null)
+const currentPrivateChat = ref(null)
+const privateMessages = ref([])
+const privateChats = ref([])
+const showPrivateChats = ref(true)
 const currentMembers = ref([])
 const sortedMembers = computed(() => {
   return [...currentMembers.value].sort((a, b) => {
@@ -2064,6 +2178,13 @@ const joinRoom = async (roomId) => {
   showMobileDrawer.value = false
   activeMainTab.value = 'chat'
   try {
+    // 离开当前私聊
+    if (currentPrivateChatId.value && authStore.socket) {
+      authStore.socket.emit('leave_private_chat', { chatId: currentPrivateChatId.value })
+    }
+    currentPrivateChatId.value = null
+    currentPrivateChat.value = null
+    privateMessages.value = []
     await roomAPI.join(roomId, authStore.userId)
     currentRoomId.value = roomId
     currentRoom.value = { ...(rooms.value.find(r => r.id === roomId)), enable_bot: rooms.value.find(r => r.id === roomId)?.enable_bot || 0 }
@@ -2104,6 +2225,105 @@ const loadPermissions = async (roomId) => {
   } catch (error) {
     console.error('加载权限失败:', error)
   }
+}
+
+// ==================== 私聊 ====================
+
+const loadPrivateChats = async () => {
+  try {
+    const res = await roomAPI.getPrivateChats(authStore.userId)
+    privateChats.value = res.data.chats || []
+  } catch (e) {
+    console.error('加载私聊列表失败:', e)
+  }
+}
+
+const openPrivateChat = async (friendId) => {
+  showMobileDrawer.value = false
+  activeMainTab.value = 'chat'
+  try {
+    const res = await roomAPI.findOrCreatePrivateChat(authStore.userId, friendId)
+    const chat = res.data.chat
+    if (!chat) return
+    currentPrivateChatId.value = chat.id
+    currentPrivateChat.value = {
+      id: chat.id,
+      user_a_id: chat.user_a_id,
+      user_b_id: chat.user_b_id
+    }
+    // 加载私聊消息
+    const msgRes = await roomAPI.getPrivateMessages(chat.id, authStore.userId, {})
+    privateMessages.value = msgRes.data.messages || []
+    // 清除当前群聊
+    currentRoomId.value = null
+    currentRoom.value = null
+    messages.value = []
+    // 加入私聊 Socket 房间
+    authStore.socket?.emit('join_private_chat', { chatId: chat.id, userId: authStore.userId })
+    // 标记已读
+    await roomAPI.markPrivateChatRead(chat.id, authStore.userId)
+    // 更新本地未读计数
+    privateChats.value = privateChats.value.map(c =>
+      c.id === chat.id ? { ...c, unread_count: 0 } : c
+    )
+    // 查找好友信息
+    const friendInfo = friends.value.find(f => f.id == friendId)
+    if (friendInfo) {
+      currentPrivateChat.value.nickname = friendInfo.nickname || friendInfo.username
+      currentPrivateChat.value.username = friendInfo.username
+      currentPrivateChat.value.avatar = friendInfo.avatar
+      currentPrivateChat.value.status = friendInfo.status
+    }
+    nextTick(() => scrollToBottom(true))
+  } catch (e) {
+    console.error('打开私聊失败:', e)
+  }
+}
+
+const sendPrivateMessage = async () => {
+  if (!newMessage.value.trim() || !currentPrivateChatId.value) return
+  const content = newMessage.value.trim()
+  newMessage.value = ''
+  const socket = authStore.socket
+  if (socket?.connected) {
+    socket.emit('send_private_message', {
+      chatId: currentPrivateChatId.value,
+      senderId: authStore.userId,
+      content,
+      type: 'text'
+    })
+  } else {
+    try {
+      const res = await roomAPI.sendPrivateMessage(currentPrivateChatId.value, {
+        senderId: authStore.userId,
+        content,
+        type: 'text'
+      })
+      privateMessages.value.push(res.data.message)
+    } catch (e) {
+      console.error('发送私聊消息失败:', e)
+    }
+  }
+  nextTick(() => scrollToBottom(true))
+}
+
+const getPrivateChatPartner = (chat) => {
+  if (!chat) return {}
+  const myId = authStore.userId
+  const friendId = chat.user_a_id == myId ? chat.user_b_id : chat.user_a_id
+  // 优先用 chat 上已有的用户信息
+  return {
+    id: chat.friend_id || friendId,
+    nickname: chat.nickname || chat.username || '用户',
+    username: chat.username || '',
+    avatar: chat.avatar || '',
+    status: chat.friend_status || 'offline'
+  }
+}
+
+const getPrivateChatUnread = (chatId) => {
+  const chat = privateChats.value.find(c => c.id === chatId)
+  return chat?.unread_count || 0
 }
 
 let muteTickTimer = null
@@ -3019,10 +3239,30 @@ const setupSocketListeners = () => {
     console.log('新聊天室创建:', data)
     loadRooms()
   })
+  
+  // ==================== 私聊 WebSocket ====================
+  
+  socket.on('new_private_message', (message) => {
+    if (message.chat_id === currentPrivateChatId.value) {
+      privateMessages.value.push(message)
+      nextTick(() => scrollToBottom(true))
+      roomAPI.markPrivateChatRead(message.chat_id, authStore.userId)
+    }
+    loadPrivateChats()
+  })
+  
+  socket.on('private_user_typing', (data) => {
+    // 可扩展显示"对方正在输入..."
+  })
+  
+  socket.on('private_user_stop_typing', (data) => {
+    // 可扩展隐藏"对方正在输入..."
+  })
 }
 
 onMounted(() => {
   loadRooms()
+  loadPrivateChats()
   loadNotifications()
   loadPosts()
   fetchServerStickers()
@@ -3058,6 +3298,9 @@ onUnmounted(() => {
   }
   if (currentRoomId.value) {
     authStore.leaveRoom(currentRoomId.value)
+  }
+  if (currentPrivateChatId.value && authStore.socket) {
+    authStore.socket.emit('leave_private_chat', { chatId: currentPrivateChatId.value })
   }
 })
 </script>
@@ -4563,14 +4806,17 @@ onUnmounted(() => {
 
 .room-item:hover {
   background: var(--hover-light);
+  transform: translateX(2px);
 }
 
 .room-item:active {
   background: var(--hover);
+  transform: translateX(0);
 }
 
 .room-item.active {
   background: var(--accent-soft);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
 }
 
 .room-item.active::before {
@@ -4881,6 +5127,18 @@ onUnmounted(() => {
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
+  position: relative;
+}
+
+.chat-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  opacity: 0.5;
 }
 
 .header-left h3 {
@@ -4888,6 +5146,9 @@ onUnmounted(() => {
   font-weight: 600;
   color: var(--text-primary);
   letter-spacing: -0.2px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .header-left p {
@@ -5813,22 +6074,34 @@ onUnmounted(() => {
   /* ==================== 成员操作卡片 ==================== */
 .member-action-card {
   position: fixed;
-  width: 220px;
+  width: 232px;
   background: var(--bg-primary);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  box-shadow: var(--shadow-lg);
-  padding: 12px;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
+  padding: 8px;
   z-index: 3100;
-  animation: scaleIn 0.12s ease;
+  animation: cardPopIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: top center;
+}
+
+@keyframes cardPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .member-action-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 12px;
-  padding-bottom: 10px;
+  margin-bottom: 4px;
+  padding: 8px 8px 10px;
   border-bottom: 1px solid var(--hover);
 }
 
@@ -5837,12 +6110,17 @@ onUnmounted(() => {
   height: 36px;
   border-radius: 50%;
   object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .action-member-name {
   font-size: 14px;
   font-weight: 600;
   color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .action-member-status {
@@ -5857,13 +6135,14 @@ onUnmounted(() => {
 .member-action-buttons {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
+  padding: 4px 0;
 }
 
 .member-action-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   padding: 9px 10px;
   border: none;
   background: transparent;
@@ -5871,15 +6150,56 @@ onUnmounted(() => {
   font-size: 13px;
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.15s;
+  transition: all 0.15s ease;
   width: 100%;
   text-align: left;
   font-family: inherit;
+  position: relative;
 }
 
 .member-action-btn:hover {
   background: var(--hover);
   color: var(--text-primary);
+}
+
+.member-action-btn:active {
+  transform: scale(0.98);
+}
+
+.member-action-btn.action-admin {
+  color: var(--accent);
+}
+
+.member-action-btn.action-admin:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.member-action-btn.action-unadmin {
+  color: var(--warning);
+}
+
+.member-action-btn.action-unadmin:hover {
+  background: var(--warning-bg, #fef3c7);
+  color: #92400e;
+}
+
+.member-action-btn.action-mute {
+  color: var(--warning);
+}
+
+.member-action-btn.action-mute:hover {
+  background: var(--warning-bg, #fef3c7);
+  color: #92400e;
+}
+
+.member-action-btn.action-unmute {
+  color: var(--success);
+}
+
+.member-action-btn.action-unmute:hover {
+  background: var(--success-bg, #f0fdf4);
+  color: #166534;
 }
 
 .form-section h4 {
@@ -6107,6 +6427,11 @@ onUnmounted(() => {
 .role-badge.bot {
   background: var(--hover);
   color: var(--text-primary);
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 6px;
+  box-sizing: border-box;
 }
 
 .member-status {
@@ -6391,6 +6716,17 @@ onUnmounted(() => {
   to {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .member-action-card,
+  .drawer-panel,
+  .room-item,
+  .chat-header::after {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
   }
 }
 </style>

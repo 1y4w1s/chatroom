@@ -132,7 +132,25 @@ export const roomAPI = {
   // 查找或创建私聊房间
   // findOrCreatePrivateRoom 已移除
   
-  // 切换机器人状态
+  // 查找或创建私聊会话
+findOrCreatePrivateChat: (userId, friendId) => api.post('/private-chats', { userId, friendId }),
+
+// 获取私聊列表
+getPrivateChats: (userId) => api.get('/private-chats', { params: { userId } }),
+
+// 获取私聊消息
+getPrivateMessages: (chatId, userId, params) => api.get(`/private-chats/${chatId}/messages`, { params: { ...params, userId } }),
+
+// 发送私聊消息
+sendPrivateMessage: (chatId, data) => api.post(`/private-chats/${chatId}/messages`, data),
+
+// 标记私聊已读
+markPrivateChatRead: (chatId, userId) => api.put(`/private-chats/${chatId}/read`, { userId }),
+
+// 获取私聊未读总数
+getPrivateUnreadCount: (userId) => api.get('/private-chats/unread-count', { params: { userId } }),
+
+// 切换机器人状态
   toggleBot: (roomId, userId, enable) => api.put(`/rooms/${roomId}/bot`, { userId, enable })
 }
 

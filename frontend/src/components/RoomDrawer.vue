@@ -503,9 +503,10 @@ const isEffectivelyMuted = (member) => {
   white-space: nowrap;
   font-family: inherit;
   line-height: 1;
-  height: 22px;
+  height: 24px;
   display: inline-flex;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .member-op-btn:hover {
@@ -627,6 +628,11 @@ const isEffectivelyMuted = (member) => {
 .role-badge.bot {
   background: var(--hover);
   color: var(--text-primary);
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 6px;
+  box-sizing: border-box;
 }
 
 [data-theme="dark"] .role-badge.owner {

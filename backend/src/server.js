@@ -122,6 +122,7 @@ app.use('/api/friends', require('./routes/friends'));
 app.use('/api/notifications', require('./routes/notifications'));
 app.use('/api/posts', require('./routes/posts'));
 app.use('/api/emojis', require('./routes/emojis'));
+app.use('/api/private-chats', require('./routes/privateChats'));
 
 // 错误处理中间件
 app.use((err, req, res, next) => {
@@ -331,6 +332,79 @@ io.on('connection', (socket) => {
   socket.on('stop_typing', (data) => {
     const { roomId, userId } = data;
     socket.to(roomId).emit('user_stop_typing', { userId, roomId });
+  });
+  
+  // ==================== 私聊 WebSocket ====================
+  
+  socket.on('join_private_chat', (data) => {
+    const { chatId, userId } = data;
+    if (chatId && userId) {
+      socket.join(`private_${chatId}`);
+      console.log(`用户 ${userId} 加入私聊会话 ${chatId}`);
+    }
+  });
+  
+  socket.on('leave_private_chat', (data) => {
+    const { chatId, userId } = data;
+    if (chatId) {
+      socket.leave(`private_${chatId}`);
+    }
+  });
+  
+  socket.on('send_private_message', async (data) => {
+    const { chatId, senderId, content, type, file_name, file_size } = data;
+    
+    if (!chatId || !content || !senderId) {
+      socket.emit('error', { message: '消息内容不能为空' });
+      return;
+    }
+    
+    try {
+      const { query } = require('./config/database');
+      
+      // 验证用户是否在会话中
+      const chat = await query(
+        'SELECT id, user_a_id, user_b_id FROM private_chats WHERE id = ? AND (user_a_id = ? OR user_b_id = ?)',
+        [chatId, senderId, senderId]
+      );
+      if (chat.length === 0) {
+        socket.emit('error', { message: '无权发送消息' });
+        return;
+      }
+      
+      const result = await query(
+        `INSERT INTO private_messages (chat_id, sender_id, content, type, file_url, file_name, file_size)
+         VALUES (?, ?, ?, ?, NULL, ?, ?)`,
+        [chatId, senderId, content, type || 'text', file_name || null, file_size || null]
+      );
+      
+      const message = await query(
+        `SELECT pm.*, u.username, u.nickname, u.avatar
+         FROM private_messages pm
+         JOIN users u ON pm.sender_id = u.id
+         WHERE pm.id = ?`,
+        [result.insertId]
+      );
+      
+      // 更新会话时间
+      await query('UPDATE private_chats SET updated_at = NOW() WHERE id = ?', [chatId]);
+      
+      // 发送给会话中的两个用户
+      io.to(`private_${chatId}`).emit('new_private_message', message[0]);
+    } catch (error) {
+      console.error('发送私聊消息失败:', error.message);
+      socket.emit('error', { message: `发送失败: ${error.message}` });
+    }
+  });
+  
+  socket.on('private_chat_typing', (data) => {
+    const { chatId, userId, username } = data;
+    socket.to(`private_${chatId}`).emit('private_user_typing', { userId, username, chatId });
+  });
+  
+  socket.on('private_chat_stop_typing', (data) => {
+    const { chatId, userId } = data;
+    socket.to(`private_${chatId}`).emit('private_user_stop_typing', { userId, chatId });
   });
   
   socket.on('disconnect', async () => {
