@@ -93,7 +93,7 @@
 
         <div class="drawer-spacer"></div>
 
-        <div class="drawer-section" v-if="(permissions.isOwner || isSuperAdmin) && room?.type !== 'private'">
+        <div class="drawer-section" v-if="permissions.isOwner || isSuperAdmin">
           <div class="drawer-divider"></div>
           <div class="drawer-nav-item danger" @click="$emit('close'); $emit('showDissolveConfirm')">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">

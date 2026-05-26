@@ -21,9 +21,8 @@ export function getAvatarUrl(avatarPath, name) {
 }
 
 export function getRoomListAvatar(room) {
-  const avatar = room.type === 'private' ? (room.friend_avatar || '') : (room.avatar || '')
-  if (!avatar) return null
-  const path = avatar.trim()
+  if (!room?.avatar) return null
+  const path = room.avatar.trim()
   if (path.startsWith('http://') || path.startsWith('https://')) return path
   if (path.startsWith('/')) return `${window.location.origin}${path}`
   return `${window.location.origin}/${path}`

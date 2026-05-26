@@ -136,16 +136,8 @@ router.get('/', optionalAuth, async (req, res) => {
     let sql = `
       SELECT r.*, u.username as owner_name,
              (SELECT COUNT(*) FROM room_members WHERE room_id = r.id) as member_count,
-             CASE WHEN r.type = 'private' THEN
-               (SELECT COALESCE(u2.avatar, '') FROM room_members rm2
-                JOIN users u2 ON rm2.user_id = u2.id
-                WHERE rm2.room_id = r.id AND rm2.user_id != ?)
-             ELSE r.avatar END as friend_avatar,
-             CASE WHEN r.type = 'private' THEN
-               (SELECT COALESCE(u2.nickname, u2.username) FROM room_members rm2
-                JOIN users u2 ON rm2.user_id = u2.id
-                WHERE rm2.room_id = r.id AND rm2.user_id != ?)
-             ELSE r.name END as display_name
+             r.avatar as friend_avatar,
+             r.name as display_name
       FROM chat_rooms r
       JOIN users u ON r.owner_id = u.id
       WHERE r.is_active = TRUE
@@ -153,9 +145,7 @@ router.get('/', optionalAuth, async (req, res) => {
     
     const params = [];
     if (userId) {
-      params.push(userId);
-      params.push(userId);
-      sql += ' AND ((r.type = \'public\' OR (r.type = \'private\' AND r.id IN (SELECT room_id FROM room_members WHERE user_id = ?))))';
+      sql += ' AND r.id IN (SELECT room_id FROM room_members WHERE user_id = ?)';
       params.push(userId);
     }
     
@@ -357,7 +347,7 @@ router.get('/:id/members', async (req, res) => {
 router.post('/', [
   body('name').trim().isLength({ min: 2, max: 50 }).withMessage('聊天室名称 2-50 个字符'),
   body('description').optional().isLength({ max: 500 }).withMessage('描述最多 500 字符'),
-  body('type').optional().isIn(['public', 'private']).withMessage('类型必须是 public 或 private'),
+  body('type').optional().isIn(['public']).withMessage('类型必须是 public'),
   body('owner_id').notEmpty().withMessage('缺少创建者 ID')
 ], async (req, res) => {
   const errors = validationResult(req);
@@ -388,7 +378,7 @@ router.post('/', [
     // 广播聊天室创建事件给所有在线用户
     const { getIo } = require('../server');
     const io = getIo();
-    if (io && type === 'public') {
+    if (io) {
       io.emit('room_created', {
         roomId: result.insertId,
         name,
@@ -437,7 +427,7 @@ router.post('/:id/join', async (req, res) => {
     
     // 检查聊天室是否存在
     const room = await query(
-      'SELECT id, type, owner_id FROM chat_rooms WHERE id = ? AND is_active = TRUE',
+      'SELECT id, owner_id FROM chat_rooms WHERE id = ? AND is_active = TRUE',
       [roomId]
     );
     
@@ -446,21 +436,6 @@ router.post('/:id/join', async (req, res) => {
         success: false,
         error: { message: '聊天室不存在' }
       });
-    }
-    
-    // 私有聊天室只允许已加入的成员或房主加入
-    if (room[0].type === 'private' && room[0].owner_id !== parseInt(userId)) {
-      // 检查是否是已有成员
-      const isMember = await query(
-        'SELECT id FROM room_members WHERE room_id = ? AND user_id = ?',
-        [roomId, userId]
-      );
-      if (isMember.length === 0) {
-        return res.status(403).json({
-          success: false,
-          error: { message: '该聊天室为私有，无法直接加入' }
-        });
-      }
     }
     
     const existing = await query(
@@ -1137,57 +1112,6 @@ router.put('/:id/bot', [
   } catch (error) {
     console.error('切换机器人状态失败:', error);
     res.status(500).json({ success: false, error: { message: '操作失败' } });
-  }
-});
-
-/**
- * POST /api/rooms/private
- * 查找或创建私聊房间（1对1）
- */
-router.post('/private', async (req, res) => {
-  try {
-    const { userId, friendId } = req.body;
-    if (!userId || !friendId) {
-      return res.status(400).json({ success: false, error: { message: '缺少用户 ID' } });
-    }
-
-    const a = Math.min(parseInt(userId), parseInt(friendId));
-    const b = Math.max(parseInt(userId), parseInt(friendId));
-
-    // 通过成员匹配查找私聊房间
-    const existing = await query(
-      `SELECT cr.id FROM chat_rooms cr
-       WHERE cr.type = 'private' AND cr.id IN (
-         SELECT rm1.room_id FROM room_members rm1
-         JOIN room_members rm2 ON rm1.room_id = rm2.room_id
-         WHERE rm1.user_id = ? AND rm2.user_id = ?
-       ) LIMIT 1`,
-      [a, b]
-    );
-
-    if (existing.length > 0) {
-      return res.json({ success: true, data: { room_id: existing[0].id } });
-    }
-
-    // 获取好友昵称作为房间名
-    const friend = await query('SELECT nickname, username FROM users WHERE id = ?', [b]);
-    const friendName = friend[0]?.nickname || friend[0]?.username || '私聊';
-
-    const result = await query(
-      `INSERT INTO chat_rooms (name, description, type, owner_id, is_active) VALUES (?, ?, 'private', ?, TRUE)`,
-      [`${friendName}`, ``, a]
-    );
-    const newRoomId = result.insertId;
-
-    await query(
-      'INSERT INTO room_members (room_id, user_id, role) VALUES (?, ?, ?), (?, ?, ?)',
-      [newRoomId, a, 'owner', newRoomId, b, 'member']
-    );
-
-    res.json({ success: true, data: { room_id: newRoomId } });
-  } catch (error) {
-    console.error('创建私聊房间失败:', error);
-    res.status(500).json({ success: false, error: { message: '创建私聊房间失败' } });
   }
 });
 

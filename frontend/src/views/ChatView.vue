@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -89,48 +89,20 @@
               >
                 <div class="room-icon">
                   <img v-if="getRoomListAvatar(room)" :src="getRoomListAvatar(room)" class="room-list-avatar" />
-                  <div v-else class="default-avatar" :style="{ background: nameColor(room.display_name || room.name) }">
-                    <span>{{ (room.display_name || room.name)[0] }}</span>
+                  <div v-else class="default-avatar" :style="{ background: nameColor(room.name) }">
+                    <span>{{ (room.name)[0] }}</span>
                   </div>
                   <span v-if="getRoomUnread(room.id)" class="unread-badge">{{ formatUnread(getRoomUnread(room.id)) }}</span>
                   <span v-if="getRoomMention(room.id)" class="mention-badge">@</span>
                 </div>
                 <div class="room-info">
-                  <div class="room-name">{{ room.display_name || room.name }}</div>
+                  <div class="room-name">{{ room.name }}</div>
                    <div class="room-desc" v-if="room.description">{{ room.description }}</div>
                  </div>
                </div>
              </div>
           </div>
 
-          <div class="room-category">
-            <div class="category-header" @click="showPrivateChats = !showPrivateChats">
-              <span class="category-arrow" :class="{ expanded: showPrivateChats }">▸</span>
-              <span class="category-label">私聊</span>
-              <span class="category-count">{{ privateRooms.length }}</span>
-            </div>
-            <div v-show="showPrivateChats">
-              <div
-                v-for="room in privateRooms"
-                :key="room.id"
-                class="room-item"
-                :class="{ active: currentRoomId === room.id }"
-                @click="joinRoom(room.id)"
-              >
-                <div class="room-icon">
-                  <img v-if="getRoomListAvatar(room)" :src="getRoomListAvatar(room)" class="room-list-avatar" />
-                  <div v-else class="default-avatar" :style="{ background: nameColor(room.display_name || room.name) }">
-                    <span>{{ (room.display_name || room.name)[0] }}</span>
-                  </div>
-                  <span v-if="getRoomUnread(room.id)" class="unread-badge">{{ formatUnread(getRoomUnread(room.id)) }}</span>
-                </div>
-                <div class="room-info">
-                  <div class="room-name">{{ room.display_name || room.name }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
           <div 
             v-if="previewRoomId && previewMembers.length > 0" 
             class="member-preview"
@@ -176,8 +148,6 @@
             v-for="friend in friends"
             :key="friend.id"
             class="room-item"
-            :class="{ active: currentFriendRoomId === friend.id }"
-            @click="openChatWithFriend(friend)"
           >
             <div class="room-icon">
               <img v-if="friend.avatar" :src="getAvatarUrl(friend.avatar, friend.nickname || friend.username)" class="room-list-avatar" />
@@ -331,11 +301,11 @@
       />
       <div v-if="activeMainTab === 'chat' && currentRoomId" class="chat-wrapper">
         <header class="chat-header">
-          <div class="header-left" @click="currentRoom?.type !== 'private' && (showRoomDrawer = true)" :style="{ cursor: currentRoom?.type !== 'private' ? 'pointer' : 'default' }">
+          <div class="header-left" @click="showRoomDrawer = true" style="cursor:pointer">
             <h3>{{ currentRoom?.name }}</h3>
             <p>{{ currentRoom?.description }}</p>
           </div>
-          <button v-if="currentRoom?.type !== 'private'" class="header-more-btn" @click="showRoomDrawer = true" title="更多">
+          <button class="header-more-btn" @click="showRoomDrawer = true" title="更多">
             <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
               <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
               <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
@@ -488,13 +458,7 @@
             <label>描述</label>
             <textarea v-model="newRoom.description" class="input" rows="3"></textarea>
           </div>
-          <div class="form-group">
-            <label>类型</label>
-            <select v-model="newRoom.type" class="input">
-              <option value="public">公开</option>
-              <option value="private">私有</option>
-            </select>
-          </div>
+          <input type="hidden" v-model="newRoom.type" />
           <div class="modal-actions">
             <button type="button" class="btn btn-secondary" @click="showCreateModal = false">取消</button>
             <button type="submit" class="btn btn-primary">创建</button>
@@ -1015,9 +979,8 @@ const getAvatarUrl = (avatarPath, name) => {
 }
 
 const getRoomListAvatar = (room) => {
-  const avatar = room.type === 'private' ? (room.friend_avatar || '') : (room.avatar || '')
-  if (!avatar) return null
-  const path = avatar.trim()
+  if (!room?.avatar) return null
+  const path = room.avatar.trim()
   if (path.startsWith('http://') || path.startsWith('https://')) return path
   if (path.startsWith('/')) return `${window.location.origin}${path}`
   return `${window.location.origin}/${path}`
@@ -1171,29 +1134,14 @@ function toggleTheme() {
   }
 }
 const showGroupChats = ref(true)
-const showPrivateChats = ref(true)
-const groupRooms = computed(() => rooms.value.filter(r => r.type !== 'private'))
-const privateRooms = computed(() => rooms.value.filter(r => r.type === 'private'))
+const groupRooms = computed(() => rooms.value)
 const friends = ref([])
-const currentFriendRoomId = ref(null)
 
 const loadFriends = async () => {
   if (!authStore.userId) return
   try {
     const response = await friendAPI.getList(authStore.userId)
     friends.value = response.data.friends
-  } catch (e) {
-  }
-}
-
-const openChatWithFriend = async (friend) => {
-  try {
-    const response = await roomAPI.findOrCreatePrivateRoom(friend.id)
-    if (response.success) {
-      currentFriendRoomId.value = friend.id
-      await joinRoom(response.data.room_id)
-      sidebarTab.value = 'rooms'
-    }
   } catch (e) {
   }
 }
@@ -4373,11 +4321,6 @@ onUnmounted(() => {
   color: #c4b5fd;
 }
 
-[data-theme="dark"] .pd-badge.private {
-  background: #3a2a0a;
-  color: #fbbf24;
-}
-
 [data-theme="dark"] .msg.error {
   background: #3a1a1a;
   color: var(--danger);
@@ -4751,11 +4694,6 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 4px;
-}
-
-.private-badge {
-  font-size: 12px;
-  flex-shrink: 0;
 }
 
 .room-desc {
