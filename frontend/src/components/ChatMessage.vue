@@ -21,9 +21,11 @@
       </template>
       <template v-else>
         <div v-if="message.reply_to" class="message-reply" @click="$emit('scrollToMessage', message.reply_to.id)">
-          <span class="reply-sender">{{ message.reply_to.sender }}</span>
-          <span class="reply-sep">: </span>
-          <span class="reply-content">{{ message.reply_to.content }}</span>
+          <svg class="reply-arrow" width="10" height="10" viewBox="0 0 10 10" fill="none">
+            <path d="M3 1L1 3.5L3 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M1 3.5H6.5C7.8 3.5 9 4.5 9 6V8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <span class="reply-label">{{ message.reply_to.sender }}</span>
         </div>
         <img
           v-if="message.type === 'image'"
@@ -221,41 +223,35 @@ defineEmits([
 }
 
 .message-reply {
-  display: flex;
-  align-items: baseline;
-  gap: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
   cursor: pointer;
-  padding: 2px 0 2px 8px;
+  padding: 1px 7px 1px 5px;
   margin-bottom: 4px;
-  border-left: 2px solid var(--accent);
-  transition: opacity 0.15s;
-  overflow: hidden;
+  background: var(--hover);
+  border-radius: 4px;
+  transition: background 0.15s;
+  line-height: 1;
 }
 
 .message-reply:hover {
-  opacity: 0.8;
+  background: var(--border);
 }
 
-.reply-sender {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--accent);
+.reply-arrow {
   flex-shrink: 0;
+  color: var(--text-tertiary);
+  opacity: 0.5;
 }
 
-.reply-sep {
+.reply-label {
   font-size: 11px;
-  color: var(--text-tertiary);
-  flex-shrink: 0;
-}
-
-.reply-content {
-  font-size: 11px;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
-  line-height: 1.3;
+  max-width: 120px;
 }
 
 .message-file {
