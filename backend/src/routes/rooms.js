@@ -130,8 +130,6 @@ router.get('/', optionalAuth, async (req, res) => {
   try {
     const { type, page = 1, limit = 20 } = req.query;
     const offset = (page - 1) * limit;
-    // 优先使用 Token 中的用户 ID，否则回退到 query 参数
-    const userId = req.user?.id || req.query.userId;
     
     let sql = `
       SELECT r.*, u.username as owner_name,
@@ -144,10 +142,6 @@ router.get('/', optionalAuth, async (req, res) => {
     `;
     
     const params = [];
-    if (userId) {
-      sql += ' AND r.id IN (SELECT room_id FROM room_members WHERE user_id = ?)';
-      params.push(userId);
-    }
     
     if (type) {
       sql += ' AND r.type = ?';
