@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -334,23 +334,39 @@
         @deleteComment="deleteComment"
         @submitComment="handleSubmitComment"
       />
-      <div v-if="activeMainTab === 'chat' && currentRoomId" class="chat-wrapper">
+      <div v-if="activeMainTab === 'chat' && (currentRoomId || currentPrivateChatId)" class="chat-wrapper">
         <header class="chat-header">
-          <div class="header-left" @click="showRoomDrawer = true" style="cursor:pointer">
-            <h3>{{ currentRoom?.name }}</h3>
-            <p>{{ currentRoom?.description }}</p>
-          </div>
-          <button class="header-more-btn" @click="showRoomDrawer = true" title="更多">
-            <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
-              <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
-              <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
-            </svg>
-          </button>
+          <template v-if="currentPrivateChatId">
+            <div class="header-left" style="cursor:pointer">
+              <h3>{{ getPrivateChatPartner(currentPrivateChat).nickname || '私聊' }}</h3>
+              <p v-if="getPrivateChatPartner(currentPrivateChat).status">
+                <span class="status-dot" :class="getPrivateChatPartner(currentPrivateChat).status"></span>
+                {{ getPrivateChatPartner(currentPrivateChat).status === 'online' ? '在线' : getPrivateChatPartner(currentPrivateChat).status === 'away' ? '离开' : '离线' }}
+              </p>
+            </div>
+            <button class="header-more-btn" @click="closePrivateChat" title="关闭私聊">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </template>
+          <template v-else>
+            <div class="header-left" @click="showRoomDrawer = true" style="cursor:pointer">
+              <h3>{{ currentRoom?.name }}</h3>
+              <p>{{ currentRoom?.description }}</p>
+            </div>
+            <button class="header-more-btn" @click="showRoomDrawer = true" title="更多">
+              <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
+                <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+                <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+                <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+              </svg>
+            </button>
+          </template>
         </header>
         <div class="message-list" ref="messageListRef">
           <ChatMessage
-            v-for="message in messages"
+            v-for="message in (currentPrivateChatId ? privateMessages : messages)"
             :key="message.id"
             :message="message"
             :is-own="message.sender_id === authStore.user?.id"
@@ -362,20 +378,20 @@
             :format-time="formatTime"
             :format-file-size="formatFileSize"
             :get-file-icon="getFileIcon"
-            @open-member-action="openMessageMemberAction"
+            @open-member-action="currentPrivateChatId ? undefined : openMessageMemberAction($event)"
             @preview-image="previewMessageImage"
             @download-file="downloadFile"
             @toggle-actions="toggleMessageActions"
-            @reply="replyMessage"
+            @reply="currentPrivateChatId ? undefined : replyMessage($event)"
             @recall="recallMessage"
-            @add-to-stickers="addToStickers"
+            @add-to-stickers="currentPrivateChatId ? undefined : addToStickers($event)"
             @scroll-to-message="scrollToMessage"
           />
           <div ref="scrollAnchor"></div>
         </div>
 
         <footer class="chat-input-footer">
-          <div v-if="hasActiveMute" class="muted-notice">
+          <div v-if="!currentPrivateChatId && hasActiveMute" class="muted-notice">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/>
               <path d="M8 4V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -384,7 +400,7 @@
             您已被禁言，无法发送消息
           </div>
           <div class="cc-card" v-else>
-            <div v-if="replyTarget" class="reply-bar">
+            <div v-if="!currentPrivateChatId && replyTarget" class="reply-bar">
               <div class="reply-bar-left">
                 <span class="reply-bar-label">回复 @{{ replyTarget.nickname || replyTarget.username }}</span>
                 <span class="reply-bar-content">{{ replyTarget.display }}</span>
@@ -393,8 +409,8 @@
             </div>
             <div class="cc-input-row">
               <div class="cc-input-wrap">
-                <input v-model="newMessage" class="cc-input" placeholder="输入消息..." @keyup.enter="sendMessage" @input="handleMentionInput($event); handleTyping()" @keydown="handleMentionKeydown" @paste="handlePaste" />
-                <div v-if="showMentionPanel" class="mention-panel" ref="mentionPanelRef">
+                <input v-model="newMessage" class="cc-input" placeholder="输入消息..." @keyup.enter="currentPrivateChatId ? sendPrivateMessage() : sendMessage()" @input="(!currentPrivateChatId && handleMentionInput($event)); handleTyping()" @keydown="!currentPrivateChatId && handleMentionKeydown" @paste="!currentPrivateChatId && handlePaste" />
+                <div v-if="!currentPrivateChatId && showMentionPanel" class="mention-panel" ref="mentionPanelRef">
                   <div class="mention-panel-header">
                     <span>成员列表</span>
                     <span class="mention-count">{{ filteredMentionMembers.length }}人</span>
@@ -423,7 +439,7 @@
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2.5" y="3.5" width="15" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="7" cy="8" r="1.5" fill="currentColor"/><path d="M2.5 13L7 9L11 13L14.5 10L17.5 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
                 <input type="file" accept="image/*" multiple @change="handleChatImageSelect" hidden />
               </label>
-              <button class="cc-send-btn" @click="sendMessage" :disabled="!newMessage.trim() && chatImages.length === 0">发送</button>
+              <button class="cc-send-btn" @click="currentPrivateChatId ? sendPrivateMessage() : sendMessage()" :disabled="!newMessage.trim() && chatImages.length === 0">发送</button>
             </div>
             <div v-if="chatImages.length" class="cc-previews">
               <div v-for="(img, i) in chatImages" :key="i" class="cc-preview-item">
@@ -465,72 +481,6 @@
                 @cancel="stickerEditMode = false; selectedStickers = []; selectedLocalStickers = []"
               />
             </div>
-          </div>
-        </footer>
-      </div>
-
-      <div v-if="activeMainTab === 'chat' && currentPrivateChatId" class="chat-wrapper">
-        <header class="chat-header">
-          <div class="header-left" style="cursor:pointer">
-            <h3>{{ getPrivateChatPartner(currentPrivateChat).nickname || '私聊' }}</h3>
-            <p v-if="getPrivateChatPartner(currentPrivateChat).status">
-              <span class="status-dot" :class="getPrivateChatPartner(currentPrivateChat).status"></span>
-              {{ getPrivateChatPartner(currentPrivateChat).status === 'online' ? '在线' : getPrivateChatPartner(currentPrivateChat).status === 'away' ? '离开' : '离线' }}
-            </p>
-          </div>
-          <button class="header-more-btn" @click="currentPrivateChatId = null; currentPrivateChat = null; privateMessages = []" title="关闭私聊">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
-          </button>
-        </header>
-        <div class="message-list" ref="messageListRef">
-          <ChatMessage
-            v-for="message in privateMessages"
-            :key="message.id"
-            :message="message"
-            :is-own="message.sender_id === authStore.user?.id"
-            :show-actions="showMessageActions === message.id"
-            :actions-pos="messageActionsPos"
-            :can-recall="message.sender_id === authStore.user?.id"
-            :get-avatar-url="getAvatarUrl"
-            :get-message-image-url="getMessageImageUrl"
-            :format-time="formatTime"
-            :format-file-size="formatFileSize"
-            :get-file-icon="getFileIcon"
-            @preview-image="previewMessageImage"
-            @download-file="downloadFile"
-            @toggle-actions="toggleMessageActions"
-            @recall="recallMessage"
-            @scroll-to-message="scrollToMessage"
-          />
-          <div ref="scrollAnchor"></div>
-        </div>
-
-        <footer class="chat-input-footer">
-          <div class="input-row">
-            <button class="cc-emoji-btn" @click="toggleEmojiPanel" title="表情">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <circle cx="10" cy="10" r="9" stroke="currentColor" stroke-width="1.5"/>
-                <circle cx="7" cy="8" r="1.2" fill="currentColor"/>
-                <circle cx="13" cy="8" r="1.2" fill="currentColor"/>
-                <path d="M6 12.5C7.2 13.8 8.5 14.5 10 14.5C11.5 14.5 12.8 13.8 14 12.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-            </button>
-            <div class="cc-input-wrap">
-              <input
-                v-model="newMessage"
-                @keydown.enter.prevent="sendPrivateMessage"
-                placeholder="输入消息..."
-                class="cc-input"
-                autocomplete="off"
-              />
-            </div>
-            <button class="cc-send-btn" @click="sendPrivateMessage" :disabled="!newMessage.trim()">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                <path d="M2 16L16 9L2 2L2 7L12 9L2 11L2 16Z" fill="currentColor"/>
-              </svg>
-            </button>
           </div>
         </footer>
       </div>
@@ -1409,6 +1359,15 @@ const activeMainTab = ref('chat')
 const selectedPost = ref(null)
 
 const switchToChat = () => { activeMainTab.value = 'chat' }
+
+const closePrivateChat = () => {
+  if (currentPrivateChatId.value && authStore.socket) {
+    authStore.socket.emit('leave_private_chat', { chatId: currentPrivateChatId.value })
+  }
+  currentPrivateChatId.value = null
+  currentPrivateChat.value = null
+  privateMessages.value = []
+}
 const switchToPost = () => { activeMainTab.value = 'post' }
 const postComments = ref([])
 const showEditPost = ref(false)
@@ -2313,19 +2272,47 @@ const getPrivateChatPartner = (chat) => {
   if (!chat) return {}
   const myId = authStore.userId
   const friendId = chat.user_a_id == myId ? chat.user_b_id : chat.user_a_id
-  // 优先用 chat 上已有的用户信息
+  if (chat.nickname) {
+    return {
+      id: chat.friend_id || friendId,
+      nickname: chat.nickname || chat.username || '',
+      username: chat.username || '',
+      avatar: chat.avatar || '',
+      status: chat.friend_status || 'offline'
+    }
+  }
+  const fullChat = privateChats.value.find(c => c.id === chat.id)
+  if (fullChat && (fullChat.nickname || fullChat.username)) {
+    return {
+      id: fullChat.friend_id || friendId,
+      nickname: fullChat.nickname || fullChat.username || '',
+      username: fullChat.username || '',
+      avatar: fullChat.avatar || '',
+      status: fullChat.friend_status || 'offline'
+    }
+  }
+  const friend = friends.value.find(f => f.id == friendId)
+  if (friend) {
+    return {
+      id: friendId,
+      nickname: friend.nickname || friend.username || '',
+      username: friend.username || '',
+      avatar: friend.avatar || '',
+      status: friend.status || 'offline'
+    }
+  }
   return {
-    id: chat.friend_id || friendId,
-    nickname: chat.nickname || chat.username || '',
-    username: chat.username || '',
-    avatar: chat.avatar || '',
-    status: chat.friend_status || 'offline'
+    id: friendId,
+    nickname: '',
+    username: '',
+    avatar: '',
+    status: 'offline'
   }
 }
 
 const getPrivateChatUnread = (chatId) => {
   const chat = privateChats.value.find(c => c.id === chatId)
-  return chat?.unread_count || 0
+  return Number(chat?.unread_count) || 0
 }
 
 let muteTickTimer = null
