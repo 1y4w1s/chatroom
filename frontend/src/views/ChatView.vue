@@ -401,10 +401,8 @@
           </div>
           <div class="cc-card" v-else>
             <div v-if="replyTarget" class="reply-bar">
-              <div class="reply-bar-left">
-                <span class="reply-bar-label">回复 @{{ replyTarget.nickname || replyTarget.username }}</span>
-                <span class="reply-bar-content">{{ replyTarget.display }}</span>
-              </div>
+              <span class="reply-bar-label">回复 {{ replyTarget.sender }}</span>
+              <span class="reply-bar-content">{{ replyTarget.display }}</span>
               <button class="reply-bar-close" @click="replyTarget = null">×</button>
             </div>
             <div class="cc-input-row">
@@ -5740,50 +5738,49 @@ onUnmounted(() => {
 
 .reply-bar {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  background: var(--hover);
-  border-radius: 8px;
-  margin-bottom: 8px;
-  font-size: 13px;
-}
-
-.reply-bar-left {
-  flex: 1;
-  min-width: 0;
+  align-items: baseline;
+  gap: 4px;
+  padding: 4px 12px;
+  margin-bottom: 6px;
+  border-left: 2px solid var(--accent);
+  font-size: 12px;
+  overflow: hidden;
 }
 
 .reply-bar-label {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--accent);
+  flex-shrink: 0;
 }
 
 .reply-bar-content {
-  display: block;
+  font-size: 11px;
   color: var(--text-tertiary);
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-top: 2px;
+  white-space: nowrap;
+  flex: 1;
 }
 
 .reply-bar-close {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: none;
   background: transparent;
   color: var(--text-tertiary);
   cursor: pointer;
-  font-size: 18px;
+  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  border-radius: 4px;
+  transition: all 0.15s;
 }
 
 .reply-bar-close:hover {
+  background: var(--hover);
   color: var(--text-primary);
 }
 

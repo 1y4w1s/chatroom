@@ -21,14 +21,9 @@
       </template>
       <template v-else>
         <div v-if="message.reply_to" class="message-reply" @click="$emit('scrollToMessage', message.reply_to.id)">
-          <svg class="reply-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M4 2L1 5L4 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M1 5H7.5C9.2 5 10.5 6.3 10.5 8V10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-          </svg>
-          <div class="reply-body">
-            <div class="reply-sender">{{ message.reply_to.sender }}</div>
-            <div class="reply-content">{{ message.reply_to.content }}</div>
-          </div>
+          <span class="reply-sender">{{ message.reply_to.sender }}</span>
+          <span class="reply-sep">: </span>
+          <span class="reply-content">{{ message.reply_to.content }}</span>
         </div>
         <img
           v-if="message.type === 'image'"
@@ -227,47 +222,40 @@ defineEmits([
 
 .message-reply {
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
+  align-items: baseline;
+  gap: 2px;
   cursor: pointer;
-  padding: 8px 10px;
-  background: var(--bg-secondary);
-  border-radius: 8px;
-  margin-bottom: 6px;
-  transition: background 0.15s;
+  padding: 2px 0 2px 8px;
+  margin-bottom: 4px;
+  border-left: 2px solid var(--accent);
+  transition: opacity 0.15s;
+  overflow: hidden;
 }
 
 .message-reply:hover {
-  background: var(--hover);
-}
-
-.reply-icon {
-  flex-shrink: 0;
-  margin-top: 2px;
-  color: var(--text-tertiary);
-  opacity: 0.6;
-}
-
-.reply-body {
-  flex: 1;
-  min-width: 0;
+  opacity: 0.8;
 }
 
 .reply-sender {
   font-size: 11px;
   font-weight: 600;
   color: var(--accent);
-  margin-bottom: 1px;
+  flex-shrink: 0;
+}
+
+.reply-sep {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
 }
 
 .reply-content {
-  font-size: 12px;
+  font-size: 11px;
   color: var(--text-tertiary);
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.3;
 }
 
 .message-file {
