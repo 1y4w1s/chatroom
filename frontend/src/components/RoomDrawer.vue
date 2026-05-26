@@ -7,32 +7,40 @@
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4L12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </button>
       </div>
+
       <div class="drawer-body">
-        <div class="drawer-room-top" @click="$emit('openSettings', 'info')" style="cursor:pointer">
-          <img v-if="room?.avatar" :src="roomDetailAvatarUrl" class="drawer-room-avatar" />
-          <div v-else class="drawer-room-avatar drawer-room-avatar--default" :style="{ background: nameColor(room?.name) }">
-            <span>{{ (room?.name || '?')[0] }}</span>
+        <div class="drawer-room-top" @click="$emit('openSettings', 'info')">
+          <div class="drawer-room-avatar-wrap">
+            <img v-if="room?.avatar" :src="roomDetailAvatarUrl" class="drawer-room-avatar" />
+            <div v-else class="drawer-room-avatar drawer-room-avatar--default" :style="{ background: nameColor(room?.name) }">
+              <span>{{ (room?.name || '?')[0] }}</span>
+            </div>
           </div>
           <div class="drawer-room-info">
             <div class="drawer-room-name">{{ room?.name }}</div>
             <div class="drawer-room-meta">{{ room?.owner_name }} · {{ members.length }} 人</div>
             <div class="drawer-room-desc" v-if="room?.description">{{ room?.description }}</div>
           </div>
+          <svg class="drawer-room-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
 
         <div class="drawer-divider"></div>
 
         <div class="drawer-section">
-          <div class="drawer-section-title">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
-              <path d="M3 6L10 2V14L3 10H2C1.4 10 1 9.6 1 9V7C1 6.4 1.4 6 2 6H3Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
-              <path d="M11 5.5C12 6.5 12 9.5 11 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-              <path d="M13 4C15 6 15 10 13 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
-            </svg>
-            <span style="margin-left:6px">公告</span>
-            <div class="drawer-section-actions">
-              <button class="drawer-section-action" @click="$emit('showAnnouncements')">全部公告</button>
-              <button v-if="permissions.isAdmin" class="drawer-section-action primary" @click="$emit('showAnnouncementEditor')">发布</button>
+          <div class="drawer-section-header">
+            <div class="drawer-section-header-left">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 6L10 2V14L3 10H2C1.4 10 1 9.6 1 9V7C1 6.4 1.4 6 2 6H3Z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+                <path d="M11 5.5C12 6.5 12 9.5 11 10.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+                <path d="M13 4C15 6 15 10 13 12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+              <span>公告</span>
+            </div>
+            <div class="drawer-section-header-actions">
+              <button class="drawer-tag-btn" @click="$emit('showAnnouncements')">全部公告</button>
+              <button v-if="permissions.isAdmin" class="drawer-tag-btn primary" @click="$emit('showAnnouncementEditor')">发布</button>
             </div>
           </div>
           <div class="drawer-announcement-body" v-if="announcement">
@@ -50,14 +58,16 @@
         <div class="drawer-divider"></div>
 
         <div class="drawer-section">
-          <div class="drawer-section-title">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
-              <path d="M5.5 4C5.5 2.6 6.6 1.5 8 1.5C9.4 1.5 10.5 2.6 10.5 4C10.5 5.4 9.4 6.5 8 6.5C6.6 6.5 5.5 5.4 5.5 4Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M2.5 14C2.5 11.5 4.5 9.5 7 9.5H9C11.5 9.5 13.5 11.5 13.5 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span style="margin-left:6px">成员 · {{ members.length }}</span>
-            <div v-if="permissions.isOwner" class="bot-toggle-inline">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="flex-shrink:0">
+          <div class="drawer-section-header">
+            <div class="drawer-section-header-left">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M5.5 4C5.5 2.6 6.6 1.5 8 1.5C9.4 1.5 10.5 2.6 10.5 4C10.5 5.4 9.4 6.5 8 6.5C6.6 6.5 5.5 5.4 5.5 4Z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2.5 14C2.5 11.5 4.5 9.5 7 9.5H9C11.5 9.5 13.5 11.5 13.5 14" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>成员 · {{ members.length }}</span>
+            </div>
+            <div v-if="permissions.isOwner" class="drawer-bot-toggle" @click.stop>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                 <rect x="3" y="5" width="10" height="8" rx="2" stroke="currentColor" stroke-width="1.3"/>
                 <circle cx="6" cy="8.5" r="0.8" fill="currentColor"/>
                 <circle cx="10" cy="8.5" r="0.8" fill="currentColor"/>
@@ -75,30 +85,44 @@
               <div class="drawer-member-info">
                 <div class="drawer-member-top">
                   <span class="drawer-member-name">{{ member.nickname || member.username }}</span>
-                  <span v-if="member.is_bot" class="role-badge bot">🤖</span>
-                  <span v-else-if="member.role === 'owner'" class="role-badge owner">群主</span>
-                  <span v-else-if="member.role === 'admin'" class="role-badge admin">管理员</span>
+                  <span v-if="member.is_bot" class="drawer-role-badge bot">🤖 机器人</span>
+                  <span v-else-if="member.role === 'owner'" class="drawer-role-badge owner">群主</span>
+                  <span v-else-if="member.role === 'admin'" class="drawer-role-badge admin">管理员</span>
+                  <span v-else-if="isEffectivelyMuted(member)" class="drawer-role-badge muted">已禁言</span>
                 </div>
-                <span v-if="member.status" class="drawer-member-status" :class="member.status">{{ member.status === 'online' ? '在线' : member.status === 'away' ? '离开' : '离线' }}</span>
+                <div class="drawer-member-bottom">
+                  <template v-if="!member.is_bot">
+                    <span class="drawer-member-status" :class="member.status">
+                      <span class="status-dot-inline" :class="member.status"></span>
+                      {{ member.status === 'online' ? '在线' : member.status === 'away' ? '离开' : '离线' }}
+                    </span>
+                    <span v-if="isEffectivelyMuted(member)" class="drawer-member-mute-time">
+                      剩余 {{ formatMuteDuration(member.muted_until) }}
+                    </span>
+                  </template>
+                  <span v-else class="drawer-member-status">-</span>
+                </div>
               </div>
-              <div class="drawer-member-ops" v-if="canOperateMember(member)">
-                <button class="drawer-member-more" @click.stop="$emit('openMemberAction', member, $event)">⋯</button>
-              </div>
+              <button v-if="canOperateMember(member)" class="drawer-member-more" @click.stop="$emit('openMemberAction', member, $event)" title="更多操作">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="3" r="1.5" fill="currentColor"/>
+                  <circle cx="8" cy="8" r="1.5" fill="currentColor"/>
+                  <circle cx="8" cy="13" r="1.5" fill="currentColor"/>
+                </svg>
+              </button>
             </div>
           </div>
         </div>
 
-        <div class="drawer-spacer"></div>
-
-        <div class="drawer-section" v-if="permissions.isOwner || isSuperAdmin">
+        <div class="drawer-footer-actions">
           <div class="drawer-divider"></div>
-          <div class="drawer-nav-item danger" @click="$emit('close'); $emit('showDissolveConfirm')">
+          <button v-if="permissions.isOwner || isSuperAdmin" class="drawer-danger-btn" @click="$emit('close'); $emit('showDissolveConfirm')">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M2 4H14M5 4V2.5C5 2.2 5.2 2 5.5 2H10.5C10.8 2 11 2.2 11 2.5V4M12.5 4V13.5C12.5 13.8 12.3 14 12 14H4C3.7 14 3.5 13.8 3.5 13.5V4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M6.5 7V11M9.5 7V11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
             </svg>
-            <span class="nav-label" style="margin-left:8px">解散聊天室</span>
-          </div>
+            <span>{{ isSuperAdmin ? '删除聊天室' : '解散聊天室' }}</span>
+          </button>
         </div>
       </div>
     </div>
@@ -156,9 +180,7 @@ const nameColor = (name) => {
 }
 
 const roomDetailAvatarUrl = computed(() => {
-  if (!props.room?.avatar) {
-    return null
-  }
+  if (!props.room?.avatar) return null
   const avatar = props.room.avatar
   if (avatar.startsWith('http')) return avatar
   if (avatar.startsWith('/uploads/')) {
@@ -177,7 +199,7 @@ const formatTime = (dateStr) => {
   const now = new Date()
   const diff = now.getTime() - date.getTime()
   const days = Math.floor(diff / (1000 * 60 * 60 * 24))
-  
+
   if (days === 0) {
     return date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
   } else if (days === 1) {
@@ -186,7 +208,7 @@ const formatTime = (dateStr) => {
     const weekDays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
     return weekDays[date.getDay()] + ' ' + date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
   } else {
-    return date.toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+    return date.toLocaleDateString('zh-CN', { month: '2-digit', day: '2-digit' })
   }
 }
 
@@ -197,23 +219,32 @@ const canOperateMember = (member) => {
   return false
 }
 
-const canSetAdmin = (member) => {
-  if (!props.permissions.isOwner) return false
-  return member.role === 'member' || member.role === 'admin'
-}
-
-const canMute = (member) => {
-  if (!props.permissions.isOwner && !props.permissions.isAdmin) return false
-  return member.role !== 'owner' && (props.permissions.isOwner || member.role === 'member')
-}
-
-const canKick = (member) => {
-  if (!props.permissions.isOwner && !props.permissions.isAdmin) return false
-  return member.role !== 'owner' && (props.permissions.isOwner || member.role === 'member')
-}
-
 const isEffectivelyMuted = (member) => {
-  return member.muted_until && new Date(member.muted_until) > new Date()
+  if (!member.is_muted) return false
+  if (!member.muted_until) return true
+  return new Date(member.muted_until).getTime() > Date.now()
+}
+
+const formatMuteDuration = (mutedUntil) => {
+  if (!mutedUntil) return ''
+  const now = new Date()
+  const until = new Date(mutedUntil)
+  const diffMs = until - now
+  if (isNaN(diffMs) || diffMs <= 0) return ''
+  const diffMinutes = Math.floor(diffMs / 1000 / 60)
+  const diffHours = Math.floor(diffMinutes / 60)
+  const diffDays = Math.floor(diffHours / 24)
+  if (diffDays > 0) {
+    const remainingHours = diffHours % 24
+    const remainingMinutes = diffMinutes % 60
+    return `${diffDays}天${remainingHours}小时${remainingMinutes}分钟`
+  } else if (diffHours > 0) {
+    const remainingMinutes = diffMinutes % 60
+    return `${diffHours}小时${remainingMinutes}分钟`
+  } else if (diffMinutes > 0) {
+    return `${diffMinutes}分钟`
+  }
+  return '不到1分钟'
 }
 </script>
 
@@ -259,12 +290,6 @@ const isEffectivelyMuted = (member) => {
   letter-spacing: -0.2px;
 }
 
-.drawer-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 0;
-}
-
 .drawer-close {
   width: 32px;
   height: 32px;
@@ -284,18 +309,32 @@ const isEffectivelyMuted = (member) => {
   color: var(--text-primary);
 }
 
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 .drawer-room-top {
   display: flex;
-  gap: 14px;
+  gap: 12px;
   padding: 16px 20px;
   align-items: center;
+  cursor: pointer;
   transition: background 0.15s;
-  border-radius: 4px;
   margin: 4px;
+  border-radius: 10px;
 }
 
 .drawer-room-top:hover {
   background: var(--hover-light);
+}
+
+.drawer-room-avatar-wrap {
+  flex-shrink: 0;
+  position: relative;
 }
 
 .drawer-room-avatar {
@@ -347,33 +386,46 @@ const isEffectivelyMuted = (member) => {
   overflow: hidden;
 }
 
+.drawer-room-chevron {
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+  opacity: 0.5;
+}
+
 .drawer-divider {
   height: 1px;
   background: var(--border);
   margin: 0 20px;
+  flex-shrink: 0;
 }
 
 .drawer-section {
   padding: 12px 20px;
 }
 
-.drawer-section-title {
+.drawer-section-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  min-height: 24px;
+}
+
+.drawer-section-header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 13px;
   font-weight: 600;
   color: var(--text-secondary);
-  margin-bottom: 8px;
-  gap: 6px;
 }
 
-.drawer-section-actions {
-  margin-left: auto;
+.drawer-section-header-actions {
   display: flex;
-  gap: 2px;
+  gap: 4px;
 }
 
-.drawer-section-action {
+.drawer-tag-btn {
   padding: 2px 8px;
   border: none;
   border-radius: 6px;
@@ -383,18 +435,19 @@ const isEffectivelyMuted = (member) => {
   cursor: pointer;
   transition: all 0.15s;
   font-family: inherit;
+  white-space: nowrap;
 }
 
-.drawer-section-action:hover {
+.drawer-tag-btn:hover {
   background: var(--hover);
   color: var(--text-primary);
 }
 
-.drawer-section-action.primary {
+.drawer-tag-btn.primary {
   color: var(--accent);
 }
 
-.drawer-section-action.primary:hover {
+.drawer-tag-btn.primary:hover {
   background: var(--accent-soft);
 }
 
@@ -422,8 +475,20 @@ const isEffectivelyMuted = (member) => {
 
 .drawer-announcement-empty {
   font-size: 13px;
-  padding: 8px 0;
+  padding: 4px 0;
   color: var(--text-tertiary);
+}
+
+.drawer-bot-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.7;
+  transition: opacity 0.15s;
+}
+
+.drawer-bot-toggle:hover {
+  opacity: 1;
 }
 
 .drawer-member-list {
@@ -436,8 +501,8 @@ const isEffectivelyMuted = (member) => {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 6px 4px;
-  border-radius: 8px;
+  padding: 7px 8px;
+  border-radius: 10px;
   transition: background 0.15s;
 }
 
@@ -446,8 +511,8 @@ const isEffectivelyMuted = (member) => {
 }
 
 .drawer-member-avatar {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
@@ -461,7 +526,8 @@ const isEffectivelyMuted = (member) => {
 .drawer-member-top {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .drawer-member-name {
@@ -473,72 +539,121 @@ const isEffectivelyMuted = (member) => {
   font-weight: 500;
 }
 
+.drawer-member-bottom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
 .drawer-member-status {
   font-size: 11px;
   color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }
 
 .drawer-member-status.online {
   color: var(--success);
 }
 
-.drawer-member-ops {
-  display: flex;
-  gap: 3px;
+.status-dot-inline {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
   flex-shrink: 0;
 }
 
-.member-op-btn {
-  padding: 2px 7px;
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  background: var(--bg-primary);
-  color: var(--text-secondary);
+.status-dot-inline.online {
+  background: var(--success, #22c55e);
+}
+
+.status-dot-inline.away {
+  background: var(--warning, #f59e0b);
+}
+
+.status-dot-inline.offline {
+  background: var(--text-tertiary, #9ca3af);
+}
+
+.drawer-member-mute-time {
   font-size: 11px;
-  cursor: pointer;
-  transition: all 0.15s;
-  white-space: nowrap;
-  font-family: inherit;
-  line-height: 1;
-  height: 24px;
+  color: var(--danger);
+  font-weight: 500;
+}
+
+.drawer-role-badge {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  line-height: 1.4;
   display: inline-flex;
   align-items: center;
-  box-sizing: border-box;
+  white-space: nowrap;
+  height: 18px;
 }
 
-.member-op-btn:hover {
+.drawer-role-badge.owner {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.drawer-role-badge.admin {
+  background: var(--hover);
+  color: var(--text-secondary);
+}
+
+.drawer-role-badge.muted {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.drawer-role-badge.bot {
   background: var(--hover);
   color: var(--text-primary);
-  border-color: var(--text-tertiary);
 }
 
-.member-op-btn.danger {
-  color: var(--danger);
-  border-color: var(--danger-border, var(--danger));
+[data-theme="dark"] .drawer-role-badge.owner {
+  background: #3a2a0a;
+  color: #fbbf24;
 }
 
-.member-op-btn.danger:hover {
-  background: var(--danger-bg);
+[data-theme="dark"] .drawer-role-badge.admin {
+  background: #374151;
+  color: #93c5fd;
+}
+
+[data-theme="dark"] .drawer-role-badge.muted {
+  background: #3a1a1a;
+  color: #f87171;
+}
+
+[data-theme="dark"] .drawer-role-badge.bot {
+  background: #374151;
+  color: #c4b5fd;
 }
 
 .drawer-member-more {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   background: transparent;
   color: var(--text-tertiary);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
   transition: all 0.15s;
   flex-shrink: 0;
   opacity: 0;
 }
 
-.drawer-member-item:hover .drawer-member-more {
+.drawer-member-item:hover .drawer-member-more,
+.drawer-member-more:focus-visible {
   opacity: 1;
 }
 
@@ -547,112 +662,34 @@ const isEffectivelyMuted = (member) => {
   color: var(--text-primary);
 }
 
-.bot-toggle-inline {
+.drawer-footer-actions {
+  margin-top: auto;
+  padding: 8px 20px 16px;
+}
+
+.drawer-danger-btn {
   display: flex;
   align-items: center;
-  gap: 4px;
-}
-
-.toggle-switch.tiny input + .toggle-slider {
-  width: 28px;
-  height: 16px;
-}
-
-.toggle-switch.tiny input + .toggle-slider:before {
-  width: 12px;
-  height: 12px;
-}
-
-.toggle-switch.tiny input:checked + .toggle-slider:before {
-  transform: translateX(12px);
-}
-
-.drawer-spacer {
-  flex: 1;
-}
-
-.drawer-nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  gap: 8px;
+  width: 100%;
   padding: 10px 12px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--danger);
+  font-size: 14px;
   cursor: pointer;
   transition: all 0.15s;
-  font-size: 14px;
-  border-radius: 10px;
-  color: var(--text-primary);
-  margin: 8px 0;
+  font-family: inherit;
 }
 
-.drawer-nav-item:hover {
-  background: var(--hover);
-}
-
-.drawer-nav-item.danger {
-  color: var(--danger);
-}
-
-.drawer-nav-item.danger:hover {
+.drawer-danger-btn:hover {
   background: var(--danger-bg);
-}
-
-.nav-label {
-  flex: 1;
-  color: inherit;
-}
-
-.role-badge {
-  font-size: 11px;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-weight: 500;
-  line-height: 1.4;
-  display: inline-flex;
-  align-items: center;
-  height: 22px;
-}
-
-.role-badge.owner {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.role-badge.admin {
-  background: var(--hover);
-  color: var(--text-secondary);
-}
-
-.role-badge.bot {
-  background: var(--hover);
-  color: var(--text-primary);
-  height: 24px;
-  display: inline-flex;
-  align-items: center;
-  padding: 0 6px;
-  border: 1px solid transparent;
-  box-sizing: border-box;
-}
-
-[data-theme="dark"] .role-badge.owner {
-  background: #3a2a0a;
-  color: #fbbf24;
-}
-
-[data-theme="dark"] .role-badge.admin {
-  background: #374151;
-  color: #93c5fd;
-}
-
-[data-theme="dark"] .role-badge.bot {
-  background: #374151;
-  color: #c4b5fd;
 }
 
 .toggle-switch {
   position: relative;
   display: inline-block;
-  width: 44px;
-  height: 24px;
   flex-shrink: 0;
 }
 
@@ -677,21 +714,33 @@ const isEffectivelyMuted = (member) => {
 .toggle-slider::before {
   content: '';
   position: absolute;
-  height: 18px;
-  width: 18px;
-  left: 3px;
-  bottom: 3px;
   background: var(--bg-primary);
   border-radius: 50%;
   transition: all 0.2s;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
-.toggle-switch input:checked + .toggle-slider {
+.toggle-switch.tiny {
+  width: 28px;
+  height: 16px;
+}
+
+.toggle-switch.tiny .toggle-slider::before {
+  height: 12px;
+  width: 12px;
+  left: 2px;
+  bottom: 2px;
+}
+
+.toggle-switch.tiny input:checked + .toggle-slider {
   background: var(--accent);
 }
 
-.toggle-switch input:checked + .toggle-slider::before {
-  transform: translateX(20px);
+.toggle-switch.tiny input:checked + .toggle-slider::before {
+  transform: translateX(12px);
+}
+
+.text-tertiary {
+  color: var(--text-tertiary);
 }
 </style>
