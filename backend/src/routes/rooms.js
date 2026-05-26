@@ -808,7 +808,6 @@ router.put('/:id/members/:userId/mute', checkAdmin, [
  */
 router.delete('/:id', checkAdmin, [
   body('operatorId').notEmpty().withMessage('缺少操作者 ID'),
-  body('reason').isLength({ min: 10, max: 500 }).withMessage('请提供解散原因（10-500字符）')
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -820,7 +819,7 @@ router.delete('/:id', checkAdmin, [
   
   try {
     const roomId = req.params.id;
-    const { operatorId, reason } = req.body;
+    const { operatorId } = req.body;
     
     // 获取聊天室信息用于日志记录
     const room = await query(
@@ -852,16 +851,14 @@ router.delete('/:id', checkAdmin, [
     // 记录系统日志
     await logAction(operatorId, 'dissolve_room', { 
       roomId, 
-      roomName: room[0].name, 
-      reason 
+      roomName: room[0].name
     });
     
     // 发送WebSocket通知
     emitPermissionChange(roomId, 'room_dissolved', {
       roomId,
       roomName: room[0].name,
-      operatorId,
-      reason
+      operatorId
     });
     
     res.json({
