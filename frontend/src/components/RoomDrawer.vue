@@ -632,6 +632,7 @@ const isEffectivelyMuted = (member) => {
   display: inline-flex;
   align-items: center;
   padding: 0 6px;
+  border: 1px solid transparent;
   box-sizing: border-box;
 }
 
