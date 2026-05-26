@@ -2455,7 +2455,7 @@ function scrollToMessage(messageId) {
   if (el) {
     el.scrollIntoView({ behavior: 'smooth', block: 'center' })
     el.classList.add('highlight-flash')
-    setTimeout(() => el.classList.remove('highlight-flash'), 1500)
+    setTimeout(() => el.classList.remove('highlight-flash'), 800)
   }
 }
 
@@ -5804,19 +5804,13 @@ onUnmounted(() => {
 }
 
 .highlight-flash {
-  animation: gentleGlow 1s ease-out;
-  border-radius: 8px;
+  animation: gentlePop 0.6s ease;
 }
 
-@keyframes gentleGlow {
-  0% {
-    background: var(--accent-light);
-    box-shadow: inset 0 0 0 1px var(--accent);
-  }
-  100% {
-    background: transparent;
-    box-shadow: inset 0 0 0 0 transparent;
-  }
+@keyframes gentlePop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.015); }
+  100% { transform: scale(1); }
 }
 
 .message-actions {
