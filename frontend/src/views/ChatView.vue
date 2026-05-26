@@ -2897,29 +2897,12 @@ const confirmMute = async () => {
       muteReason.value || '违反聊天室规定'
     )
     if (response.success) {
-      const updated = [...currentMembers.value]
-      const memberIdx = updated.findIndex(m => m.id === selectedMember.value.id)
-      if (memberIdx !== -1) {
-        const until = new Date(Date.now() + duration * 60 * 1000)
-        const y = until.getFullYear()
-        const M = String(until.getMonth() + 1).padStart(2, '0')
-        const d = String(until.getDate()).padStart(2, '0')
-        const h = String(until.getHours()).padStart(2, '0')
-        const m = String(until.getMinutes()).padStart(2, '0')
-        const s = String(until.getSeconds()).padStart(2, '0')
-        updated[memberIdx] = {
-          ...updated[memberIdx],
-          is_muted: 1,
-          muted_until: `${y}-${M}-${d}T${h}:${m}:${s}+08:00`
-        }
-      }
-      currentMembers.value = updated
-      if (memberActionTarget.value && memberActionTarget.value.id === selectedMember.value.id) {
-        memberActionTarget.value = currentMembers.value.find(m => m.id === selectedMember.value.id) || memberActionTarget.value
-      }
       showMuteModal.value = false
-      loadMembers(currentRoomId.value)
-      loadPermissions(currentRoomId.value)
+      await loadMembers(currentRoomId.value)
+      await loadPermissions(currentRoomId.value)
+      if (memberActionTarget.value) {
+        memberActionTarget.value = currentMembers.value.find(m => m.id === memberActionTarget.value.id) || memberActionTarget.value
+      }
       showToastMessage(response.message)
     }
   } catch (error) {
@@ -2939,21 +2922,11 @@ const unmuteMember = async (userId) => {
       '解除禁言'
     )
     if (response.success) {
-      const updated = [...currentMembers.value]
-      const memberIdx = updated.findIndex(m => m.id === userId)
-      if (memberIdx !== -1) {
-        updated[memberIdx] = {
-          ...updated[memberIdx],
-          is_muted: 0,
-          muted_until: null
-        }
-      }
-      currentMembers.value = updated
-      if (memberActionTarget.value && memberActionTarget.value.id === userId) {
+      await loadMembers(currentRoomId.value)
+      await loadPermissions(currentRoomId.value)
+      if (memberActionTarget.value) {
         memberActionTarget.value = currentMembers.value.find(m => m.id === userId) || memberActionTarget.value
       }
-      loadMembers(currentRoomId.value)
-      loadPermissions(currentRoomId.value)
       showToastMessage(response.message)
     }
   } catch (error) {
@@ -3197,21 +3170,6 @@ const setupSocketListeners = () => {
   socket.on('member_muted', (data) => {
     console.log('成员被禁言:', data)
     if (data.roomId === currentRoomId.value) {
-      if (data.targetUserId) {
-        const updated = [...currentMembers.value]
-        const idx = updated.findIndex(m => m.id === data.targetUserId)
-        if (idx !== -1) {
-          updated[idx] = {
-            ...updated[idx],
-            is_muted: 1,
-            muted_until: data.mutedUntil
-          }
-        }
-        currentMembers.value = updated
-        if (memberActionTarget.value && memberActionTarget.value.id === data.targetUserId) {
-          memberActionTarget.value = currentMembers.value.find(m => m.id === data.targetUserId) || memberActionTarget.value
-        }
-      }
       loadMembers(currentRoomId.value)
       loadPermissions(currentRoomId.value)
     }
@@ -3220,21 +3178,6 @@ const setupSocketListeners = () => {
   socket.on('member_unmuted', (data) => {
     console.log('成员解除禁言:', data)
     if (data.roomId === currentRoomId.value) {
-      if (data.targetUserId) {
-        const updated = [...currentMembers.value]
-        const idx = updated.findIndex(m => m.id === data.targetUserId)
-        if (idx !== -1) {
-          updated[idx] = {
-            ...updated[idx],
-            is_muted: 0,
-            muted_until: null
-          }
-        }
-        currentMembers.value = updated
-        if (memberActionTarget.value && memberActionTarget.value.id === data.targetUserId) {
-          memberActionTarget.value = currentMembers.value.find(m => m.id === data.targetUserId) || memberActionTarget.value
-        }
-      }
       loadMembers(currentRoomId.value)
       loadPermissions(currentRoomId.value)
     }
