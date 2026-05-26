@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<template>
   <div class="chat-container">
     <aside class="sidebar" :class="{ open: showMobileDrawer }">
       <div class="sidebar-header">
@@ -2897,16 +2897,24 @@ const confirmMute = async () => {
       muteReason.value || '违反聊天室规定'
     )
     if (response.success) {
-      const memberIdx = currentMembers.value.findIndex(m => m.id === selectedMember.value.id)
+      const updated = [...currentMembers.value]
+      const memberIdx = updated.findIndex(m => m.id === selectedMember.value.id)
       if (memberIdx !== -1) {
-        currentMembers.value[memberIdx] = {
-          ...currentMembers.value[memberIdx],
-          is_muted: true,
-          muted_until: new Date(Date.now() + duration * 60 * 1000).toISOString()
+        const until = new Date(Date.now() + duration * 60 * 1000)
+        const y = until.getFullYear()
+        const M = String(until.getMonth() + 1).padStart(2, '0')
+        const d = String(until.getDate()).padStart(2, '0')
+        const h = String(until.getHours()).padStart(2, '0')
+        const m = String(until.getMinutes()).padStart(2, '0')
+        const s = String(until.getSeconds()).padStart(2, '0')
+        updated[memberIdx] = {
+          ...updated[memberIdx],
+          is_muted: 1,
+          muted_until: `${y}-${M}-${d}T${h}:${m}:${s}+08:00`
         }
       }
+      currentMembers.value = updated
       showMuteModal.value = false
-      await loadMembers(currentRoomId.value)
       showToastMessage(response.message)
     }
   } catch (error) {
@@ -2926,15 +2934,16 @@ const unmuteMember = async (userId) => {
       '解除禁言'
     )
     if (response.success) {
-      const memberIdx = currentMembers.value.findIndex(m => m.id === userId)
+      const updated = [...currentMembers.value]
+      const memberIdx = updated.findIndex(m => m.id === userId)
       if (memberIdx !== -1) {
-        currentMembers.value[memberIdx] = {
-          ...currentMembers.value[memberIdx],
-          is_muted: false,
+        updated[memberIdx] = {
+          ...updated[memberIdx],
+          is_muted: 0,
           muted_until: null
         }
       }
-      await loadMembers(currentRoomId.value)
+      currentMembers.value = updated
       showToastMessage(response.message)
     }
   } catch (error) {
@@ -3179,18 +3188,19 @@ const setupSocketListeners = () => {
     console.log('成员被禁言:', data)
     if (data.roomId === currentRoomId.value) {
       if (data.targetUserId) {
-        const idx = currentMembers.value.findIndex(m => m.id === data.targetUserId)
+        const updated = [...currentMembers.value]
+        const idx = updated.findIndex(m => m.id === data.targetUserId)
         if (idx !== -1) {
-          currentMembers.value[idx] = {
-            ...currentMembers.value[idx],
+          updated[idx] = {
+            ...updated[idx],
             is_muted: 1,
             muted_until: data.mutedUntil
           }
         }
+        currentMembers.value = updated
       }
       loadMembers(currentRoomId.value)
       loadPermissions(currentRoomId.value)
-      showToastMessage(`成员已被禁言`)
     }
   })
   
@@ -3198,18 +3208,19 @@ const setupSocketListeners = () => {
     console.log('成员解除禁言:', data)
     if (data.roomId === currentRoomId.value) {
       if (data.targetUserId) {
-        const idx = currentMembers.value.findIndex(m => m.id === data.targetUserId)
+        const updated = [...currentMembers.value]
+        const idx = updated.findIndex(m => m.id === data.targetUserId)
         if (idx !== -1) {
-          currentMembers.value[idx] = {
-            ...currentMembers.value[idx],
+          updated[idx] = {
+            ...updated[idx],
             is_muted: 0,
             muted_until: null
           }
         }
+        currentMembers.value = updated
       }
       loadMembers(currentRoomId.value)
       loadPermissions(currentRoomId.value)
-      showToastMessage(`成员已解除禁言`)
     }
   })
   
