@@ -82,11 +82,8 @@
                 <span v-if="member.status" class="drawer-member-status" :class="member.status">{{ member.status === 'online' ? '在线' : member.status === 'away' ? '离开' : '离线' }}</span>
               </div>
               <div class="drawer-member-ops" v-if="canOperateMember(member)">
-                <button v-if="canSetAdmin(member)" class="member-op-btn" @click.stop="member.role === 'admin' ? $emit('revokeAdmin', member.id) : $emit('grantAdmin', member.id)">{{ member.role === 'admin' ? '撤销管理' : '设管理' }}</button>
-                <button v-if="canMute(member)" class="member-op-btn" @click.stop="$emit('openMuteModal', member)">{{ isEffectivelyMuted(member) ? '解除' : '禁言' }}</button>
-                <button v-if="canKick(member)" class="member-op-btn danger" @click.stop="$emit('kickMember', member)">移除</button>
+                <button class="drawer-member-more" @click.stop="$emit('openMemberAction', member, $event)">⋯</button>
               </div>
-              <button v-if="!member.is_bot" class="drawer-member-more" @click.stop="$emit('openMemberAction', member, $event)">⋯</button>
             </div>
           </div>
         </div>
