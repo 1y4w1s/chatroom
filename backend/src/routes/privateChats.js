@@ -60,6 +60,17 @@ router.post('/', [
       created_at: new Date()
     }];
 
+    // 通知双方有新私聊会话
+    try {
+      const { getIo } = require('../server');
+      const io = getIo();
+      if (io) {
+        io.emit('new_private_chat', { chatId: result.insertId });
+      }
+    } catch (e) {
+      // WebSocket 通知非关键操作
+    }
+
     res.status(201).json({ success: true, data: { chat: chat[0] } });
   } catch (error) {
     console.error('创建私聊会话失败:', error);
