@@ -21,8 +21,14 @@
       </template>
       <template v-else>
         <div v-if="message.reply_to" class="message-reply" @click="$emit('scrollToMessage', message.reply_to.id)">
-          <div class="reply-sender">{{ message.reply_to.sender }}</div>
-          <div class="reply-content">{{ message.reply_to.content }}</div>
+          <svg class="reply-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M4 2L1 5L4 8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M1 5H7.5C9.2 5 10.5 6.3 10.5 8V10" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+          </svg>
+          <div class="reply-body">
+            <div class="reply-sender">{{ message.reply_to.sender }}</div>
+            <div class="reply-content">{{ message.reply_to.content }}</div>
+          </div>
         </div>
         <img
           v-if="message.type === 'image'"
@@ -220,28 +226,48 @@ defineEmits([
 }
 
 .message-reply {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
   cursor: pointer;
-  padding: 8px 12px;
-  background: var(--hover);
-  border-radius: var(--radius, 8px);
+  padding: 8px 10px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
   margin-bottom: 6px;
-  border-left: 3px solid var(--accent);
+  transition: background 0.15s;
+}
+
+.message-reply:hover {
+  background: var(--hover);
+}
+
+.reply-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--text-tertiary);
+  opacity: 0.6;
+}
+
+.reply-body {
+  flex: 1;
+  min-width: 0;
 }
 
 .reply-sender {
-  font-size: var(--text-xs, 11px);
+  font-size: 11px;
   font-weight: 600;
   color: var(--accent);
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 }
 
 .reply-content {
-  font-size: var(--text-sm, 13px);
+  font-size: 12px;
   color: var(--text-tertiary);
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  line-height: 1.4;
 }
 
 .message-file {
