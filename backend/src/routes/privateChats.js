@@ -143,8 +143,8 @@ router.get('/:id/messages', async (req, res) => {
        JOIN users u ON pm.sender_id = u.id
        WHERE pm.chat_id = ?
        ORDER BY pm.created_at DESC
-       LIMIT ? OFFSET ?`,
-      [chatId, limit, offset]
+       LIMIT ${Number(limit)} OFFSET ${Number(offset)}`,
+      [chatId]
     );
 
     res.json({
