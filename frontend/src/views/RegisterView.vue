@@ -4,8 +4,9 @@
       <div class="register-header">
         <div class="logo">
           <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-            <rect width="48" height="48" rx="12" fill="var(--color-gray-900)"/>
-            <path d="M14 24L20 30L34 16" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect width="48" height="48" rx="12" fill="#1a1a1a"/>
+            <path d="M14 18C14 15.8 15.8 14 18 14H30C32.2 14 34 15.8 34 18V28C34 30.2 32.2 32 30 32H24L18 36V32H18C15.8 32 14 30.2 14 28V18Z" fill="white"/>
+            <path d="M20 22H28M20 26H25" stroke="#1a1a1a" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
         <h1 class="register-title">注册账号</h1>
