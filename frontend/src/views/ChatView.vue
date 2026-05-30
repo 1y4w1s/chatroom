@@ -203,7 +203,7 @@
           <div class="room-list-header">
             <span class="room-list-title">贴子广场</span>
             <button class="btn btn-primary btn-sm" @click="showCreatePost = true">
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path d="M6 1V11M1 6H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
               发贴
@@ -4783,9 +4783,9 @@ onUnmounted(() => {
 }
 
 .room-list-tag {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-tertiary);
-  padding: 6px 10px;
+  padding: 6px 12px;
   border: 1px solid var(--border);
   border-radius: 6px;
   line-height: 1;
