@@ -173,7 +173,7 @@
         <div v-show="sidebarTab === 'friends'" class="friend-list">
           <div class="room-list-header">
             <span class="room-list-title">好友列表</span>
-            <span class="friend-count">{{ friends.length }}</span>
+            <span class="room-list-tag">{{ friends.length }} 人</span>
           </div>
           <div v-if="friends.length === 0" class="empty-list-hint">暂无好友</div>
           <div
@@ -4793,9 +4793,14 @@ onUnmounted(() => {
   padding: 4px 12px 12px;
 }
 
-.friend-count {
+.room-list-tag {
   font-size: 12px;
-  color: var(--border-light);
+  color: var(--text-tertiary);
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .friend-status {
