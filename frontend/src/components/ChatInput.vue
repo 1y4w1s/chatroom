@@ -257,4 +257,8 @@ defineExpose({
   align-items: center;
   justify-content: center;
 }
+
+.cc-input {
+  color: var(--text-primary);
+}
 </style>
